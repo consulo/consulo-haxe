@@ -19,7 +19,7 @@ import com.intellij.openapi.util.Key;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiPackage;
+import com.intellij.psi.PsiJavaPackage;
 import com.intellij.psi.ResolveState;
 import com.intellij.psi.impl.source.resolve.ResolveCache;
 import com.intellij.psi.impl.source.resolve.reference.impl.providers.PackageReferenceSet;
@@ -55,7 +55,7 @@ public class HaxeResolver implements ResolveCache.AbstractResolver<HaxeReference
       return toCandidateInfoArray(resultClass.getComponentName());
     }
 
-    final PsiPackage psiPackage = JavaPsiFacade.getInstance(reference.getProject()).findPackage(reference.getText());
+    final PsiJavaPackage psiPackage = JavaPsiFacade.getInstance(reference.getProject()).findPackage(reference.getText());
     if (psiPackage != null) {
       return toCandidateInfoArray(psiPackage);
     }

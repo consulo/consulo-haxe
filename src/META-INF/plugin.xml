@@ -17,154 +17,11 @@
   <id>com.intellij.plugins.haxe</id>
   <name>haXe Support</name>
   <description>Support for haXe programming language</description>
-  <change-notes>
-    <![CDATA[
-      <p>0.6.4:</p>
-      <ul>
-        <li>Optimize imports</li>
-      </ul>
-      <p>0.6.3:</p>
-      <ul>
-        <li>Parser improvements</li>
-      </ul>
-      <p>0.6.2:</p>
-      <ul>
-        <li>Bug fixes</li>
-      </ul>
-      <p>0.6.1:</p>
-      <ul>
-        <li>Haxe 3 support</li>
-      </ul>
-      <p>0.6:</p>
-      <ul>
-        <li>Folding</li>
-      </ul>
-      <p>0.5.8:</p>
-      <ul>
-        <li>Bug fixes</li>
-      </ul>
-      <p>0.5.6:</p>
-      <ul>
-        <li>NME support improvements</li>
-        <li>HXCPP debugger improvements</li>
-      </ul>
-      <p>0.5.5:</p>
-      <ul>
-        <li>Bug fixes</li>
-      </ul>
-      <p>0.5.4:</p>
-      <ul>
-        <li>New Compiler Mode</li>
-      </ul>
-      <p>0.5.2:</p>
-      <ul>
-        <li>Bug fixes</li>
-      </ul>
-      <p>0.5.1:</p>
-      <ul>
-        <li>Bug fixes</li>
-      </ul>
-      <p>0.5:</p>
-      <ul>
-        <li>HXCPP Debugging</li>
-        <li>Bug fixes</li>
-      </ul>
-      <p>0.4.7:</p>
-      <ul>
-        <li>Introduce Variable Refactoring</li>
-        <li>Using Completion</li>
-        <li>Bug fixes</li>
-      </ul>
-      <p>0.4.6:</p>
-      <ul>
-        <li>Conditional Compilation Support</li>
-        <li>Bug fixes</li>
-      </ul>
-      <p>0.4.5:</p>
-      <ul>
-        <li>Live Templates</li>
-        <li>Surround With Action</li>
-        <li>Smart completion</li>
-        <li>Goto Test Action</li>
-      </ul>
-      <p>0.4.4:</p>
-      <ul>
-        <li>Bug fixes</li>
-        <li>EReg support</li>
-      </ul>
-      <p>0.4.3:</p>
-      <ul>
-        <li>Bug fixes</li>
-        <li>Structure view</li>
-      </ul>
-      <p>0.4.1:</p>
-      <ul>
-        <li>Bug fixes</li>
-        <li>Unresolved type inspection</li>
-      </ul>
-      <p>0.4:</p>
-      <ul>
-        <li>NME Support</li>
-        <li>Override/Implement method action</li>
-        <li>Generate getter/setter action</li>
-        <li>Parameter info action</li>
-      </ul>
-      <p>0.3:</p>
-      <ul>
-        <li>Type resolving improvements</li>
-        <li>Goto Implementation(s) action</li>
-        <li>Goto Super Method action</li>
-        <li>Move refactoring</li>
-      </ul>
-      <p>0.2.3:</p>
-      <ul>
-        <li>Completion fixes</li>
-      </ul>
-      <p>0.2.2:</p>
-      <ul>
-        <li>Type resolving improvements</li>
-        <li>Rename refactoring</li>
-        <li>NMML scheme</li>
-        <li>HXML support</li>
-      </ul>
-      <p>0.2.1:</p>
-      <ul>
-        <li>Type resolving improvements</li>
-        <li>Documentation support</li>
-        <li>New color settings</li>
-      </ul>
-      <p>0.2:</p>
-      <ul>
-        <li>Jump to declaration of local, std symbol or class</li>
-        <li>Reference completion</li>
-        <li>Class completion</li>
-        <li>Color settings</li>
-        <li>Code formatter</li>
-        <li>Go to Class</li>
-        <li>Icons for haXe files</li>
-        <li>Search for usages</li>
-        <li>Highlight symbol occurencies</li>
-        <li>Debugger for Flash target ("Flash/Flex Support" plugin required)</li>
-      </ul>
-      <p>0.1:</p>
-      <ul>
-        <li>haXe module and SDK</li>
-        <li>Parsing haXe files</li>
-        <li>Keyword completion</li>
-        <li>Compile haXe files and run in Neko VM</li>
-      </ul>
-      ]]>
-  </change-notes>
   <version>0.6.4</version>
   <vendor>JetBrains</vendor>
-  <idea-version since-build="130.1" until-build="131.1"/>
-  <depends>com.intellij.modules.ultimate</depends>
-  <depends optional="true" config-file="flex-debugger-support.xml">com.intellij.flex</depends>
-  <depends optional="true" config-file="debugger-support.xml">com.intellij.modules.ultimate</depends>
+  <depends>org.consulo.java</depends>
+  <depends>com.intellij.regexp</depends>
 
-  <application-components>
-    <!-- Add your application components here -->
-  </application-components>
   <extensionPoints>
     <extensionPoint name="module.config" interface="com.intellij.plugins.haxe.ide.projectStructure.HaxeModuleConfigurationExtensionPoint"/>
   </extensionPoints>
@@ -178,9 +35,8 @@
 
     <sdkType implementation="com.intellij.plugins.haxe.config.sdk.HaxeSdkType"/>
     <compiler implementation="com.intellij.plugins.haxe.compilation.HaxeCompiler"/>
-    <moduleType id="HAXE_MODULE" implementationClass="com.intellij.plugins.haxe.ide.module.HaxeModuleType"/>
-    <moduleConfigurationEditorProvider
-        implementation="com.intellij.plugins.haxe.ide.projectStructure.HaxeModuleConfigurationEditorProvider"/>
+
+    <moduleExtensionProvider key="haxe" implementationClass="org.consulo.haxe.module.extension.HaxeModuleExtensionProvider" />
     <projectStructureDetector implementation="com.intellij.plugins.haxe.ide.projectStructure.detection.HaxeProjectStructureDetector"/>
 
     <library.type implementation="com.intellij.plugins.haxe.ide.library.HaxeLibraryType"/>
@@ -240,7 +96,7 @@
     <completion.contributor language="haXe" implementationClass="com.intellij.plugins.haxe.ide.HaxeSmartCompletionContributor"/>
 
     <configurationType implementation="com.intellij.plugins.haxe.runner.HaxeRunConfigurationType"/>
-    <configurationType implementation="com.intellij.plugins.haxe.runner.debugger.hxcpp.HXCPPRemoteRunConfigurationType"/>
+    <!--<configurationType implementation="com.intellij.plugins.haxe.runner.debugger.hxcpp.HXCPPRemoteRunConfigurationType"/> -->
 
     <moduleService serviceInterface="com.intellij.plugins.haxe.ide.module.HaxeModuleSettings"
                    serviceImplementation="com.intellij.plugins.haxe.ide.module.HaxeModuleSettings"/>

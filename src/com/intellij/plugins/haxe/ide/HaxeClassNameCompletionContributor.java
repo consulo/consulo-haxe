@@ -33,7 +33,7 @@ import com.intellij.plugins.haxe.util.HaxeAddImportHelper;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiPackage;
+import com.intellij.psi.PsiJavaPackage;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -72,8 +72,8 @@ public class HaxeClassNameCompletionContributor extends CompletionContributor {
                HaxeReference leftReference =
                  HaxeResolveUtil.getLeftReference(PsiTreeUtil.getParentOfType(parameters.getPosition(), HaxeReference.class));
                PsiElement leftTarget = leftReference != null ? leftReference.resolve() : null;
-               if (leftTarget instanceof PsiPackage) {
-                 addVariantsFromIndex(result, parameters.getOriginalFile(), ((PsiPackage)leftTarget).getQualifiedName(), null);
+               if (leftTarget instanceof PsiJavaPackage) {
+                 addVariantsFromIndex(result, parameters.getOriginalFile(), ((PsiJavaPackage)leftTarget).getQualifiedName(), null);
                }
              }
            });

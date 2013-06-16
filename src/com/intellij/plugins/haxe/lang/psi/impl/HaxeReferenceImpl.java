@@ -240,13 +240,13 @@ public abstract class HaxeReferenceImpl extends HaxeExpressionImpl implements Ha
     if (element instanceof HaxeFile) {
       bindToFile(element);
     }
-    else if (element instanceof PsiPackage) {
-      bindToPackage((PsiPackage)element);
+    else if (element instanceof PsiJavaPackage) {
+      bindToPackage((PsiJavaPackage)element);
     }
     return this;
   }
 
-  private void bindToPackage(PsiPackage element) {
+  private void bindToPackage(PsiJavaPackage element) {
     final HaxeImportStatement importStatement =
       HaxeElementGenerator.createImportStatementFromPath(getProject(), element.getQualifiedName());
     HaxeReferenceExpression referenceExpression = importStatement != null ? importStatement.getReferenceExpression() : null;
@@ -340,11 +340,11 @@ public abstract class HaxeReferenceImpl extends HaxeExpressionImpl implements Ha
     Object[] variants = HaxeLookupElement.convert(suggestedVariants).toArray();
     PsiElement leftTarget = leftReference != null ? leftReference.resolve() : null;
 
-    if (leftTarget instanceof PsiPackage) {
-      return ArrayUtil.mergeArrays(variants, ((PsiPackage)leftTarget).getSubPackages());
+    if (leftTarget instanceof PsiJavaPackage) {
+      return ArrayUtil.mergeArrays(variants, ((PsiJavaPackage)leftTarget).getSubPackages());
     }
     else if (leftReference == null) {
-      PsiPackage rootPackage = JavaPsiFacade.getInstance(getElement().getProject()).findPackage("");
+      PsiJavaPackage rootPackage = JavaPsiFacade.getInstance(getElement().getProject()).findPackage("");
       return rootPackage == null ? variants : ArrayUtil.mergeArrays(variants, rootPackage.getSubPackages());
     }
     return variants;

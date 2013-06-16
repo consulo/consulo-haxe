@@ -326,7 +326,7 @@ public class HaxeResolveUtil {
   @NotNull
   public static HaxeClassResolveResult getHaxeClassResolveResult(@Nullable PsiElement element,
                                                                  @NotNull HaxeGenericSpecialization specialization) {
-    if (element == null || element instanceof PsiPackage) {
+    if (element == null || element instanceof PsiJavaPackage) {
       return HaxeClassResolveResult.create(null);
     }
     if (element instanceof HaxeComponentName) {

@@ -25,6 +25,7 @@ import com.intellij.ide.util.projectWizard.importSources.DetectedProjectRoot;
 import com.intellij.ide.util.projectWizard.importSources.ProjectFromSourcesBuilder;
 import com.intellij.ide.util.projectWizard.importSources.ProjectStructureDetector;
 import com.intellij.ide.util.projectWizard.importSources.util.CommonSourceRootDetectionUtil;
+import com.intellij.lang.Language;
 import com.intellij.lang.LanguageParserDefinitions;
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.util.Pair;
@@ -50,7 +51,7 @@ import java.util.List;
 public class HaxeProjectStructureDetector extends ProjectStructureDetector {
   public static final NullableFunction<CharSequence, String> PACKAGE_NAME_FETCHER = new NullableFunction<CharSequence, String>() {
     public String fun(final CharSequence charSequence) {
-      Lexer lexer = LanguageParserDefinitions.INSTANCE.forLanguage(HaxeLanguage.INSTANCE).createLexer(null);
+      Lexer lexer = LanguageParserDefinitions.INSTANCE.forLanguage(HaxeLanguage.INSTANCE).createLexer(null, Language.UNKNOWN_VERSION);
       lexer.start(charSequence);
       return readPackageName(charSequence, lexer);
     }

@@ -38,8 +38,8 @@ public class HaxeSyntaxHighlighter extends SyntaxHighlighterBase {
   }
 
   static {
-    fillMap(ATTRIBUTES, KEYWORDS, HaxeSyntaxHighlighterColors.KEYWORD);
-    fillMap(ATTRIBUTES, OPERATORS, HaxeSyntaxHighlighterColors.OPERATION_SIGN);
+    safeMap(ATTRIBUTES, KEYWORDS, HaxeSyntaxHighlighterColors.KEYWORD);
+    safeMap(ATTRIBUTES, OPERATORS, HaxeSyntaxHighlighterColors.OPERATION_SIGN);
 
     ATTRIBUTES.put(LITINT, HaxeSyntaxHighlighterColors.NUMBER);
     ATTRIBUTES.put(LITHEX, HaxeSyntaxHighlighterColors.NUMBER);
@@ -69,8 +69,8 @@ public class HaxeSyntaxHighlighter extends SyntaxHighlighterBase {
     ATTRIBUTES.put(MSL_COMMENT, HaxeSyntaxHighlighterColors.LINE_COMMENT);
     ATTRIBUTES.put(DOC_COMMENT, HaxeSyntaxHighlighterColors.DOC_COMMENT);
 
-    fillMap(ATTRIBUTES, BAD_TOKENS, HaxeSyntaxHighlighterColors.BAD_CHARACTER);
-    fillMap(ATTRIBUTES, CONDITIONALLY_NOT_COMPILED, HaxeSyntaxHighlighterColors.CONDITIONALLY_NOT_COMPILED);
+    safeMap(ATTRIBUTES, BAD_TOKENS, HaxeSyntaxHighlighterColors.BAD_CHARACTER);
+    safeMap(ATTRIBUTES, CONDITIONALLY_NOT_COMPILED, HaxeSyntaxHighlighterColors.CONDITIONALLY_NOT_COMPILED);
   }
 
   @NotNull

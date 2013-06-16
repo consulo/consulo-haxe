@@ -32,12 +32,13 @@ import com.intellij.ide.BrowserUtil;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.CompilerModuleExtension;
+import com.intellij.openapi.roots.ContentFolderType;
 import com.intellij.openapi.util.io.FileUtilRt;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.config.HaxeTarget;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
 import com.intellij.util.PathUtil;
+import org.consulo.compiler.CompilerPathsManager;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -137,8 +138,8 @@ public class HaxeRunner extends DefaultProgramRunner {
 
   private static String getOutputFilePath(Module module, HaxeModuleSettings settings) {
     FileDocumentManager.getInstance().saveAllDocuments();
-    final CompilerModuleExtension model = CompilerModuleExtension.getInstance(module);
-    assert model != null;
-    return model.getCompilerOutputUrl() + "/release/" + settings.getOutputFileName();
+    final String url = CompilerPathsManager.getInstance(module.getProject()).getCompilerOutputUrl(module, ContentFolderType.SOURCE);
+    assert url != null;
+    return url + "/release/" + settings.getOutputFileName();
   }
 }

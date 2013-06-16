@@ -19,7 +19,7 @@ import com.intellij.openapi.fileChooser.FileChooser;
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleManager;
-import com.intellij.openapi.module.ModuleType;
+import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
@@ -29,9 +29,9 @@ import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
-import com.intellij.plugins.haxe.ide.module.HaxeModuleType;
 import com.intellij.plugins.haxe.runner.HaxeApplicationConfiguration;
 import com.intellij.ui.ListCellRendererWrapper;
+import org.consulo.haxe.module.extension.HaxeModuleExtension;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -61,7 +61,7 @@ public class HaxeRunConfigurationEditorForm extends SettingsEditor<HaxeApplicati
 
     final Module[] modules = ModuleManager.getInstance(configuration.getProject()).getModules();
     for (final Module module : modules) {
-      if (ModuleType.get(module) == HaxeModuleType.getInstance()) {
+      if (ModuleUtilCore.getExtension(module, HaxeModuleExtension.class) != null) {
         myComboModules.addItem(module);
       }
     }

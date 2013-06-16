@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact name="dist">
+    <output-path>$PROJECT_DIR$/out/artifacts/dist</output-path>
+    <root id="root">
+      <element id="directory" name="haxe">
+        <element id="directory" name="lib">
+          <element id="archive" name="haxe-common.jar">
+            <element id="module-output" name="common" />
+          </element>
+          <element id="archive" name="haxe.jar">
+            <element id="module-output" name="intellij-haxe" />
+          </element>
+          <element id="archive" name="haxe-jps-plugin.jar">
+            <element id="module-output" name="jps-plugin" />
+          </element>
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

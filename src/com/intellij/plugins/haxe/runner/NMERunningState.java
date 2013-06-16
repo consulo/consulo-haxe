@@ -24,13 +24,14 @@ import com.intellij.execution.process.OSProcessHandler;
 import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.runners.ExecutionEnvironment;
 import com.intellij.openapi.module.Module;
+import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.roots.ModuleRootManager;
 import com.intellij.plugins.haxe.HaxeCommonBundle;
 import com.intellij.plugins.haxe.config.sdk.HaxeSdkData;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
 import com.intellij.util.PathUtil;
 import com.intellij.util.text.StringTokenizer;
+import org.consulo.haxe.module.extension.HaxeModuleExtension;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -56,7 +57,7 @@ public class NMERunningState extends CommandLineState {
   @Override
   protected ProcessHandler startProcess() throws ExecutionException {
     final HaxeModuleSettings settings = HaxeModuleSettings.getInstance(module);
-    final Sdk sdk = ModuleRootManager.getInstance(module).getSdk();
+    final Sdk sdk = ModuleUtilCore.getSdk(module, HaxeModuleExtension.class);
     assert sdk != null;
 
     GeneralCommandLine commandLine = getCommandForNeko(sdk, settings);

@@ -17,17 +17,14 @@
 // This is a generated file. Not intended for manual editing.
 package com.intellij.plugins.haxe.lang.parser;
 
+import com.intellij.lang.*;
 import org.jetbrains.annotations.*;
-import com.intellij.lang.LighterASTNode;
-import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
 import com.intellij.openapi.diagnostic.Logger;
 import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes.*;
 import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
 import com.intellij.psi.tree.IElementType;
-import com.intellij.lang.ASTNode;
 import com.intellij.psi.tree.TokenSet;
-import com.intellij.lang.PsiParser;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
 public class HaxeParser implements PsiParser {
@@ -35,7 +32,7 @@ public class HaxeParser implements PsiParser {
   public static Logger LOG_ = Logger.getInstance("com.intellij.plugins.haxe.lang.parser.HaxeParser");
 
   @NotNull
-  public ASTNode parse(IElementType root_, PsiBuilder builder_) {
+  public ASTNode parse(IElementType root_, PsiBuilder builder_, LanguageVersion languageVersion) {
     int level_ = 0;
     boolean result_;
     builder_ = adapt_builder_(root_, builder_, this);

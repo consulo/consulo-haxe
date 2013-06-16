@@ -21,13 +21,13 @@ import com.intellij.ide.fileTemplates.FileTemplate;
 import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.actionSystem.LangDataKeys;
 import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleType;
+import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.project.DumbAware;
 import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.ide.HaxeFileTemplateUtil;
-import com.intellij.plugins.haxe.ide.module.HaxeModuleType;
 import com.intellij.psi.PsiDirectory;
+import org.consulo.haxe.module.extension.HaxeModuleExtension;
 
 /**
  * @author: Fedor.Korotkov
@@ -41,7 +41,7 @@ public class CreateNMMLFileAction extends CreateFileFromTemplateAction implement
   @Override
   protected boolean isAvailable(DataContext dataContext) {
     final Module module = LangDataKeys.MODULE.getData(dataContext);
-    return super.isAvailable(dataContext) && module != null && ModuleType.get(module) == HaxeModuleType.getInstance();
+    return super.isAvailable(dataContext) && module != null && ModuleUtilCore.getExtension(module, HaxeModuleExtension.class) != null;
   }
 
   @Override

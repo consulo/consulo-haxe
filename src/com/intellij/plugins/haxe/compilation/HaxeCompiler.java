@@ -23,22 +23,21 @@ import com.intellij.execution.executors.DefaultDebugExecutor;
 import com.intellij.openapi.compiler.*;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleType;
+import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkAdditionalData;
-import com.intellij.openapi.roots.CompilerModuleExtension;
-import com.intellij.openapi.roots.ModuleRootManager;
+import com.intellij.openapi.roots.ContentFolderType;
 import com.intellij.openapi.roots.OrderEnumerator;
-import com.intellij.openapi.vfs.VfsUtilCore;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.config.sdk.HaxeSdkAdditionalDataBase;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
-import com.intellij.plugins.haxe.ide.module.HaxeModuleType;
 import com.intellij.plugins.haxe.module.HaxeModuleSettingsBase;
 import com.intellij.plugins.haxe.runner.HaxeApplicationConfiguration;
 import com.intellij.plugins.haxe.runner.debugger.HaxeDebugRunner;
 import com.intellij.plugins.haxe.util.HaxeCommonCompilerUtil;
+import org.consulo.compiler.CompilerPathsManager;
+import org.consulo.haxe.module.extension.HaxeModuleExtension;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.DataInput;
@@ -72,7 +71,9 @@ public class HaxeCompiler implements SourceProcessingCompiler {
   private static List<Module> getModulesToCompile(CompileScope scope) {
     final List<Module> result = new ArrayList<Module>();
     for (final Module module : scope.getAffectedModules()) {
-      if (ModuleType.get(module) != HaxeModuleType.getInstance()) continue;
+      if (ModuleUtilCore.getExtension(module, HaxeModuleExtension.class) == null) {
+        continue;
+      }
       result.add(module);
     }
     return result;
@@ -124,8 +125,7 @@ public class HaxeCompiler implements SourceProcessingCompiler {
     final HaxeModuleSettings settings = HaxeModuleSettings.getInstance(module);
     final boolean isDebug = ExecutorRegistry.getInstance()
       .isStarting(context.getProject(), DefaultDebugExecutor.EXECUTOR_ID, HaxeDebugRunner.HAXE_DEBUG_RUNNER_ID);
-    final ModuleRootManager moduleRootManager = ModuleRootManager.getInstance(module);
-    final Sdk sdk = moduleRootManager.getSdk();
+    final Sdk sdk = ModuleUtilCore.getSdk(module, HaxeModuleExtension.class);
     if (sdk == null) {
       context.addMessage(CompilerMessageCategory.ERROR, HaxeBundle.message("no.sdk.for.module", module.getName()), null, -1, -1);
       return false;
@@ -187,9 +187,7 @@ public class HaxeCompiler implements SourceProcessingCompiler {
 
       @Override
       public String getCompileOutputPath() {
-        final CompilerModuleExtension moduleExtension = CompilerModuleExtension.getInstance(module);
-        final String outputUrl = moduleExtension != null ? moduleExtension.getCompilerOutputUrl() : null;
-        return VfsUtilCore.urlToPath(outputUrl);
+        return CompilerPathsManager.getInstance(module.getProject()).getCompilerOutputUrl(module, ContentFolderType.SOURCE);
       }
 
       @Override

@@ -17,6 +17,7 @@ package com.intellij.plugins.haxe.lang.psi;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.Language;
+import com.intellij.lang.LanguageVersion;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Key;
 import com.intellij.openapi.util.TextRange;
@@ -61,6 +62,12 @@ public class LazyPsiElement implements PsiElement {
   @Override
   public Language getLanguage() {
     return getElement().getLanguage();
+  }
+
+  @NotNull
+  @Override
+  public LanguageVersion getLanguageVersion() {
+    return getElement().getLanguageVersion();
   }
 
   @Override

@@ -24,7 +24,9 @@ import com.intellij.openapi.util.SystemInfo;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.HaxeCommonBundle;
 import com.intellij.util.xmlb.XmlSerializer;
+import icons.HaxeIcons;
 import org.jdom.Element;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
@@ -38,9 +40,10 @@ public class HaxeSdkType extends SdkType {
     return icons.HaxeIcons.HaXe_16;
   }
 
+  @Nullable
   @Override
-  public Icon getIconForAddAction() {
-    return icons.HaxeIcons.HaXe_16;
+  public Icon getGroupIcon() {
+    return HaxeIcons.HaXe_16;
   }
 
   public static HaxeSdkType getInstance() {
@@ -60,7 +63,7 @@ public class HaxeSdkType extends SdkType {
   @Override
   public String getVersionString(String sdkHome) {
     final HaxeSdkData haxeSdkData = HaxeSdkUtil.testHaxeSdk(sdkHome);
-    return haxeSdkData != null ? haxeSdkData.getVersion() : super.getVersionString(sdkHome);
+    return haxeSdkData != null ? haxeSdkData.getVersion() : null;
   }
 
   @Override

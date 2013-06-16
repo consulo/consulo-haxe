@@ -134,7 +134,7 @@ public class HaxeExpressionCodeFragmentImpl extends HaxeFile implements HaxeExpr
     @Override
     protected ASTNode doParseContents(@NotNull ASTNode chameleon, @NotNull PsiElement psi) {
       final PsiBuilderFactory factory = PsiBuilderFactory.getInstance();
-      final PsiBuilder builder = factory.createBuilder(getProject(), chameleon);
+      final PsiBuilder builder = factory.createBuilder(getProject(), chameleon, psi.getLanguageVersion());
 
       final PsiBuilder.Marker marker = builder.mark();
       enterErrorRecordingSection(builder, 0, _SECTION_GENERAL_, "<code fragment>");

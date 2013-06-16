@@ -20,7 +20,6 @@ import com.intellij.ide.util.importProject.ModuleInsight;
 import com.intellij.ide.util.projectWizard.importSources.DetectedProjectRoot;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.plugins.haxe.HaxeFileType;
-import com.intellij.plugins.haxe.ide.module.HaxeModuleType;
 import com.intellij.util.Consumer;
 import org.jetbrains.annotations.Nullable;
 
@@ -41,7 +40,7 @@ public class HaxeModuleInsight extends ModuleInsight {
 
   @Override
   protected ModuleDescriptor createModuleDescriptor(File moduleContentRoot, Collection<DetectedProjectRoot> sourceRoots) {
-    return new ModuleDescriptor(moduleContentRoot, HaxeModuleType.getInstance(), sourceRoots);
+    return new ModuleDescriptor(moduleContentRoot, sourceRoots);
   }
 
   @Override

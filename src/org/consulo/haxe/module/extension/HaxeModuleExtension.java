@@ -13,19 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.intellij.plugins.haxe.runner.debugger;
+package org.consulo.haxe.module.extension;
 
-import com.intellij.openapi.options.UnnamedConfigurable;
-import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
-import com.intellij.plugins.haxe.ide.projectStructure.HaxeModuleConfigurationExtensionPoint;
+import com.intellij.openapi.module.Module;
+import com.intellij.openapi.projectRoots.SdkType;
+import com.intellij.plugins.haxe.config.sdk.HaxeSdkType;
+import org.consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * @author: Fedor.Korotkov
+ * @author VISTALL
+ * @since 13:54/16.06.13
  */
-public class HaxeFlexSDKExtension implements HaxeModuleConfigurationExtensionPoint {
+public class HaxeModuleExtension extends ModuleExtensionWithSdkImpl<HaxeModuleExtension> {
+  public HaxeModuleExtension(@NotNull String id,
+                             @NotNull Module module) {
+    super(id, module);
+  }
+
   @Override
-  public UnnamedConfigurable createConfigurable(@NotNull HaxeModuleSettings settings) {
-    return new HaxeFlexSDKConfigurable(settings);
+  protected Class<? extends SdkType> getSdkTypeClass() {
+    return HaxeSdkType.class;
   }
 }

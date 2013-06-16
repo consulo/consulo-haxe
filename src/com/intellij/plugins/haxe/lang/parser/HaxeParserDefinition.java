@@ -16,6 +16,7 @@
 package com.intellij.plugins.haxe.lang.parser;
 
 import com.intellij.lang.ASTNode;
+import com.intellij.lang.LanguageVersion;
 import com.intellij.lang.ParserDefinition;
 import com.intellij.lang.PsiParser;
 import com.intellij.lexer.Lexer;
@@ -33,11 +34,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class HaxeParserDefinition implements ParserDefinition {
   @NotNull
-  public Lexer createLexer(Project project) {
+  public Lexer createLexer(Project project, LanguageVersion languageVersion) {
     return new HaxeLexer(project);
   }
 
-  public PsiParser createParser(Project project) {
+  public PsiParser createParser(Project project, LanguageVersion languageVersion) {
     return new HaxeParser();
   }
 
