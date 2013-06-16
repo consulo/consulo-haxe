@@ -8,7 +8,7 @@
             <element id="module-output" name="common" />
           </element>
           <element id="archive" name="haxe.jar">
-            <element id="module-output" name="intellij-haxe" />
+            <element id="module-output" name="consulo-haxe" />
           </element>
           <element id="archive" name="haxe-jps-plugin.jar">
             <element id="module-output" name="jps-plugin" />
