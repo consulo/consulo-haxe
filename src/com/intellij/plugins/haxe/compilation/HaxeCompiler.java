@@ -58,6 +58,10 @@ public class HaxeCompiler implements SourceProcessingCompiler {
     return true;
   }
 
+  @Override
+  public void init(@NotNull CompilerManager compilerManager) {
+  }
+
   @NotNull
   @Override
   public ProcessingItem[] getProcessingItems(CompileContext context) {
