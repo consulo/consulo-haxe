@@ -35,6 +35,7 @@ public class HaxeMutableModuleExtension extends HaxeModuleExtension implements M
   public HaxeMutableModuleExtension(@NotNull String id, @NotNull Module module, @NotNull HaxeModuleExtension moduleExtension) {
     super(id, module);
     myModuleExtension = moduleExtension;
+    commit(moduleExtension);
   }
 
   @Nullable

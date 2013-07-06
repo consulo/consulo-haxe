@@ -26,7 +26,7 @@ import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.UnnamedConfigurable;
 import com.intellij.openapi.options.ex.SingleConfigurableEditor;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.CompilerModuleExtension;
+import com.intellij.openapi.roots.ContentFolderType;
 import com.intellij.openapi.roots.impl.DirectoryIndex;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.openapi.util.io.FileUtil;
@@ -47,6 +47,7 @@ import com.intellij.ui.RawCommandLineEditor;
 import com.intellij.ui.components.JBRadioButton;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
+import org.consulo.compiler.CompilerPathsManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -90,13 +91,11 @@ public class HaxeConfigurationEditor {
   private NMETarget selectedNmeTarget = NMETarget.FLASH;
 
   private final Module myModule;
-  private final CompilerModuleExtension myExtension;
 
   private final List<UnnamedConfigurable> configurables = new ArrayList<UnnamedConfigurable>();
 
-  public HaxeConfigurationEditor(Module module, CompilerModuleExtension extension) {
+  public HaxeConfigurationEditor(Module module) {
     myModule = module;
-    myExtension = extension;
     addActionListeners();
 
     initExtensions();
@@ -173,8 +172,8 @@ public class HaxeConfigurationEditor {
     ActionListener fileChooserListener = new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        final VirtualFile moduleFile = myModule.getModuleFile();
-        assert moduleFile != null;
+        final VirtualFile moduleDir = myModule.getModuleDir();
+        assert moduleDir != null;
         final boolean isNMML = myNmmlFileRadioButton.isSelected();
         final FileChooserDescriptor descriptor = new FileChooserDescriptor(true, false, false, true, false, false) {
           public boolean isFileVisible(VirtualFile file, boolean showHiddenFiles) {
@@ -182,7 +181,7 @@ public class HaxeConfigurationEditor {
                    (file.isDirectory() || (isNMML ? "nmml" : "hxml").equalsIgnoreCase(file.getExtension()));
           }
         };
-        final VirtualFile file = FileChooser.chooseFile(descriptor, getMainPanel(), null, moduleFile.getParent());
+        final VirtualFile file = FileChooser.chooseFile(descriptor, getMainPanel(), null, moduleDir);
         if (file != null) {
           String path = FileUtil.toSystemIndependentName(file.getPath());
           if (isNMML) {
@@ -326,7 +325,8 @@ public class HaxeConfigurationEditor {
     final HaxeModuleSettings settings = HaxeModuleSettings.getInstance(myModule);
     assert settings != null;
 
-    final String url = myExtension.getCompilerOutputUrl();
+    CompilerPathsManager manager = CompilerPathsManager.getInstance(myModule.getProject());
+    final String url = manager.getCompilerOutputUrl(myModule, ContentFolderType.SOURCE);
     final String urlCandidate = VfsUtilCore.pathToUrl(myFolderTextField.getText());
     boolean result = !urlCandidate.equals(url);
 
@@ -365,7 +365,8 @@ public class HaxeConfigurationEditor {
       configurable.reset();
     }
 
-    final String url = myExtension.getCompilerOutputUrl();
+    CompilerPathsManager manager = CompilerPathsManager.getInstance(myModule.getProject());
+    final String url = manager.getCompilerOutputUrl(myModule, ContentFolderType.SOURCE);
     myFolderTextField.setText(VfsUtil.urlToPath(url));
     myHxmlFileChooserTextField.setText(settings.getHxmlPath());
     myNMEFileChooserTextField.setText(settings.getNmmlPath());
@@ -405,12 +406,13 @@ public class HaxeConfigurationEditor {
       }
     }
 
-    final String url = myExtension.getCompilerOutputUrl();
+    CompilerPathsManager manager = CompilerPathsManager.getInstance(myModule.getProject());
+    final String url = manager.getCompilerOutputUrl(myModule, ContentFolderType.SOURCE);
+
     final String urlCandidate = VfsUtil.pathToUrl(myFolderTextField.getText());
 
     if (!urlCandidate.equals(url)) {
-      myExtension.setCompilerOutputPath(urlCandidate);
-      myExtension.commit();
+      manager.setCompilerOutputUrl(myModule, ContentFolderType.SOURCE, urlCandidate);
     }
   }
 
