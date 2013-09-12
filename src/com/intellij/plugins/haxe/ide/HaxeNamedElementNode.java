@@ -18,6 +18,7 @@ package com.intellij.plugins.haxe.ide;
 import com.intellij.codeInsight.generation.ClassMember;
 import com.intellij.codeInsight.generation.MemberChooserObject;
 import com.intellij.codeInsight.generation.PsiElementMemberChooserObject;
+import com.intellij.ide.IconDescriptorUpdaters;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.openapi.util.Iconable;
 import com.intellij.plugins.haxe.lang.psi.HaxeClass;
@@ -30,7 +31,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class HaxeNamedElementNode extends PsiElementMemberChooserObject implements ClassMember {
   public HaxeNamedElementNode(final HaxeNamedComponent haxeNamedComponent) {
-    super(haxeNamedComponent, buildPresentationText(haxeNamedComponent), haxeNamedComponent.getIcon(Iconable.ICON_FLAG_VISIBILITY));
+    super(haxeNamedComponent, buildPresentationText(haxeNamedComponent), IconDescriptorUpdaters.getIcon(haxeNamedComponent, Iconable.ICON_FLAG_VISIBILITY));
   }
 
   @Nullable

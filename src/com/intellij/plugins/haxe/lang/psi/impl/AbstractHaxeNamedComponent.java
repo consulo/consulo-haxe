@@ -15,6 +15,7 @@
  */
 package com.intellij.plugins.haxe.lang.psi.impl;
 
+import com.intellij.ide.IconDescriptorUpdaters;
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.openapi.util.Pair;
@@ -63,12 +64,6 @@ abstract public class AbstractHaxeNamedComponent extends HaxePsiCompositeElement
       componentName.setName(name);
     }
     return this;
-  }
-
-  @Override
-  public Icon getIcon(int flags) {
-    final HaxeComponentType type = HaxeComponentType.typeOf(this);
-    return type == null ? null : type.getIcon();
   }
 
   @Override
@@ -124,7 +119,7 @@ abstract public class AbstractHaxeNamedComponent extends HaxePsiCompositeElement
 
       @Override
       public Icon getIcon(boolean open) {
-        return AbstractHaxeNamedComponent.this.getIcon(0);
+        return IconDescriptorUpdaters.getIcon(AbstractHaxeNamedComponent.this, 0);
       }
     };
   }

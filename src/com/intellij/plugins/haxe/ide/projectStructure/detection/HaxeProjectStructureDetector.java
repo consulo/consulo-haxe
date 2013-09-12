@@ -20,21 +20,19 @@ import com.intellij.ide.util.importProject.LibrariesDetectionStep;
 import com.intellij.ide.util.importProject.ModulesDetectionStep;
 import com.intellij.ide.util.importProject.ProjectDescriptor;
 import com.intellij.ide.util.projectWizard.ModuleWizardStep;
-import com.intellij.ide.util.projectWizard.ProjectJdkForModuleStep;
 import com.intellij.ide.util.projectWizard.importSources.DetectedProjectRoot;
 import com.intellij.ide.util.projectWizard.importSources.ProjectFromSourcesBuilder;
 import com.intellij.ide.util.projectWizard.importSources.ProjectStructureDetector;
 import com.intellij.ide.util.projectWizard.importSources.util.CommonSourceRootDetectionUtil;
-import com.intellij.lang.Language;
 import com.intellij.lang.LanguageParserDefinitions;
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.plugins.haxe.HaxeFileType;
 import com.intellij.plugins.haxe.HaxeLanguage;
-import com.intellij.plugins.haxe.config.sdk.HaxeSdkType;
 import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets;
 import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes;
+import com.intellij.util.LanguageVersionUtil;
 import com.intellij.util.NullableFunction;
 import com.intellij.util.StringBuilderSpinAllocator;
 import org.jetbrains.annotations.NotNull;
@@ -51,7 +49,7 @@ import java.util.List;
 public class HaxeProjectStructureDetector extends ProjectStructureDetector {
   public static final NullableFunction<CharSequence, String> PACKAGE_NAME_FETCHER = new NullableFunction<CharSequence, String>() {
     public String fun(final CharSequence charSequence) {
-      Lexer lexer = LanguageParserDefinitions.INSTANCE.forLanguage(HaxeLanguage.INSTANCE).createLexer(null, Language.UNKNOWN_VERSION);
+      Lexer lexer = LanguageParserDefinitions.INSTANCE.forLanguage(HaxeLanguage.INSTANCE).createLexer(null, LanguageVersionUtil.findDefaultVersion(HaxeLanguage.INSTANCE));
       lexer.start(charSequence);
       return readPackageName(charSequence, lexer);
     }
@@ -88,7 +86,7 @@ public class HaxeProjectStructureDetector extends ProjectStructureDetector {
       new LibrariesDetectionStep(builder, projectDescriptor, moduleInsight, stepIcon, "reference.dialogs.new.project.fromCode.page1"));
     steps.add(
       new ModulesDetectionStep(this, builder, projectDescriptor, moduleInsight, stepIcon, "reference.dialogs.new.project.fromCode.page2"));
-    steps.add(new ProjectJdkForModuleStep(builder.getContext(), HaxeSdkType.getInstance()));
+
     return steps;
   }
 

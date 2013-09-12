@@ -29,7 +29,6 @@ import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.plugins.haxe.HaxeCommonBundle;
 import com.intellij.plugins.haxe.config.sdk.HaxeSdkData;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
-import com.intellij.util.PathUtil;
 import com.intellij.util.text.StringTokenizer;
 import org.consulo.haxe.module.extension.HaxeModuleExtension;
 import org.jetbrains.annotations.NotNull;
@@ -72,7 +71,7 @@ public class NMERunningState extends CommandLineState {
     }
     final GeneralCommandLine commandLine = new GeneralCommandLine();
 
-    commandLine.setWorkDirectory(PathUtil.getParentPath(module.getModuleFilePath()));
+    commandLine.setWorkDirectory(module.getModuleDirPath());
     final String haxelibPath = sdkData.getHaxelibPath();
     if (haxelibPath == null || haxelibPath.isEmpty()) {
       throw new ExecutionException(HaxeCommonBundle.message("no.haxelib.for.sdk", sdk.getName()));

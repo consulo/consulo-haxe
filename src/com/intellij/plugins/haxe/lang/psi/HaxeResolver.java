@@ -17,16 +17,15 @@ package com.intellij.plugins.haxe.lang.psi;
 
 import com.intellij.openapi.util.Key;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiJavaPackage;
 import com.intellij.psi.ResolveState;
 import com.intellij.psi.impl.source.resolve.ResolveCache;
-import com.intellij.psi.impl.source.resolve.reference.impl.providers.PackageReferenceSet;
-import com.intellij.psi.impl.source.resolve.reference.impl.providers.PsiPackageReference;
 import com.intellij.psi.scope.PsiScopeProcessor;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.containers.ContainerUtil;
+import org.consulo.haxe.module.extension.packageSupport.HaxePackageUtil;
+import org.consulo.haxe.psi.impl.HaxePsiPackageReference;
+import org.consulo.haxe.psi.impl.HaxePsiPackageReferenceSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,7 +54,7 @@ public class HaxeResolver implements ResolveCache.AbstractResolver<HaxeReference
       return toCandidateInfoArray(resultClass.getComponentName());
     }
 
-    final PsiJavaPackage psiPackage = JavaPsiFacade.getInstance(reference.getProject()).findPackage(reference.getText());
+    final HaxePackage psiPackage = HaxePackageUtil.findPackage(reference.getProject(), reference.getText());
     if (psiPackage != null) {
       return toCandidateInfoArray(psiPackage);
     }
@@ -105,8 +104,8 @@ public class HaxeResolver implements ResolveCache.AbstractResolver<HaxeReference
       return superElements;
     }
 
-    if (JavaPsiFacade.getInstance(reference.getProject()).getNameHelper().isQualifiedName(reference.getText())) {
-      PsiPackageReference packageReference = new PackageReferenceSet(reference.getText(), reference, 0).getLastReference();
+    if (HaxePackageUtil.isQualifiedName(reference.getText())) {
+      HaxePsiPackageReference packageReference = new HaxePsiPackageReferenceSet(reference.getText(), reference, 0).getLastReference();
       PsiElement packageTarget = packageReference != null ? packageReference.resolve() : null;
       if (packageTarget != null) {
         return Arrays.asList(packageTarget);

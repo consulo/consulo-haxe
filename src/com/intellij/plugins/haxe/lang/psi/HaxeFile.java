@@ -27,8 +27,6 @@ import com.intellij.psi.PsiReference;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
-
 public class HaxeFile extends PsiFileBase {
   public HaxeFile(@NotNull FileViewProvider viewProvider) {
     super(viewProvider, HaxeLanguage.INSTANCE);
@@ -43,11 +41,6 @@ public class HaxeFile extends PsiFileBase {
   @Override
   public String toString() {
     return "haXe File";
-  }
-
-  @Override
-  public Icon getIcon(int flags) {
-    return super.getIcon(flags);
   }
 
   @Override

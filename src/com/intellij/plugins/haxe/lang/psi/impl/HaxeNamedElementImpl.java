@@ -32,8 +32,6 @@ import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
-
 /**
  * @author: Fedor.Korotkov
  */
@@ -91,10 +89,5 @@ public abstract class HaxeNamedElementImpl extends HaxePsiCompositeElementImpl i
       return ((NavigationItem)getParent()).getPresentation();
     }
     return null;
-  }
-
-  @Override
-  public Icon getIcon(int flags) {
-    return getParent().getIcon(flags);
   }
 }

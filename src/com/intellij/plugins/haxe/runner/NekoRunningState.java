@@ -32,7 +32,6 @@ import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.config.HaxeTarget;
 import com.intellij.plugins.haxe.config.sdk.HaxeSdkData;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
-import com.intellij.util.PathUtil;
 import org.consulo.haxe.module.extension.HaxeModuleExtension;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -70,7 +69,7 @@ public class NekoRunningState extends CommandLineState {
     GeneralCommandLine commandLine = new GeneralCommandLine();
 
     commandLine.setExePath(sdkData.getNekoBinPath());
-    commandLine.setWorkDirectory(PathUtil.getParentPath(module.getModuleFilePath()));
+    commandLine.setWorkDirectory(module.getModuleDirPath());
 
     if (customFileToLaunch != null) {
       commandLine.addParameter(customFileToLaunch);

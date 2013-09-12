@@ -16,7 +16,6 @@
 package com.intellij.plugins.haxe.ide.projectStructure.detection;
 
 import com.intellij.ide.util.projectWizard.importSources.DetectedProjectRoot;
-import com.intellij.ide.util.projectWizard.importSources.DetectedSourceRoot;
 import com.intellij.plugins.haxe.HaxeBundle;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,10 +24,10 @@ import java.io.File;
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeModuleSourceRoot extends DetectedSourceRoot {
+public class HaxeModuleSourceRoot extends DetectedProjectRoot {
 
   protected HaxeModuleSourceRoot(File directory) {
-    super(directory, null);
+    super(directory);
   }
 
   @NotNull

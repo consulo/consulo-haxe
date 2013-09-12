@@ -16,7 +16,6 @@
 package com.intellij.plugins.haxe.ide.structure;
 
 import com.intellij.ide.structureView.StructureViewTreeElement;
-import com.intellij.ide.structureView.impl.java.AccessLevelProvider;
 import com.intellij.ide.util.treeView.smartTree.SortableTreeElement;
 import com.intellij.ide.util.treeView.smartTree.TreeElement;
 import com.intellij.navigation.ItemPresentation;
@@ -27,7 +26,6 @@ import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.util.PsiUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -36,7 +34,7 @@ import java.util.List;
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeStructureViewElement implements StructureViewTreeElement, AccessLevelProvider, SortableTreeElement {
+public class HaxeStructureViewElement implements StructureViewTreeElement/*, AccessLevelProvider*/, SortableTreeElement {
   private final PsiElement myElement;
 
   public HaxeStructureViewElement(final PsiElement element) {
@@ -97,7 +95,7 @@ public class HaxeStructureViewElement implements StructureViewTreeElement, Acces
     return result.toArray(new TreeElement[result.size()]);
   }
 
-  @Override
+ /* @Override
   public int getAccessLevel() {
     HaxeNamedComponent namedComponent = null;
     if (myElement instanceof HaxeNamedComponent) {
@@ -112,7 +110,7 @@ public class HaxeStructureViewElement implements StructureViewTreeElement, Acces
   @Override
   public int getSubLevel() {
     return 0;
-  }
+  }   */
 
   @Override
   public String getAlphaSortKey() {

@@ -18,7 +18,6 @@ package com.intellij.plugins.haxe.ide.library;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.ProjectBundle;
 import com.intellij.openapi.projectRoots.ui.Util;
-import com.intellij.openapi.roots.JavadocOrderRootType;
 import com.intellij.openapi.roots.OrderRootType;
 import com.intellij.openapi.roots.libraries.ui.AttachRootButtonDescriptor;
 import com.intellij.openapi.roots.libraries.ui.LibraryRootsComponentDescriptor;
@@ -61,7 +60,7 @@ public class HaxeLibraryRootsComponentDescriptor extends LibraryRootsComponentDe
 
   private static class AttachUrlJavadocDescriptor extends AttachRootButtonDescriptor {
     private AttachUrlJavadocDescriptor() {
-      super(JavadocOrderRootType.getInstance(), ProjectBundle.message("module.libraries.javadoc.url.button"));
+      super(OrderRootType.DOCUMENTATION, ProjectBundle.message("module.libraries.javadoc.url.button"));
     }
 
     @Override

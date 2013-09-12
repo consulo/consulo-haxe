@@ -29,12 +29,13 @@ import com.intellij.plugins.haxe.util.UsefulPsiTreeUtil;
 import com.intellij.psi.*;
 import com.intellij.psi.impl.source.resolve.ResolveCache;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
-import com.intellij.psi.infos.CandidateInfo;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.ArrayUtil;
 import com.intellij.util.IncorrectOperationException;
 import gnu.trove.THashSet;
+import org.consulo.haxe.module.extension.HaxeModuleExtension;
+import org.consulo.psi.PsiPackageManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -207,14 +208,14 @@ public abstract class HaxeReferenceImpl extends HaxeExpressionImpl implements Ha
     if (element == null) {
       return ResolveResult.EMPTY_ARRAY;
     }
-    return new ResolveResult[]{new CandidateInfo(element, null)};
+    return new ResolveResult[]{new PsiElementResolveResult(element, true)};
   }
 
   @NotNull
   private static ResolveResult[] toCandidateInfoArray(List<? extends PsiElement> elements) {
     final ResolveResult[] result = new ResolveResult[elements.size()];
     for (int i = 0, size = elements.size(); i < size; i++) {
-      result[i] = new CandidateInfo(elements.get(i), null);
+      result[i] = new PsiElementResolveResult(elements.get(i), true);
     }
     return result;
   }
@@ -240,13 +241,13 @@ public abstract class HaxeReferenceImpl extends HaxeExpressionImpl implements Ha
     if (element instanceof HaxeFile) {
       bindToFile(element);
     }
-    else if (element instanceof PsiJavaPackage) {
-      bindToPackage((PsiJavaPackage)element);
+    else if (element instanceof HaxePackage) {
+      bindToPackage((HaxePackage)element);
     }
     return this;
   }
 
-  private void bindToPackage(PsiJavaPackage element) {
+  private void bindToPackage(HaxePackage element) {
     final HaxeImportStatement importStatement =
       HaxeElementGenerator.createImportStatementFromPath(getProject(), element.getQualifiedName());
     HaxeReferenceExpression referenceExpression = importStatement != null ? importStatement.getReferenceExpression() : null;
@@ -340,11 +341,11 @@ public abstract class HaxeReferenceImpl extends HaxeExpressionImpl implements Ha
     Object[] variants = HaxeLookupElement.convert(suggestedVariants).toArray();
     PsiElement leftTarget = leftReference != null ? leftReference.resolve() : null;
 
-    if (leftTarget instanceof PsiJavaPackage) {
-      return ArrayUtil.mergeArrays(variants, ((PsiJavaPackage)leftTarget).getSubPackages());
+    if (leftTarget instanceof HaxePackage) {
+      return ArrayUtil.mergeArrays(variants, ((HaxePackage)leftTarget).getSubPackages());
     }
     else if (leftReference == null) {
-      PsiJavaPackage rootPackage = JavaPsiFacade.getInstance(getElement().getProject()).findPackage("");
+      HaxePackage rootPackage = (HaxePackage) PsiPackageManager.getInstance(getElement().getProject()).findPackage("", HaxeModuleExtension.class);
       return rootPackage == null ? variants : ArrayUtil.mergeArrays(variants, rootPackage.getSubPackages());
     }
     return variants;

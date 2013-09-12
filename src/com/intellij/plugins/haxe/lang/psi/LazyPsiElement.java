@@ -31,8 +31,6 @@ import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
-
 /**
  * @author: Fedor.Korotkov
  */
@@ -317,11 +315,6 @@ public class LazyPsiElement implements PsiElement {
   @Override
   public boolean isEquivalentTo(PsiElement another) {
     return getElement().isEquivalentTo(another);
-  }
-
-  @Override
-  public Icon getIcon(@IconFlags int flags) {
-    return getElement().getIcon(flags);
   }
 
   @Override

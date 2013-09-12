@@ -21,7 +21,6 @@ import com.intellij.execution.process.CapturingProcessHandler;
 import com.intellij.execution.process.ProcessOutput;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.projectRoots.SdkModificator;
-import com.intellij.openapi.roots.JavadocOrderRootType;
 import com.intellij.openapi.roots.OrderRootType;
 import com.intellij.openapi.util.SystemInfo;
 import com.intellij.openapi.util.io.FileUtil;
@@ -95,7 +94,7 @@ public class HaxeSdkUtil extends HaxeSdkUtilBase {
     }
     final VirtualFile docRoot = sdkRoot.findChild("doc");
     if (docRoot != null) {
-      modificator.addRoot(docRoot, JavadocOrderRootType.getInstance());
+      modificator.addRoot(docRoot, OrderRootType.DOCUMENTATION);
     }
   }
 

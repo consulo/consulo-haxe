@@ -209,11 +209,11 @@ public class HaxeCompiler implements SourceProcessingCompiler {
 
   private static int findProcessingItemIndexByModule(ProcessingItem[] items, RunConfigurationModule moduleConfiguration) {
     final Module module = moduleConfiguration.getModule();
-    if (module == null || module.getModuleFile() == null) {
+    if (module == null || module.getModuleDir() == null) {
       return -1;
     }
     for (int i = 0; i < items.length; ++i) {
-      if (module.getModuleFile().equals(items[i].getFile())) {
+      if (module.getModuleDir().equals(items[i].getFile())) {
         return i;
       }
     }
@@ -234,7 +234,7 @@ public class HaxeCompiler implements SourceProcessingCompiler {
 
     @NotNull
     public VirtualFile getFile() {
-      return myModule.getModuleFile();
+      return myModule.getModuleDir();
     }
 
     public ValidityState getValidityState() {

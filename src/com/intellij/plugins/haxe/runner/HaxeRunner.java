@@ -33,12 +33,15 @@ import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ContentFolderType;
+import com.intellij.openapi.util.InvalidDataException;
+import com.intellij.openapi.util.WriteExternalException;
 import com.intellij.openapi.util.io.FileUtilRt;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.config.HaxeTarget;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
 import com.intellij.util.PathUtil;
 import org.consulo.compiler.CompilerPathsManager;
+import org.jdom.Element;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -52,12 +55,19 @@ public class HaxeRunner extends DefaultProgramRunner {
       return null;
     }
 
-    public RunnerSettings getRunnerSettings() {
-      return null;
-    }
-
     public ConfigurationPerRunnerSettings getConfigurationSettings() {
-      return new ConfigurationPerRunnerSettings(HAXE_RUNNER_ID, null);
+      return new ConfigurationPerRunnerSettings() {
+
+		  @Override
+		  public void readExternal(Element element) throws InvalidDataException {
+
+		  }
+
+		  @Override
+		  public void writeExternal(Element element) throws WriteExternalException {
+
+		  }
+	  };
     }
   };
 
@@ -74,7 +84,6 @@ public class HaxeRunner extends DefaultProgramRunner {
 
   @Override
   protected RunContentDescriptor doExecute(Project project,
-                                           Executor executor,
                                            RunProfileState state,
                                            RunContentDescriptor contentToReuse,
                                            ExecutionEnvironment env) throws ExecutionException {
@@ -89,24 +98,24 @@ public class HaxeRunner extends DefaultProgramRunner {
 
     if (settings.isUseNmmlToBuild()) {
       final NMERunningState nmeRunningState = new NMERunningState(env, module, false);
-      return super.doExecute(project, executor, nmeRunningState, contentToReuse, env);
+      return super.doExecute(project, nmeRunningState, contentToReuse, env);
     }
 
     if (configuration.isCustomFileToLaunch() && FileUtilRt.extensionEquals(configuration.getCustomFileToLaunchPath(), "n")) {
       final NekoRunningState nekoRunningState = new NekoRunningState(env, module, configuration.getCustomFileToLaunchPath());
-      return super.doExecute(project, executor, nekoRunningState, contentToReuse, env);
+      return super.doExecute(project, nekoRunningState, contentToReuse, env);
     }
 
     if (configuration.isCustomExecutable()) {
       final String filePath = configuration.isCustomFileToLaunch()
                               ? configuration.getCustomFileToLaunchPath()
                               : getOutputFilePath(module, settings);
-      return super.doExecute(project, executor, new CommandLineState(env) {
+      return super.doExecute(project, new CommandLineState(env) {
         @NotNull
         @Override
         protected ProcessHandler startProcess() throws ExecutionException {
           final GeneralCommandLine commandLine = new GeneralCommandLine();
-          commandLine.setWorkDirectory(PathUtil.getParentPath(module.getModuleFilePath()));
+          commandLine.setWorkDirectory(module.getModuleDirPath());
           commandLine.setExePath(configuration.getCustomExecutablePath());
           commandLine.addParameter(filePath);
 
@@ -133,7 +142,7 @@ public class HaxeRunner extends DefaultProgramRunner {
     }
 
     final NekoRunningState nekoRunningState = new NekoRunningState(env, module, null);
-    return super.doExecute(project, executor, nekoRunningState, contentToReuse, env);
+    return super.doExecute(project, nekoRunningState, contentToReuse, env);
   }
 
   private static String getOutputFilePath(Module module, HaxeModuleSettings settings) {

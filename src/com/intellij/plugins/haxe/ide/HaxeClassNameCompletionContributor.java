@@ -27,13 +27,13 @@ import com.intellij.patterns.StandardPatterns;
 import com.intellij.plugins.haxe.ide.index.HaxeClassInfo;
 import com.intellij.plugins.haxe.ide.index.HaxeComponentIndex;
 import com.intellij.plugins.haxe.lang.psi.HaxeIdentifier;
+import com.intellij.plugins.haxe.lang.psi.HaxePackage;
 import com.intellij.plugins.haxe.lang.psi.HaxeReference;
 import com.intellij.plugins.haxe.lang.psi.HaxeType;
 import com.intellij.plugins.haxe.util.HaxeAddImportHelper;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiJavaPackage;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
@@ -72,8 +72,8 @@ public class HaxeClassNameCompletionContributor extends CompletionContributor {
                HaxeReference leftReference =
                  HaxeResolveUtil.getLeftReference(PsiTreeUtil.getParentOfType(parameters.getPosition(), HaxeReference.class));
                PsiElement leftTarget = leftReference != null ? leftReference.resolve() : null;
-               if (leftTarget instanceof PsiJavaPackage) {
-                 addVariantsFromIndex(result, parameters.getOriginalFile(), ((PsiJavaPackage)leftTarget).getQualifiedName(), null);
+               if (leftTarget instanceof HaxePackage) {
+                 addVariantsFromIndex(result, parameters.getOriginalFile(), ((HaxePackage)leftTarget).getQualifiedName(), null);
                }
              }
            });

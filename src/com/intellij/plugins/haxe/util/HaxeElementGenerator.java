@@ -26,6 +26,7 @@ import com.intellij.psi.PsiFileFactory;
 import com.intellij.psi.impl.PsiFileFactoryImpl;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.testFramework.LightVirtualFile;
+import com.intellij.util.LanguageVersionUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -107,7 +108,7 @@ public class HaxeElementGenerator {
     final PsiFileFactory factory = PsiFileFactory.getInstance(myProject);
     final String name = "dummy." + HaxeFileType.HAXE_FILE_TYPE.getDefaultExtension();
     final LightVirtualFile virtualFile = new LightVirtualFile(name, HaxeFileType.HAXE_FILE_TYPE, text);
-    final PsiFile psiFile = ((PsiFileFactoryImpl)factory).trySetupPsiForFile(virtualFile, HaxeLanguage.INSTANCE, false, true);
+    final PsiFile psiFile = ((PsiFileFactoryImpl)factory).trySetupPsiForFile(virtualFile, HaxeLanguage.INSTANCE, LanguageVersionUtil.findDefaultVersion(HaxeLanguage.INSTANCE), false, true);
     assert psiFile != null;
     return psiFile;
   }

@@ -19,25 +19,25 @@
   <description>Support for haXe programming language</description>
   <version>0.6.4</version>
   <vendor>JetBrains</vendor>
-  <depends>org.consulo.java</depends>
+
   <depends>com.intellij.regexp</depends>
 
   <extensionPoints>
     <extensionPoint name="module.config" interface="com.intellij.plugins.haxe.ide.projectStructure.HaxeModuleConfigurationExtensionPoint"/>
   </extensionPoints>
   <extensions defaultExtensionNs="com.intellij">
-    <compileServer.plugin classpath="haxe-jps-plugin.jar;haxe-common.jar"/>
     <errorHandler implementation="com.intellij.diagnostic.ITNReporter"/>
     <testFinder implementation="com.intellij.plugins.haxe.ide.HaxeTestFinder"/>
 
-    <iconProvider implementation="com.intellij.plugins.haxe.ide.HaxeIconProvider"/>
+    <iconDescriptorUpdater implementation="com.intellij.plugins.haxe.ide.HaxeIconDescriptorUpdater"/>
     <qualifiedNameProvider implementation="com.intellij.plugins.haxe.ide.HaxeQualifiedNameProvider"/>
 
     <sdkType implementation="com.intellij.plugins.haxe.config.sdk.HaxeSdkType"/>
     <compiler implementation="com.intellij.plugins.haxe.compilation.HaxeCompiler"/>
 
     <moduleExtensionProvider key="haxe" implementationClass="org.consulo.haxe.module.extension.HaxeModuleExtensionProvider" />
-    <projectStructureDetector implementation="com.intellij.plugins.haxe.ide.projectStructure.detection.HaxeProjectStructureDetector"/>
+    <psi.packageSupportProvider implementation="org.consulo.haxe.module.extension.packageSupport.HaxePsiPackageSupportProvider" />
+	<projectStructureDetector implementation="com.intellij.plugins.haxe.ide.projectStructure.detection.HaxeProjectStructureDetector"/>
 
     <library.type implementation="com.intellij.plugins.haxe.ide.library.HaxeLibraryType"/>
 

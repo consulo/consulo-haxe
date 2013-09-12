@@ -19,8 +19,10 @@ import com.intellij.ide.IdeBundle;
 import com.intellij.ide.structureView.StructureViewModel;
 import com.intellij.ide.structureView.StructureViewModelBase;
 import com.intellij.ide.structureView.StructureViewTreeElement;
-import com.intellij.ide.structureView.impl.java.VisibilitySorter;
-import com.intellij.ide.util.treeView.smartTree.*;
+import com.intellij.ide.util.treeView.smartTree.ActionPresentation;
+import com.intellij.ide.util.treeView.smartTree.ActionPresentationData;
+import com.intellij.ide.util.treeView.smartTree.Filter;
+import com.intellij.ide.util.treeView.smartTree.TreeElement;
 import com.intellij.plugins.haxe.HaxeComponentType;
 import com.intellij.plugins.haxe.lang.psi.HaxeClass;
 import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
@@ -36,7 +38,7 @@ import org.jetbrains.annotations.NotNull;
 public class HaxeStructureViewModel extends StructureViewModelBase implements StructureViewModel.ElementInfoProvider {
   public HaxeStructureViewModel(@NotNull PsiFile psiFile) {
     super(psiFile, new HaxeStructureViewElement(psiFile));
-    withSorters(Sorter.ALPHA_SORTER, VisibilitySorter.INSTANCE);
+   // withSorters(Sorter.ALPHA_SORTER, VisibilitySorter.INSTANCE);
     withSuitableClasses(HaxeNamedComponent.class, HaxeClass.class);
   }
 

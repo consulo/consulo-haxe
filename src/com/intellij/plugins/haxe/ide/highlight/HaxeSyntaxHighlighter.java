@@ -69,8 +69,8 @@ public class HaxeSyntaxHighlighter extends SyntaxHighlighterBase {
     ATTRIBUTES.put(MSL_COMMENT, HaxeSyntaxHighlighterColors.LINE_COMMENT);
     ATTRIBUTES.put(DOC_COMMENT, HaxeSyntaxHighlighterColors.DOC_COMMENT);
 
-    safeMap(ATTRIBUTES, BAD_TOKENS, HaxeSyntaxHighlighterColors.BAD_CHARACTER);
-    safeMap(ATTRIBUTES, CONDITIONALLY_NOT_COMPILED, HaxeSyntaxHighlighterColors.CONDITIONALLY_NOT_COMPILED);
+    fillMap(ATTRIBUTES, BAD_TOKENS, HaxeSyntaxHighlighterColors.BAD_CHARACTER);
+	fillMap(ATTRIBUTES, CONDITIONALLY_NOT_COMPILED, HaxeSyntaxHighlighterColors.CONDITIONALLY_NOT_COMPILED);
   }
 
   @NotNull

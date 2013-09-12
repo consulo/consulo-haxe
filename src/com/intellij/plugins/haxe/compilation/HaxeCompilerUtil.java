@@ -20,7 +20,6 @@ import com.intellij.openapi.compiler.CompileContext;
 import com.intellij.openapi.compiler.CompilerMessageCategory;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.vfs.VfsUtilCore;
-import com.intellij.util.PathUtil;
 
 /**
  * @author: Fedor.Korotkov
@@ -34,7 +33,7 @@ public class HaxeCompilerUtil {
 
   private static void addErrorToContext(Module module, String error, CompileContext context) {
     final HaxeCompilerError compilerError = HaxeCompilerError.create(
-      PathUtil.getParentPath(module.getModuleFilePath()),
+      module.getModuleDirPath(),
       error,
       !ApplicationManager.getApplication().isUnitTestMode()
     );
