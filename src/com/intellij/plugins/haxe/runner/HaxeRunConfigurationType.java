@@ -17,7 +17,9 @@ package com.intellij.plugins.haxe.runner;
 
 import javax.swing.Icon;
 
+import org.consulo.haxe.module.extension.HaxeModuleExtension;
 import org.jetbrains.annotations.NotNull;
+import org.mustbe.consulo.module.extension.ModuleExtensionHelper;
 import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.configurations.ConfigurationType;
 import com.intellij.execution.configurations.RunConfiguration;
@@ -76,6 +78,12 @@ public class HaxeRunConfigurationType implements ConfigurationType
 		public HaxeFactory(ConfigurationType type)
 		{
 			super(type);
+		}
+
+		@Override
+		public boolean isApplicable(@NotNull Project project)
+		{
+			return ModuleExtensionHelper.getInstance(project).hasModuleExtension(HaxeModuleExtension.class);
 		}
 
 		@Override
