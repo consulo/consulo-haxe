@@ -15,10 +15,18 @@
  */
 package com.intellij.plugins.haxe.runner;
 
+import org.consulo.compiler.CompilerPathsManager;
+import org.jdom.Element;
+import org.jetbrains.annotations.NotNull;
+import org.mustbe.consulo.roots.impl.ProductionContentFolderTypeProvider;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.ExecutionResult;
 import com.intellij.execution.Executor;
-import com.intellij.execution.configurations.*;
+import com.intellij.execution.configurations.CommandLineState;
+import com.intellij.execution.configurations.ConfigurationPerRunnerSettings;
+import com.intellij.execution.configurations.GeneralCommandLine;
+import com.intellij.execution.configurations.RunProfile;
+import com.intellij.execution.configurations.RunProfileState;
 import com.intellij.execution.executors.DefaultRunExecutor;
 import com.intellij.execution.filters.TextConsoleBuilder;
 import com.intellij.execution.filters.TextConsoleBuilderFactory;
@@ -32,17 +40,12 @@ import com.intellij.ide.BrowserUtil;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ContentFolderType;
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
 import com.intellij.openapi.util.io.FileUtilRt;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.config.HaxeTarget;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
-import com.intellij.util.PathUtil;
-import org.consulo.compiler.CompilerPathsManager;
-import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author: Fedor.Korotkov
@@ -147,7 +150,7 @@ public class HaxeRunner extends DefaultProgramRunner {
 
   private static String getOutputFilePath(Module module, HaxeModuleSettings settings) {
     FileDocumentManager.getInstance().saveAllDocuments();
-    final String url = CompilerPathsManager.getInstance(module.getProject()).getCompilerOutputUrl(module, ContentFolderType.SOURCE);
+    final String url = CompilerPathsManager.getInstance(module.getProject()).getCompilerOutputUrl(module, ProductionContentFolderTypeProvider.getInstance());
     assert url != null;
     return url + "/release/" + settings.getOutputFileName();
   }

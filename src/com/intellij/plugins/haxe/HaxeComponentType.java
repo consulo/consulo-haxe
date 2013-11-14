@@ -15,12 +15,12 @@
  */
 package com.intellij.plugins.haxe;
 
+import javax.swing.Icon;
+
+import org.jetbrains.annotations.Nullable;
 import com.intellij.icons.AllIcons;
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.psi.PsiElement;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
 
 /**
  * @author: Fedor.Korotkov
@@ -29,17 +29,17 @@ public enum HaxeComponentType {
   CLASS(0) {
     @Override
     public Icon getIcon() {
-      return icons.HaxeIcons.C_haXe;
+      return AllIcons.Nodes.Class;
     }
   }, ENUM(1) {
     @Override
     public Icon getIcon() {
-      return icons.HaxeIcons.E_haXe;
+      return AllIcons.Nodes.Enum;
     }
   }, INTERFACE(2) {
     @Override
     public Icon getIcon() {
-      return icons.HaxeIcons.I_haXe;
+      return AllIcons.Nodes.Interface;
     }
   }, FUNCTION(3) {
     @Override

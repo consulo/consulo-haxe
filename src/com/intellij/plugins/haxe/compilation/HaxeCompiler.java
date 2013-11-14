@@ -15,18 +15,32 @@
  */
 package com.intellij.plugins.haxe.compilation;
 
+import java.io.DataInput;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.consulo.compiler.CompilerPathsManager;
+import org.consulo.haxe.module.extension.HaxeModuleExtension;
+import org.jetbrains.annotations.NotNull;
+import org.mustbe.consulo.roots.impl.ProductionContentFolderTypeProvider;
 import com.intellij.compiler.options.CompileStepBeforeRun;
 import com.intellij.execution.ExecutorRegistry;
 import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.execution.configurations.RunConfigurationModule;
 import com.intellij.execution.executors.DefaultDebugExecutor;
-import com.intellij.openapi.compiler.*;
+import com.intellij.openapi.compiler.CompileContext;
+import com.intellij.openapi.compiler.CompileScope;
+import com.intellij.openapi.compiler.CompilerManager;
+import com.intellij.openapi.compiler.CompilerMessageCategory;
+import com.intellij.openapi.compiler.EmptyValidityState;
+import com.intellij.openapi.compiler.SourceProcessingCompiler;
+import com.intellij.openapi.compiler.ValidityState;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkAdditionalData;
-import com.intellij.openapi.roots.ContentFolderType;
 import com.intellij.openapi.roots.OrderEnumerator;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.plugins.haxe.HaxeBundle;
@@ -36,14 +50,6 @@ import com.intellij.plugins.haxe.module.HaxeModuleSettingsBase;
 import com.intellij.plugins.haxe.runner.HaxeApplicationConfiguration;
 import com.intellij.plugins.haxe.runner.debugger.HaxeDebugRunner;
 import com.intellij.plugins.haxe.util.HaxeCommonCompilerUtil;
-import org.consulo.compiler.CompilerPathsManager;
-import org.consulo.haxe.module.extension.HaxeModuleExtension;
-import org.jetbrains.annotations.NotNull;
-
-import java.io.DataInput;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class HaxeCompiler implements SourceProcessingCompiler {
   private static final Logger LOG = Logger.getInstance("#com.intellij.plugins.haxe.compilation.HaxeCompiler");
@@ -191,7 +197,7 @@ public class HaxeCompiler implements SourceProcessingCompiler {
 
       @Override
       public String getCompileOutputPath() {
-        return CompilerPathsManager.getInstance(module.getProject()).getCompilerOutputUrl(module, ContentFolderType.SOURCE);
+        return CompilerPathsManager.getInstance(module.getProject()).getCompilerOutputUrl(module, ProductionContentFolderTypeProvider.getInstance());
       }
 
       @Override

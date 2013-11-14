@@ -1,0 +1,4 @@
+<options>
+	<dep>consulo-regexp</dep>
+	<dep>consulo-xml</dep>
+</options>

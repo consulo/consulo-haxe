@@ -15,6 +15,19 @@
  */
 package com.intellij.plugins.haxe.runner.ui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JList;
+import javax.swing.JPanel;
+
+import org.consulo.compiler.CompilerPathsManager;
+import org.consulo.haxe.module.extension.HaxeModuleExtension;
+import org.jetbrains.annotations.NotNull;
+import org.mustbe.consulo.roots.impl.ProductionContentFolderTypeProvider;
 import com.intellij.openapi.fileChooser.FileChooser;
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
 import com.intellij.openapi.module.Module;
@@ -23,7 +36,6 @@ import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SettingsEditor;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ContentFolderType;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.VfsUtil;
@@ -31,13 +43,6 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
 import com.intellij.plugins.haxe.runner.HaxeApplicationConfiguration;
 import com.intellij.ui.ListCellRendererWrapper;
-import org.consulo.compiler.CompilerPathsManager;
-import org.consulo.haxe.module.extension.HaxeModuleExtension;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class HaxeRunConfigurationEditorForm extends SettingsEditor<HaxeApplicationConfiguration> {
   private JPanel component;
@@ -150,7 +155,7 @@ public class HaxeRunConfigurationEditorForm extends SettingsEditor<HaxeApplicati
       final HaxeModuleSettings settings = HaxeModuleSettings.getInstance(getSelectedModule());
       final CompilerPathsManager compilerPathsManager = CompilerPathsManager.getInstance(project);
 
-      final String url = compilerPathsManager.getCompilerOutputUrl(getSelectedModule(), ContentFolderType.SOURCE) + "/" + settings.getOutputFileName();
+      final String url = compilerPathsManager.getCompilerOutputUrl(getSelectedModule(), ProductionContentFolderTypeProvider.getInstance()) + "/" + settings.getOutputFileName();
       myPathToFileTextField.setText(FileUtil.toSystemDependentName(VfsUtil.urlToPath(url)));
     }
     else {

@@ -15,6 +15,13 @@
  */
 package com.intellij.plugins.haxe.ide;
 
+import java.util.List;
+
+import javax.swing.Icon;
+
+import org.jetbrains.annotations.NotNull;
+import com.intellij.icons.AllIcons;
+import com.intellij.ide.IconDescriptor;
 import com.intellij.ide.fileTemplates.FileTemplate;
 import com.intellij.ide.fileTemplates.FileTemplateManager;
 import com.intellij.openapi.util.Condition;
@@ -22,10 +29,7 @@ import com.intellij.plugins.haxe.HaxeFileType;
 import com.intellij.plugins.haxe.nmml.NMMLFileType;
 import com.intellij.util.SmartList;
 import com.intellij.util.containers.ContainerUtil;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.util.List;
+import icons.HaxeIcons;
 
 /**
  * @author: Fedor.Korotkov
@@ -69,13 +73,13 @@ public class HaxeFileTemplateUtil {
   public static Icon getTemplateIcon(String name) {
     name = getTemplateShortName(name);
     if ("Class".equals(name)) {
-      return icons.HaxeIcons.C_haXe;
+      return new IconDescriptor(AllIcons.Nodes.Class).addLayerIcon(HaxeIcons.HaxeLang).toIcon();
     }
     else if ("Interface".equals(name)) {
-      return icons.HaxeIcons.I_haXe;
+      return new IconDescriptor(AllIcons.Nodes.Interface).addLayerIcon(HaxeIcons.HaxeLang).toIcon();
     }
     else if ("Enum".equals(name)) {
-      return icons.HaxeIcons.E_haXe;
+      return new IconDescriptor(AllIcons.Nodes.Enum).addLayerIcon(HaxeIcons.HaxeLang).toIcon();
     }
     return icons.HaxeIcons.HaXe_16;
   }

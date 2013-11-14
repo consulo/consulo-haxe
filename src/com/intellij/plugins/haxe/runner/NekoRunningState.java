@@ -15,6 +15,10 @@
  */
 package com.intellij.plugins.haxe.runner;
 
+import org.consulo.haxe.module.extension.HaxeModuleExtension;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.mustbe.consulo.compiler.roots.CompilerPathsImpl;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.configurations.CommandLineState;
 import com.intellij.execution.configurations.GeneralCommandLine;
@@ -23,7 +27,6 @@ import com.intellij.execution.filters.TextConsoleBuilderFactory;
 import com.intellij.execution.process.OSProcessHandler;
 import com.intellij.execution.process.ProcessHandler;
 import com.intellij.execution.runners.ExecutionEnvironment;
-import com.intellij.openapi.compiler.CompilerPaths;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleUtilCore;
 import com.intellij.openapi.projectRoots.Sdk;
@@ -32,9 +35,6 @@ import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.config.HaxeTarget;
 import com.intellij.plugins.haxe.config.sdk.HaxeSdkData;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
-import org.consulo.haxe.module.extension.HaxeModuleExtension;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 public class NekoRunningState extends CommandLineState {
   private final Module module;
@@ -75,7 +75,7 @@ public class NekoRunningState extends CommandLineState {
       commandLine.addParameter(customFileToLaunch);
     }
     else {
-      final VirtualFile outputDirectory = CompilerPaths.getModuleOutputDirectory(module, false);
+      final VirtualFile outputDirectory = CompilerPathsImpl.getModuleOutputDirectory(module, false);
       final VirtualFile fileToLaunch = outputDirectory != null ? outputDirectory.findChild(settings.getOutputFileName()) : null;
       if (fileToLaunch != null) {
         commandLine.addParameter(fileToLaunch.getPath());

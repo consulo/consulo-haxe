@@ -15,6 +15,24 @@
  */
 package com.intellij.plugins.haxe.ide.projectStructure.ui;
 
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.ButtonGroup;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import org.consulo.compiler.CompilerPathsManager;
+import org.mustbe.consulo.roots.impl.ProductionContentFolderTypeProvider;
 import com.intellij.ide.actions.ShowSettingsUtilImpl;
 import com.intellij.ide.util.TreeFileChooser;
 import com.intellij.ide.util.TreeFileChooserFactory;
@@ -26,7 +44,6 @@ import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.UnnamedConfigurable;
 import com.intellij.openapi.options.ex.SingleConfigurableEditor;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ContentFolderType;
 import com.intellij.openapi.roots.impl.DirectoryIndex;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
 import com.intellij.openapi.util.io.FileUtil;
@@ -47,14 +64,6 @@ import com.intellij.ui.RawCommandLineEditor;
 import com.intellij.ui.components.JBRadioButton;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
-import org.consulo.compiler.CompilerPathsManager;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author: Fedor.Korotkov
@@ -326,7 +335,7 @@ public class HaxeConfigurationEditor {
     assert settings != null;
 
     CompilerPathsManager manager = CompilerPathsManager.getInstance(myModule.getProject());
-    final String url = manager.getCompilerOutputUrl(myModule, ContentFolderType.SOURCE);
+    final String url = manager.getCompilerOutputUrl(myModule, ProductionContentFolderTypeProvider.getInstance());
     final String urlCandidate = VfsUtilCore.pathToUrl(myFolderTextField.getText());
     boolean result = !urlCandidate.equals(url);
 
@@ -366,7 +375,7 @@ public class HaxeConfigurationEditor {
     }
 
     CompilerPathsManager manager = CompilerPathsManager.getInstance(myModule.getProject());
-    final String url = manager.getCompilerOutputUrl(myModule, ContentFolderType.SOURCE);
+    final String url = manager.getCompilerOutputUrl(myModule, ProductionContentFolderTypeProvider.getInstance());
     myFolderTextField.setText(VfsUtil.urlToPath(url));
     myHxmlFileChooserTextField.setText(settings.getHxmlPath());
     myNMEFileChooserTextField.setText(settings.getNmmlPath());
@@ -407,12 +416,12 @@ public class HaxeConfigurationEditor {
     }
 
     CompilerPathsManager manager = CompilerPathsManager.getInstance(myModule.getProject());
-    final String url = manager.getCompilerOutputUrl(myModule, ContentFolderType.SOURCE);
+    final String url = manager.getCompilerOutputUrl(myModule, ProductionContentFolderTypeProvider.getInstance());
 
     final String urlCandidate = VfsUtil.pathToUrl(myFolderTextField.getText());
 
     if (!urlCandidate.equals(url)) {
-      manager.setCompilerOutputUrl(myModule, ContentFolderType.SOURCE, urlCandidate);
+      manager.setCompilerOutputUrl(myModule, ProductionContentFolderTypeProvider.getInstance(), urlCandidate);
     }
   }
 

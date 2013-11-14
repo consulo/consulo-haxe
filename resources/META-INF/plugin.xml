@@ -142,6 +142,7 @@
 						 key="haxe.inspection.unused.import.name"
 						 groupKey="inspections.group.name" enabledByDefault="true"
 						 implementationClass="com.intellij.plugins.haxe.ide.inspections.HaxeUnusedImportInspection"/>
+		<lang.elementIcon language="haXe" file="/icons/haxeLang.png" />
 	</extensions>
 
 	<actions>
