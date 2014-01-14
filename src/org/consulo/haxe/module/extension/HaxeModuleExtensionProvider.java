@@ -15,14 +15,14 @@
  */
 package org.consulo.haxe.module.extension;
 
-import com.intellij.openapi.module.Module;
-import com.intellij.plugins.haxe.HaxeBundle;
-import icons.HaxeIcons;
+import javax.swing.Icon;
+
 import org.consulo.module.extension.ModuleExtensionProvider;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
+import com.intellij.openapi.module.Module;
+import com.intellij.plugins.haxe.HaxeBundle;
+import icons.HaxeIcons;
 
 /**
  * @author VISTALL
@@ -39,12 +39,6 @@ public class HaxeModuleExtensionProvider implements ModuleExtensionProvider<Haxe
   @Override
   public String getName() {
     return HaxeBundle.message("haxe.title");
-  }
-
-  @NotNull
-  @Override
-  public Class<HaxeModuleExtension> getImmutableClass() {
-    return HaxeModuleExtension.class;
   }
 
   @NotNull
