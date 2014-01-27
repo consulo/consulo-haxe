@@ -28,14 +28,16 @@ import com.intellij.plugins.haxe.config.sdk.HaxeSdkType;
  * @since 13:54/16.06.13
  */
 @ContentFoldersSupport(value = ProductionContentFolderTypeProvider.class)
-public class HaxeModuleExtension extends ModuleExtensionWithSdkImpl<HaxeModuleExtension> {
-  public HaxeModuleExtension(@NotNull String id,
-                             @NotNull Module module) {
-    super(id, module);
-  }
+public class HaxeModuleExtension extends ModuleExtensionWithSdkImpl<HaxeModuleExtension>
+{
+	public HaxeModuleExtension(@NotNull String id, @NotNull Module module)
+	{
+		super(id, module);
+	}
 
-  @Override
-  protected Class<? extends SdkType> getSdkTypeClass() {
-    return HaxeSdkType.class;
-  }
+	@Override
+	protected Class<? extends SdkType> getSdkTypeClass()
+	{
+		return HaxeSdkType.class;
+	}
 }

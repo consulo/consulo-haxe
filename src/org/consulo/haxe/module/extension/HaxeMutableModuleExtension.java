@@ -15,53 +15,50 @@
  */
 package org.consulo.haxe.module.extension;
 
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.roots.ModifiableRootModel;
+import javax.swing.JComponent;
+
 import org.consulo.module.extension.MutableModuleExtensionWithSdk;
 import org.consulo.module.extension.MutableModuleInheritableNamedPointer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
+import com.intellij.openapi.module.Module;
+import com.intellij.openapi.projectRoots.Sdk;
+import com.intellij.openapi.roots.ModifiableRootModel;
 
 /**
  * @author VISTALL
  * @since 14:48/16.06.13
  */
-public class HaxeMutableModuleExtension extends HaxeModuleExtension implements MutableModuleExtensionWithSdk<HaxeModuleExtension> {
-  @NotNull private final HaxeModuleExtension myModuleExtension;
+public class HaxeMutableModuleExtension extends HaxeModuleExtension implements MutableModuleExtensionWithSdk<HaxeModuleExtension>
+{
+	public HaxeMutableModuleExtension(@NotNull String id, @NotNull Module module)
+	{
+		super(id, module);
+	}
 
-  public HaxeMutableModuleExtension(@NotNull String id, @NotNull Module module, @NotNull HaxeModuleExtension moduleExtension) {
-    super(id, module);
-    myModuleExtension = moduleExtension;
-    commit(moduleExtension);
-  }
+	@Nullable
+	@Override
+	public JComponent createConfigurablePanel(@NotNull ModifiableRootModel model, @Nullable Runnable runnable)
+	{
+		return null;
+	}
 
-  @Nullable
-  @Override
-  public JComponent createConfigurablePanel(@NotNull ModifiableRootModel model, @Nullable Runnable runnable) {
-    return null;
-  }
+	@Override
+	public void setEnabled(boolean b)
+	{
+		myIsEnabled = b;
+	}
 
-  @Override
-  public void setEnabled(boolean b) {
-    myIsEnabled = b;
-  }
+	@Override
+	public boolean isModified(@NotNull HaxeModuleExtension extension)
+	{
+		return isModifiedImpl(extension);
+	}
 
-  @Override
-  public boolean isModified() {
-    return isModifiedImpl(myModuleExtension);
-  }
-
-  @Override
-  public void commit() {
-    myModuleExtension.commit(this);
-  }
-
-  @NotNull
-  @Override
-  public MutableModuleInheritableNamedPointer<Sdk> getInheritableSdk() {
-    return (MutableModuleInheritableNamedPointer<Sdk>)super.getInheritableSdk();
-  }
+	@NotNull
+	@Override
+	public MutableModuleInheritableNamedPointer<Sdk> getInheritableSdk()
+	{
+		return (MutableModuleInheritableNamedPointer<Sdk>) super.getInheritableSdk();
+	}
 }

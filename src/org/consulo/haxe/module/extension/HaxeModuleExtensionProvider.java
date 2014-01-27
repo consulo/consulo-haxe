@@ -28,28 +28,33 @@ import icons.HaxeIcons;
  * @author VISTALL
  * @since 14:48/16.06.13
  */
-public class HaxeModuleExtensionProvider implements ModuleExtensionProvider<HaxeModuleExtension, HaxeMutableModuleExtension> {
-  @Nullable
-  @Override
-  public Icon getIcon() {
-    return HaxeIcons.HaXe_16;
-  }
+public class HaxeModuleExtensionProvider implements ModuleExtensionProvider<HaxeModuleExtension, HaxeMutableModuleExtension>
+{
+	@Nullable
+	@Override
+	public Icon getIcon()
+	{
+		return HaxeIcons.HaXe_16;
+	}
 
-  @NotNull
-  @Override
-  public String getName() {
-    return HaxeBundle.message("haxe.title");
-  }
+	@NotNull
+	@Override
+	public String getName()
+	{
+		return HaxeBundle.message("haxe.title");
+	}
 
-  @NotNull
-  @Override
-  public HaxeModuleExtension createImmutable(@NotNull String s, @NotNull Module module) {
-    return new HaxeModuleExtension(s, module);
-  }
+	@NotNull
+	@Override
+	public HaxeModuleExtension createImmutable(@NotNull String s, @NotNull Module module)
+	{
+		return new HaxeModuleExtension(s, module);
+	}
 
-  @NotNull
-  @Override
-  public HaxeMutableModuleExtension createMutable(@NotNull String s, @NotNull Module module, @NotNull HaxeModuleExtension extension) {
-    return new HaxeMutableModuleExtension(s, module, extension);
-  }
+	@NotNull
+	@Override
+	public HaxeMutableModuleExtension createMutable(@NotNull String s, @NotNull Module module)
+	{
+		return new HaxeMutableModuleExtension(s, module);
+	}
 }
