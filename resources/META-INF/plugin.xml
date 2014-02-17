@@ -22,6 +22,7 @@
 	<vendor>JetBrains</vendor>
 
 	<depends>com.intellij.regexp</depends>
+	<depends>com.intellij.xml</depends>
 
 	<extensionPoints>
 		<extensionPoint name="module.config" interface="com.intellij.plugins.haxe.ide.projectStructure.HaxeModuleConfigurationExtensionPoint"/>
