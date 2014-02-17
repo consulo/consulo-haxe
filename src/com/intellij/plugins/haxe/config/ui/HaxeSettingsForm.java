@@ -36,19 +36,19 @@ public class HaxeSettingsForm {
   }
 
   public boolean isModified(HaxeProjectSettings settings) {
-    final List<String> oldList = Arrays.asList(settings.getUserCompilerDefinitions());
+    final List<String> oldList = Arrays.asList(settings.getCompilerDefinitions());
     final List<String> newList = Arrays.asList(myAddDeleteListPanel.getItems());
     final boolean isEqual = oldList.size() == newList.size() && oldList.containsAll(newList);
     return !isEqual;
   }
 
   public void applyEditorTo(HaxeProjectSettings settings) {
-    settings.setUserCompilerDefinitions(myAddDeleteListPanel.getItems());
+    settings.setCompilerDefinitions(myAddDeleteListPanel.getItems());
   }
 
   public void resetEditorFrom(HaxeProjectSettings settings) {
     myAddDeleteListPanel.removeALlItems();
-    for (String item : settings.getUserCompilerDefinitions()) {
+    for (String item : settings.getCompilerDefinitions()) {
       myAddDeleteListPanel.addItem(item);
     }
   }

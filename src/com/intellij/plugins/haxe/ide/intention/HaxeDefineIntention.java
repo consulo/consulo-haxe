@@ -62,7 +62,7 @@ public class HaxeDefineIntention implements IntentionAction {
   public void invoke(@NotNull Project project, Editor editor, PsiFile file) throws IncorrectOperationException {
     final HaxeProjectSettings projectSettings = HaxeProjectSettings.getInstance(file.getProject());
     final Set<String> definitions = projectSettings.getUserCompilerDefinitionsAsSet();
-    projectSettings.setUserCompilerDefinitions(changeDefinitions(definitions));
+    projectSettings.setCompilerDefinitions(changeDefinitions(definitions));
     HaxeUtil.reparseProjectFiles(project);
   }
 

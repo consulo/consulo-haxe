@@ -231,7 +231,7 @@ public class HaxeConfigurationEditor {
   }
 
   private void updateMacroses() {
-    final String[] userCompilerDefinitions = HaxeProjectSettings.getInstance(myModule.getProject()).getUserCompilerDefinitions();
+    final String[] userCompilerDefinitions = HaxeProjectSettings.getInstance(myModule.getProject()).getCompilerDefinitions();
     myDefinedMacroses.setText(StringUtil.join(userCompilerDefinitions, ","));
   }
 

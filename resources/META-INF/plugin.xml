@@ -18,7 +18,7 @@
 	<name>haXe Support</name>
 	<description>Support for haXe programming language</description>
 	<category>Custom Languages</category>
-	<version>0.6.4</version>
+	<version>SNAPSHOT</version>
 	<vendor>JetBrains</vendor>
 
 	<depends>com.intellij.regexp</depends>
