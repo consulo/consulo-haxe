@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2009 JetBrains s.r.o.
+ * Copyright 2013-2014 must-be.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -104,7 +104,8 @@ public class HaxePsiPackageReference extends PsiPolyVariantReferenceBase<PsiElem
 			throw new IncorrectOperationException("Cannot bind to " + element);
 		}
 		final String newName = ((HaxePackage) element).getQualifiedName();
-		final TextRange range = new TextRange(getReferenceSet().getReference(0).getRangeInElement().getStartOffset(), getRangeInElement().getEndOffset());
+		final TextRange range = new TextRange(getReferenceSet().getReference(0).getRangeInElement().getStartOffset(),
+				getRangeInElement().getEndOffset());
 		final ElementManipulator<PsiElement> manipulator = ElementManipulators.getManipulator(getElement());
 		return manipulator.handleContentChange(getElement(), range, newName);
 	}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2000-2013 JetBrains s.r.o.
+ * Copyright 2013-2014 must-be.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import javax.swing.JComponent;
 
 import org.consulo.module.extension.MutableModuleExtensionWithSdk;
 import org.consulo.module.extension.MutableModuleInheritableNamedPointer;
+import org.consulo.module.extension.ui.ModuleExtensionWithSdkPanel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.module.Module;
@@ -40,7 +41,7 @@ public class HaxeMutableModuleExtension extends HaxeModuleExtension implements M
 	@Override
 	public JComponent createConfigurablePanel(@NotNull ModifiableRootModel model, @Nullable Runnable runnable)
 	{
-		return null;
+		return wrapToNorth(new ModuleExtensionWithSdkPanel(this, runnable));
 	}
 
 	@Override
