@@ -15,13 +15,13 @@
  */
 package com.intellij.plugins.haxe;
 
+import javax.swing.Icon;
+
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.vfs.CharsetToolkit;
 import com.intellij.openapi.vfs.VirtualFile;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
 
 public class HaxeFileType extends LanguageFileType {
   public static final HaxeFileType HAXE_FILE_TYPE = new HaxeFileType();
@@ -33,24 +33,28 @@ public class HaxeFileType extends LanguageFileType {
     super(HaxeLanguage.INSTANCE);
   }
 
+  @Override
   @NotNull
   @NonNls
   public String getName() {
     return HaxeBundle.message("haxe.file.type.name");
   }
 
+  @Override
   @NonNls
   @NotNull
   public String getDescription() {
     return HaxeBundle.message("haxe.file.type.description");
   }
 
+  @Override
   @NotNull
   @NonNls
   public String getDefaultExtension() {
     return DEFAULT_EXTENSION;
   }
 
+  @Override
   public Icon getIcon() {
     return icons.HaxeIcons.HaXe_16;
   }
