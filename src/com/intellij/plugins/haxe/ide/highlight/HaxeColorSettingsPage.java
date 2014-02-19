@@ -15,20 +15,21 @@
  */
 package com.intellij.plugins.haxe.ide.highlight;
 
+import static com.intellij.plugins.haxe.ide.highlight.HaxeSyntaxHighlighterColors.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.Icon;
+
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
 import com.intellij.openapi.options.colors.ColorDescriptor;
 import com.intellij.openapi.options.colors.ColorSettingsPage;
 import com.intellij.plugins.haxe.HaxeBundle;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.intellij.plugins.haxe.ide.highlight.HaxeSyntaxHighlighterColors.*;
 
 /**
  * @author fedor.korotkov
@@ -86,7 +87,7 @@ public class HaxeColorSettingsPage implements ColorSettingsPage {
 
   @Override
   public Icon getIcon() {
-    return icons.HaxeIcons.HaXe_16;
+    return icons.HaxeIcons.HaXe;
   }
 
   @NotNull

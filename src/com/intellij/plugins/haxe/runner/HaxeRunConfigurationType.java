@@ -27,6 +27,7 @@ import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.util.containers.ContainerUtil;
+import icons.HaxeIcons;
 
 public class HaxeRunConfigurationType implements ConfigurationType
 {
@@ -57,7 +58,7 @@ public class HaxeRunConfigurationType implements ConfigurationType
 	@Override
 	public Icon getIcon()
 	{
-		return icons.HaxeIcons.HaXe_16;
+		return HaxeIcons.HaXe;
 	}
 
 	@Override

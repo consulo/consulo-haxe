@@ -15,19 +15,24 @@
  */
 package com.intellij.plugins.haxe.config.sdk;
 
+import javax.swing.Icon;
+
+import org.jdom.Element;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
 import com.intellij.openapi.fileChooser.PathChooserDialog;
-import com.intellij.openapi.projectRoots.*;
+import com.intellij.openapi.projectRoots.AdditionalDataConfigurable;
+import com.intellij.openapi.projectRoots.Sdk;
+import com.intellij.openapi.projectRoots.SdkAdditionalData;
+import com.intellij.openapi.projectRoots.SdkModel;
+import com.intellij.openapi.projectRoots.SdkModificator;
+import com.intellij.openapi.projectRoots.SdkType;
 import com.intellij.openapi.roots.OrderRootType;
 import com.intellij.openapi.util.SystemInfo;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.HaxeCommonBundle;
 import com.intellij.util.xmlb.XmlSerializer;
 import icons.HaxeIcons;
-import org.jdom.Element;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
 
 public class HaxeSdkType extends SdkType {
   public HaxeSdkType() {
@@ -36,13 +41,13 @@ public class HaxeSdkType extends SdkType {
 
   @Override
   public Icon getIcon() {
-    return icons.HaxeIcons.HaXe_16;
+    return icons.HaxeIcons.HaXe;
   }
 
   @Nullable
   @Override
   public Icon getGroupIcon() {
-    return HaxeIcons.HaXe_16;
+    return HaxeIcons.HaXe;
   }
 
   public static HaxeSdkType getInstance() {

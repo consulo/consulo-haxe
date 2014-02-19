@@ -15,16 +15,22 @@
  */
 package com.intellij.plugins.haxe.ide.library;
 
+import javax.swing.Icon;
+import javax.swing.JComponent;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.libraries.*;
+import com.intellij.openapi.roots.libraries.DummyLibraryProperties;
+import com.intellij.openapi.roots.libraries.LibraryType;
+import com.intellij.openapi.roots.libraries.LibraryTypeService;
+import com.intellij.openapi.roots.libraries.NewLibraryConfiguration;
+import com.intellij.openapi.roots.libraries.PersistentLibraryKind;
 import com.intellij.openapi.roots.libraries.ui.LibraryEditorComponent;
 import com.intellij.openapi.roots.libraries.ui.LibraryPropertiesEditor;
 import com.intellij.openapi.roots.libraries.ui.LibraryRootsComponentDescriptor;
 import com.intellij.openapi.vfs.VirtualFile;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
+import icons.HaxeIcons;
 
 /**
  * @author: Fedor.Korotkov
@@ -71,7 +77,7 @@ public class HaxeLibraryType extends LibraryType<DummyLibraryProperties> {
 
   @Override
   public Icon getIcon() {
-    return icons.HaxeIcons.HaXe_16;
+    return HaxeIcons.HaXe;
   }
 
   public static HaxeLibraryType getInstance() {

@@ -34,7 +34,7 @@ public class HaxeModuleExtensionProvider implements ModuleExtensionProvider<Haxe
 	@Override
 	public Icon getIcon()
 	{
-		return HaxeIcons.HaXe_16;
+		return HaxeIcons.HaXe;
 	}
 
 	@NotNull

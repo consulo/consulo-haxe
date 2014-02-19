@@ -81,6 +81,6 @@ public class HaxeFileTemplateUtil {
     else if ("Enum".equals(name)) {
       return new IconDescriptor(AllIcons.Nodes.Enum).addLayerIcon(HaxeIcons.HaxeLang).toIcon();
     }
-    return icons.HaxeIcons.HaXe_16;
+    return icons.HaxeIcons.HaXe;
   }
 }
