@@ -21,6 +21,6 @@ public class HaxeLanguage extends Language {
   public static HaxeLanguage INSTANCE = new HaxeLanguage();
 
   private HaxeLanguage() {
-    super("haXe");
+    super("HAXE");
   }
 }

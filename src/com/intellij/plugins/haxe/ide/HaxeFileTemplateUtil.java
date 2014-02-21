@@ -35,7 +35,7 @@ import icons.HaxeIcons;
  * @author: Fedor.Korotkov
  */
 public class HaxeFileTemplateUtil {
-  private final static String HAXE_TEMPLATE_PREFIX = "haXe ";
+  private final static String HAXE_TEMPLATE_PREFIX = "Haxe ";
 
   public static List<FileTemplate> getApplicableTemplates() {
     return getApplicableTemplates(new Condition<FileTemplate>() {
@@ -81,6 +81,6 @@ public class HaxeFileTemplateUtil {
     else if ("Enum".equals(name)) {
       return new IconDescriptor(AllIcons.Nodes.Enum).addLayerIcon(HaxeIcons.HaxeLang).toIcon();
     }
-    return icons.HaxeIcons.HaXe;
+    return icons.HaxeIcons.Haxe;
   }
 }

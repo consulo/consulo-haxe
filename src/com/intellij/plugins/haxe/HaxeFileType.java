@@ -37,7 +37,7 @@ public class HaxeFileType extends LanguageFileType {
   @NotNull
   @NonNls
   public String getName() {
-    return HaxeBundle.message("haxe.file.type.name");
+    return "HAXE";
   }
 
   @Override
@@ -56,7 +56,7 @@ public class HaxeFileType extends LanguageFileType {
 
   @Override
   public Icon getIcon() {
-    return icons.HaxeIcons.HaXe;
+    return icons.HaxeIcons.Haxe;
   }
 
   @Override

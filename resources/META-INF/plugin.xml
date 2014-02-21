@@ -15,8 +15,8 @@
   -->
 <idea-plugin version="2">
 	<id>com.intellij.plugins.haxe</id>
-	<name>haXe Support</name>
-	<description>Support for haXe programming language</description>
+	<name>Haxe Support</name>
+	<description>Support for Haxe programming language</description>
 	<category>Custom Languages</category>
 	<version>SNAPSHOT</version>
 	<vendor>JetBrains</vendor>
@@ -49,24 +49,24 @@
 
 		<programRunner implementation="com.intellij.plugins.haxe.runner.HaxeRunner"/>
 
-		<lang.parserDefinition language="haXe" implementationClass="com.intellij.plugins.haxe.lang.parser.HaxeParserDefinition"/>
-		<lang.formatter language="haXe" implementationClass="com.intellij.plugins.haxe.ide.formatter.HaxeFormattingModelBuilder"/>
-		<lang.syntaxHighlighterFactory key="haXe" implementationClass="com.intellij.plugins.haxe.ide.highlight.HaxeSyntaxHighlighterFactory"/>
+		<lang.parserDefinition language="HAXE" implementationClass="com.intellij.plugins.haxe.lang.parser.HaxeParserDefinition"/>
+		<lang.formatter language="HAXE" implementationClass="com.intellij.plugins.haxe.ide.formatter.HaxeFormattingModelBuilder"/>
+		<lang.syntaxHighlighterFactory key="HAXE" implementationClass="com.intellij.plugins.haxe.ide.highlight.HaxeSyntaxHighlighterFactory"/>
 
-		<lang.braceMatcher language="haXe" implementationClass="com.intellij.plugins.haxe.ide.HaxeBraceMatcher"/>
+		<lang.braceMatcher language="HAXE" implementationClass="com.intellij.plugins.haxe.ide.HaxeBraceMatcher"/>
 		<typedHandler implementation="com.intellij.plugins.haxe.ide.editor.HaxeTypedHandler" id="haxe"/>
 
-		<lang.findUsagesProvider language="haXe" implementationClass="com.intellij.plugins.haxe.ide.HaxeFindUsagesProvider"/>
-		<lang.implementationTextSelectioner language="haXe"
+		<lang.findUsagesProvider language="HAXE" implementationClass="com.intellij.plugins.haxe.ide.HaxeFindUsagesProvider"/>
+		<lang.implementationTextSelectioner language="HAXE"
 											implementationClass="com.intellij.plugins.haxe.ide.HaxeImplementationTextSelectioner"/>
-		<lang.documentationProvider language="haXe" implementationClass="com.intellij.plugins.haxe.ide.HaxeDocumentationProvider"/>
-		<lang.commenter language="haXe" implementationClass="com.intellij.plugins.haxe.ide.HaxeCommenter"/>
-		<lang.psiStructureViewFactory language="haXe" implementationClass="com.intellij.plugins.haxe.ide.structure.HaxeStructureViewFactory"/>
-		<lang.surroundDescriptor language="haXe" implementationClass="com.intellij.plugins.haxe.ide.surroundWith.HaxeSurroundDescriptor"/>
-		<lang.refactoringSupport language="haXe"
+		<lang.documentationProvider language="HAXE" implementationClass="com.intellij.plugins.haxe.ide.HaxeDocumentationProvider"/>
+		<lang.commenter language="HAXE" implementationClass="com.intellij.plugins.haxe.ide.HaxeCommenter"/>
+		<lang.psiStructureViewFactory language="HAXE" implementationClass="com.intellij.plugins.haxe.ide.structure.HaxeStructureViewFactory"/>
+		<lang.surroundDescriptor language="HAXE" implementationClass="com.intellij.plugins.haxe.ide.surroundWith.HaxeSurroundDescriptor"/>
+		<lang.refactoringSupport language="HAXE"
 								 implementationClass="com.intellij.plugins.haxe.ide.refactoring.HaxeRefactoringSupportProvider"/>
-		<lang.foldingBuilder language="haXe" implementationClass="com.intellij.plugins.haxe.ide.folding.HaxeFoldingBuilder"/>
-		<lang.importOptimizer language="haXe" implementationClass="com.intellij.plugins.haxe.ide.HaxeImportOptimizer"/>
+		<lang.foldingBuilder language="HAXE" implementationClass="com.intellij.plugins.haxe.ide.folding.HaxeFoldingBuilder"/>
+		<lang.importOptimizer language="HAXE" implementationClass="com.intellij.plugins.haxe.ide.HaxeImportOptimizer"/>
 
 		<languageInjector implementation="com.intellij.plugins.haxe.lang.RegexLanguageInjector"/>
 		<lang.elementManipulator forClass="com.intellij.plugins.haxe.lang.psi.HaxeRegularExpressionLiteral"
@@ -74,14 +74,14 @@
 
 		<moveFileHandler implementation="com.intellij.plugins.haxe.ide.refactoring.move.HaxeFileMoveHandler"/>
 
-		<codeInsight.lineMarkerProvider language="haXe" implementationClass="com.intellij.plugins.haxe.ide.HaxeLineMarkerProvider"/>
-		<codeInsight.gotoSuper language="haXe" implementationClass="com.intellij.plugins.haxe.ide.HaxeGotoSuperHandler"/>
+		<codeInsight.lineMarkerProvider language="HAXE" implementationClass="com.intellij.plugins.haxe.ide.HaxeLineMarkerProvider"/>
+		<codeInsight.gotoSuper language="HAXE" implementationClass="com.intellij.plugins.haxe.ide.HaxeGotoSuperHandler"/>
 
-		<codeInsight.overrideMethod language="haXe"
+		<codeInsight.overrideMethod language="HAXE"
 									implementationClass="com.intellij.plugins.haxe.ide.generation.HaxeOverrideMethodHandler"/>
-		<codeInsight.implementMethod language="haXe"
+		<codeInsight.implementMethod language="HAXE"
 									 implementationClass="com.intellij.plugins.haxe.ide.generation.HaxeImplementMethodHandler"/>
-		<codeInsight.parameterInfo language="haXe"
+		<codeInsight.parameterInfo language="HAXE"
 								   implementationClass="com.intellij.plugins.haxe.ide.info.HaxeParameterInfoHandler"/>
 
 		<colorSettingsPage implementation="com.intellij.plugins.haxe.ide.highlight.HaxeColorSettingsPage"/>
@@ -91,11 +91,11 @@
 		<codeStyleSettingsProvider implementation="com.intellij.plugins.haxe.ide.formatter.settings.HaxeCodeStyleSettingsProvider"/>
 		<langCodeStyleSettingsProvider implementation="com.intellij.plugins.haxe.ide.formatter.settings.HaxeLanguageCodeStyleSettingsProvider"/>
 
-		<quoteHandler fileType="haXe" className="com.intellij.plugins.haxe.ide.HaxeQuoteHandler"/>
+		<quoteHandler fileType="HAXE" className="com.intellij.plugins.haxe.ide.HaxeQuoteHandler"/>
 
 		<completion.contributor language="any" implementationClass="com.intellij.plugins.haxe.ide.HaxeKeywordCompletionContributor"/>
-		<completion.contributor language="haXe" implementationClass="com.intellij.plugins.haxe.ide.HaxeClassNameCompletionContributor"/>
-		<completion.contributor language="haXe" implementationClass="com.intellij.plugins.haxe.ide.HaxeSmartCompletionContributor"/>
+		<completion.contributor language="HAXE" implementationClass="com.intellij.plugins.haxe.ide.HaxeClassNameCompletionContributor"/>
+		<completion.contributor language="HAXE" implementationClass="com.intellij.plugins.haxe.ide.HaxeSmartCompletionContributor"/>
 
 		<configurationType implementation="com.intellij.plugins.haxe.runner.HaxeRunConfigurationType"/>
 		<!--<configurationType implementation="com.intellij.plugins.haxe.runner.debugger.hxcpp.HXCPPRemoteRunConfigurationType"/> -->
@@ -103,9 +103,9 @@
 		<moduleService serviceInterface="com.intellij.plugins.haxe.ide.module.HaxeModuleSettings"
 					   serviceImplementation="com.intellij.plugins.haxe.ide.module.HaxeModuleSettings"/>
 
-		<internalFileTemplate name="haXe Class"/>
-		<internalFileTemplate name="haXe Interface"/>
-		<internalFileTemplate name="haXe Enum"/>
+		<internalFileTemplate name="Haxe Class"/>
+		<internalFileTemplate name="Haxe Interface"/>
+		<internalFileTemplate name="Haxe Enum"/>
 		<internalFileTemplate name="NMML Project File"/>
 
 		<liveTemplateMacro implementation="com.intellij.plugins.haxe.ide.template.macro.HaxeArrayVariableMacro"/>
@@ -130,25 +130,25 @@
 		<projectConfigurable instance="com.intellij.plugins.haxe.config.HaxeSettingsConfigurable" id="haxe.settings" key="haxe.settings.name"
 							 bundle="com.intellij.plugins.haxe.HaxeBundle" nonDefaultProject="true"/>
 
-		<annotator language="haXe" implementationClass="com.intellij.plugins.haxe.ide.annotator.HaxeColorAnnotator"/>
-		<annotator language="haXe" implementationClass="com.intellij.plugins.haxe.ide.annotator.HaxeTypeAnnotator"/>
-		<!--<annotator language="haXe" implementationClass="com.intellij.plugins.haxe.ide.annotator.HaxeAnnotatingVisitor"/>-->
+		<annotator language="HAXE" implementationClass="com.intellij.plugins.haxe.ide.annotator.HaxeColorAnnotator"/>
+		<annotator language="HAXE" implementationClass="com.intellij.plugins.haxe.ide.annotator.HaxeTypeAnnotator"/>
+		<!--<annotator language="HAXE" implementationClass="com.intellij.plugins.haxe.ide.annotator.HaxeAnnotatingVisitor"/>-->
 
 		<localInspection language="XML" shortName="NMEBuildDirectory" bundle="com.intellij.plugins.haxe.HaxeBundle"
 						 key="haxe.inspections.nme.build.directory" groupKey="haxe.inspections.group.name" enabledByDefault="true"
 						 level="WARNING" implementationClass="com.intellij.plugins.haxe.codeInspection.NMEBuildDirectoryInspection"/>
 
 
-		<localInspection language="haXe" shortName="HaxeUnusedImport" bundle="com.intellij.plugins.haxe.HaxeBundle"
+		<localInspection language="HAXE" shortName="HaxeUnusedImport" bundle="com.intellij.plugins.haxe.HaxeBundle"
 						 key="haxe.inspection.unused.import.name"
 						 groupKey="inspections.group.name" enabledByDefault="true"
 						 implementationClass="com.intellij.plugins.haxe.ide.inspections.HaxeUnusedImportInspection"/>
-		<lang.elementIcon language="haXe" file="/icons/haXeLang.png" />
+		<lang.elementIcon language="HAXE" file="/icons/haxeLang.png" />
 	</extensions>
 
 	<actions>
 		<action id="Haxe.NewHaxeClass" class="com.intellij.plugins.haxe.ide.actions.CreateClassAction"
-				text="haXe Class" description="Create new haXe class/interface/enum">
+				text="Haxe Class" description="Create new Haxe class/interface/enum">
 			<add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFile"/>
 		</action>
 		<action id="Haxe.NewNMMLFile" class="com.intellij.plugins.haxe.ide.actions.CreateNMMLFileAction"

@@ -28,7 +28,7 @@ public class HaxeIcons {
     return IconLoader.getIcon(path, HaxeIcons.class);
   }
 
-  public static final Icon HaxeLang = load("/icons/haXeLang.png"); // 16x16
-  public static final Icon HaXe = load("/icons/haXe.png"); // 16x16
+  public static final Icon HaxeLang = load("/icons/haxeLang.png"); // 16x16
+  public static final Icon Haxe = load("/icons/haxe.png"); // 16x16
   public static final Icon Nmml_16 = load("/icons/nmml_16.png"); // 16x16
 }

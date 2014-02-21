@@ -58,7 +58,7 @@ public class HaxeRunConfigurationType implements ConfigurationType
 	@Override
 	public Icon getIcon()
 	{
-		return HaxeIcons.HaXe;
+		return HaxeIcons.Haxe;
 	}
 
 	@Override
