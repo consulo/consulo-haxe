@@ -22,7 +22,6 @@ import org.consulo.module.extension.MutableModuleInheritableNamedPointer;
 import org.consulo.module.extension.ui.ModuleExtensionWithSdkPanel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import com.intellij.openapi.module.Module;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.roots.ModifiableRootModel;
 
@@ -32,14 +31,14 @@ import com.intellij.openapi.roots.ModifiableRootModel;
  */
 public class HaxeMutableModuleExtension extends HaxeModuleExtension implements MutableModuleExtensionWithSdk<HaxeModuleExtension>
 {
-	public HaxeMutableModuleExtension(@NotNull String id, @NotNull Module module)
+	public HaxeMutableModuleExtension(@NotNull String id, @NotNull ModifiableRootModel module)
 	{
 		super(id, module);
 	}
 
 	@Nullable
 	@Override
-	public JComponent createConfigurablePanel(@NotNull ModifiableRootModel model, @Nullable Runnable runnable)
+	public JComponent createConfigurablePanel(@Nullable Runnable runnable)
 	{
 		return wrapToNorth(new ModuleExtensionWithSdkPanel(this, runnable));
 	}

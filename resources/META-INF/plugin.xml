@@ -37,7 +37,11 @@
 		<sdkType implementation="com.intellij.plugins.haxe.config.sdk.HaxeSdkType"/>
 		<compiler implementation="com.intellij.plugins.haxe.compilation.HaxeCompiler"/>
 
-		<moduleExtensionProvider key="haxe" implementationClass="org.consulo.haxe.module.extension.HaxeModuleExtensionProvider"/>
+		<moduleExtensionProvider key="haxe"
+								 name="Haxe"
+								 icon="/icons/haxe.png"
+								 immutableClass="org.consulo.haxe.module.extension.HaxeModuleExtension"
+								 mutableClass="org.consulo.haxe.module.extension.HaxeMutableModuleExtension"/>
 		<psi.packageSupportProvider implementation="org.consulo.haxe.module.extension.packageSupport.HaxePsiPackageSupportProvider"/>
 		<projectStructureDetector implementation="com.intellij.plugins.haxe.ide.projectStructure.detection.HaxeProjectStructureDetector"/>
 
