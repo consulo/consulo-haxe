@@ -35,8 +35,9 @@ public class HaxeModuleExtension extends ModuleExtensionWithSdkImpl<HaxeModuleEx
 		super(id, module);
 	}
 
+	@NotNull
 	@Override
-	protected Class<? extends SdkType> getSdkTypeClass()
+	public Class<? extends SdkType> getSdkTypeClass()
 	{
 		return HaxeSdkType.class;
 	}

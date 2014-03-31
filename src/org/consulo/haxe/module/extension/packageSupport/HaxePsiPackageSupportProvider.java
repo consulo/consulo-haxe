@@ -31,11 +31,10 @@ import com.intellij.psi.PsiManager;
  */
 public class HaxePsiPackageSupportProvider implements PsiPackageSupportProvider
 {
-	@NotNull
 	@Override
-	public Class<? extends ModuleExtension> getSupportedModuleExtensionClass()
+	public boolean isSupported(@NotNull ModuleExtension moduleExtension)
 	{
-		return HaxeModuleExtension.class;
+		return moduleExtension instanceof HaxeModuleExtension;
 	}
 
 	@NotNull
