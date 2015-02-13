@@ -43,6 +43,7 @@
 								 immutableClass="org.consulo.haxe.module.extension.HaxeModuleExtension"
 								 mutableClass="org.consulo.haxe.module.extension.HaxeMutableModuleExtension"/>
 		<psi.packageSupportProvider implementation="org.consulo.haxe.module.extension.packageSupport.HaxePsiPackageSupportProvider"/>
+		<contentFolderSupportPatcher implementation="org.mustbe.consulo.haxe.module.extension.HaxeContentFolderSupportPatcher" />
 		<projectStructureDetector implementation="com.intellij.plugins.haxe.ide.projectStructure.detection.HaxeProjectStructureDetector"/>
 
 		<library.type implementation="com.intellij.plugins.haxe.ide.library.HaxeLibraryType"/>

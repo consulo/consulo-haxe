@@ -15,25 +15,23 @@
  */
 package com.intellij.plugins.haxe.config.sdk;
 
+import java.io.File;
+import java.nio.charset.Charset;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.process.CapturingProcessHandler;
 import com.intellij.execution.process.ProcessOutput;
 import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.projectRoots.SdkModificator;
-import com.intellij.openapi.roots.OrderRootType;
 import com.intellij.openapi.util.SystemInfo;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.plugins.haxe.util.HaxeSdkUtilBase;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.io.File;
-import java.nio.charset.Charset;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class HaxeSdkUtil extends HaxeSdkUtilBase {
   private static final Logger LOG = Logger.getInstance("#com.intellij.plugins.haxe.config.sdk.HaxeSdkUtil");
@@ -83,21 +81,6 @@ public class HaxeSdkUtil extends HaxeSdkUtilBase {
     }
   }
 
-  public static void setupSdkPaths(@Nullable VirtualFile sdkRoot, SdkModificator modificator) {
-    if (sdkRoot == null) {
-      return;
-    }
-    final VirtualFile stdRoot = sdkRoot.findChild("std");
-    if (stdRoot != null) {
-      modificator.addRoot(stdRoot, OrderRootType.SOURCES);
-      modificator.addRoot(stdRoot, OrderRootType.CLASSES);
-    }
-    final VirtualFile docRoot = sdkRoot.findChild("doc");
-    if (docRoot != null) {
-      modificator.addRoot(docRoot, OrderRootType.DOCUMENTATION);
-    }
-  }
-
   @Nullable
   private static String suggestNekoBinPath(@NotNull String path) {
     String result = System.getenv("NEKOPATH");
@@ -121,17 +104,5 @@ public class HaxeSdkUtil extends HaxeSdkUtilBase {
       return FileUtil.toSystemIndependentName(result);
     }
     return null;
-  }
-
-  @Nullable
-  public static String suggestHomePath() {
-    final String result = System.getenv("HAXEPATH");
-    if (result == null && !SystemInfo.isWindows) {
-      final String candidate = "/usr/lib/haxe";
-      if (VirtualFileManager.getInstance().findFileByUrl(candidate) != null) {
-        return candidate;
-      }
-    }
-    return result;
   }
 }

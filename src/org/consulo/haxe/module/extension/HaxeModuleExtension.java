@@ -17,8 +17,6 @@ package org.consulo.haxe.module.extension;
 
 import org.consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
 import org.jetbrains.annotations.NotNull;
-import org.mustbe.consulo.roots.ContentFoldersSupport;
-import org.mustbe.consulo.roots.impl.ProductionContentFolderTypeProvider;
 import com.intellij.openapi.projectRoots.SdkType;
 import com.intellij.openapi.roots.ModuleRootLayer;
 import com.intellij.plugins.haxe.config.sdk.HaxeSdkType;
@@ -27,7 +25,6 @@ import com.intellij.plugins.haxe.config.sdk.HaxeSdkType;
  * @author VISTALL
  * @since 13:54/16.06.13
  */
-@ContentFoldersSupport(value = ProductionContentFolderTypeProvider.class)
 public class HaxeModuleExtension extends ModuleExtensionWithSdkImpl<HaxeModuleExtension>
 {
 	public HaxeModuleExtension(@NotNull String id, @NotNull ModuleRootLayer module)

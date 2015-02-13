@@ -15,6 +15,9 @@
  */
 package com.intellij.plugins.haxe.config.sdk;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import javax.swing.Icon;
 
 import org.jdom.Element;
@@ -29,13 +32,24 @@ import com.intellij.openapi.projectRoots.SdkModel;
 import com.intellij.openapi.projectRoots.SdkModificator;
 import com.intellij.openapi.projectRoots.SdkType;
 import com.intellij.openapi.roots.OrderRootType;
+import com.intellij.openapi.roots.types.BinariesOrderRootType;
+import com.intellij.openapi.roots.types.DocumentationOrderRootType;
+import com.intellij.openapi.roots.types.SourcesOrderRootType;
 import com.intellij.openapi.util.SystemInfo;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.util.xmlb.XmlSerializer;
 import icons.HaxeIcons;
 
 public class HaxeSdkType extends SdkType
 {
+	@NotNull
+	public static HaxeSdkType getInstance()
+	{
+		return EP_NAME.findExtension(HaxeSdkType.class);
+	}
+
 	public HaxeSdkType()
 	{
 		super("HAXE_SDK");
@@ -44,7 +58,7 @@ public class HaxeSdkType extends SdkType
 	@Override
 	public Icon getIcon()
 	{
-		return icons.HaxeIcons.Haxe;
+		return HaxeIcons.Haxe;
 	}
 
 	@Nullable
@@ -52,11 +66,6 @@ public class HaxeSdkType extends SdkType
 	public Icon getGroupIcon()
 	{
 		return HaxeIcons.Haxe;
-	}
-
-	public static HaxeSdkType getInstance()
-	{
-		return SdkType.findInstance(HaxeSdkType.class);
 	}
 
 	@NotNull
@@ -79,10 +88,24 @@ public class HaxeSdkType extends SdkType
 		return haxeSdkData != null ? haxeSdkData.getVersion() : null;
 	}
 
+	@NotNull
 	@Override
-	public String suggestHomePath()
+	public Collection<String> suggestHomePaths()
 	{
-		return HaxeSdkUtil.suggestHomePath();
+		String result = System.getenv("HAXEPATH");
+		if(result == null && !SystemInfo.isWindows)
+		{
+			final String candidate = "/usr/lib/haxe";
+			if(VirtualFileManager.getInstance().findFileByUrl(candidate) != null)
+			{
+				result = candidate;
+			}
+		}
+		if(result != null)
+		{
+			return Collections.singletonList(result);
+		}
+		return Collections.emptyList();
 	}
 
 	@Override
@@ -100,7 +123,8 @@ public class HaxeSdkType extends SdkType
 	@Override
 	public boolean isRootTypeApplicable(OrderRootType type)
 	{
-		return type == OrderRootType.SOURCES || type == OrderRootType.CLASSES || type == OrderRootType.DOCUMENTATION;
+		return type == SourcesOrderRootType.getInstance() || type == BinariesOrderRootType.getInstance() || type == DocumentationOrderRootType
+				.getInstance();
 	}
 
 	@Override
@@ -115,14 +139,27 @@ public class HaxeSdkType extends SdkType
 			modificator.setSdkAdditionalData(data);
 		}
 
-		HaxeSdkUtil.setupSdkPaths(sdk.getHomeDirectory(), modificator);
+		VirtualFile homeDirectory = sdk.getHomeDirectory();
+		if(homeDirectory != null)
+		{
+			final VirtualFile stdRoot = homeDirectory.findChild("std");
+			if(stdRoot != null)
+			{
+				modificator.addRoot(stdRoot, BinariesOrderRootType.getInstance());
+				modificator.addRoot(stdRoot, SourcesOrderRootType.getInstance());
+			}
+			final VirtualFile docRoot = homeDirectory.findChild("doc");
+			if(docRoot != null)
+			{
+				modificator.addRoot(docRoot, DocumentationOrderRootType.getInstance());
+			}
+		}
 
 		modificator.commitChanges();
-		super.setupSdkPaths(sdk);
 	}
 
 	@Override
-	public SdkAdditionalData loadAdditionalData(Element additional)
+	public SdkAdditionalData loadAdditionalData(Sdk sdk, Element additional)
 	{
 		return XmlSerializer.deserialize(additional, HaxeSdkData.class);
 	}
