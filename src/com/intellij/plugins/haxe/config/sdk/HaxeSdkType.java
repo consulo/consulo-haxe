@@ -109,6 +109,12 @@ public class HaxeSdkType extends SdkType
 	}
 
 	@Override
+	public boolean canCreatePredefinedSdks()
+	{
+		return true;
+	}
+
+	@Override
 	public boolean isValidSdkHome(String path)
 	{
 		return HaxeSdkUtil.testHaxeSdk(path) != null;
