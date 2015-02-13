@@ -34,97 +34,116 @@ import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.util.xmlb.XmlSerializer;
 import icons.HaxeIcons;
 
-public class HaxeSdkType extends SdkType {
-  public HaxeSdkType() {
-    super("HAXE_SDK");
-  }
+public class HaxeSdkType extends SdkType
+{
+	public HaxeSdkType()
+	{
+		super("HAXE_SDK");
+	}
 
-  @Override
-  public Icon getIcon() {
-    return icons.HaxeIcons.Haxe;
-  }
+	@Override
+	public Icon getIcon()
+	{
+		return icons.HaxeIcons.Haxe;
+	}
 
-  @Nullable
-  @Override
-  public Icon getGroupIcon() {
-    return HaxeIcons.Haxe;
-  }
+	@Nullable
+	@Override
+	public Icon getGroupIcon()
+	{
+		return HaxeIcons.Haxe;
+	}
 
-  public static HaxeSdkType getInstance() {
-    return SdkType.findInstance(HaxeSdkType.class);
-  }
+	public static HaxeSdkType getInstance()
+	{
+		return SdkType.findInstance(HaxeSdkType.class);
+	}
 
-  @NotNull
-  @Override
-  public String getPresentableName() {
-    return HaxeBundle.message("haxe.sdk.name.presentable");
-  }
+	@NotNull
+	@Override
+	public String getPresentableName()
+	{
+		return HaxeBundle.message("haxe.sdk.name.presentable");
+	}
 
-  @Override
-  public String suggestSdkName(String currentSdkName, String sdkHome) {
-    return HaxeBundle.message("haxe.sdk.name.suggest", getVersionString(sdkHome));
-  }
+	@Override
+	public String suggestSdkName(String currentSdkName, String sdkHome)
+	{
+		return HaxeBundle.message("haxe.sdk.name.suggest", getVersionString(sdkHome));
+	}
 
-  @Override
-  public String getVersionString(String sdkHome) {
-    final HaxeSdkData haxeSdkData = HaxeSdkUtil.testHaxeSdk(sdkHome);
-    return haxeSdkData != null ? haxeSdkData.getVersion() : null;
-  }
+	@Override
+	public String getVersionString(String sdkHome)
+	{
+		final HaxeSdkData haxeSdkData = HaxeSdkUtil.testHaxeSdk(sdkHome);
+		return haxeSdkData != null ? haxeSdkData.getVersion() : null;
+	}
 
-  @Override
-  public String suggestHomePath() {
-    return HaxeSdkUtil.suggestHomePath();
-  }
+	@Override
+	public String suggestHomePath()
+	{
+		return HaxeSdkUtil.suggestHomePath();
+	}
 
-  @Override
-  public boolean isValidSdkHome(String path) {
-    return HaxeSdkUtil.testHaxeSdk(path) != null;
-  }
+	@Override
+	public boolean isValidSdkHome(String path)
+	{
+		return HaxeSdkUtil.testHaxeSdk(path) != null;
+	}
 
-  @Override
-  public AdditionalDataConfigurable createAdditionalDataConfigurable(SdkModel sdkModel, SdkModificator sdkModificator) {
-    return new HaxeAdditionalConfigurable();
-  }
+	@Override
+	public AdditionalDataConfigurable createAdditionalDataConfigurable(SdkModel sdkModel, SdkModificator sdkModificator)
+	{
+		return new HaxeAdditionalConfigurable();
+	}
 
-  @Override
-  public boolean isRootTypeApplicable(OrderRootType type) {
-    return type == OrderRootType.SOURCES || type == OrderRootType.CLASSES || type == OrderRootType.DOCUMENTATION;
-  }
+	@Override
+	public boolean isRootTypeApplicable(OrderRootType type)
+	{
+		return type == OrderRootType.SOURCES || type == OrderRootType.CLASSES || type == OrderRootType.DOCUMENTATION;
+	}
 
-  @Override
-  public void setupSdkPaths(Sdk sdk) {
-    final SdkModificator modificator = sdk.getSdkModificator();
+	@Override
+	public void setupSdkPaths(Sdk sdk)
+	{
+		final SdkModificator modificator = sdk.getSdkModificator();
 
-    SdkAdditionalData data = sdk.getSdkAdditionalData();
-    if (data == null) {
-      data = HaxeSdkUtil.testHaxeSdk(sdk.getHomePath());
-      modificator.setSdkAdditionalData(data);
-    }
+		SdkAdditionalData data = sdk.getSdkAdditionalData();
+		if(data == null)
+		{
+			data = HaxeSdkUtil.testHaxeSdk(sdk.getHomePath());
+			modificator.setSdkAdditionalData(data);
+		}
 
-    HaxeSdkUtil.setupSdkPaths(sdk.getHomeDirectory(), modificator);
+		HaxeSdkUtil.setupSdkPaths(sdk.getHomeDirectory(), modificator);
 
-    modificator.commitChanges();
-    super.setupSdkPaths(sdk);
-  }
+		modificator.commitChanges();
+		super.setupSdkPaths(sdk);
+	}
 
-  @Override
-  public SdkAdditionalData loadAdditionalData(Element additional) {
-    return XmlSerializer.deserialize(additional, HaxeSdkData.class);
-  }
+	@Override
+	public SdkAdditionalData loadAdditionalData(Element additional)
+	{
+		return XmlSerializer.deserialize(additional, HaxeSdkData.class);
+	}
 
-  @Override
-  public void saveAdditionalData(SdkAdditionalData additionalData, Element additional) {
-    if (additionalData instanceof HaxeSdkData) {
-      XmlSerializer.serializeInto(additionalData, additional);
-    }
-  }
+	@Override
+	public void saveAdditionalData(SdkAdditionalData additionalData, Element additional)
+	{
+		if(additionalData instanceof HaxeSdkData)
+		{
+			XmlSerializer.serializeInto(additionalData, additional);
+		}
+	}
 
-  @Override
-  public FileChooserDescriptor getHomeChooserDescriptor() {
-    final FileChooserDescriptor result = super.getHomeChooserDescriptor();
-    if (SystemInfo.isMac) {
-      result.putUserData(PathChooserDialog.NATIVE_MAC_CHOOSER_SHOW_HIDDEN_FILES, Boolean.TRUE);
-    }
-    return result;
-  }
+	@Override
+	public FileChooserDescriptor getHomeChooserDescriptor()
+	{
+		final FileChooserDescriptor result = super.getHomeChooserDescriptor();
+		if(SystemInfo.isMac)
+		{
+			result.putUserData(PathChooserDialog.NATIVE_MAC_CHOOSER_SHOW_HIDDEN_FILES, Boolean.TRUE);
+		}
+		return result;
+	}
 }

@@ -5,15 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface HaxeExpressionList extends HaxePsiCompositeElement {
+public interface HaxeImportStatementWithInSupport extends HaxePsiCompositeElement {
 
   @NotNull
-  List<HaxeExpression> getExpressionList();
+  HaxeIdentifier getIdentifier();
 
-  @Nullable
-  HaxeForStatement getForStatement();
-
-  @Nullable
-  HaxeWhileStatement getWhileStatement();
+  @NotNull
+  HaxeReferenceExpression getReferenceExpression();
 
 }

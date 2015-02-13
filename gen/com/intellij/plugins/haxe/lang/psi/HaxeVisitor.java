@@ -118,6 +118,10 @@ public class HaxeVisitor extends PsiElementVisitor {
     visitNamedElement(o);
   }
 
+  public void visitConditional(@NotNull HaxeConditional o) {
+    visitPsiCompositeElement(o);
+  }
+
   public void visitContinueStatement(@NotNull HaxeContinueStatement o) {
     visitPsiCompositeElement(o);
   }
@@ -182,6 +186,10 @@ public class HaxeVisitor extends PsiElementVisitor {
     visitPsiCompositeElement(o);
   }
 
+  public void visitFatArrowExpression(@NotNull HaxeFatArrowExpression o) {
+    visitExpression(o);
+  }
+
   public void visitForStatement(@NotNull HaxeForStatement o) {
     visitComponent(o);
   }
@@ -222,7 +230,15 @@ public class HaxeVisitor extends PsiElementVisitor {
     visitPsiCompositeElement(o);
   }
 
-  public void visitImportStatement(@NotNull HaxeImportStatement o) {
+  public void visitImportStatementRegular(@NotNull HaxeImportStatementRegular o) {
+    visitPsiCompositeElement(o);
+  }
+
+  public void visitImportStatementWithInSupport(@NotNull HaxeImportStatementWithInSupport o) {
+    visitPsiCompositeElement(o);
+  }
+
+  public void visitImportStatementWithWildcard(@NotNull HaxeImportStatementWithWildcard o) {
     visitPsiCompositeElement(o);
   }
 
@@ -248,6 +264,10 @@ public class HaxeVisitor extends PsiElementVisitor {
 
   public void visitIteratorExpression(@NotNull HaxeIteratorExpression o) {
     visitExpression(o);
+  }
+
+  public void visitJsRequireMeta(@NotNull HaxeJsRequireMeta o) {
+    visitPsiCompositeElement(o);
   }
 
   public void visitLiteralExpression(@NotNull HaxeLiteralExpression o) {
@@ -490,6 +510,10 @@ public class HaxeVisitor extends PsiElementVisitor {
   }
 
   public void visitWhileStatement(@NotNull HaxeWhileStatement o) {
+    visitPsiCompositeElement(o);
+  }
+
+  public void visitWildcard(@NotNull HaxeWildcard o) {
     visitPsiCompositeElement(o);
   }
 

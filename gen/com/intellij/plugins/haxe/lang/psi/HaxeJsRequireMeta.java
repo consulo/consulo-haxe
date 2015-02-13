@@ -5,15 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface HaxeExpressionList extends HaxePsiCompositeElement {
-
-  @NotNull
-  List<HaxeExpression> getExpressionList();
+public interface HaxeJsRequireMeta extends HaxePsiCompositeElement {
 
   @Nullable
-  HaxeForStatement getForStatement();
-
-  @Nullable
-  HaxeWhileStatement getWhileStatement();
+  HaxeStringLiteralExpression getStringLiteralExpression();
 
 }

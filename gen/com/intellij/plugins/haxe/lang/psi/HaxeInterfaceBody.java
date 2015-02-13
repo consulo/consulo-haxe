@@ -8,6 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface HaxeInterfaceBody extends HaxePsiCompositeElement {
 
   @NotNull
+  List<HaxeConditional> getConditionalList();
+
+  @NotNull
   List<HaxeFunctionPrototypeDeclarationWithAttributes> getFunctionPrototypeDeclarationWithAttributesList();
 
   @NotNull

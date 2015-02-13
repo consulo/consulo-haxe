@@ -10,14 +10,14 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes.*;
 import com.intellij.plugins.haxe.lang.psi.*;
 
-public class HaxeImportStatementImpl extends HaxePsiCompositeElementImpl implements HaxeImportStatement {
+public class HaxeImportStatementRegularImpl extends HaxePsiCompositeElementImpl implements HaxeImportStatementRegular {
 
-  public HaxeImportStatementImpl(ASTNode node) {
+  public HaxeImportStatementRegularImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof HaxeVisitor) ((HaxeVisitor)visitor).visitImportStatement(this);
+    if (visitor instanceof HaxeVisitor) ((HaxeVisitor)visitor).visitImportStatementRegular(this);
     else super.accept(visitor);
   }
 

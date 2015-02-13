@@ -17,6 +17,9 @@ public interface HaxeTryStatement extends HaxePsiCompositeElement {
   List<HaxeCatchStatement> getCatchStatementList();
 
   @Nullable
+  HaxeConditional getConditional();
+
+  @Nullable
   HaxeContinueStatement getContinueStatement();
 
   @Nullable

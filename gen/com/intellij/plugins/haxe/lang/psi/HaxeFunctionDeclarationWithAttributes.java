@@ -50,7 +50,7 @@ public interface HaxeFunctionDeclarationWithAttributes extends HaxeComponentWith
   List<HaxeRequireMeta> getRequireMetaList();
 
   @Nullable
-  HaxeReturnStatementWithoutSemicolon getReturnStatementWithoutSemicolon();
+  HaxeReturnStatement getReturnStatement();
 
   @NotNull
   List<HaxeSetterMeta> getSetterMetaList();

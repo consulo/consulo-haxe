@@ -38,6 +38,9 @@ public interface HaxeInterfaceDeclaration extends HaxeClass {
   HaxeInterfaceBody getInterfaceBody();
 
   @NotNull
+  List<HaxeJsRequireMeta> getJsRequireMetaList();
+
+  @NotNull
   List<HaxeMetaMeta> getMetaMetaList();
 
   @NotNull

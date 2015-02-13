@@ -1,5 +1,7 @@
 /*
  * Copyright 2000-2013 JetBrains s.r.o.
+ * Copyright 2014-2014 AS3Boyan
+ * Copyright 2014-2014 Elias Ku
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,6 +17,9 @@
  */
 package com.intellij.plugins.haxe.util;
 
+import java.util.List;
+
+import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.HaxeFileType;
 import com.intellij.plugins.haxe.HaxeLanguage;
@@ -27,96 +32,115 @@ import com.intellij.psi.impl.PsiFileFactoryImpl;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.testFramework.LightVirtualFile;
 import com.intellij.util.LanguageVersionUtil;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 /**
- * @author: Fedor.Korotkov
+ * @author Fedor.Korotkov
  */
-public class HaxeElementGenerator {
+public class HaxeElementGenerator
+{
 
-  public static PsiElement createExpressionFromText(Project myProject, String text) {
-    PsiElement fromText = createStatementFromText(myProject, "var test = " + text + ";");
-    if (fromText instanceof HaxeVarDeclaration) {
-      List<HaxeVarDeclarationPart> partList = ((HaxeVarDeclaration)fromText).getVarDeclarationPartList();
-      HaxeVarDeclarationPart declarationPart = partList.isEmpty() ? null : partList.iterator().next();
-      HaxeVarInit varInit = declarationPart != null ? declarationPart.getVarInit() : null;
-      return varInit != null ? varInit.getExpression() : null;
-    }
-    return null;
-  }
+	public static PsiElement createExpressionFromText(Project myProject, String text)
+	{
+		PsiElement fromText = createStatementFromText(myProject, "var test = " + text + ";");
+		if(fromText instanceof HaxeVarDeclaration)
+		{
+			List<HaxeVarDeclarationPart> partList = ((HaxeVarDeclaration) fromText).getVarDeclarationPartList();
+			HaxeVarDeclarationPart declarationPart = partList.isEmpty() ? null : partList.iterator().next();
+			HaxeVarInit varInit = declarationPart != null ? declarationPart.getVarInit() : null;
+			return varInit != null ? varInit.getExpression() : null;
+		}
+		return null;
+	}
 
-  public static PsiElement createStatementFromText(Project myProject, String text) {
-    final PsiFile dummyFile = createDummyFile(myProject, HaxeCodeGenerateUtil.wrapStatement(text).getFirst());
-    final HaxeClass haxeClass = PsiTreeUtil.getChildOfType(dummyFile, HaxeClass.class);
-    assert haxeClass != null;
-    final HaxeFunctionDeclarationWithAttributes mainMethod =
-      (HaxeFunctionDeclarationWithAttributes)haxeClass.getMethods().iterator().next();
-    final HaxeBlockStatement statement = mainMethod.getBlockStatement();
-    assert statement != null;
-    return statement.getChildren()[0];
-  }
+	public static PsiElement createStatementFromText(Project myProject, String text)
+	{
+		final PsiFile dummyFile = createDummyFile(myProject, HaxeCodeGenerateUtil.wrapStatement(text).getFirst());
+		final HaxeClass haxeClass = PsiTreeUtil.getChildOfType(dummyFile, HaxeClass.class);
+		assert haxeClass != null;
+		final HaxeFunctionDeclarationWithAttributes mainMethod = (HaxeFunctionDeclarationWithAttributes) haxeClass.getMethods().iterator().next();
+		final HaxeBlockStatement statement = mainMethod.getBlockStatement();
+		assert statement != null;
+		return statement.getChildren()[0];
+	}
 
-  public static HaxeVarDeclarationPart createVarDeclarationPart(Project myProject, String text) {
-    final PsiFile dummyFile = createDummyFile(myProject, HaxeCodeGenerateUtil.wrapFunction(text).getFirst());
-    final HaxeClass haxeClass = PsiTreeUtil.getChildOfType(dummyFile, HaxeClass.class);
-    assert haxeClass != null;
-    return (HaxeVarDeclarationPart)haxeClass.getFields().iterator().next();
-  }
+	public static HaxeVarDeclarationPart createVarDeclarationPart(Project myProject, String text)
+	{
+		final PsiFile dummyFile = createDummyFile(myProject, HaxeCodeGenerateUtil.wrapFunction(text).getFirst());
+		final HaxeClass haxeClass = PsiTreeUtil.getChildOfType(dummyFile, HaxeClass.class);
+		assert haxeClass != null;
+		return (HaxeVarDeclarationPart) haxeClass.getFields().iterator().next();
+	}
 
+	public static HaxeVarDeclaration createVarDeclaration(Project myProject, String text)
+	{
+		final PsiFile dummyFile = createDummyFile(myProject, HaxeCodeGenerateUtil.wrapFunction(text).getFirst());
+		final HaxeClass haxeClass = PsiTreeUtil.getChildOfType(dummyFile, HaxeClass.class);
+		assert haxeClass != null;
+		String haxeClassText = haxeClass.getText();
+		return (HaxeVarDeclaration) haxeClass.getVarDeclarations().iterator().next();
+	}
 
-  public static List<HaxeNamedComponent> createNamedSubComponentsFromText(Project myProject, String text) {
-    final PsiFile dummyFile = createDummyFile(myProject, HaxeCodeGenerateUtil.wrapFunction(text).getFirst());
-    final HaxeClass haxeClass = PsiTreeUtil.getChildOfType(dummyFile, HaxeClass.class);
-    assert haxeClass != null;
-    return HaxeResolveUtil.findNamedSubComponents(haxeClass);
-  }
+	public static List<HaxeNamedComponent> createNamedSubComponentsFromText(Project myProject, String text)
+	{
+		final PsiFile dummyFile = createDummyFile(myProject, HaxeCodeGenerateUtil.wrapFunction(text).getFirst());
+		final HaxeClass haxeClass = PsiTreeUtil.getChildOfType(dummyFile, HaxeClass.class);
+		assert haxeClass != null;
+		return HaxeResolveUtil.findNamedSubComponents(haxeClass);
+	}
 
-  @Nullable
-  public static HaxeIdentifier createIdentifierFromText(Project myProject, String name) {
-    return createImportAndFindChild(myProject, name, HaxeIdentifier.class);
-  }
+	@Nullable
+	public static HaxeIdentifier createIdentifierFromText(Project myProject, String name)
+	{
+		return createImportAndFindChild(myProject, name, HaxeIdentifier.class);
+	}
 
-  @Nullable
-  public static HaxeReference createReferenceFromText(Project myProject, String name) {
-    return createImportAndFindChild(myProject, name, HaxeReference.class);
-  }
+	@Nullable
+	public static HaxeReference createReferenceFromText(Project myProject, String name)
+	{
+		return createImportAndFindChild(myProject, name, HaxeReference.class);
+	}
 
-  @Nullable
-  private static <T extends PsiElement> T createImportAndFindChild(Project myProject, String name, Class<T> aClass) {
-    final HaxeImportStatement importStatement = createImportStatementFromPath(myProject, name);
-    if (importStatement == null) {
-      return null;
-    }
-    return PsiTreeUtil.findChildOfType(importStatement, aClass);
-  }
+	@Nullable
+	private static <T extends PsiElement> T createImportAndFindChild(Project myProject, String name, Class<T> aClass)
+	{
+		final HaxeImportStatementRegular importStatement = createImportStatementFromPath(myProject, name);
+		if(importStatement == null)
+		{
+			return null;
+		}
+		return PsiTreeUtil.findChildOfType(importStatement, aClass);
+	}
 
-  @Nullable
-  public static HaxeImportStatement createImportStatementFromPath(Project myProject, String path) {
-    final PsiFile dummyFile = createDummyFile(myProject, "import " + path + ";");
-    return PsiTreeUtil.getChildOfType(dummyFile, HaxeImportStatement.class);
-  }
+	@Nullable
+	public static HaxeImportStatementRegular createImportStatementFromPath(Project myProject, String path)
+	{
+		final PsiFile dummyFile = createDummyFile(myProject, "import " + path + ";");
+		return PsiTreeUtil.getChildOfType(dummyFile, HaxeImportStatementRegular.class);
+	}
 
-  @Nullable
-  public static HaxePackageStatement createPackageStatementFromPath(Project myProject, String path) {
-    final PsiFile dummyFile = createDummyFile(myProject, "package " + path + ";");
-    return PsiTreeUtil.getChildOfType(dummyFile, HaxePackageStatement.class);
-  }
+	@Nullable
+	public static HaxePackageStatement createPackageStatementFromPath(Project myProject, String path)
+	{
+		final PsiFile dummyFile = createDummyFile(myProject, "package " + path + ";");
+		return PsiTreeUtil.getChildOfType(dummyFile, HaxePackageStatement.class);
+	}
 
-  public static PsiFile createDummyFile(Project myProject, String text) {
-    final PsiFileFactory factory = PsiFileFactory.getInstance(myProject);
-    final String name = "dummy." + HaxeFileType.HAXE_FILE_TYPE.getDefaultExtension();
-    final LightVirtualFile virtualFile = new LightVirtualFile(name, HaxeFileType.HAXE_FILE_TYPE, text);
-    final PsiFile psiFile = ((PsiFileFactoryImpl)factory).trySetupPsiForFile(virtualFile, HaxeLanguage.INSTANCE, LanguageVersionUtil.findDefaultVersion(HaxeLanguage.INSTANCE), false, true);
-    assert psiFile != null;
-    return psiFile;
-  }
+	public static PsiFile createDummyFile(Project myProject, String text)
+	{
+		final PsiFileFactory factory = PsiFileFactory.getInstance(myProject);
+		final String name = "dummy." + HaxeFileType.HAXE_FILE_TYPE.getDefaultExtension();
+		final LightVirtualFile virtualFile = new LightVirtualFile(name, HaxeFileType.HAXE_FILE_TYPE, text);
+		final PsiFile psiFile = ((PsiFileFactoryImpl) factory).trySetupPsiForFile(virtualFile, HaxeLanguage.INSTANCE,
+				LanguageVersionUtil.findDefaultVersion(HaxeLanguage.INSTANCE), false, true);
+		assert psiFile != null;
+		return psiFile;
+	}
 
-  public static PsiFile createExpressionCodeFragment(Project myProject, String text, PsiElement context, boolean resolveScope) {
-    final String name = "dummy." + HaxeFileType.HAXE_FILE_TYPE.getDefaultExtension();
-    HaxeExpressionCodeFragmentImpl codeFragment = new HaxeExpressionCodeFragmentImpl(myProject, name, text, true);
-    codeFragment.setContext(context);
-    return codeFragment;
-  }
+	public static PsiFile createExpressionCodeFragment(Project myProject, String text, PsiElement context, boolean resolveScope)
+	{
+		final String name = "dummy." + HaxeFileType.HAXE_FILE_TYPE.getDefaultExtension();
+		HaxeExpressionCodeFragmentImpl codeFragment = new HaxeExpressionCodeFragmentImpl(myProject, name, text, true);
+		codeFragment.setContext(context);
+		return codeFragment;
+	}
 }

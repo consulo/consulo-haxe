@@ -35,6 +35,22 @@ import org.jetbrains.annotations.NotNull;
         yybegin(state);
     }
 
+    private String getStateName(int state) {
+        if(state == SHORT_TEMPLATE_ENTRY) {
+          return "SHORT_TEMPLATE_ENTRY";
+        }
+        if(state == LONG_TEMPLATE_ENTRY) {
+          return "LONG_TEMPLATE_ENTRY";
+        }
+        if(state == QUO_STRING) {
+          return "QUO_STRING";
+        }
+        if(state == APOS_STRING) {
+          return "APOS_STRING";
+        }
+        return null;
+    }
+
     private void popState() {
         State state = states.pop();
         lBraceCount = state.lBraceCount;
@@ -73,6 +89,9 @@ C_STYLE_COMMENT=("/*"[^"*"]{COMMENT_TAIL})|"/*"
 DOC_COMMENT="/*""*"+("/"|([^"/""*"]{COMMENT_TAIL}))?
 COMMENT_TAIL=([^"*"]*("*"+[^"*""/"])?)*("*"+"/")?
 END_OF_LINE_COMMENT="/""/"[^\r\n]*
+
+CONDITIONAL_IDENTIFIER = [^\r\n]*
+COMPILE_TIME_CONDITIONAL="#"{CONDITIONAL_IDENTIFIER}
 
 mHEX_DIGIT = [0-9A-Fa-f]
 mINT_DIGIT = [0-9]
@@ -275,14 +294,16 @@ IDENTIFIER_NO_DOLLAR={IDENTIFIER_START_NO_DOLLAR}{IDENTIFIER_PART_NO_DOLLAR}*
 
 ">>="                                     { return OSHIFT_RIGHT_ASSIGN; }
 ">="                                      { return OGREATER_OR_EQUAL; }
+"=>"                                      { return OFAT_ARROW; }
 ">"                                       { return OGREATER; }
 
-"#if"                                     { return PPIF; }
-"#end"                                    { return PPEND; }
-"#error"                                  { return PPERROR; }
-"#elseif"                                 { return PPELSEIF; }
-"#else"                                   { return PPELSE; }
-}
+{COMPILE_TIME_CONDITIONAL}                { return CONDITIONAL_STATEMENT_ID; }
+//"#if"                                     { return PPIF; }
+//"#end"                                    { return PPEND; }
+//"#error"                                  { return PPERROR; }
+//"#elseif"                                 { return PPELSEIF; }
+//"#else"                                   { return PPELSE; }
+} // <YYINITIAL, LONG_TEMPLATE_ENTRY>
 
 // "
 
@@ -323,4 +344,5 @@ IDENTIFIER_NO_DOLLAR={IDENTIFIER_START_NO_DOLLAR}{IDENTIFIER_PART_NO_DOLLAR}*
 <SHORT_TEMPLATE_ENTRY> "this"          { popState(); return KTHIS; }
 <SHORT_TEMPLATE_ENTRY> {IDENTIFIER_NO_DOLLAR}    { popState(); return ID; }
 
-.                                         {  yybegin(YYINITIAL); return com.intellij.psi.TokenType.BAD_CHARACTER; }
+<QUO_STRING, APOS_STRING, SHORT_TEMPLATE_ENTRY, LONG_TEMPLATE_ENTRY> .  { return com.intellij.psi.TokenType.BAD_CHARACTER; }
+.                                                                       {  yybegin(YYINITIAL); return com.intellij.psi.TokenType.BAD_CHARACTER; }

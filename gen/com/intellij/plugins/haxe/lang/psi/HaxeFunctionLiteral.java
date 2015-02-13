@@ -17,7 +17,7 @@ public interface HaxeFunctionLiteral extends HaxeExpression {
   HaxeParameterList getParameterList();
 
   @Nullable
-  HaxeReturnStatementWithoutSemicolon getReturnStatementWithoutSemicolon();
+  HaxeReturnStatement getReturnStatement();
 
   @Nullable
   HaxeThrowStatement getThrowStatement();

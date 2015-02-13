@@ -1,5 +1,7 @@
 /*
  * Copyright 2000-2013 JetBrains s.r.o.
+ * Copyright 2014-2014 AS3Boyan
+ * Copyright 2014-2014 Elias Ku
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,44 +17,48 @@
  */
 package com.intellij.plugins.haxe.lang.psi;
 
+import java.util.List;
+
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-
 /**
  * @author: Fedor.Korotkov
  */
-public interface HaxeClass extends HaxeComponent {
-  HaxeClass[] EMPTY_ARRAY = new HaxeClass[0];
+public interface HaxeClass extends HaxeComponent
+{
+	HaxeClass[] EMPTY_ARRAY = new HaxeClass[0];
 
-  @NotNull
-  @NonNls
-  String getQualifiedName();
+	@NotNull
+	@NonNls
+	String getQualifiedName();
 
-  @NotNull
-  List<HaxeType> getExtendsList();
+	@NotNull
+	List<HaxeType> getExtendsList();
 
-  @NotNull
-  List<HaxeType> getImplementsList();
+	@NotNull
+	List<HaxeType> getImplementsList();
 
-  boolean isInterface();
+	boolean isInterface();
 
-  @NotNull
-  List<HaxeNamedComponent> getMethods();
+	@NotNull
+	List<HaxeNamedComponent> getMethods();
 
-  @NotNull
-  List<HaxeNamedComponent> getFields();
+	@NotNull
+	List<HaxeNamedComponent> getFields();
 
-  @Nullable
-  HaxeNamedComponent findFieldByName(@NotNull final String name);
+	@NotNull
+	List<HaxeVarDeclaration> getVarDeclarations();
 
-  @Nullable
-  HaxeNamedComponent findMethodByName(@NotNull final String name);
+	@Nullable
+	HaxeNamedComponent findFieldByName(@NotNull final String name);
 
-  boolean isGeneric();
+	@Nullable
+	HaxeNamedComponent findMethodByName(@NotNull final String name);
 
-  @Nullable
-  HaxeGenericParam getGenericParam();
+	boolean isGeneric();
+
+	@Nullable
+	HaxeGenericParam getGenericParam();
 }

@@ -14,6 +14,9 @@ public interface HaxeParenthesizedExpression extends HaxeExpression {
   HaxeBreakStatement getBreakStatement();
 
   @Nullable
+  HaxeConditional getConditional();
+
+  @Nullable
   HaxeContinueStatement getContinueStatement();
 
   @Nullable

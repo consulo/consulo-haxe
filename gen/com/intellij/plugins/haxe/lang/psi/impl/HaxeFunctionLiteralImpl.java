@@ -41,8 +41,8 @@ public class HaxeFunctionLiteralImpl extends HaxeExpressionImpl implements HaxeF
 
   @Override
   @Nullable
-  public HaxeReturnStatementWithoutSemicolon getReturnStatementWithoutSemicolon() {
-    return findChildByClass(HaxeReturnStatementWithoutSemicolon.class);
+  public HaxeReturnStatement getReturnStatement() {
+    return findChildByClass(HaxeReturnStatement.class);
   }
 
   @Override

@@ -10,14 +10,14 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes.*;
 import com.intellij.plugins.haxe.lang.psi.*;
 
-public class HaxeExpressionListImpl extends HaxePsiCompositeElementImpl implements HaxeExpressionList {
+public class HaxeFatArrowExpressionImpl extends HaxeExpressionImpl implements HaxeFatArrowExpression {
 
-  public HaxeExpressionListImpl(ASTNode node) {
+  public HaxeFatArrowExpressionImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof HaxeVisitor) ((HaxeVisitor)visitor).visitExpressionList(this);
+    if (visitor instanceof HaxeVisitor) ((HaxeVisitor)visitor).visitFatArrowExpression(this);
     else super.accept(visitor);
   }
 
@@ -25,18 +25,6 @@ public class HaxeExpressionListImpl extends HaxePsiCompositeElementImpl implemen
   @NotNull
   public List<HaxeExpression> getExpressionList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, HaxeExpression.class);
-  }
-
-  @Override
-  @Nullable
-  public HaxeForStatement getForStatement() {
-    return findChildByClass(HaxeForStatement.class);
-  }
-
-  @Override
-  @Nullable
-  public HaxeWhileStatement getWhileStatement() {
-    return findChildByClass(HaxeWhileStatement.class);
   }
 
 }

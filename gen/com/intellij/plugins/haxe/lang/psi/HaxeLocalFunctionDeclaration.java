@@ -23,7 +23,7 @@ public interface HaxeLocalFunctionDeclaration extends HaxeComponent {
   HaxeParameterList getParameterList();
 
   @Nullable
-  HaxeReturnStatementWithoutSemicolon getReturnStatementWithoutSemicolon();
+  HaxeReturnStatement getReturnStatement();
 
   @Nullable
   HaxeThrowStatement getThrowStatement();
