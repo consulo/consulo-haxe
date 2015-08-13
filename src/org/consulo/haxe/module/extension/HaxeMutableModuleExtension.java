@@ -19,11 +19,13 @@ import javax.swing.JComponent;
 
 import org.consulo.module.extension.MutableModuleExtensionWithSdk;
 import org.consulo.module.extension.MutableModuleInheritableNamedPointer;
-import org.consulo.module.extension.ui.ModuleExtensionWithSdkPanel;
+import org.consulo.module.extension.ui.ModuleExtensionSdkBoxBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.mustbe.consulo.RequiredDispatchThread;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.roots.ModuleRootLayer;
+import com.intellij.util.ui.JBUI;
 
 /**
  * @author VISTALL
@@ -36,11 +38,13 @@ public class HaxeMutableModuleExtension extends HaxeModuleExtension implements M
 		super(id, module);
 	}
 
+	@RequiredDispatchThread
 	@Nullable
 	@Override
 	public JComponent createConfigurablePanel(@Nullable Runnable runnable)
 	{
-		return wrapToNorth(new ModuleExtensionWithSdkPanel(this, runnable));
+		return JBUI.Panels.verticalPanel().addComponent(ModuleExtensionSdkBoxBuilder.createAndDefine(this, runnable)
+				.build());
 	}
 
 	@Override
