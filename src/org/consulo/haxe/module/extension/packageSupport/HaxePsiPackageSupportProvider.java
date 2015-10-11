@@ -22,6 +22,7 @@ import org.consulo.psi.PsiPackage;
 import org.consulo.psi.PsiPackageManager;
 import org.consulo.psi.PsiPackageSupportProvider;
 import org.jetbrains.annotations.NotNull;
+import com.intellij.openapi.module.Module;
 import com.intellij.plugins.haxe.lang.psi.impl.HaxePackageImpl;
 import com.intellij.psi.PsiManager;
 
@@ -35,6 +36,12 @@ public class HaxePsiPackageSupportProvider implements PsiPackageSupportProvider
 	public boolean isSupported(@NotNull ModuleExtension moduleExtension)
 	{
 		return moduleExtension instanceof HaxeModuleExtension;
+	}
+
+	@Override
+	public boolean isValidPackageName(@NotNull Module module, @NotNull String packageName)
+	{
+		return true;
 	}
 
 	@NotNull
