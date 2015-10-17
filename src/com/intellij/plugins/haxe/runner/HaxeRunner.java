@@ -39,7 +39,6 @@ import com.intellij.execution.ui.RunContentDescriptor;
 import com.intellij.ide.BrowserUtil;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.module.Module;
-import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.InvalidDataException;
 import com.intellij.openapi.util.WriteExternalException;
 import com.intellij.openapi.util.io.FileUtilRt;
@@ -86,9 +85,7 @@ public class HaxeRunner extends DefaultProgramRunner {
   }
 
   @Override
-  protected RunContentDescriptor doExecute(Project project,
-                                           RunProfileState state,
-                                           RunContentDescriptor contentToReuse,
+  protected RunContentDescriptor doExecute(RunProfileState state,
                                            ExecutionEnvironment env) throws ExecutionException {
     final HaxeApplicationConfiguration configuration = (HaxeApplicationConfiguration)env.getRunProfile();
     final Module module = configuration.getConfigurationModule().getModule();
@@ -101,19 +98,19 @@ public class HaxeRunner extends DefaultProgramRunner {
 
     if (settings.isUseNmmlToBuild()) {
       final NMERunningState nmeRunningState = new NMERunningState(env, module, false);
-      return super.doExecute(project, nmeRunningState, contentToReuse, env);
+      return super.doExecute(nmeRunningState, env);
     }
 
     if (configuration.isCustomFileToLaunch() && FileUtilRt.extensionEquals(configuration.getCustomFileToLaunchPath(), "n")) {
       final NekoRunningState nekoRunningState = new NekoRunningState(env, module, configuration.getCustomFileToLaunchPath());
-      return super.doExecute(project, nekoRunningState, contentToReuse, env);
+      return super.doExecute(nekoRunningState, env);
     }
 
     if (configuration.isCustomExecutable()) {
       final String filePath = configuration.isCustomFileToLaunch()
                               ? configuration.getCustomFileToLaunchPath()
                               : getOutputFilePath(module, settings);
-      return super.doExecute(project, new CommandLineState(env) {
+      return super.doExecute(new CommandLineState(env) {
         @NotNull
         @Override
         protected ProcessHandler startProcess() throws ExecutionException {
@@ -127,7 +124,7 @@ public class HaxeRunner extends DefaultProgramRunner {
 
           return new OSProcessHandler(commandLine.createProcess(), commandLine.getCommandLineString());
         }
-      }, contentToReuse, env);
+      }, env);
     }
 
     if (configuration.isCustomFileToLaunch()) {
@@ -145,7 +142,7 @@ public class HaxeRunner extends DefaultProgramRunner {
     }
 
     final NekoRunningState nekoRunningState = new NekoRunningState(env, module, null);
-    return super.doExecute(project, nekoRunningState, contentToReuse, env);
+    return super.doExecute(nekoRunningState, env);
   }
 
   private static String getOutputFilePath(Module module, HaxeModuleSettings settings) {
