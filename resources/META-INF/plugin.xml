@@ -44,7 +44,6 @@
 								 mutableClass="org.consulo.haxe.module.extension.HaxeMutableModuleExtension"/>
 		<psi.packageSupportProvider implementation="org.consulo.haxe.module.extension.packageSupport.HaxePsiPackageSupportProvider"/>
 		<contentFolderSupportPatcher implementation="org.mustbe.consulo.haxe.module.extension.HaxeContentFolderSupportPatcher" />
-		<projectStructureDetector implementation="com.intellij.plugins.haxe.ide.projectStructure.detection.HaxeProjectStructureDetector"/>
 
 		<library.type implementation="com.intellij.plugins.haxe.ide.library.HaxeLibraryType"/>
 
@@ -126,7 +125,7 @@
 		<fileBasedIndex implementation="com.intellij.plugins.haxe.ide.index.HaxeComponentFileNameIndex"/>
 		<gotoClassContributor implementation="com.intellij.plugins.haxe.ide.HaxeClassContributor"/>
 
-		<definitionsSearch implementation="com.intellij.plugins.haxe.ide.index.HaxeInheritanceDefinitionsSearchExecutor"/>
+		<definitionsScopedSearch implementation="com.intellij.plugins.haxe.ide.index.HaxeInheritanceDefinitionsSearchExecutor"/>
 
 		<projectService serviceInterface="com.intellij.plugins.haxe.config.HaxeProjectSettings"
 						serviceImplementation="com.intellij.plugins.haxe.config.HaxeProjectSettings"/>
