@@ -15,15 +15,13 @@
  */
 package com.intellij.plugins.haxe.runner;
 
-import org.consulo.compiler.CompilerPathsManager;
-import org.jdom.Element;
+import org.consulo.compiler.ModuleCompilerPathsManager;
 import org.jetbrains.annotations.NotNull;
 import org.mustbe.consulo.roots.impl.ProductionContentFolderTypeProvider;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.ExecutionResult;
 import com.intellij.execution.Executor;
 import com.intellij.execution.configurations.CommandLineState;
-import com.intellij.execution.configurations.ConfigurationPerRunnerSettings;
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.configurations.RunProfile;
 import com.intellij.execution.configurations.RunProfileState;
@@ -39,8 +37,6 @@ import com.intellij.execution.ui.RunContentDescriptor;
 import com.intellij.ide.BrowserUtil;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.module.Module;
-import com.intellij.openapi.util.InvalidDataException;
-import com.intellij.openapi.util.WriteExternalException;
 import com.intellij.openapi.util.io.FileUtilRt;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.config.HaxeTarget;
@@ -55,21 +51,6 @@ public class HaxeRunner extends DefaultProgramRunner {
   public static final RunProfileState EMPTY_RUN_STATE = new RunProfileState() {
     public ExecutionResult execute(final Executor executor, @NotNull final ProgramRunner runner) throws ExecutionException {
       return null;
-    }
-
-    public ConfigurationPerRunnerSettings getConfigurationSettings() {
-      return new ConfigurationPerRunnerSettings() {
-
-		  @Override
-		  public void readExternal(Element element) throws InvalidDataException {
-
-		  }
-
-		  @Override
-		  public void writeExternal(Element element) throws WriteExternalException {
-
-		  }
-	  };
     }
   };
 
@@ -147,7 +128,7 @@ public class HaxeRunner extends DefaultProgramRunner {
 
   private static String getOutputFilePath(Module module, HaxeModuleSettings settings) {
     FileDocumentManager.getInstance().saveAllDocuments();
-    final String url = CompilerPathsManager.getInstance(module.getProject()).getCompilerOutputUrl(module, ProductionContentFolderTypeProvider.getInstance());
+    final String url = ModuleCompilerPathsManager.getInstance(module).getCompilerOutputUrl(ProductionContentFolderTypeProvider.getInstance());
     assert url != null;
     return url + "/release/" + settings.getOutputFileName();
   }

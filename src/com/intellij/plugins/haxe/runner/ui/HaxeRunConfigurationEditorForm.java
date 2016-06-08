@@ -24,7 +24,7 @@ import javax.swing.JComponent;
 import javax.swing.JList;
 import javax.swing.JPanel;
 
-import org.consulo.compiler.CompilerPathsManager;
+import org.consulo.compiler.ModuleCompilerPathsManager;
 import org.consulo.haxe.module.extension.HaxeModuleExtension;
 import org.jetbrains.annotations.NotNull;
 import org.mustbe.consulo.roots.impl.ProductionContentFolderTypeProvider;
@@ -153,9 +153,9 @@ public class HaxeRunConfigurationEditorForm extends SettingsEditor<HaxeApplicati
     }
     else if (getSelectedModule() != null) {
       final HaxeModuleSettings settings = HaxeModuleSettings.getInstance(getSelectedModule());
-      final CompilerPathsManager compilerPathsManager = CompilerPathsManager.getInstance(project);
+      final ModuleCompilerPathsManager compilerPathsManager = ModuleCompilerPathsManager.getInstance(getSelectedModule());
 
-      final String url = compilerPathsManager.getCompilerOutputUrl(getSelectedModule(), ProductionContentFolderTypeProvider.getInstance()) + "/" + settings.getOutputFileName();
+      final String url = compilerPathsManager.getCompilerOutputUrl(ProductionContentFolderTypeProvider.getInstance()) + "/" + settings.getOutputFileName();
       myPathToFileTextField.setText(FileUtil.toSystemDependentName(VfsUtil.urlToPath(url)));
     }
     else {

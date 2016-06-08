@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.consulo.compiler.CompilerPathsManager;
+import org.consulo.compiler.ModuleCompilerPathsManager;
 import org.consulo.haxe.module.extension.HaxeModuleExtension;
 import org.jetbrains.annotations.NotNull;
 import org.mustbe.consulo.roots.impl.ProductionContentFolderTypeProvider;
@@ -197,7 +197,7 @@ public class HaxeCompiler implements SourceProcessingCompiler {
 
       @Override
       public String getCompileOutputPath() {
-        return CompilerPathsManager.getInstance(module.getProject()).getCompilerOutputUrl(module, ProductionContentFolderTypeProvider.getInstance());
+        return ModuleCompilerPathsManager.getInstance(module).getCompilerOutputUrl(ProductionContentFolderTypeProvider.getInstance());
       }
 
       @Override
