@@ -27,7 +27,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.ide.HaxeFileTemplateUtil;
 import com.intellij.psi.PsiDirectory;
-import org.consulo.haxe.module.extension.HaxeModuleExtension;
+import consulo.haxe.module.extension.HaxeModuleExtension;
 
 /**
  * @author: Fedor.Korotkov

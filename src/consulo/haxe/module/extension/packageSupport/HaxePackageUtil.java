@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package org.consulo.haxe.module.extension.packageSupport;
+package consulo.haxe.module.extension.packageSupport;
 
-import org.consulo.haxe.module.extension.HaxeModuleExtension;
+import consulo.haxe.module.extension.HaxeModuleExtension;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.project.Project;

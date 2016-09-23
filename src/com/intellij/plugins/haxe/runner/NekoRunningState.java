@@ -15,7 +15,7 @@
  */
 package com.intellij.plugins.haxe.runner;
 
-import org.consulo.haxe.module.extension.HaxeModuleExtension;
+import consulo.haxe.module.extension.HaxeModuleExtension;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.execution.ExecutionException;

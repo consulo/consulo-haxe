@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.consulo.haxe.psi.impl;
+package consulo.haxe.psi.impl;
 
 import java.util.Arrays;
 import java.util.Collection;

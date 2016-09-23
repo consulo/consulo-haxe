@@ -23,9 +23,9 @@ import com.intellij.psi.impl.source.resolve.ResolveCache;
 import com.intellij.psi.scope.PsiScopeProcessor;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.containers.ContainerUtil;
-import org.consulo.haxe.module.extension.packageSupport.HaxePackageUtil;
-import org.consulo.haxe.psi.impl.HaxePsiPackageReference;
-import org.consulo.haxe.psi.impl.HaxePsiPackageReferenceSet;
+import consulo.haxe.module.extension.packageSupport.HaxePackageUtil;
+import consulo.haxe.psi.impl.HaxePsiPackageReference;
+import consulo.haxe.psi.impl.HaxePsiPackageReferenceSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

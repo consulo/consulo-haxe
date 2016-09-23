@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package org.mustbe.consulo.haxe.module.extension;
+package consulo.haxe.module.extension;
 
 import java.util.Set;
 
-import org.consulo.haxe.module.extension.HaxeModuleExtension;
+import consulo.haxe.module.extension.HaxeModuleExtension;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.roots.ModifiableRootModel;
 import consulo.roots.ContentFolderSupportPatcher;

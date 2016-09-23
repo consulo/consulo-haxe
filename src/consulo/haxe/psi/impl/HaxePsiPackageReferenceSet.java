@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package org.consulo.haxe.psi.impl;
+package consulo.haxe.psi.impl;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
-import org.consulo.haxe.module.extension.packageSupport.HaxePackageUtil;
+import consulo.haxe.module.extension.packageSupport.HaxePackageUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.util.Comparing;
