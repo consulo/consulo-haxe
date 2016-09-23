@@ -17,11 +17,11 @@
 package org.consulo.haxe.module.extension.packageSupport;
 
 import org.consulo.haxe.module.extension.HaxeModuleExtension;
-import org.consulo.psi.PsiPackageManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.lang.psi.HaxePackage;
+import consulo.psi.PsiPackageManager;
 
 /**
  * @author VISTALL

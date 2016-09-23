@@ -21,7 +21,6 @@ import javax.swing.Icon;
 
 import org.jetbrains.annotations.NotNull;
 import com.intellij.icons.AllIcons;
-import com.intellij.ide.IconDescriptor;
 import com.intellij.ide.fileTemplates.FileTemplate;
 import com.intellij.ide.fileTemplates.FileTemplateManager;
 import com.intellij.openapi.util.Condition;
@@ -29,6 +28,7 @@ import com.intellij.plugins.haxe.HaxeFileType;
 import com.intellij.plugins.haxe.nmml.NMMLFileType;
 import com.intellij.util.SmartList;
 import com.intellij.util.containers.ContainerUtil;
+import consulo.ide.IconDescriptor;
 import icons.HaxeIcons;
 
 /**

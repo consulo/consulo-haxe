@@ -15,27 +15,27 @@
  */
 package com.intellij.plugins.haxe.ide.highlight;
 
-import com.intellij.lexer.Lexer;
-import com.intellij.openapi.editor.colors.TextAttributesKey;
-import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
-import com.intellij.openapi.project.Project;
-import com.intellij.plugins.haxe.lang.lexer.HaxeLexer;
-import com.intellij.psi.tree.IElementType;
-import org.jetbrains.annotations.NotNull;
+import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.BAD_TOKENS;
+import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.CONDITIONALLY_NOT_COMPILED;
+import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.DOC_COMMENT;
+import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.KEYWORDS;
+import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.MML_COMMENT;
+import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.MSL_COMMENT;
+import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.OPERATORS;
+import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes.*;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.*;
-import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes.*;
+import org.jetbrains.annotations.NotNull;
+import com.intellij.lexer.Lexer;
+import com.intellij.openapi.editor.colors.TextAttributesKey;
+import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
+import com.intellij.plugins.haxe.lang.lexer.HaxeLexer;
+import com.intellij.psi.tree.IElementType;
 
 public class HaxeSyntaxHighlighter extends SyntaxHighlighterBase {
   private static final Map<IElementType, TextAttributesKey> ATTRIBUTES = new HashMap<IElementType, TextAttributesKey>();
-  private Project myProject;
-
-  public HaxeSyntaxHighlighter(Project project) {
-    myProject = project;
-  }
 
   static {
     safeMap(ATTRIBUTES, KEYWORDS, HaxeSyntaxHighlighterColors.KEYWORD);
@@ -75,7 +75,7 @@ public class HaxeSyntaxHighlighter extends SyntaxHighlighterBase {
 
   @NotNull
   public Lexer getHighlightingLexer() {
-    return new HaxeLexer(myProject);
+    return new HaxeLexer();
   }
 
   @NotNull

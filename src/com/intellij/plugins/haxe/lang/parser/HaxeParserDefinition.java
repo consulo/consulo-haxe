@@ -15,12 +15,11 @@
  */
 package com.intellij.plugins.haxe.lang.parser;
 
+import org.jetbrains.annotations.NotNull;
 import com.intellij.lang.ASTNode;
-import com.intellij.lang.LanguageVersion;
 import com.intellij.lang.ParserDefinition;
 import com.intellij.lang.PsiParser;
 import com.intellij.lexer.Lexer;
-import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.lang.lexer.HaxeLexer;
 import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets;
 import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes;
@@ -30,15 +29,15 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.psi.tree.TokenSet;
-import org.jetbrains.annotations.NotNull;
+import consulo.lang.LanguageVersion;
 
 public class HaxeParserDefinition implements ParserDefinition {
   @NotNull
-  public Lexer createLexer(Project project, LanguageVersion languageVersion) {
-    return new HaxeLexer(project);
+  public Lexer createLexer(LanguageVersion languageVersion) {
+    return new HaxeLexer();
   }
 
-  public PsiParser createParser(Project project, LanguageVersion languageVersion) {
+  public PsiParser createParser(LanguageVersion languageVersion) {
     return new HaxeParser();
   }
 

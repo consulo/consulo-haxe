@@ -19,7 +19,6 @@ import javax.swing.Icon;
 
 import org.consulo.haxe.module.extension.HaxeModuleExtension;
 import org.jetbrains.annotations.NotNull;
-import org.mustbe.consulo.module.extension.ModuleExtensionHelper;
 import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.configurations.ConfigurationType;
 import com.intellij.execution.configurations.RunConfiguration;
@@ -27,6 +26,7 @@ import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.util.containers.ContainerUtil;
+import consulo.module.extension.ModuleExtensionHelper;
 import icons.HaxeIcons;
 
 public class HaxeRunConfigurationType implements ConfigurationType

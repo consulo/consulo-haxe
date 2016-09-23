@@ -56,9 +56,9 @@ public class HaxeLexer extends LookAheadLexer {
   @Nullable
   private Project myProject;
 
-  public HaxeLexer(Project project) {
+  public HaxeLexer() {
     super(new MergingLexerAdapter(new HaxeFlexLexer(), tokensToMerge));
-    myProject = project;
+    myProject = null;
   }
 
   @Override

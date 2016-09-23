@@ -15,11 +15,11 @@
  */
 package org.consulo.haxe.module.extension;
 
-import org.consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.projectRoots.SdkType;
-import com.intellij.openapi.roots.ModuleRootLayer;
 import com.intellij.plugins.haxe.config.sdk.HaxeSdkType;
+import consulo.extension.impl.ModuleExtensionWithSdkImpl;
+import consulo.roots.ModuleRootLayer;
 
 /**
  * @author VISTALL

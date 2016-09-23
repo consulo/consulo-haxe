@@ -99,7 +99,7 @@ public class HaxeColorSettingsPage implements ColorSettingsPage {
   @NotNull
   @Override
   public SyntaxHighlighter getHighlighter() {
-    return new HaxeSyntaxHighlighter(null);
+    return new HaxeSyntaxHighlighter();
   }
 
   @Override

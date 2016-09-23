@@ -15,7 +15,23 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import com.intellij.codeInsight.completion.*;
+import static com.intellij.patterns.PlatformPatterns.psiElement;
+
+import gnu.trove.THashSet;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import com.intellij.codeInsight.completion.CompletionContributor;
+import com.intellij.codeInsight.completion.CompletionParameters;
+import com.intellij.codeInsight.completion.CompletionResultSet;
+import com.intellij.codeInsight.completion.CompletionType;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.lang.parser.GeneratedParserUtilBase;
 import com.intellij.openapi.util.Pair;
@@ -36,13 +52,7 @@ import com.intellij.psi.impl.source.tree.TreeUtil;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.ProcessingContext;
-import gnu.trove.THashSet;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.*;
-
-import static com.intellij.patterns.PlatformPatterns.psiElement;
+import consulo.codeInsight.completion.CompletionProvider;
 
 /**
  * @author: Fedor.Korotkov
@@ -69,9 +79,9 @@ public class HaxeKeywordCompletionContributor extends CompletionContributor {
            psiElement().andOr(psiElement().withSuperParent(1, PsiErrorElement.class),
                               psiElement().withSuperParent(1, GeneratedParserUtilBase.DummyBlock.class)).
              andOr(psiElement().withSuperParent(2, HaxeClassBody.class), psiElement().withSuperParent(2, HaxeInheritList.class)),
-           new CompletionProvider<CompletionParameters>() {
+           new CompletionProvider() {
              @Override
-             protected void addCompletions(@NotNull CompletionParameters parameters,
+			 public void addCompletions(@NotNull CompletionParameters parameters,
                                            ProcessingContext context,
                                            @NotNull CompletionResultSet result) {
                result.addElement(LookupElementBuilder.create("extends"));
@@ -83,9 +93,9 @@ public class HaxeKeywordCompletionContributor extends CompletionContributor {
     extend(CompletionType.BASIC,
            psiElement().inFile(StandardPatterns.instanceOf(HaxeFile.class)).andNot(idInExpression.and(inComplexExpression))
              .andNot(inheritPattern),
-           new CompletionProvider<CompletionParameters>() {
+           new CompletionProvider() {
              @Override
-             protected void addCompletions(@NotNull CompletionParameters parameters,
+			 public void addCompletions(@NotNull CompletionParameters parameters,
                                            ProcessingContext context,
                                            @NotNull CompletionResultSet result) {
                final Collection<String> suggestedKeywords = suggestKeywords(parameters.getPosition());

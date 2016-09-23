@@ -15,7 +15,16 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import com.intellij.codeInsight.completion.*;
+import static com.intellij.patterns.PlatformPatterns.psiElement;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import com.intellij.codeInsight.completion.CompletionContributor;
+import com.intellij.codeInsight.completion.CompletionParameters;
+import com.intellij.codeInsight.completion.CompletionResultSet;
+import com.intellij.codeInsight.completion.CompletionType;
+import com.intellij.codeInsight.completion.InsertHandler;
+import com.intellij.codeInsight.completion.InsertionContext;
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.application.Result;
@@ -39,10 +48,7 @@ import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.ProcessingContext;
 import com.intellij.util.Processor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import static com.intellij.patterns.PlatformPatterns.psiElement;
+import consulo.codeInsight.completion.CompletionProvider;
 
 /**
  * @author: Fedor.Korotkov
@@ -54,9 +60,9 @@ public class HaxeClassNameCompletionContributor extends CompletionContributor {
     final PsiElementPattern.Capture<PsiElement> inComplexExpression = psiElement().withSuperParent(3, HaxeReference.class);
     extend(CompletionType.BASIC,
            psiElement().andOr(StandardPatterns.instanceOf(HaxeType.class), idInExpression.andNot(inComplexExpression)),
-           new CompletionProvider<CompletionParameters>() {
+           new CompletionProvider() {
              @Override
-             protected void addCompletions(@NotNull CompletionParameters parameters,
+			 public void addCompletions(@NotNull CompletionParameters parameters,
                                            ProcessingContext context,
                                            @NotNull CompletionResultSet result) {
                addVariantsFromIndex(result, parameters.getOriginalFile(), null, CLASS_INSERT_HANDLER);
@@ -64,9 +70,9 @@ public class HaxeClassNameCompletionContributor extends CompletionContributor {
            });
     extend(CompletionType.BASIC,
            psiElement().and(inComplexExpression),
-           new CompletionProvider<CompletionParameters>() {
+           new CompletionProvider() {
              @Override
-             protected void addCompletions(@NotNull CompletionParameters parameters,
+			 public void addCompletions(@NotNull CompletionParameters parameters,
                                            ProcessingContext context,
                                            @NotNull CompletionResultSet result) {
                HaxeReference leftReference =

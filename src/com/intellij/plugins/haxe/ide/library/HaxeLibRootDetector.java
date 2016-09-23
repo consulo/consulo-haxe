@@ -15,20 +15,20 @@
  */
 package com.intellij.plugins.haxe.ide.library;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.roots.OrderRootType;
 import com.intellij.openapi.roots.libraries.ui.RootDetector;
-import com.intellij.openapi.vfs.JarFileSystem;
 import com.intellij.openapi.vfs.VfsUtilCore;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileVisitor;
 import com.intellij.plugins.haxe.HaxeFileType;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import consulo.vfs.ArchiveFileSystem;
 
 /**
  * @author: Fedor.Korotkov
@@ -47,7 +47,7 @@ public class HaxeLibRootDetector extends RootDetector {
   }
 
   public static void collectRoots(VirtualFile file, final List<VirtualFile> result, @Nullable final ProgressIndicator progressIndicator) {
-    if (file.getFileSystem() instanceof JarFileSystem) {
+    if (file.getFileSystem() instanceof ArchiveFileSystem) {
       return;
     }
     VfsUtilCore.visitChildrenRecursively(file, new VirtualFileVisitor() {

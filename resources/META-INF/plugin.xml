@@ -28,10 +28,9 @@
 		<extensionPoint name="module.config" interface="com.intellij.plugins.haxe.ide.projectStructure.HaxeModuleConfigurationExtensionPoint"/>
 	</extensionPoints>
 	<extensions defaultExtensionNs="com.intellij">
-		<errorHandler implementation="com.intellij.diagnostic.ITNReporter"/>
 		<testFinder implementation="com.intellij.plugins.haxe.ide.HaxeTestFinder"/>
 
-		<iconDescriptorUpdater implementation="com.intellij.plugins.haxe.ide.HaxeIconDescriptorUpdater"/>
+		<iconDescriptorUpdater implementation="consulo.haxe.HaxeIconDescriptorUpdater"/>
 		<qualifiedNameProvider implementation="com.intellij.plugins.haxe.ide.HaxeQualifiedNameProvider"/>
 
 		<sdkType implementation="com.intellij.plugins.haxe.config.sdk.HaxeSdkType"/>

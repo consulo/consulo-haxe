@@ -43,7 +43,7 @@ import com.intellij.psi.impl.source.tree.FileElement;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.tree.IFileElementType;
 import com.intellij.testFramework.LightVirtualFile;
-import com.intellij.util.LanguageVersionUtil;
+import consulo.lang.util.LanguageVersionUtil;
 
 /**
  * @author: Fedor.Korotkov

@@ -31,7 +31,7 @@ import com.intellij.psi.PsiFileFactory;
 import com.intellij.psi.impl.PsiFileFactoryImpl;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.testFramework.LightVirtualFile;
-import com.intellij.util.LanguageVersionUtil;
+import consulo.lang.util.LanguageVersionUtil;
 
 /**
  * @author Fedor.Korotkov
