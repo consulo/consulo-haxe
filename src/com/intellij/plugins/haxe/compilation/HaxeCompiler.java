@@ -16,11 +16,11 @@
 package com.intellij.plugins.haxe.compilation;
 
 import java.io.DataInput;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import consulo.haxe.module.extension.HaxeModuleExtension;
 import org.jetbrains.annotations.NotNull;
 import com.intellij.compiler.options.CompileStepBeforeRun;
 import com.intellij.execution.ExecutorRegistry;
@@ -49,202 +49,244 @@ import com.intellij.plugins.haxe.runner.HaxeApplicationConfiguration;
 import com.intellij.plugins.haxe.runner.debugger.HaxeDebugRunner;
 import com.intellij.plugins.haxe.util.HaxeCommonCompilerUtil;
 import consulo.compiler.ModuleCompilerPathsManager;
+import consulo.haxe.module.extension.HaxeModuleExtension;
 import consulo.roots.impl.ProductionContentFolderTypeProvider;
 
-public class HaxeCompiler implements SourceProcessingCompiler {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.plugins.haxe.compilation.HaxeCompiler");
+public class HaxeCompiler implements SourceProcessingCompiler
+{
+	private static final Logger LOG = Logger.getInstance("#com.intellij.plugins.haxe.compilation.HaxeCompiler");
 
-  @NotNull
-  public String getDescription() {
-    return HaxeBundle.message("haxe.compiler.description");
-  }
+	@NotNull
+	public String getDescription()
+	{
+		return HaxeBundle.message("haxe.compiler.description");
+	}
 
-  @Override
-  public boolean validateConfiguration(CompileScope scope) {
-    return true;
-  }
+	@Override
+	public boolean validateConfiguration(CompileScope scope)
+	{
+		return true;
+	}
 
-  @Override
-  public void init(@NotNull CompilerManager compilerManager) {
-  }
+	@Override
+	public void init(@NotNull CompilerManager compilerManager)
+	{
+	}
 
-  @NotNull
-  @Override
-  public ProcessingItem[] getProcessingItems(CompileContext context) {
-    final List<ProcessingItem> itemList = new ArrayList<ProcessingItem>();
-    for (final Module module : getModulesToCompile(context.getCompileScope())) {
-      itemList.add(new MyProcessingItem(module));
-    }
-    return itemList.toArray(new ProcessingItem[itemList.size()]);
-  }
+	@NotNull
+	@Override
+	public ProcessingItem[] getProcessingItems(CompileContext context)
+	{
+		final List<ProcessingItem> itemList = new ArrayList<ProcessingItem>();
+		for(final Module module : getModulesToCompile(context.getCompileScope()))
+		{
+			itemList.add(new MyProcessingItem(module));
+		}
+		return itemList.toArray(new ProcessingItem[itemList.size()]);
+	}
 
-  private static List<Module> getModulesToCompile(CompileScope scope) {
-    final List<Module> result = new ArrayList<Module>();
-    for (final Module module : scope.getAffectedModules()) {
-      if (ModuleUtilCore.getExtension(module, HaxeModuleExtension.class) == null) {
-        continue;
-      }
-      result.add(module);
-    }
-    return result;
-  }
+	private static List<Module> getModulesToCompile(CompileScope scope)
+	{
+		final List<Module> result = new ArrayList<Module>();
+		for(final Module module : scope.getAffectedModules())
+		{
+			if(ModuleUtilCore.getExtension(module, HaxeModuleExtension.class) == null)
+			{
+				continue;
+			}
+			result.add(module);
+		}
+		return result;
+	}
 
-  @Override
-  public ProcessingItem[] process(CompileContext context, ProcessingItem[] items) {
-    final RunConfiguration runConfiguration = CompileStepBeforeRun.getRunConfiguration(context.getCompileScope());
-    if (runConfiguration instanceof HaxeApplicationConfiguration) {
-      return run(context, items, (HaxeApplicationConfiguration)runConfiguration);
-    }
-    return make(context, items);
-  }
+	@Override
+	public ProcessingItem[] process(CompileContext context, ProcessingItem[] items)
+	{
+		final RunConfiguration runConfiguration = CompileStepBeforeRun.getRunConfiguration(context.getCompileScope());
+		if(runConfiguration instanceof HaxeApplicationConfiguration)
+		{
+			return run(context, items, (HaxeApplicationConfiguration) runConfiguration);
+		}
+		return make(context, items);
+	}
 
-  private static ProcessingItem[] run(CompileContext context,
-                                      ProcessingItem[] items,
-                                      HaxeApplicationConfiguration haxeApplicationConfiguration) {
-    final Module module = haxeApplicationConfiguration.getConfigurationModule().getModule();
-    if (module == null) {
-      context.addMessage(CompilerMessageCategory.ERROR,
-                         HaxeBundle.message("no.module.for.run.configuration", haxeApplicationConfiguration.getName()), null, -1, -1);
-      return ProcessingItem.EMPTY_ARRAY;
-    }
-    if (compileModule(context, module)) {
-      final int index = findProcessingItemIndexByModule(items, haxeApplicationConfiguration.getConfigurationModule());
-      if (index != -1) {
-        return new ProcessingItem[]{items[index]};
-      }
-    }
-    return ProcessingItem.EMPTY_ARRAY;
-  }
+	private static ProcessingItem[] run(CompileContext context, ProcessingItem[] items, HaxeApplicationConfiguration haxeApplicationConfiguration)
+	{
+		final Module module = haxeApplicationConfiguration.getConfigurationModule().getModule();
+		if(module == null)
+		{
+			context.addMessage(CompilerMessageCategory.ERROR, HaxeBundle.message("no.module.for.run.configuration", haxeApplicationConfiguration.getName()), null, -1, -1);
+			return ProcessingItem.EMPTY_ARRAY;
+		}
+		if(compileModule(context, module))
+		{
+			final int index = findProcessingItemIndexByModule(items, haxeApplicationConfiguration.getConfigurationModule());
+			if(index != -1)
+			{
+				return new ProcessingItem[]{items[index]};
+			}
+		}
+		return ProcessingItem.EMPTY_ARRAY;
+	}
 
-  private static ProcessingItem[] make(CompileContext context, ProcessingItem[] items) {
-    final List<ProcessingItem> result = new ArrayList<ProcessingItem>();
-    for (ProcessingItem processingItem : items) {
-      if (!(processingItem instanceof MyProcessingItem)) {
-        continue;
-      }
-      final MyProcessingItem myProcessingItem = (MyProcessingItem)processingItem;
+	private static ProcessingItem[] make(CompileContext context, ProcessingItem[] items)
+	{
+		final List<ProcessingItem> result = new ArrayList<ProcessingItem>();
+		for(ProcessingItem processingItem : items)
+		{
+			if(!(processingItem instanceof MyProcessingItem))
+			{
+				continue;
+			}
+			final MyProcessingItem myProcessingItem = (MyProcessingItem) processingItem;
 
-      if (compileModule(context, myProcessingItem.myModule)) {
-        result.add(processingItem);
-      }
-    }
-    return result.toArray(new ProcessingItem[result.size()]);
-  }
+			if(compileModule(context, myProcessingItem.myModule))
+			{
+				result.add(processingItem);
+			}
+		}
+		return result.toArray(new ProcessingItem[result.size()]);
+	}
 
-  private static boolean compileModule(final CompileContext context, @NotNull final Module module) {
-    final HaxeModuleSettings settings = HaxeModuleSettings.getInstance(module);
-    final boolean isDebug = ExecutorRegistry.getInstance()
-      .isStarting(context.getProject(), DefaultDebugExecutor.EXECUTOR_ID, HaxeDebugRunner.HAXE_DEBUG_RUNNER_ID);
-    final Sdk sdk = ModuleUtilCore.getSdk(module, HaxeModuleExtension.class);
-    if (sdk == null) {
-      context.addMessage(CompilerMessageCategory.ERROR, HaxeBundle.message("no.sdk.for.module", module.getName()), null, -1, -1);
-      return false;
-    }
-    boolean compiled = HaxeCommonCompilerUtil.compile(new HaxeCommonCompilerUtil.CompilationContext() {
-      @NotNull
-      @Override
-      public HaxeModuleSettingsBase getModuleSettings() {
-        return settings;
-      }
+	private static boolean compileModule(final CompileContext context, @NotNull final Module module)
+	{
+		final HaxeModuleSettings settings = HaxeModuleSettings.getInstance(module);
+		final boolean isDebug = ExecutorRegistry.getInstance().isStarting(context.getProject(), DefaultDebugExecutor.EXECUTOR_ID, HaxeDebugRunner.HAXE_DEBUG_RUNNER_ID);
+		final Sdk sdk = ModuleUtilCore.getSdk(module, HaxeModuleExtension.class);
+		if(sdk == null)
+		{
+			context.addMessage(CompilerMessageCategory.ERROR, HaxeBundle.message("no.sdk.for.module", module.getName()), null, -1, -1);
+			return false;
+		}
+		boolean compiled = HaxeCommonCompilerUtil.compile(new HaxeCommonCompilerUtil.CompilationContext()
+		{
+			@NotNull
+			@Override
+			public HaxeModuleSettingsBase getModuleSettings()
+			{
+				return settings;
+			}
 
-      @Override
-      public String getModuleName() {
-        return module.getName();
-      }
+			@Override
+			public String getModuleName()
+			{
+				return module.getName();
+			}
 
-      @Override
-      public void errorHandler(String message) {
-        context.addMessage(CompilerMessageCategory.ERROR, message, null, -1, -1);
-      }
+			@Override
+			public void errorHandler(String message)
+			{
+				context.addMessage(CompilerMessageCategory.ERROR, message, null, -1, -1);
+			}
 
-      @Override
-      public void log(String message) {
-        LOG.debug(message);
-      }
+			@Override
+			public void log(String message)
+			{
+				LOG.debug(message);
+			}
 
-      @Override
-      public String getSdkName() {
-        return sdk.getName();
-      }
+			@Override
+			public String getSdkName()
+			{
+				return sdk.getName();
+			}
 
-      @Override
-      public String getSdkHomePath() {
-        return sdk.getHomePath();
-      }
+			@Override
+			public String getSdkHomePath()
+			{
+				return sdk.getHomePath();
+			}
 
-      @Override
-      public String getHaxelibPath() {
-        SdkAdditionalData data = sdk.getSdkAdditionalData();
-        return data instanceof HaxeSdkAdditionalDataBase ? ((HaxeSdkAdditionalDataBase)data).getHaxelibPath() : null;
-      }
+			@Override
+			public String getHaxelibPath()
+			{
+				SdkAdditionalData data = sdk.getSdkAdditionalData();
+				return data instanceof HaxeSdkAdditionalDataBase ? ((HaxeSdkAdditionalDataBase) data).getHaxelibPath() : null;
+			}
 
-      @Override
-      public boolean isDebug() {
-        return isDebug;
-      }
+			@Override
+			public boolean isDebug()
+			{
+				return isDebug;
+			}
 
-      @Override
-      public List<String> getSourceRoots() {
-        final List<String> result = new ArrayList<String>();
-        for (VirtualFile sourceRoot : OrderEnumerator.orderEntries(module).recursively().withoutSdk().exportedOnly().sources().getRoots()) {
-          result.add(sourceRoot.getPath());
-        }
-        for (VirtualFile sourceRoot : OrderEnumerator.orderEntries(module).librariesOnly().getSourceRoots()) {
-          result.add(sourceRoot.getPath());
-        }
-        return result;
-      }
+			@Override
+			public List<String> getSourceRoots()
+			{
+				final List<String> result = new ArrayList<String>();
+				for(VirtualFile sourceRoot : OrderEnumerator.orderEntries(module).recursively().withoutSdk().exportedOnly().sources().getRoots())
+				{
+					result.add(sourceRoot.getPath());
+				}
+				for(VirtualFile sourceRoot : OrderEnumerator.orderEntries(module).librariesOnly().getSourceRoots())
+				{
+					result.add(sourceRoot.getPath());
+				}
+				return result;
+			}
 
-      @Override
-      public String getCompileOutputPath() {
-        return ModuleCompilerPathsManager.getInstance(module).getCompilerOutputUrl(ProductionContentFolderTypeProvider.getInstance());
-      }
+			@Override
+			public String getCompileOutputPath()
+			{
+				return ModuleCompilerPathsManager.getInstance(module).getCompilerOutputUrl(ProductionContentFolderTypeProvider.getInstance());
+			}
 
-      @Override
-      public void handleOutput(String[] lines) {
-        HaxeCompilerUtil.fillContext(module, context, lines);
-      }
-    });
+			@Override
+			public void handleOutput(String[] lines)
+			{
+				HaxeCompilerUtil.fillContext(module, context, lines);
+			}
+		});
 
-    if (!compiled) {
-      context.addMessage(CompilerMessageCategory.ERROR, "compilation failed", null, 0, 0);
-    }
+		if(!compiled)
+		{
+			context.addMessage(CompilerMessageCategory.ERROR, "compilation failed", null, 0, 0);
+		}
 
-    return compiled;
-  }
+		return compiled;
+	}
 
-  private static int findProcessingItemIndexByModule(ProcessingItem[] items, RunConfigurationModule moduleConfiguration) {
-    final Module module = moduleConfiguration.getModule();
-    if (module == null || module.getModuleDir() == null) {
-      return -1;
-    }
-    for (int i = 0; i < items.length; ++i) {
-      if (module.getModuleDir().equals(items[i].getFile())) {
-        return i;
-      }
-    }
-    return -1;
-  }
+	private static int findProcessingItemIndexByModule(ProcessingItem[] items, RunConfigurationModule moduleConfiguration)
+	{
+		final Module module = moduleConfiguration.getModule();
+		if(module == null || module.getModuleDir() == null)
+		{
+			return -1;
+		}
+		for(int i = 0; i < items.length; ++i)
+		{
+			if(module.getModuleDir().equals(items[i].getFile()))
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
 
-  @Override
-  public ValidityState createValidityState(DataInput in) throws IOException {
-    return new EmptyValidityState();
-  }
+	@Override
+	public ValidityState createValidityState(DataInput in) throws IOException
+	{
+		return new EmptyValidityState();
+	}
 
-  private static class MyProcessingItem implements ProcessingItem {
-    private final Module myModule;
+	private static class MyProcessingItem implements ProcessingItem
+	{
+		private final Module myModule;
 
-    private MyProcessingItem(Module module) {
-      myModule = module;
-    }
+		private MyProcessingItem(Module module)
+		{
+			myModule = module;
+		}
 
-    @NotNull
-    public VirtualFile getFile() {
-      return myModule.getModuleDir();
-    }
+		@NotNull
+		public File getFile()
+		{
+			return new File(myModule.getModuleDirPath());
+		}
 
-    public ValidityState getValidityState() {
-      return new EmptyValidityState();
-    }
-  }
+		public ValidityState getValidityState()
+		{
+			return new EmptyValidityState();
+		}
+	}
 }
