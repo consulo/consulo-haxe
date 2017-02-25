@@ -26,7 +26,6 @@ import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
 import com.intellij.openapi.components.StoragePathMacros;
-import com.intellij.openapi.components.StorageScheme;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.util.text.StringUtil;
@@ -35,12 +34,7 @@ import com.intellij.util.containers.ContainerUtil;
 /**
  * @author Fedor.Korotkov
  */
-@State(
-		name = "HaxeProjectSettings",
-		storages = {
-				@Storage(file = StoragePathMacros.PROJECT_CONFIG_DIR + "/haxe.xml", scheme = StorageScheme.DIRECTORY_BASED)
-		}
-)
+@State(name = "HaxeProjectSettings", storages = @Storage(file = StoragePathMacros.PROJECT_CONFIG_DIR + "/haxe.xml"))
 public class HaxeProjectSettings implements PersistentStateComponent<Element>
 {
 	public static final String HAXE_SETTINGS = "HaxeProjectSettings";
