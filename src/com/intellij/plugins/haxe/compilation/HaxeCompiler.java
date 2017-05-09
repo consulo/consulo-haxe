@@ -29,7 +29,6 @@ import com.intellij.execution.configurations.RunConfigurationModule;
 import com.intellij.execution.executors.DefaultDebugExecutor;
 import com.intellij.openapi.compiler.CompileContext;
 import com.intellij.openapi.compiler.CompileScope;
-import com.intellij.openapi.compiler.CompilerManager;
 import com.intellij.openapi.compiler.CompilerMessageCategory;
 import com.intellij.openapi.compiler.EmptyValidityState;
 import com.intellij.openapi.compiler.SourceProcessingCompiler;
@@ -66,11 +65,6 @@ public class HaxeCompiler implements SourceProcessingCompiler
 	public boolean validateConfiguration(CompileScope scope)
 	{
 		return true;
-	}
-
-	@Override
-	public void init(@NotNull CompilerManager compilerManager)
-	{
 	}
 
 	@NotNull
