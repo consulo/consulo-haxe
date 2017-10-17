@@ -57,7 +57,7 @@ public class CreateClassAction extends CreateTemplateInPackageAction<PsiFile>
 	@Override
 	protected boolean isAvailable(DataContext dataContext)
 	{
-		final Module module = LangDataKeys.MODULE.getData(dataContext);
+		final Module module = dataContext.getData(LangDataKeys.MODULE);
 		return super.isAvailable(dataContext) && module != null && ModuleUtilCore.getExtension(module, HaxeModuleExtension.class) != null;
 	}
 
@@ -109,7 +109,7 @@ public class CreateClassAction extends CreateTemplateInPackageAction<PsiFile>
 	private static PsiElement createClass(String className, String packageName, @NotNull PsiDirectory directory,
 			final String templateName) throws Exception
 	{
-		final Properties props = new Properties(FileTemplateManager.getInstance().getDefaultProperties(directory.getProject()));
+		final Properties props = new Properties(FileTemplateManager.getInstance(directory.getProject()).getDefaultProperties(directory.getProject()));
 		props.setProperty(FileTemplate.ATTRIBUTE_NAME, className);
 		props.setProperty(FileTemplate.ATTRIBUTE_PACKAGE_NAME, packageName);
 

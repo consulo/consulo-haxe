@@ -40,7 +40,7 @@ public class CreateNMMLFileAction extends CreateFileFromTemplateAction implement
 
   @Override
   protected boolean isAvailable(DataContext dataContext) {
-    final Module module = LangDataKeys.MODULE.getData(dataContext);
+    final Module module = dataContext.getData(LangDataKeys.MODULE);
     return super.isAvailable(dataContext) && module != null && ModuleUtilCore.getExtension(module, HaxeModuleExtension.class) != null;
   }
 
