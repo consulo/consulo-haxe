@@ -1,1 +1,1 @@
-![Build Status](http://must-be.org/vulcan/statusImage?name=consulo-haxe)
+[![Build Status](https://ci.consulo.io/view/consulo-test-status/job/consulo-haxe/badge/icon)](https://ci.consulo.io/view/consulo-test-status/job/consulo-haxe/)
