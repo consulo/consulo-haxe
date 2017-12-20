@@ -15,16 +15,17 @@
  */
 package com.intellij.plugins.haxe.actions;
 
+import java.util.Collection;
+
+import org.jetbrains.annotations.NonNls;
 import com.intellij.openapi.actionSystem.DataProvider;
 import com.intellij.openapi.editor.ex.EditorEx;
+import com.intellij.openapi.util.Key;
 import com.intellij.plugins.haxe.HaxeCodeInsightFixtureTestCase;
 import com.intellij.usageView.UsageInfo;
 import com.intellij.usages.PsiElementUsageTarget;
 import com.intellij.usages.UsageTarget;
 import com.intellij.usages.UsageTargetUtil;
-import org.jetbrains.annotations.NonNls;
-
-import java.util.Collection;
 
 /**
  * @author: Fedor.Korotkov
@@ -45,7 +46,7 @@ public class HaxeFindUsagesTest extends HaxeCodeInsightFixtureTestCase {
     throws Throwable {
     final UsageTarget[] targets = UsageTargetUtil.findUsageTargets(new DataProvider() {
       @Override
-      public Object getData(@NonNls String dataId) {
+      public Object getData(@NonNls Key<?> dataId) {
         return ((EditorEx)myFixture.getEditor()).getDataContext().getData(dataId);
       }
     });

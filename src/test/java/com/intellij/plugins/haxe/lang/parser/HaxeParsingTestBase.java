@@ -17,11 +17,12 @@ package com.intellij.plugins.haxe.lang.parser;
 
 import com.intellij.plugins.haxe.HaxeFileType;
 import com.intellij.plugins.haxe.util.HaxeTestUtils;
-import com.intellij.testFramework.ParsingTestCase;
+import consulo.testFramework.ParsingTestCase;
 
-abstract public class HaxeParsingTestBase extends ParsingTestCase {
+abstract public class HaxeParsingTestBase extends ParsingTestCase
+{
   public HaxeParsingTestBase(String... path) {
-    super(getPath(path), HaxeFileType.DEFAULT_EXTENSION, new HaxeParserDefinition());
+    super(getPath(path), HaxeFileType.DEFAULT_EXTENSION);
   }
 
   private static String getPath(String... args) {

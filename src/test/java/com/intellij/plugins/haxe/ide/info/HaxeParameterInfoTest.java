@@ -15,19 +15,20 @@
  */
 package com.intellij.plugins.haxe.ide.info;
 
+import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.plugins.haxe.util.HaxeTestUtils;
-import com.intellij.psi.PsiElement;
-import com.intellij.testFramework.LightCodeInsightTestCase;
+import com.intellij.testFramework.LightPlatformCodeInsightTestCase;
+
 //import com.intellij.testFramework.utils.parameterInfo.MockCreateParameterInfoContext;
 //import com.intellij.testFramework.utils.parameterInfo.MockParameterInfoUIContext;
 //import com.intellij.testFramework.utils.parameterInfo.MockUpdateParameterInfoContext;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author: Fedor.Korotkov
  */
-abstract public class HaxeParameterInfoTest extends LightCodeInsightTestCase {
+abstract public class HaxeParameterInfoTest extends LightPlatformCodeInsightTestCase
+{
   @NotNull
   @Override
   protected String getTestDataPath() {

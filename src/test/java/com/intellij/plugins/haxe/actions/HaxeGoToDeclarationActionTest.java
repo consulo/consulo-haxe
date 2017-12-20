@@ -15,12 +15,12 @@
  */
 package com.intellij.plugins.haxe.actions;
 
-import com.intellij.codeInsight.TargetElementUtilBase;
+import java.util.Collection;
+
 import com.intellij.plugins.haxe.HaxeCodeInsightFixtureTestCase;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-
-import java.util.Collection;
+import consulo.codeInsight.TargetElementUtil;
 
 /**
  * @author: Fedor.Korotkov
@@ -37,8 +37,7 @@ public class HaxeGoToDeclarationActionTest extends HaxeCodeInsightFixtureTestCas
 
   protected void doTest(PsiFile[] files, int expectedSize) {
     final PsiFile myFile = files[0];
-    final Collection<PsiElement> elements = TargetElementUtilBase
-      .getInstance().getTargetCandidates(myFile.findReferenceAt(myFixture.getCaretOffset()));
+    final Collection<PsiElement> elements = TargetElementUtil.getTargetCandidates(myFile.findReferenceAt(myFixture.getCaretOffset()));
     assertNotNull(elements);
     assertEquals(expectedSize, elements.size());
   }

@@ -15,22 +15,20 @@
  */
 package com.intellij.plugins.haxe.actions;
 
+import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.plugins.haxe.ide.generation.*;
+import com.intellij.plugins.haxe.ide.generation.BaseHaxeGenerateHandler;
+import com.intellij.plugins.haxe.ide.generation.CreateGetterSetterFix;
+import com.intellij.plugins.haxe.ide.generation.HaxeGenerateAccessorHandler;
+import com.intellij.plugins.haxe.ide.generation.HaxeImplementMethodHandler;
+import com.intellij.plugins.haxe.ide.generation.HaxeOverrideMethodHandler;
 import com.intellij.plugins.haxe.util.HaxeTestUtils;
 import com.intellij.testFramework.LightPlatformCodeInsightTestCase;
-import com.intellij.testFramework.PlatformTestCase;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author: Fedor.Korotkov
  */
 abstract public class HaxeGenerateActionTest extends LightPlatformCodeInsightTestCase {
-  @SuppressWarnings("JUnitTestCaseWithNonTrivialConstructors")
-  protected HaxeGenerateActionTest() {
-    PlatformTestCase.initPlatformLangPrefix();
-  }
-
   @NotNull
   @Override
   protected String getTestDataPath() {
