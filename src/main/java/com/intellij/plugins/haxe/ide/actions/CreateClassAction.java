@@ -19,6 +19,7 @@ import java.util.Properties;
 
 import javax.swing.Icon;
 
+import consulo.awt.TargetAWT;
 import consulo.haxe.module.extension.HaxeModuleExtension;
 import javax.annotation.Nonnull;
 import com.intellij.icons.AllIcons;
@@ -41,6 +42,8 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.util.IncorrectOperationException;
 import consulo.ide.IconDescriptor;
+import consulo.ui.image.Image;
+import consulo.ui.image.ImageEffects;
 import icons.HaxeIcons;
 
 /**
@@ -50,8 +53,7 @@ public class CreateClassAction extends CreateTemplateInPackageAction<PsiFile>
 {
 	public CreateClassAction()
 	{
-		super(HaxeBundle.message("action.create.new.class"), HaxeBundle.message("action.create.new.class"),
-				new IconDescriptor(AllIcons.Nodes.Class).addLayerIcon(HaxeIcons.HaxeLang).toIcon(), true);
+		super(HaxeBundle.message("action.create.new.class"), HaxeBundle.message("action.create.new.class"), TargetAWT.to(ImageEffects.folded(AllIcons.Nodes.Class, HaxeIcons.HaxeLang)), true);
 	}
 
 	@Override
@@ -87,8 +89,8 @@ public class CreateClassAction extends CreateTemplateInPackageAction<PsiFile>
 		{
 			final String templateName = fileTemplate.getName();
 			final String shortName = HaxeFileTemplateUtil.getTemplateShortName(templateName);
-			final Icon icon = HaxeFileTemplateUtil.getTemplateIcon(templateName);
-			builder.addKind(shortName, icon, templateName);
+			final Image icon = HaxeFileTemplateUtil.getTemplateIcon(templateName);
+			builder.addKind(shortName, TargetAWT.to(icon), templateName);
 		}
 	}
 

@@ -27,6 +27,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.ide.HaxeFileTemplateUtil;
 import com.intellij.psi.PsiDirectory;
+import consulo.awt.TargetAWT;
 import consulo.haxe.module.extension.HaxeModuleExtension;
 
 /**
@@ -34,8 +35,7 @@ import consulo.haxe.module.extension.HaxeModuleExtension;
  */
 public class CreateNMMLFileAction extends CreateFileFromTemplateAction implements DumbAware {
   public CreateNMMLFileAction() {
-    super(HaxeBundle.message("create.nmml.file.action"), HaxeBundle.message("create.nmml.file.action.description"),
-          icons.HaxeIcons.Nmml_16);
+    super(HaxeBundle.message("create.nmml.file.action"), HaxeBundle.message("create.nmml.file.action.description"), TargetAWT.to(icons.HaxeIcons.Nmml_16));
   }
 
   @Override
@@ -50,7 +50,7 @@ public class CreateNMMLFileAction extends CreateFileFromTemplateAction implement
     for (FileTemplate fileTemplate : HaxeFileTemplateUtil.getNMMLTemplates()) {
       final String templateName = fileTemplate.getName();
       final String shortName = HaxeFileTemplateUtil.getTemplateShortName(templateName);
-      builder.addKind(shortName, icons.HaxeIcons.Nmml_16, templateName);
+      builder.addKind(shortName, TargetAWT.to(icons.HaxeIcons.Nmml_16), templateName);
     }
   }
 

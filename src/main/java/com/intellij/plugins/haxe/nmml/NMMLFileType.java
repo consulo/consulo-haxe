@@ -15,12 +15,12 @@
  */
 package com.intellij.plugins.haxe.nmml;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.ide.highlighter.XmlLikeFileType;
 import com.intellij.lang.xml.XMLLanguage;
 import com.intellij.plugins.haxe.HaxeBundle;
-import javax.annotation.Nonnull;
-
-import javax.swing.*;
+import consulo.ui.image.Image;
 
 /**
  * @author: Fedor.Korotkov
@@ -35,7 +35,7 @@ public class NMMLFileType extends XmlLikeFileType {
 
   @Nonnull
   @Override
-  public String getName() {
+  public String getId() {
     return HaxeBundle.message("nme.nmml");
   }
 
@@ -52,7 +52,7 @@ public class NMMLFileType extends XmlLikeFileType {
   }
 
   @Override
-  public Icon getIcon() {
+  public Image getIcon() {
     return icons.HaxeIcons.Nmml_16;
   }
 }

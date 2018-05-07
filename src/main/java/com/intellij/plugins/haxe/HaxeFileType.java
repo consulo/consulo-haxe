@@ -16,12 +16,12 @@
 package com.intellij.plugins.haxe;
 
 import javax.annotation.Nonnull;
-import javax.swing.Icon;
 
 import org.jetbrains.annotations.NonNls;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.vfs.CharsetToolkit;
 import com.intellij.openapi.vfs.VirtualFile;
+import consulo.ui.image.Image;
 
 public class HaxeFileType extends LanguageFileType {
   public static final HaxeFileType HAXE_FILE_TYPE = new HaxeFileType();
@@ -55,7 +55,7 @@ public class HaxeFileType extends LanguageFileType {
   }
 
   @Override
-  public Icon getIcon() {
+  public Image getIcon() {
     return icons.HaxeIcons.Haxe;
   }
 

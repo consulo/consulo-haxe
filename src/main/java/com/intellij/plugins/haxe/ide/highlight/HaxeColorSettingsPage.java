@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
-import javax.swing.Icon;
 
 import org.jetbrains.annotations.NonNls;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
@@ -83,11 +82,6 @@ public class HaxeColorSettingsPage implements ColorSettingsPage {
   @Override
   public String getDisplayName() {
     return HaxeBundle.message("haxe.title");
-  }
-
-  @Override
-  public Icon getIcon() {
-    return icons.HaxeIcons.Haxe;
   }
 
   @Nonnull

@@ -17,9 +17,8 @@ package com.intellij.plugins.haxe.ide;
 
 import java.util.List;
 
-import javax.swing.Icon;
-
 import javax.annotation.Nonnull;
+
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.fileTemplates.FileTemplate;
 import com.intellij.ide.fileTemplates.FileTemplateManager;
@@ -28,7 +27,8 @@ import com.intellij.plugins.haxe.HaxeFileType;
 import com.intellij.plugins.haxe.nmml.NMMLFileType;
 import com.intellij.util.SmartList;
 import com.intellij.util.containers.ContainerUtil;
-import consulo.ide.IconDescriptor;
+import consulo.ui.image.Image;
+import consulo.ui.image.ImageEffects;
 import icons.HaxeIcons;
 
 /**
@@ -70,16 +70,16 @@ public class HaxeFileTemplateUtil {
   }
 
   @Nonnull
-  public static Icon getTemplateIcon(String name) {
+  public static Image getTemplateIcon(String name) {
     name = getTemplateShortName(name);
     if ("Class".equals(name)) {
-      return new IconDescriptor(AllIcons.Nodes.Class).addLayerIcon(HaxeIcons.HaxeLang).toIcon();
+      return ImageEffects.folded(AllIcons.Nodes.Class, HaxeIcons.HaxeLang);
     }
     else if ("Interface".equals(name)) {
-      return new IconDescriptor(AllIcons.Nodes.Interface).addLayerIcon(HaxeIcons.HaxeLang).toIcon();
+      return ImageEffects.folded(AllIcons.Nodes.Interface, HaxeIcons.HaxeLang);
     }
     else if ("Enum".equals(name)) {
-      return new IconDescriptor(AllIcons.Nodes.Enum).addLayerIcon(HaxeIcons.HaxeLang).toIcon();
+      return ImageEffects.folded(AllIcons.Nodes.Enum, HaxeIcons.HaxeLang);
     }
     return icons.HaxeIcons.Haxe;
   }

@@ -41,6 +41,7 @@ import com.intellij.util.xmlb.XmlSerializer;
 import consulo.roots.types.BinariesOrderRootType;
 import consulo.roots.types.DocumentationOrderRootType;
 import consulo.roots.types.SourcesOrderRootType;
+import consulo.ui.image.Image;
 import icons.HaxeIcons;
 
 public class HaxeSdkType extends SdkType
@@ -57,14 +58,7 @@ public class HaxeSdkType extends SdkType
 	}
 
 	@Override
-	public Icon getIcon()
-	{
-		return HaxeIcons.Haxe;
-	}
-
-	@Nullable
-	@Override
-	public Icon getGroupIcon()
+	public Image getIcon()
 	{
 		return HaxeIcons.Haxe;
 	}

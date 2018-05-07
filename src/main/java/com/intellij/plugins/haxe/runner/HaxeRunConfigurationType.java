@@ -16,9 +16,7 @@
 package com.intellij.plugins.haxe.runner;
 
 import javax.annotation.Nonnull;
-import javax.swing.Icon;
 
-import consulo.haxe.module.extension.HaxeModuleExtension;
 import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.configurations.ConfigurationType;
 import com.intellij.execution.configurations.RunConfiguration;
@@ -26,7 +24,9 @@ import com.intellij.openapi.extensions.Extensions;
 import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.util.containers.ContainerUtil;
+import consulo.haxe.module.extension.HaxeModuleExtension;
 import consulo.module.extension.ModuleExtensionHelper;
+import consulo.ui.image.Image;
 import icons.HaxeIcons;
 
 public class HaxeRunConfigurationType implements ConfigurationType
@@ -56,7 +56,7 @@ public class HaxeRunConfigurationType implements ConfigurationType
 	}
 
 	@Override
-	public Icon getIcon()
+	public Image getIcon()
 	{
 		return HaxeIcons.Haxe;
 	}
