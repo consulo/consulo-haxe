@@ -20,10 +20,10 @@ import static com.intellij.plugins.haxe.ide.highlight.HaxeSyntaxHighlighterColor
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.options.colors.AttributesDescriptor;
@@ -79,7 +79,7 @@ public class HaxeColorSettingsPage implements ColorSettingsPage {
     ourTags.put("static.member.variable", STATIC_MEMBER_VARIABLE);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getDisplayName() {
     return HaxeBundle.message("haxe.title");
@@ -90,13 +90,13 @@ public class HaxeColorSettingsPage implements ColorSettingsPage {
     return icons.HaxeIcons.Haxe;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public ColorDescriptor[] getColorDescriptors() {
     return ColorDescriptor.EMPTY_ARRAY;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public SyntaxHighlighter getHighlighter() {
     return new HaxeSyntaxHighlighter();
@@ -107,13 +107,13 @@ public class HaxeColorSettingsPage implements ColorSettingsPage {
     return ourTags;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public AttributesDescriptor[] getAttributeDescriptors() {
     return ATTRS;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getDemoText() {
     return "<compilation>#if <defined.flag>definedFlag</defined.flag> && <undefined.flag>undefinedFlag</undefined.flag>\n" +

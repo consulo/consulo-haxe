@@ -22,7 +22,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.config.ui.HaxeSettingsForm;
 import com.intellij.plugins.haxe.util.HaxeUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 
@@ -41,7 +41,7 @@ public class HaxeSettingsConfigurable implements SearchableConfigurable, NonDefa
     return HaxeBundle.message("haxe.settings.name");
   }
 
-  @NotNull
+  @Nonnull
   public String getId() {
     return "haxe.settings";
   }

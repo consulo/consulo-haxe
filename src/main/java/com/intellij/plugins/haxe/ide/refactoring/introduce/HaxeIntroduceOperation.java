@@ -20,11 +20,12 @@ import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.lang.psi.HaxeExpression;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 /**
  * @author: Fedor.Korotkov

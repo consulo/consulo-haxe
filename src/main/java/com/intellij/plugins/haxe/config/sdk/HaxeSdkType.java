@@ -18,11 +18,12 @@ package com.intellij.plugins.haxe.config.sdk;
 import java.util.Collection;
 import java.util.Collections;
 
+import javax.annotation.Nullable;
 import javax.swing.Icon;
 
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
 import com.intellij.openapi.fileChooser.PathChooserDialog;
 import com.intellij.openapi.projectRoots.AdditionalDataConfigurable;
@@ -44,7 +45,7 @@ import icons.HaxeIcons;
 
 public class HaxeSdkType extends SdkType
 {
-	@NotNull
+	@Nonnull
 	public static HaxeSdkType getInstance()
 	{
 		return EP_NAME.findExtension(HaxeSdkType.class);
@@ -68,7 +69,7 @@ public class HaxeSdkType extends SdkType
 		return HaxeIcons.Haxe;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getPresentableName()
 	{
@@ -88,7 +89,7 @@ public class HaxeSdkType extends SdkType
 		return haxeSdkData != null ? haxeSdkData.getVersion() : null;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Collection<String> suggestHomePaths()
 	{

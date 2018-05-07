@@ -24,7 +24,7 @@ import com.intellij.psi.PsiReference;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.ArrayUtil;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
@@ -55,7 +55,7 @@ public class HaxeClassReferenceImpl extends HaxeExpressionImpl implements HaxeRe
     return null;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getCanonicalText() {
     return getText();
@@ -72,7 +72,7 @@ public class HaxeClassReferenceImpl extends HaxeExpressionImpl implements HaxeRe
   }
 
   @Override
-  public PsiElement bindToElement(@NotNull PsiElement element) throws IncorrectOperationException {
+  public PsiElement bindToElement(@Nonnull PsiElement element) throws IncorrectOperationException {
     return this;
   }
 
@@ -81,13 +81,13 @@ public class HaxeClassReferenceImpl extends HaxeExpressionImpl implements HaxeRe
     return false;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Object[] getVariants() {
     return ArrayUtil.EMPTY_OBJECT_ARRAY;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public HaxeClassResolveResult resolveHaxeClass() {
     final HaxeFunctionType functionType = PsiTreeUtil.getChildOfType(this, HaxeFunctionType.class);

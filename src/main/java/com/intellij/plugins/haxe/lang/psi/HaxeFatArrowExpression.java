@@ -3,11 +3,11 @@ package com.intellij.plugins.haxe.lang.psi;
 
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public interface HaxeFatArrowExpression extends HaxeExpression {
 
-  @NotNull
+  @Nonnull
   List<HaxeExpression> getExpressionList();
 
 }

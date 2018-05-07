@@ -22,8 +22,8 @@ import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkModificator;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.plugins.haxe.config.sdk.ui.HaxeAdditionalConfigurablePanel;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 
 /**

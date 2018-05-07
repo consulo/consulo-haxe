@@ -2,27 +2,27 @@
 package com.intellij.plugins.haxe.lang.psi;
 
 import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
+
+import javax.annotation.*;
 
 public interface HaxeFunctionDeclarationWithAttributes extends HaxeComponentWithDeclarationList {
 
-  @NotNull
+  @Nonnull
   List<HaxeAutoBuildMacro> getAutoBuildMacroList();
 
   @Nullable
   HaxeBlockStatement getBlockStatement();
 
-  @NotNull
+  @Nonnull
   List<HaxeBuildMacro> getBuildMacroList();
 
   @Nullable
   HaxeComponentName getComponentName();
 
-  @NotNull
+  @Nonnull
   List<HaxeCustomMeta> getCustomMetaList();
 
-  @NotNull
+  @Nonnull
   List<HaxeDeclarationAttribute> getDeclarationAttributeList();
 
   @Nullable
@@ -31,28 +31,28 @@ public interface HaxeFunctionDeclarationWithAttributes extends HaxeComponentWith
   @Nullable
   HaxeGenericParam getGenericParam();
 
-  @NotNull
+  @Nonnull
   List<HaxeGetterMeta> getGetterMetaList();
 
-  @NotNull
+  @Nonnull
   List<HaxeMetaMeta> getMetaMetaList();
 
-  @NotNull
+  @Nonnull
   List<HaxeNsMeta> getNsMetaList();
 
-  @NotNull
+  @Nonnull
   List<HaxeOverloadMeta> getOverloadMetaList();
 
   @Nullable
   HaxeParameterList getParameterList();
 
-  @NotNull
+  @Nonnull
   List<HaxeRequireMeta> getRequireMetaList();
 
   @Nullable
   HaxeReturnStatement getReturnStatement();
 
-  @NotNull
+  @Nonnull
   List<HaxeSetterMeta> getSetterMetaList();
 
   @Nullable

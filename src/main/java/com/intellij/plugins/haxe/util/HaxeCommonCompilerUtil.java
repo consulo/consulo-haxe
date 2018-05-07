@@ -26,7 +26,7 @@ import com.intellij.plugins.haxe.config.NMETarget;
 import com.intellij.plugins.haxe.module.HaxeModuleSettingsBase;
 import com.intellij.util.BooleanValueHolder;
 import com.intellij.util.text.StringTokenizer;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,7 +39,7 @@ import java.util.List;
  */
 public class HaxeCommonCompilerUtil {
   public interface CompilationContext {
-    @NotNull
+    @Nonnull
     HaxeModuleSettingsBase getModuleSettings();
 
     String getModuleName();

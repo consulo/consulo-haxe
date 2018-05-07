@@ -19,21 +19,21 @@ import com.intellij.lang.Language;
 import com.intellij.plugins.haxe.HaxeLanguage;
 import com.intellij.psi.codeStyle.CodeStyleSettingsCustomizable;
 import com.intellij.psi.codeStyle.LanguageCodeStyleSettingsProvider;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
  */
 public class HaxeLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSettingsProvider {
 
-  @NotNull
+  @Nonnull
   @Override
   public Language getLanguage() {
     return HaxeLanguage.INSTANCE;
   }
 
   @Override
-  public String getCodeSample(@NotNull SettingsType settingsType) {
+  public String getCodeSample(@Nonnull SettingsType settingsType) {
     if (settingsType == SettingsType.SPACING_SETTINGS) {
       return SPACING_CODE_SAMPLE;
     }
@@ -44,7 +44,7 @@ public class HaxeLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSett
   }
 
   @Override
-  public void customizeSettings(@NotNull CodeStyleSettingsCustomizable consumer, @NotNull SettingsType settingsType) {
+  public void customizeSettings(@Nonnull CodeStyleSettingsCustomizable consumer, @Nonnull SettingsType settingsType) {
     if (settingsType == SettingsType.SPACING_SETTINGS) {
       consumer.showStandardOptions("SPACE_BEFORE_METHOD_CALL_PARENTHESES",
                                    "SPACE_BEFORE_METHOD_PARENTHESES",

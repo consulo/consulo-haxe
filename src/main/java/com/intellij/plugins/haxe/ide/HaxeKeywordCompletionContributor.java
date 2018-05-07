@@ -26,8 +26,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionResultSet;
@@ -81,9 +82,9 @@ public class HaxeKeywordCompletionContributor extends CompletionContributor {
              andOr(psiElement().withSuperParent(2, HaxeClassBody.class), psiElement().withSuperParent(2, HaxeInheritList.class)),
            new CompletionProvider() {
              @Override
-			 public void addCompletions(@NotNull CompletionParameters parameters,
+			 public void addCompletions(@Nonnull CompletionParameters parameters,
                                            ProcessingContext context,
-                                           @NotNull CompletionResultSet result) {
+                                           @Nonnull CompletionResultSet result) {
                result.addElement(LookupElementBuilder.create("extends"));
                result.addElement(LookupElementBuilder.create("implements"));
              }
@@ -95,9 +96,9 @@ public class HaxeKeywordCompletionContributor extends CompletionContributor {
              .andNot(inheritPattern),
            new CompletionProvider() {
              @Override
-			 public void addCompletions(@NotNull CompletionParameters parameters,
+			 public void addCompletions(@Nonnull CompletionParameters parameters,
                                            ProcessingContext context,
-                                           @NotNull CompletionResultSet result) {
+                                           @Nonnull CompletionResultSet result) {
                final Collection<String> suggestedKeywords = suggestKeywords(parameters.getPosition());
                suggestedKeywords.retainAll(allowedKeywords);
                for (String keyword : suggestedKeywords) {
@@ -153,7 +154,7 @@ public class HaxeKeywordCompletionContributor extends CompletionContributor {
     return result;
   }
 
-  @NotNull
+  @Nonnull
   private static Collection<? extends String> suggestBySibling(@Nullable PsiElement sibling) {
     if (HaxeIfStatement.class.isInstance(sibling)) {
       return Arrays.asList(HaxeTokenTypes.KELSE.toString());

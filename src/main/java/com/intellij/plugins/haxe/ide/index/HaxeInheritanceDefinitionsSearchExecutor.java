@@ -22,7 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Computable;
@@ -63,7 +63,7 @@ public class HaxeInheritanceDefinitionsSearchExecutor implements QueryExecutor<P
 	}
 
 	@Override
-	public boolean execute(@NotNull final DefinitionsScopedSearch.SearchParameters parameters, @NotNull final Processor<PsiElement> consumer)
+	public boolean execute(@Nonnull final DefinitionsScopedSearch.SearchParameters parameters, @Nonnull final Processor<PsiElement> consumer)
 	{
 		final PsiElement queryParameters = parameters.getElement();
 		return ApplicationManager.getApplication().runReadAction(new Computable<Boolean>()

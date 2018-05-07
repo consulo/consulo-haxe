@@ -20,7 +20,7 @@ import java.util.Properties;
 import javax.swing.Icon;
 
 import consulo.haxe.module.extension.HaxeModuleExtension;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.IdeBundle;
 import com.intellij.ide.actions.CreateFileFromTemplateDialog;
@@ -62,7 +62,7 @@ public class CreateClassAction extends CreateTemplateInPackageAction<PsiFile>
 	}
 
 	@Override
-	protected PsiElement getNavigationElement(@NotNull PsiFile createdElement)
+	protected PsiElement getNavigationElement(@Nonnull PsiFile createdElement)
 	{
 		return createdElement.getNavigationElement();
 	}
@@ -93,7 +93,7 @@ public class CreateClassAction extends CreateTemplateInPackageAction<PsiFile>
 	}
 
 	@Override
-	protected PsiFile doCreate(@NotNull PsiDirectory dir, String className, String templateName) throws IncorrectOperationException
+	protected PsiFile doCreate(@Nonnull PsiDirectory dir, String className, String templateName) throws IncorrectOperationException
 	{
 		String packageName = DirectoryIndex.getInstance(dir.getProject()).getPackageName(dir.getVirtualFile());
 		try
@@ -106,7 +106,7 @@ public class CreateClassAction extends CreateTemplateInPackageAction<PsiFile>
 		}
 	}
 
-	private static PsiElement createClass(String className, String packageName, @NotNull PsiDirectory directory,
+	private static PsiElement createClass(String className, String packageName, @Nonnull PsiDirectory directory,
 			final String templateName) throws Exception
 	{
 		final Properties props = new Properties(FileTemplateManager.getInstance(directory.getProject()).getDefaultProperties(directory.getProject()));

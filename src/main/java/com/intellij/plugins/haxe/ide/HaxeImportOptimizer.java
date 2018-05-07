@@ -17,7 +17,7 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.injected.editor.VirtualFileWindow;
 import com.intellij.lang.ImportOptimizer;
 import com.intellij.openapi.roots.ProjectRootManager;
@@ -41,7 +41,7 @@ public class HaxeImportOptimizer implements ImportOptimizer
 		return file instanceof HaxeFile;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Runnable processFile(final PsiFile file)
 	{

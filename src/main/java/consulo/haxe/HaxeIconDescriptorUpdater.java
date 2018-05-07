@@ -1,9 +1,9 @@
 package consulo.haxe;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import com.intellij.openapi.util.Iconable;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.plugins.haxe.HaxeComponentType;
@@ -22,7 +22,7 @@ import consulo.ide.IconDescriptorUpdaters;
 public class HaxeIconDescriptorUpdater implements IconDescriptorUpdater
 {
 	@Override
-	public void updateIcon(@NotNull IconDescriptor iconDescriptor, @NotNull PsiElement element, int flags)
+	public void updateIcon(@Nonnull IconDescriptor iconDescriptor, @Nonnull PsiElement element, int flags)
 	{
 		if(element instanceof HaxeFile)
 		{

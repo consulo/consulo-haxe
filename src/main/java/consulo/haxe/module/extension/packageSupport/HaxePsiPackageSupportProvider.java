@@ -16,8 +16,9 @@
 
 package consulo.haxe.module.extension.packageSupport;
 
+import javax.annotation.Nonnull;
+
 import consulo.haxe.module.extension.HaxeModuleExtension;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.module.Module;
 import com.intellij.plugins.haxe.lang.psi.impl.HaxePackageImpl;
 import com.intellij.psi.PsiManager;
@@ -33,21 +34,21 @@ import consulo.psi.PsiPackageSupportProvider;
 public class HaxePsiPackageSupportProvider implements PsiPackageSupportProvider
 {
 	@Override
-	public boolean isSupported(@NotNull ModuleExtension moduleExtension)
+	public boolean isSupported(@Nonnull ModuleExtension moduleExtension)
 	{
 		return moduleExtension instanceof HaxeModuleExtension;
 	}
 
 	@Override
-	public boolean isValidPackageName(@NotNull Module module, @NotNull String packageName)
+	public boolean isValidPackageName(@Nonnull Module module, @Nonnull String packageName)
 	{
 		return true;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
-	public PsiPackage createPackage(@NotNull PsiManager psiManager, @NotNull PsiPackageManager psiPackageManager,
-			@NotNull Class<? extends ModuleExtension> aClass, @NotNull String s)
+	public PsiPackage createPackage(@Nonnull PsiManager psiManager, @Nonnull PsiPackageManager psiPackageManager,
+			@Nonnull Class<? extends ModuleExtension> aClass, @Nonnull String s)
 	{
 		return new HaxePackageImpl(psiManager, psiPackageManager, aClass, s);
 	}

@@ -15,7 +15,8 @@
  */
 package com.intellij.plugins.haxe.ide.formatter;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.formatting.Block;
 import com.intellij.formatting.FormattingDocumentModel;
 import com.intellij.formatting.FormattingModel;
@@ -37,12 +38,12 @@ public class HaxeFormattingModel implements FormattingModel {
     myModel = FormattingModelProvider.createFormattingModelForPsiFile(file, rootBlock, settings);
   }
 
-  @NotNull
+  @Nonnull
   public Block getRootBlock() {
     return myModel.getRootBlock();
   }
 
-  @NotNull
+  @Nonnull
   public FormattingDocumentModel getDocumentModel() {
     return myModel.getDocumentModel();
   }

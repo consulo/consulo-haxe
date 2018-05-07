@@ -15,10 +15,10 @@
  */
 package com.intellij.plugins.haxe.runner;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
 import consulo.haxe.module.extension.HaxeModuleExtension;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.execution.configurations.ConfigurationFactory;
 import com.intellij.execution.configurations.ConfigurationType;
 import com.intellij.execution.configurations.RunConfiguration;
@@ -62,7 +62,7 @@ public class HaxeRunConfigurationType implements ConfigurationType
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public String getId()
 	{
 		return "HaxeApplicationRunConfiguration";
@@ -82,7 +82,7 @@ public class HaxeRunConfigurationType implements ConfigurationType
 		}
 
 		@Override
-		public boolean isApplicable(@NotNull Project project)
+		public boolean isApplicable(@Nonnull Project project)
 		{
 			return ModuleExtensionHelper.getInstance(project).hasModuleExtension(HaxeModuleExtension.class);
 		}

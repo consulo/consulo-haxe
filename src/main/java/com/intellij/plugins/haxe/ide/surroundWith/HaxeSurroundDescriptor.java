@@ -21,7 +21,7 @@ import com.intellij.plugins.haxe.lang.psi.HaxeBlockStatement;
 import com.intellij.plugins.haxe.util.UsefulPsiTreeUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,7 @@ import java.util.List;
  * @author: Fedor.Korotkov
  */
 public class HaxeSurroundDescriptor implements SurroundDescriptor {
-  @NotNull
+  @Nonnull
   @Override
   public PsiElement[] getElementsToSurround(PsiFile file, int startOffset, int endOffset) {
     final List<PsiElement> path = UsefulPsiTreeUtil.getPathToParentOfType(file.findElementAt(startOffset), HaxeBlockStatement.class);
@@ -46,7 +46,7 @@ public class HaxeSurroundDescriptor implements SurroundDescriptor {
     return result.toArray(new PsiElement[result.size()]);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Surrounder[] getSurrounders() {
     return new Surrounder[]{

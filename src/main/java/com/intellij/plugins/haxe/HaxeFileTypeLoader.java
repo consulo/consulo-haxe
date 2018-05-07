@@ -15,14 +15,15 @@
  */
 package com.intellij.plugins.haxe;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.fileTypes.FileTypeConsumer;
 import com.intellij.openapi.fileTypes.FileTypeFactory;
 
 public class HaxeFileTypeLoader extends FileTypeFactory
 {
 	@Override
-	public void createFileTypes(@NotNull FileTypeConsumer consumer)
+	public void createFileTypes(@Nonnull FileTypeConsumer consumer)
 	{
 		consumer.consume(HaxeFileType.HAXE_FILE_TYPE);
 	}

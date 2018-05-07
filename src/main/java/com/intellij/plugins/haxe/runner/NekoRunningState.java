@@ -16,8 +16,8 @@
 package com.intellij.plugins.haxe.runner;
 
 import consulo.haxe.module.extension.HaxeModuleExtension;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.configurations.CommandLineState;
 import com.intellij.execution.configurations.GeneralCommandLine;
@@ -47,7 +47,7 @@ public class NekoRunningState extends CommandLineState {
     customFileToLaunch = fileToLaunch;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   protected ProcessHandler startProcess() throws ExecutionException {
     final HaxeModuleSettings settings = HaxeModuleSettings.getInstance(module);

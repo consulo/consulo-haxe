@@ -17,7 +17,7 @@ package com.intellij.plugins.haxe.util;
 
 import com.intellij.openapi.util.SystemInfo;
 import com.intellij.openapi.util.io.FileUtil;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 import java.io.File;
 

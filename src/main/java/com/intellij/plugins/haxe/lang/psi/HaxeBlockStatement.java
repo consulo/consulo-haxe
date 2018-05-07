@@ -2,54 +2,54 @@
 package com.intellij.plugins.haxe.lang.psi;
 
 import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
+
+import javax.annotation.Nonnull;
 
 public interface HaxeBlockStatement extends HaxePsiCompositeElement {
 
-  @NotNull
+  @Nonnull
   List<HaxeBlockStatement> getBlockStatementList();
 
-  @NotNull
+  @Nonnull
   List<HaxeBreakStatement> getBreakStatementList();
 
-  @NotNull
+  @Nonnull
   List<HaxeConditional> getConditionalList();
 
-  @NotNull
+  @Nonnull
   List<HaxeContinueStatement> getContinueStatementList();
 
-  @NotNull
+  @Nonnull
   List<HaxeDoWhileStatement> getDoWhileStatementList();
 
-  @NotNull
+  @Nonnull
   List<HaxeExpression> getExpressionList();
 
-  @NotNull
+  @Nonnull
   List<HaxeForStatement> getForStatementList();
 
-  @NotNull
+  @Nonnull
   List<HaxeIfStatement> getIfStatementList();
 
-  @NotNull
+  @Nonnull
   List<HaxeLocalFunctionDeclaration> getLocalFunctionDeclarationList();
 
-  @NotNull
+  @Nonnull
   List<HaxeLocalVarDeclaration> getLocalVarDeclarationList();
 
-  @NotNull
+  @Nonnull
   List<HaxeReturnStatement> getReturnStatementList();
 
-  @NotNull
+  @Nonnull
   List<HaxeSwitchStatement> getSwitchStatementList();
 
-  @NotNull
+  @Nonnull
   List<HaxeThrowStatement> getThrowStatementList();
 
-  @NotNull
+  @Nonnull
   List<HaxeTryStatement> getTryStatementList();
 
-  @NotNull
+  @Nonnull
   List<HaxeWhileStatement> getWhileStatementList();
 
 }

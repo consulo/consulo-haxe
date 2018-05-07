@@ -2,8 +2,8 @@
 package com.intellij.plugins.haxe.lang.psi;
 
 import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
+
+import javax.annotation.*;
 
 public interface HaxeWhileStatement extends HaxePsiCompositeElement {
 
@@ -22,7 +22,7 @@ public interface HaxeWhileStatement extends HaxePsiCompositeElement {
   @Nullable
   HaxeDoWhileStatement getDoWhileStatement();
 
-  @NotNull
+  @Nonnull
   List<HaxeExpression> getExpressionList();
 
   @Nullable

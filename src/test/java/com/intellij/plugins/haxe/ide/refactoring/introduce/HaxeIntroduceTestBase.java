@@ -22,7 +22,7 @@ import com.intellij.plugins.haxe.HaxeCodeInsightFixtureTestCase;
 import com.intellij.plugins.haxe.lang.psi.HaxeExpression;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Consumer;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 import java.util.Collection;
 

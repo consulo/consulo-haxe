@@ -1,16 +1,14 @@
 // This is a generated file. Not intended for manual editing.
 package com.intellij.plugins.haxe.lang.psi;
 
-import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
+import javax.annotation.Nonnull;
 
 public interface HaxeImportStatementWithInSupport extends HaxePsiCompositeElement {
 
-  @NotNull
+  @Nonnull
   HaxeIdentifier getIdentifier();
 
-  @NotNull
+  @Nonnull
   HaxeReferenceExpression getReferenceExpression();
 
 }

@@ -31,7 +31,7 @@ import com.intellij.psi.PsiReference;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 
@@ -39,7 +39,7 @@ import javax.swing.*;
  * @author: Fedor.Korotkov
  */
 abstract public class AbstractHaxeNamedComponent extends HaxePsiCompositeElementImpl implements HaxeNamedComponent, PsiNamedElement {
-  public AbstractHaxeNamedComponent(@NotNull ASTNode node) {
+  public AbstractHaxeNamedComponent(@Nonnull ASTNode node) {
     super(node);
   }
 
@@ -58,7 +58,7 @@ abstract public class AbstractHaxeNamedComponent extends HaxePsiCompositeElement
   }
 
   @Override
-  public PsiElement setName(@NonNls @NotNull String name) throws IncorrectOperationException {
+  public PsiElement setName(@NonNls @Nonnull String name) throws IncorrectOperationException {
     final HaxeComponentName componentName = getComponentName();
     if (componentName != null) {
       componentName.setName(name);

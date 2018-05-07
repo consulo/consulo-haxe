@@ -25,7 +25,7 @@ import com.intellij.psi.PsiFile;
 import com.intellij.util.ArrayUtil;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.Set;
 
@@ -41,25 +41,25 @@ public class HaxeDefineIntention implements IntentionAction {
     isDefined = contains;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getText() {
     return HaxeBundle.message(isDefined ? "haxe.intention.undefine" : "haxe.intention.define", myWord);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getFamilyName() {
     return HaxeBundle.message("quick.fixes.family");
   }
 
   @Override
-  public boolean isAvailable(@NotNull Project project, Editor editor, PsiFile file) {
+  public boolean isAvailable(@Nonnull Project project, Editor editor, PsiFile file) {
     return true;
   }
 
   @Override
-  public void invoke(@NotNull Project project, Editor editor, PsiFile file) throws IncorrectOperationException {
+  public void invoke(@Nonnull Project project, Editor editor, PsiFile file) throws IncorrectOperationException {
     final HaxeProjectSettings projectSettings = HaxeProjectSettings.getInstance(file.getProject());
     final Set<String> definitions = projectSettings.getUserCompilerDefinitionsAsSet();
     projectSettings.setCompilerDefinitions(changeDefinitions(definitions));

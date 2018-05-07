@@ -17,8 +17,8 @@ package com.intellij.plugins.haxe.ide;
 
 import static com.intellij.patterns.PlatformPatterns.psiElement;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionResultSet;
@@ -62,9 +62,9 @@ public class HaxeClassNameCompletionContributor extends CompletionContributor {
            psiElement().andOr(StandardPatterns.instanceOf(HaxeType.class), idInExpression.andNot(inComplexExpression)),
            new CompletionProvider() {
              @Override
-			 public void addCompletions(@NotNull CompletionParameters parameters,
+			 public void addCompletions(@Nonnull CompletionParameters parameters,
                                            ProcessingContext context,
-                                           @NotNull CompletionResultSet result) {
+                                           @Nonnull CompletionResultSet result) {
                addVariantsFromIndex(result, parameters.getOriginalFile(), null, CLASS_INSERT_HANDLER);
              }
            });
@@ -72,9 +72,9 @@ public class HaxeClassNameCompletionContributor extends CompletionContributor {
            psiElement().and(inComplexExpression),
            new CompletionProvider() {
              @Override
-			 public void addCompletions(@NotNull CompletionParameters parameters,
+			 public void addCompletions(@Nonnull CompletionParameters parameters,
                                            ProcessingContext context,
-                                           @NotNull CompletionResultSet result) {
+                                           @Nonnull CompletionResultSet result) {
                HaxeReference leftReference =
                  HaxeResolveUtil.getLeftReference(PsiTreeUtil.getParentOfType(parameters.getPosition(), HaxeReference.class));
                PsiElement leftTarget = leftReference != null ? leftReference.resolve() : null;

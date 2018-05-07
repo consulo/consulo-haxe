@@ -34,7 +34,7 @@ import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
 import com.intellij.plugins.haxe.runner.ui.HaxeRunConfigurationEditorForm;
 import com.intellij.util.xmlb.XmlSerializer;
 import org.jdom.Element;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -65,7 +65,7 @@ public class HaxeApplicationConfiguration extends ModuleBasedConfiguration<HaxeA
     return new HaxeRunConfigurationEditorForm(getProject());
   }
 
-  public RunProfileState getState(@NotNull Executor executor, @NotNull ExecutionEnvironment env) throws ExecutionException {
+  public RunProfileState getState(@Nonnull Executor executor, @Nonnull ExecutionEnvironment env) throws ExecutionException {
     return HaxeRunner.EMPTY_RUN_STATE;
   }
 

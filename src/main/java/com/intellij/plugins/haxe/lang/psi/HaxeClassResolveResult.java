@@ -17,8 +17,8 @@ package com.intellij.plugins.haxe.lang.psi;
 
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import com.intellij.psi.PsiElement;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -48,12 +48,12 @@ public class HaxeClassResolveResult implements Cloneable {
     return new HaxeClassResolveResult(haxeClass, specialization.clone());
   }
 
-  @NotNull
+  @Nonnull
   public static HaxeClassResolveResult create(@Nullable HaxeClass aClass) {
     return create(aClass, new HaxeGenericSpecialization());
   }
 
-  @NotNull
+  @Nonnull
   public static HaxeClassResolveResult create(@Nullable HaxeClass aClass, HaxeGenericSpecialization specialization) {
     if (aClass == null) {
       return new HaxeClassResolveResult(null);

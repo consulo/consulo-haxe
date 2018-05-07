@@ -15,20 +15,21 @@
  */
 package com.intellij.plugins.haxe.lang;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.util.TextRange;
 import com.intellij.plugins.haxe.lang.psi.HaxeRegularExpression;
 import com.intellij.psi.InjectedLanguagePlaces;
 import com.intellij.psi.LanguageInjector;
 import com.intellij.psi.PsiLanguageInjectionHost;
 import org.intellij.lang.regexp.RegExpLanguage;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author: Fedor.Korotkov
  */
 public class RegexLanguageInjector implements LanguageInjector {
   @Override
-  public void getLanguagesToInject(@NotNull PsiLanguageInjectionHost host, @NotNull InjectedLanguagePlaces injectionPlacesRegistrar) {
+  public void getLanguagesToInject(@Nonnull PsiLanguageInjectionHost host, @Nonnull InjectedLanguagePlaces injectionPlacesRegistrar) {
     if (host instanceof HaxeRegularExpression) {
       final String text = host.getText();
       final TextRange textRange = new TextRange(text.indexOf('/') + 1, text.lastIndexOf('/'));

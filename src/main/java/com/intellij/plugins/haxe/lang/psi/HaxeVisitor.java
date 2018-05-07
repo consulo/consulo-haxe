@@ -1,539 +1,540 @@
 // This is a generated file. Not intended for manual editing.
 package com.intellij.plugins.haxe.lang.psi;
 
-import org.jetbrains.annotations.*;
+import javax.annotation.Nonnull;
+
 import com.intellij.psi.PsiElementVisitor;
 
 public class HaxeVisitor extends PsiElementVisitor {
 
-  public void visitAbstractClassDeclaration(@NotNull HaxeAbstractClassDeclaration o) {
+  public void visitAbstractClassDeclaration(@Nonnull HaxeAbstractClassDeclaration o) {
     visitClass(o);
   }
 
-  public void visitAccess(@NotNull HaxeAccess o) {
+  public void visitAccess(@Nonnull HaxeAccess o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitAdditiveExpression(@NotNull HaxeAdditiveExpression o) {
+  public void visitAdditiveExpression(@Nonnull HaxeAdditiveExpression o) {
     visitExpression(o);
   }
 
-  public void visitAnonymousFunctionDeclaration(@NotNull HaxeAnonymousFunctionDeclaration o) {
+  public void visitAnonymousFunctionDeclaration(@Nonnull HaxeAnonymousFunctionDeclaration o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitAnonymousType(@NotNull HaxeAnonymousType o) {
+  public void visitAnonymousType(@Nonnull HaxeAnonymousType o) {
     visitClass(o);
   }
 
-  public void visitAnonymousTypeBody(@NotNull HaxeAnonymousTypeBody o) {
+  public void visitAnonymousTypeBody(@Nonnull HaxeAnonymousTypeBody o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitAnonymousTypeField(@NotNull HaxeAnonymousTypeField o) {
+  public void visitAnonymousTypeField(@Nonnull HaxeAnonymousTypeField o) {
     visitComponent(o);
   }
 
-  public void visitAnonymousTypeFieldList(@NotNull HaxeAnonymousTypeFieldList o) {
+  public void visitAnonymousTypeFieldList(@Nonnull HaxeAnonymousTypeFieldList o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitArrayAccessExpression(@NotNull HaxeArrayAccessExpression o) {
+  public void visitArrayAccessExpression(@Nonnull HaxeArrayAccessExpression o) {
     visitExpression(o);
     // visitReference(o);
   }
 
-  public void visitArrayLiteral(@NotNull HaxeArrayLiteral o) {
+  public void visitArrayLiteral(@Nonnull HaxeArrayLiteral o) {
     visitExpression(o);
     // visitReference(o);
   }
 
-  public void visitAssignExpression(@NotNull HaxeAssignExpression o) {
+  public void visitAssignExpression(@Nonnull HaxeAssignExpression o) {
     visitExpression(o);
   }
 
-  public void visitAssignOperation(@NotNull HaxeAssignOperation o) {
+  public void visitAssignOperation(@Nonnull HaxeAssignOperation o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitAutoBuildMacro(@NotNull HaxeAutoBuildMacro o) {
+  public void visitAutoBuildMacro(@Nonnull HaxeAutoBuildMacro o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitBitOperation(@NotNull HaxeBitOperation o) {
+  public void visitBitOperation(@Nonnull HaxeBitOperation o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitBitmapMeta(@NotNull HaxeBitmapMeta o) {
+  public void visitBitmapMeta(@Nonnull HaxeBitmapMeta o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitBitwiseExpression(@NotNull HaxeBitwiseExpression o) {
+  public void visitBitwiseExpression(@Nonnull HaxeBitwiseExpression o) {
     visitExpression(o);
   }
 
-  public void visitBlockStatement(@NotNull HaxeBlockStatement o) {
+  public void visitBlockStatement(@Nonnull HaxeBlockStatement o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitBreakStatement(@NotNull HaxeBreakStatement o) {
+  public void visitBreakStatement(@Nonnull HaxeBreakStatement o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitBuildMacro(@NotNull HaxeBuildMacro o) {
+  public void visitBuildMacro(@Nonnull HaxeBuildMacro o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitCallExpression(@NotNull HaxeCallExpression o) {
-    visitExpression(o);
-    // visitReference(o);
-  }
-
-  public void visitCastExpression(@NotNull HaxeCastExpression o) {
+  public void visitCallExpression(@Nonnull HaxeCallExpression o) {
     visitExpression(o);
     // visitReference(o);
   }
 
-  public void visitCatchStatement(@NotNull HaxeCatchStatement o) {
+  public void visitCastExpression(@Nonnull HaxeCastExpression o) {
+    visitExpression(o);
+    // visitReference(o);
+  }
+
+  public void visitCatchStatement(@Nonnull HaxeCatchStatement o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitClassBody(@NotNull HaxeClassBody o) {
+  public void visitClassBody(@Nonnull HaxeClassBody o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitClassDeclaration(@NotNull HaxeClassDeclaration o) {
+  public void visitClassDeclaration(@Nonnull HaxeClassDeclaration o) {
     visitClass(o);
   }
 
-  public void visitCompareExpression(@NotNull HaxeCompareExpression o) {
+  public void visitCompareExpression(@Nonnull HaxeCompareExpression o) {
     visitExpression(o);
   }
 
-  public void visitCompareOperation(@NotNull HaxeCompareOperation o) {
+  public void visitCompareOperation(@Nonnull HaxeCompareOperation o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitComponentName(@NotNull HaxeComponentName o) {
+  public void visitComponentName(@Nonnull HaxeComponentName o) {
     visitNamedElement(o);
   }
 
-  public void visitConditional(@NotNull HaxeConditional o) {
+  public void visitConditional(@Nonnull HaxeConditional o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitContinueStatement(@NotNull HaxeContinueStatement o) {
+  public void visitContinueStatement(@Nonnull HaxeContinueStatement o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitCustomMeta(@NotNull HaxeCustomMeta o) {
+  public void visitCustomMeta(@Nonnull HaxeCustomMeta o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitDeclarationAttribute(@NotNull HaxeDeclarationAttribute o) {
+  public void visitDeclarationAttribute(@Nonnull HaxeDeclarationAttribute o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitDefaultCase(@NotNull HaxeDefaultCase o) {
+  public void visitDefaultCase(@Nonnull HaxeDefaultCase o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitDoWhileStatement(@NotNull HaxeDoWhileStatement o) {
+  public void visitDoWhileStatement(@Nonnull HaxeDoWhileStatement o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitEnumBody(@NotNull HaxeEnumBody o) {
+  public void visitEnumBody(@Nonnull HaxeEnumBody o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitEnumConstructorParameters(@NotNull HaxeEnumConstructorParameters o) {
+  public void visitEnumConstructorParameters(@Nonnull HaxeEnumConstructorParameters o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitEnumDeclaration(@NotNull HaxeEnumDeclaration o) {
+  public void visitEnumDeclaration(@Nonnull HaxeEnumDeclaration o) {
     visitClass(o);
   }
 
-  public void visitEnumValueDeclaration(@NotNull HaxeEnumValueDeclaration o) {
+  public void visitEnumValueDeclaration(@Nonnull HaxeEnumValueDeclaration o) {
     visitComponent(o);
   }
 
-  public void visitExpression(@NotNull HaxeExpression o) {
+  public void visitExpression(@Nonnull HaxeExpression o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitExpressionList(@NotNull HaxeExpressionList o) {
+  public void visitExpressionList(@Nonnull HaxeExpressionList o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitExternClassDeclaration(@NotNull HaxeExternClassDeclaration o) {
+  public void visitExternClassDeclaration(@Nonnull HaxeExternClassDeclaration o) {
     visitClass(o);
   }
 
-  public void visitExternClassDeclarationBody(@NotNull HaxeExternClassDeclarationBody o) {
+  public void visitExternClassDeclarationBody(@Nonnull HaxeExternClassDeclarationBody o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitExternFunctionDeclaration(@NotNull HaxeExternFunctionDeclaration o) {
+  public void visitExternFunctionDeclaration(@Nonnull HaxeExternFunctionDeclaration o) {
     visitComponentWithDeclarationList(o);
   }
 
-  public void visitExternOrPrivate(@NotNull HaxeExternOrPrivate o) {
+  public void visitExternOrPrivate(@Nonnull HaxeExternOrPrivate o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitFakeEnumMeta(@NotNull HaxeFakeEnumMeta o) {
+  public void visitFakeEnumMeta(@Nonnull HaxeFakeEnumMeta o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitFatArrowExpression(@NotNull HaxeFatArrowExpression o) {
+  public void visitFatArrowExpression(@Nonnull HaxeFatArrowExpression o) {
     visitExpression(o);
   }
 
-  public void visitForStatement(@NotNull HaxeForStatement o) {
+  public void visitForStatement(@Nonnull HaxeForStatement o) {
     visitComponent(o);
   }
 
-  public void visitFunctionDeclarationWithAttributes(@NotNull HaxeFunctionDeclarationWithAttributes o) {
+  public void visitFunctionDeclarationWithAttributes(@Nonnull HaxeFunctionDeclarationWithAttributes o) {
     visitComponentWithDeclarationList(o);
   }
 
-  public void visitFunctionLiteral(@NotNull HaxeFunctionLiteral o) {
+  public void visitFunctionLiteral(@Nonnull HaxeFunctionLiteral o) {
     visitExpression(o);
   }
 
-  public void visitFunctionPrototypeDeclarationWithAttributes(@NotNull HaxeFunctionPrototypeDeclarationWithAttributes o) {
+  public void visitFunctionPrototypeDeclarationWithAttributes(@Nonnull HaxeFunctionPrototypeDeclarationWithAttributes o) {
     visitComponentWithDeclarationList(o);
   }
 
-  public void visitFunctionType(@NotNull HaxeFunctionType o) {
+  public void visitFunctionType(@Nonnull HaxeFunctionType o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitGenericListPart(@NotNull HaxeGenericListPart o) {
+  public void visitGenericListPart(@Nonnull HaxeGenericListPart o) {
     visitComponent(o);
   }
 
-  public void visitGenericParam(@NotNull HaxeGenericParam o) {
+  public void visitGenericParam(@Nonnull HaxeGenericParam o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitGetterMeta(@NotNull HaxeGetterMeta o) {
+  public void visitGetterMeta(@Nonnull HaxeGetterMeta o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitIdentifier(@NotNull HaxeIdentifier o) {
+  public void visitIdentifier(@Nonnull HaxeIdentifier o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitIfStatement(@NotNull HaxeIfStatement o) {
+  public void visitIfStatement(@Nonnull HaxeIfStatement o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitImportStatementRegular(@NotNull HaxeImportStatementRegular o) {
+  public void visitImportStatementRegular(@Nonnull HaxeImportStatementRegular o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitImportStatementWithInSupport(@NotNull HaxeImportStatementWithInSupport o) {
+  public void visitImportStatementWithInSupport(@Nonnull HaxeImportStatementWithInSupport o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitImportStatementWithWildcard(@NotNull HaxeImportStatementWithWildcard o) {
+  public void visitImportStatementWithWildcard(@Nonnull HaxeImportStatementWithWildcard o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitInherit(@NotNull HaxeInherit o) {
+  public void visitInherit(@Nonnull HaxeInherit o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitInheritList(@NotNull HaxeInheritList o) {
+  public void visitInheritList(@Nonnull HaxeInheritList o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitInterfaceBody(@NotNull HaxeInterfaceBody o) {
+  public void visitInterfaceBody(@Nonnull HaxeInterfaceBody o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitInterfaceDeclaration(@NotNull HaxeInterfaceDeclaration o) {
+  public void visitInterfaceDeclaration(@Nonnull HaxeInterfaceDeclaration o) {
     visitClass(o);
   }
 
-  public void visitIterable(@NotNull HaxeIterable o) {
+  public void visitIterable(@Nonnull HaxeIterable o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitIteratorExpression(@NotNull HaxeIteratorExpression o) {
+  public void visitIteratorExpression(@Nonnull HaxeIteratorExpression o) {
     visitExpression(o);
   }
 
-  public void visitJsRequireMeta(@NotNull HaxeJsRequireMeta o) {
+  public void visitJsRequireMeta(@Nonnull HaxeJsRequireMeta o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitLiteralExpression(@NotNull HaxeLiteralExpression o) {
+  public void visitLiteralExpression(@Nonnull HaxeLiteralExpression o) {
     visitExpression(o);
     // visitReference(o);
   }
 
-  public void visitLocalFunctionDeclaration(@NotNull HaxeLocalFunctionDeclaration o) {
+  public void visitLocalFunctionDeclaration(@Nonnull HaxeLocalFunctionDeclaration o) {
     visitComponent(o);
   }
 
-  public void visitLocalVarDeclaration(@NotNull HaxeLocalVarDeclaration o) {
+  public void visitLocalVarDeclaration(@Nonnull HaxeLocalVarDeclaration o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitLocalVarDeclarationPart(@NotNull HaxeLocalVarDeclarationPart o) {
+  public void visitLocalVarDeclarationPart(@Nonnull HaxeLocalVarDeclarationPart o) {
     visitComponent(o);
   }
 
-  public void visitLogicAndExpression(@NotNull HaxeLogicAndExpression o) {
+  public void visitLogicAndExpression(@Nonnull HaxeLogicAndExpression o) {
     visitExpression(o);
   }
 
-  public void visitLogicOrExpression(@NotNull HaxeLogicOrExpression o) {
+  public void visitLogicOrExpression(@Nonnull HaxeLogicOrExpression o) {
     visitExpression(o);
   }
 
-  public void visitLongTemplateEntry(@NotNull HaxeLongTemplateEntry o) {
+  public void visitLongTemplateEntry(@Nonnull HaxeLongTemplateEntry o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitMetaKeyValue(@NotNull HaxeMetaKeyValue o) {
+  public void visitMetaKeyValue(@Nonnull HaxeMetaKeyValue o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitMetaMeta(@NotNull HaxeMetaMeta o) {
+  public void visitMetaMeta(@Nonnull HaxeMetaMeta o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitMultiplicativeExpression(@NotNull HaxeMultiplicativeExpression o) {
+  public void visitMultiplicativeExpression(@Nonnull HaxeMultiplicativeExpression o) {
     visitExpression(o);
   }
 
-  public void visitNativeMeta(@NotNull HaxeNativeMeta o) {
+  public void visitNativeMeta(@Nonnull HaxeNativeMeta o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitNewExpression(@NotNull HaxeNewExpression o) {
+  public void visitNewExpression(@Nonnull HaxeNewExpression o) {
     visitExpression(o);
     // visitReference(o);
   }
 
-  public void visitNsMeta(@NotNull HaxeNsMeta o) {
+  public void visitNsMeta(@Nonnull HaxeNsMeta o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitObjectLiteral(@NotNull HaxeObjectLiteral o) {
+  public void visitObjectLiteral(@Nonnull HaxeObjectLiteral o) {
     visitExpression(o);
   }
 
-  public void visitObjectLiteralElement(@NotNull HaxeObjectLiteralElement o) {
+  public void visitObjectLiteralElement(@Nonnull HaxeObjectLiteralElement o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitOverloadMeta(@NotNull HaxeOverloadMeta o) {
+  public void visitOverloadMeta(@Nonnull HaxeOverloadMeta o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitPackageStatement(@NotNull HaxePackageStatement o) {
+  public void visitPackageStatement(@Nonnull HaxePackageStatement o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitParameter(@NotNull HaxeParameter o) {
+  public void visitParameter(@Nonnull HaxeParameter o) {
     visitComponent(o);
   }
 
-  public void visitParameterList(@NotNull HaxeParameterList o) {
+  public void visitParameterList(@Nonnull HaxeParameterList o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitParenthesizedExpression(@NotNull HaxeParenthesizedExpression o) {
+  public void visitParenthesizedExpression(@Nonnull HaxeParenthesizedExpression o) {
     visitExpression(o);
   }
 
-  public void visitPrefixExpression(@NotNull HaxePrefixExpression o) {
+  public void visitPrefixExpression(@Nonnull HaxePrefixExpression o) {
     visitExpression(o);
   }
 
-  public void visitPropertyAccessor(@NotNull HaxePropertyAccessor o) {
+  public void visitPropertyAccessor(@Nonnull HaxePropertyAccessor o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitPropertyDeclaration(@NotNull HaxePropertyDeclaration o) {
+  public void visitPropertyDeclaration(@Nonnull HaxePropertyDeclaration o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitReferenceExpression(@NotNull HaxeReferenceExpression o) {
+  public void visitReferenceExpression(@Nonnull HaxeReferenceExpression o) {
     visitExpression(o);
     // visitReference(o);
   }
 
-  public void visitRegularExpressionLiteral(@NotNull HaxeRegularExpressionLiteral o) {
+  public void visitRegularExpressionLiteral(@Nonnull HaxeRegularExpressionLiteral o) {
     visitLiteralExpression(o);
     // visitRegularExpression(o);
   }
 
-  public void visitRequireMeta(@NotNull HaxeRequireMeta o) {
+  public void visitRequireMeta(@Nonnull HaxeRequireMeta o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitReturnStatement(@NotNull HaxeReturnStatement o) {
+  public void visitReturnStatement(@Nonnull HaxeReturnStatement o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitReturnStatementWithoutSemicolon(@NotNull HaxeReturnStatementWithoutSemicolon o) {
+  public void visitReturnStatementWithoutSemicolon(@Nonnull HaxeReturnStatementWithoutSemicolon o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitSetterMeta(@NotNull HaxeSetterMeta o) {
+  public void visitSetterMeta(@Nonnull HaxeSetterMeta o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitShiftExpression(@NotNull HaxeShiftExpression o) {
+  public void visitShiftExpression(@Nonnull HaxeShiftExpression o) {
     visitExpression(o);
   }
 
-  public void visitShiftOperator(@NotNull HaxeShiftOperator o) {
+  public void visitShiftOperator(@Nonnull HaxeShiftOperator o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitShiftRightOperator(@NotNull HaxeShiftRightOperator o) {
+  public void visitShiftRightOperator(@Nonnull HaxeShiftRightOperator o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitShortTemplateEntry(@NotNull HaxeShortTemplateEntry o) {
+  public void visitShortTemplateEntry(@Nonnull HaxeShortTemplateEntry o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitStringLiteralExpression(@NotNull HaxeStringLiteralExpression o) {
-    visitExpression(o);
-    // visitReference(o);
-  }
-
-  public void visitSuffixExpression(@NotNull HaxeSuffixExpression o) {
-    visitExpression(o);
-  }
-
-  public void visitSuperExpression(@NotNull HaxeSuperExpression o) {
+  public void visitStringLiteralExpression(@Nonnull HaxeStringLiteralExpression o) {
     visitExpression(o);
     // visitReference(o);
   }
 
-  public void visitSwitchBlock(@NotNull HaxeSwitchBlock o) {
-    visitPsiCompositeElement(o);
-  }
-
-  public void visitSwitchCase(@NotNull HaxeSwitchCase o) {
-    visitPsiCompositeElement(o);
-  }
-
-  public void visitSwitchCaseBlock(@NotNull HaxeSwitchCaseBlock o) {
-    visitPsiCompositeElement(o);
-  }
-
-  public void visitSwitchCaseExpression(@NotNull HaxeSwitchCaseExpression o) {
+  public void visitSuffixExpression(@Nonnull HaxeSuffixExpression o) {
     visitExpression(o);
   }
 
-  public void visitSwitchStatement(@NotNull HaxeSwitchStatement o) {
-    visitPsiCompositeElement(o);
-  }
-
-  public void visitTernaryExpression(@NotNull HaxeTernaryExpression o) {
-    visitExpression(o);
-  }
-
-  public void visitThisExpression(@NotNull HaxeThisExpression o) {
+  public void visitSuperExpression(@Nonnull HaxeSuperExpression o) {
     visitExpression(o);
     // visitReference(o);
   }
 
-  public void visitThrowStatement(@NotNull HaxeThrowStatement o) {
+  public void visitSwitchBlock(@Nonnull HaxeSwitchBlock o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitTryStatement(@NotNull HaxeTryStatement o) {
+  public void visitSwitchCase(@Nonnull HaxeSwitchCase o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitType(@NotNull HaxeType o) {
+  public void visitSwitchCaseBlock(@Nonnull HaxeSwitchCaseBlock o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitTypeExtends(@NotNull HaxeTypeExtends o) {
+  public void visitSwitchCaseExpression(@Nonnull HaxeSwitchCaseExpression o) {
+    visitExpression(o);
+  }
+
+  public void visitSwitchStatement(@Nonnull HaxeSwitchStatement o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitTypeList(@NotNull HaxeTypeList o) {
+  public void visitTernaryExpression(@Nonnull HaxeTernaryExpression o) {
+    visitExpression(o);
+  }
+
+  public void visitThisExpression(@Nonnull HaxeThisExpression o) {
+    visitExpression(o);
+    // visitReference(o);
+  }
+
+  public void visitThrowStatement(@Nonnull HaxeThrowStatement o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitTypeListPart(@NotNull HaxeTypeListPart o) {
+  public void visitTryStatement(@Nonnull HaxeTryStatement o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitTypeOrAnonymous(@NotNull HaxeTypeOrAnonymous o) {
+  public void visitType(@Nonnull HaxeType o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitTypeParam(@NotNull HaxeTypeParam o) {
+  public void visitTypeExtends(@Nonnull HaxeTypeExtends o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitTypeTag(@NotNull HaxeTypeTag o) {
+  public void visitTypeList(@Nonnull HaxeTypeList o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitTypedefDeclaration(@NotNull HaxeTypedefDeclaration o) {
+  public void visitTypeListPart(@Nonnull HaxeTypeListPart o) {
+    visitPsiCompositeElement(o);
+  }
+
+  public void visitTypeOrAnonymous(@Nonnull HaxeTypeOrAnonymous o) {
+    visitPsiCompositeElement(o);
+  }
+
+  public void visitTypeParam(@Nonnull HaxeTypeParam o) {
+    visitPsiCompositeElement(o);
+  }
+
+  public void visitTypeTag(@Nonnull HaxeTypeTag o) {
+    visitPsiCompositeElement(o);
+  }
+
+  public void visitTypedefDeclaration(@Nonnull HaxeTypedefDeclaration o) {
     visitClass(o);
   }
 
-  public void visitUnsignedShiftRightOperator(@NotNull HaxeUnsignedShiftRightOperator o) {
+  public void visitUnsignedShiftRightOperator(@Nonnull HaxeUnsignedShiftRightOperator o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitUsingStatement(@NotNull HaxeUsingStatement o) {
+  public void visitUsingStatement(@Nonnull HaxeUsingStatement o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitVarDeclaration(@NotNull HaxeVarDeclaration o) {
+  public void visitVarDeclaration(@Nonnull HaxeVarDeclaration o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitVarDeclarationPart(@NotNull HaxeVarDeclarationPart o) {
+  public void visitVarDeclarationPart(@Nonnull HaxeVarDeclarationPart o) {
     visitComponent(o);
   }
 
-  public void visitVarInit(@NotNull HaxeVarInit o) {
+  public void visitVarInit(@Nonnull HaxeVarInit o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitWhileStatement(@NotNull HaxeWhileStatement o) {
+  public void visitWhileStatement(@Nonnull HaxeWhileStatement o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitWildcard(@NotNull HaxeWildcard o) {
+  public void visitWildcard(@Nonnull HaxeWildcard o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitClass(@NotNull HaxeClass o) {
+  public void visitClass(@Nonnull HaxeClass o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitComponent(@NotNull HaxeComponent o) {
+  public void visitComponent(@Nonnull HaxeComponent o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitComponentWithDeclarationList(@NotNull HaxeComponentWithDeclarationList o) {
+  public void visitComponentWithDeclarationList(@Nonnull HaxeComponentWithDeclarationList o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitNamedElement(@NotNull HaxeNamedElement o) {
+  public void visitNamedElement(@Nonnull HaxeNamedElement o) {
     visitPsiCompositeElement(o);
   }
 
-  public void visitPsiCompositeElement(@NotNull HaxePsiCompositeElement o) {
+  public void visitPsiCompositeElement(@Nonnull HaxePsiCompositeElement o) {
     visitElement(o);
   }
 

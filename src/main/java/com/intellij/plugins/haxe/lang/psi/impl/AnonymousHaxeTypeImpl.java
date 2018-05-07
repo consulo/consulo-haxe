@@ -17,7 +17,7 @@ package com.intellij.plugins.haxe.lang.psi.impl;
 
 import com.intellij.lang.ASTNode;
 import com.intellij.plugins.haxe.lang.psi.*;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,11 +26,11 @@ import java.util.List;
  * @author: Fedor.Korotkov
  */
 public abstract class AnonymousHaxeTypeImpl extends AbstractHaxePsiClass implements HaxeAnonymousType {
-  public AnonymousHaxeTypeImpl(@NotNull ASTNode node) {
+  public AnonymousHaxeTypeImpl(@Nonnull ASTNode node) {
     super(node);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public List<HaxeType> getExtendsList() {
     final HaxeTypeExtends typeExtends = getAnonymousTypeBody().getTypeExtends();

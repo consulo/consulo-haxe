@@ -27,8 +27,8 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import gnu.trove.THashSet;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,10 +52,10 @@ public class HaxeRefactoringUtil {
   }
 
   @Nullable
-  public static HaxeExpression getSelectedExpression(@NotNull final Project project,
-                                                     @NotNull PsiFile file,
-                                                     @NotNull final PsiElement element1,
-                                                     @NotNull final PsiElement element2) {
+  public static HaxeExpression getSelectedExpression(@Nonnull final Project project,
+                                                     @Nonnull PsiFile file,
+                                                     @Nonnull final PsiElement element1,
+                                                     @Nonnull final PsiElement element2) {
     PsiElement parent = PsiTreeUtil.findCommonParent(element1, element2);
     if (parent == null) {
       return null;
@@ -66,14 +66,14 @@ public class HaxeRefactoringUtil {
     return PsiTreeUtil.getParentOfType(parent, HaxeExpression.class);
   }
 
-  @NotNull
-  public static List<PsiElement> getOccurrences(@NotNull final PsiElement pattern, @Nullable final PsiElement context) {
+  @Nonnull
+  public static List<PsiElement> getOccurrences(@Nonnull final PsiElement pattern, @Nullable final PsiElement context) {
     if (context == null) {
       return Collections.emptyList();
     }
     final List<PsiElement> occurrences = new ArrayList<PsiElement>();
     final HaxeVisitor visitor = new HaxeVisitor() {
-      public void visitElement(@NotNull final PsiElement element) {
+      public void visitElement(@Nonnull final PsiElement element) {
         if (element instanceof HaxeParameter) {
           return;
         }

@@ -2,15 +2,15 @@
 package com.intellij.plugins.haxe.lang.psi;
 
 import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
+
+import javax.annotation.Nonnull;
 
 public interface HaxeShiftExpression extends HaxeExpression {
 
-  @NotNull
+  @Nonnull
   List<HaxeExpression> getExpressionList();
 
-  @NotNull
+  @Nonnull
   HaxeShiftOperator getShiftOperator();
 
 }

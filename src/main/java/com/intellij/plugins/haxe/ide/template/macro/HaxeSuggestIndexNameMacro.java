@@ -23,7 +23,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import gnu.trove.THashSet;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.Set;
 
@@ -41,14 +41,14 @@ public class HaxeSuggestIndexNameMacro extends Macro {
     return HaxeBundle.message("macro.haxe.index.name");
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getDefaultValue() {
     return "i";
   }
 
   @Override
-  public Result calculateResult(@NotNull Expression[] params, ExpressionContext context) {
+  public Result calculateResult(@Nonnull Expression[] params, ExpressionContext context) {
     final PsiElement at = context.getPsiElementAtStartOffset();
     final Set<HaxeComponentName> variables = HaxeMacroUtil.findVariables(at);
     final Set<String> names = new THashSet<String>(ContainerUtil.map(variables, new Function<HaxeComponentName, String>() {

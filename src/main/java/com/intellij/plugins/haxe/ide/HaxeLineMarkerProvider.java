@@ -36,8 +36,8 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
@@ -51,12 +51,12 @@ import java.util.List;
 public class HaxeLineMarkerProvider implements LineMarkerProvider {
 
   @Override
-  public LineMarkerInfo getLineMarkerInfo(@NotNull PsiElement element) {
+  public LineMarkerInfo getLineMarkerInfo(@Nonnull PsiElement element) {
     return null;
   }
 
   @Override
-  public void collectSlowLineMarkers(@NotNull List<PsiElement> elements, @NotNull Collection<LineMarkerInfo> result) {
+  public void collectSlowLineMarkers(@Nonnull List<PsiElement> elements, @Nonnull Collection<LineMarkerInfo> result) {
     for (PsiElement element : elements) {
       if (element instanceof HaxeClass) {
         collectClassMarkers(result, (HaxeClass)element);
@@ -64,7 +64,7 @@ public class HaxeLineMarkerProvider implements LineMarkerProvider {
     }
   }
 
-  private static void collectClassMarkers(Collection<LineMarkerInfo> result, @NotNull HaxeClass haxeClass) {
+  private static void collectClassMarkers(Collection<LineMarkerInfo> result, @Nonnull HaxeClass haxeClass) {
     final List<HaxeClass> supers = HaxeResolveUtil.tyrResolveClassesByQName(haxeClass.getExtendsList());
     supers.addAll(HaxeResolveUtil.tyrResolveClassesByQName(haxeClass.getImplementsList()));
     final List<HaxeNamedComponent> superItems = HaxeResolveUtil.findNamedSubComponents(supers.toArray(new HaxeClass[supers.size()]));

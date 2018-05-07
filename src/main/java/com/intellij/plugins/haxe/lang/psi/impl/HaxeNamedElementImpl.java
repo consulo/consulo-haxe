@@ -29,19 +29,19 @@ import com.intellij.psi.search.SearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author: Fedor.Korotkov
  */
 public abstract class HaxeNamedElementImpl extends HaxePsiCompositeElementImpl implements HaxeComponentName {
-  public HaxeNamedElementImpl(@NotNull ASTNode node) {
+  public HaxeNamedElementImpl(@Nonnull ASTNode node) {
     super(node);
   }
 
   @Override
-  public PsiElement setName(@NonNls @NotNull String newElementName) throws IncorrectOperationException {
+  public PsiElement setName(@NonNls @Nonnull String newElementName) throws IncorrectOperationException {
     final HaxeIdentifier identifier = getIdentifier();
     final HaxeIdentifier identifierNew = HaxeElementGenerator.createIdentifierFromText(getProject(), newElementName);
 
@@ -69,7 +69,7 @@ public abstract class HaxeNamedElementImpl extends HaxePsiCompositeElementImpl i
     return this;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public SearchScope getUseScope() {
     final HaxeComponentType type = HaxeComponentType.typeOf(getParent());

@@ -2,39 +2,39 @@
 package com.intellij.plugins.haxe.lang.psi;
 
 import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
+
+import javax.annotation.Nonnull;
 
 public interface HaxeVarDeclaration extends HaxePsiCompositeElement {
 
-  @NotNull
+  @Nonnull
   List<HaxeAutoBuildMacro> getAutoBuildMacroList();
 
-  @NotNull
+  @Nonnull
   List<HaxeBuildMacro> getBuildMacroList();
 
-  @NotNull
+  @Nonnull
   List<HaxeCustomMeta> getCustomMetaList();
 
-  @NotNull
+  @Nonnull
   List<HaxeDeclarationAttribute> getDeclarationAttributeList();
 
-  @NotNull
+  @Nonnull
   List<HaxeGetterMeta> getGetterMetaList();
 
-  @NotNull
+  @Nonnull
   List<HaxeMetaMeta> getMetaMetaList();
 
-  @NotNull
+  @Nonnull
   List<HaxeNsMeta> getNsMetaList();
 
-  @NotNull
+  @Nonnull
   List<HaxeRequireMeta> getRequireMetaList();
 
-  @NotNull
+  @Nonnull
   List<HaxeSetterMeta> getSetterMetaList();
 
-  @NotNull
+  @Nonnull
   List<HaxeVarDeclarationPart> getVarDeclarationPartList();
 
 }

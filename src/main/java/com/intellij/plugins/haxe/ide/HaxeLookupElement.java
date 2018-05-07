@@ -20,7 +20,7 @@ import com.intellij.codeInsight.lookup.LookupElementPresentation;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.plugins.haxe.lang.psi.HaxeComponentName;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,7 +32,7 @@ import java.util.List;
 public class HaxeLookupElement extends LookupElement {
   private final HaxeComponentName myComponentName;
 
-  public static Collection<HaxeLookupElement> convert(@NotNull Collection<HaxeComponentName> componentNames) {
+  public static Collection<HaxeLookupElement> convert(@Nonnull Collection<HaxeComponentName> componentNames) {
     final List<HaxeLookupElement> result = new ArrayList<HaxeLookupElement>(componentNames.size());
     for (HaxeComponentName componentName : componentNames) {
       result.add(new HaxeLookupElement(componentName));
@@ -44,7 +44,7 @@ public class HaxeLookupElement extends LookupElement {
     myComponentName = name;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getLookupString() {
     final String result = myComponentName.getName();
@@ -69,7 +69,7 @@ public class HaxeLookupElement extends LookupElement {
     }
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Object getObject() {
     return myComponentName;

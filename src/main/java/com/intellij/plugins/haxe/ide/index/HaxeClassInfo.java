@@ -16,8 +16,8 @@
 package com.intellij.plugins.haxe.ide.index;
 
 import com.intellij.plugins.haxe.HaxeComponentType;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 
@@ -25,15 +25,16 @@ import javax.swing.*;
  * @author: Fedor.Korotkov
  */
 public class HaxeClassInfo {
-  @NotNull private final String value;
+  @Nonnull
+  private final String value;
   @Nullable private final HaxeComponentType type;
 
-  public HaxeClassInfo(@NotNull String name, @Nullable HaxeComponentType type) {
+  public HaxeClassInfo(@Nonnull String name, @Nullable HaxeComponentType type) {
     value = name;
     this.type = type;
   }
 
-  @NotNull
+  @Nonnull
   public String getValue() {
     return value;
   }

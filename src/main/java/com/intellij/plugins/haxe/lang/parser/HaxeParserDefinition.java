@@ -15,7 +15,8 @@
  */
 package com.intellij.plugins.haxe.lang.parser;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.ParserDefinition;
 import com.intellij.lang.PsiParser;
@@ -32,7 +33,7 @@ import com.intellij.psi.tree.TokenSet;
 import consulo.lang.LanguageVersion;
 
 public class HaxeParserDefinition implements ParserDefinition {
-  @NotNull
+  @Nonnull
   public Lexer createLexer(LanguageVersion languageVersion) {
     return new HaxeLexer();
   }
@@ -45,22 +46,22 @@ public class HaxeParserDefinition implements ParserDefinition {
     return HaxeTokenTypeSets.HAXE_FILE;
   }
 
-  @NotNull
+  @Nonnull
   public TokenSet getWhitespaceTokens(LanguageVersion languageVersion) {
     return HaxeTokenTypeSets.WHITESPACES;
   }
 
-  @NotNull
+  @Nonnull
   public TokenSet getCommentTokens(LanguageVersion languageVersion) {
     return HaxeTokenTypeSets.COMMENTS;
   }
 
-  @NotNull
+  @Nonnull
   public TokenSet getStringLiteralElements(LanguageVersion languageVersion) {
     return HaxeTokenTypeSets.STRINGS;
   }
 
-  @NotNull
+  @Nonnull
   public PsiElement createElement(ASTNode node) {
     return HaxeTokenTypes.Factory.createElement(node);
   }

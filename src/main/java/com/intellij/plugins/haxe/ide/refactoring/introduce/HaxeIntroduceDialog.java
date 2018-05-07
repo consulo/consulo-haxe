@@ -23,8 +23,8 @@ import com.intellij.plugins.haxe.lang.psi.HaxeExpression;
 import com.intellij.ui.EditorComboBoxEditor;
 import com.intellij.ui.EditorComboBoxRenderer;
 import com.intellij.ui.StringComboboxEditor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -45,8 +45,8 @@ public class HaxeIntroduceDialog extends DialogWrapper {
   private final int myOccurrencesCount;
   private final HaxeExpression myExpression;
 
-  public HaxeIntroduceDialog(@NotNull final Project project,
-                             @NotNull final String caption,
+  public HaxeIntroduceDialog(@Nonnull final Project project,
+                             @Nonnull final String caption,
                              final HaxeIntroduceOperation operation) {
     super(project, true);
     myOccurrencesCount = operation.getOccurrences().size();

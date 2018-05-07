@@ -15,13 +15,15 @@
  */
 package com.intellij.plugins.haxe.ide.formatter.settings;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.options.Configurable;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.codeStyle.CodeStyleSettingsProvider;
 import com.intellij.psi.codeStyle.CustomCodeStyleSettings;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 /**
  * @author: Fedor.Korotkov
@@ -32,7 +34,7 @@ public class HaxeCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
     return HaxeBundle.message("haxe.title");
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Configurable createSettingsPage(CodeStyleSettings settings, CodeStyleSettings originalSettings) {
     return new HaxeCodeStyleConfigurable(settings, originalSettings);

@@ -23,8 +23,8 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.xml.XmlFile;
 import com.intellij.xml.XmlSchemaProvider;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.net.URL;
 
@@ -33,7 +33,7 @@ import java.net.URL;
  */
 public class NMMLSchemaProvider extends XmlSchemaProvider {
   @Override
-  public XmlFile getSchema(@NotNull @NonNls String url, @Nullable Module module, @NotNull PsiFile baseFile) {
+  public XmlFile getSchema(@Nonnull @NonNls String url, @Nullable Module module, @Nonnull PsiFile baseFile) {
     final URL resource = NMMLSchemaProvider.class.getResource("/nmml.xsd");
     final VirtualFile fileByURL = VfsUtil.findFileByURL(resource);
     PsiFile result = baseFile.getManager().findFile(fileByURL);
@@ -44,7 +44,7 @@ public class NMMLSchemaProvider extends XmlSchemaProvider {
   }
 
   @Override
-  public boolean isAvailable(final @NotNull XmlFile file) {
+  public boolean isAvailable(final @Nonnull XmlFile file) {
     return FileUtilRt.extensionEquals(file.getName(), NMMLFileType.INSTANCE.getDefaultExtension());
   }
 }

@@ -25,7 +25,7 @@ import com.intellij.plugins.haxe.util.HaxeMacroUtil;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.containers.ContainerUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.List;
 import java.util.Set;
@@ -45,7 +45,7 @@ public class HaxeArrayVariableMacro extends Macro {
   }
 
   @Override
-  public Result calculateResult(@NotNull Expression[] params, ExpressionContext context) {
+  public Result calculateResult(@Nonnull Expression[] params, ExpressionContext context) {
     final PsiElement at = context.getPsiElementAtStartOffset();
     final Set<HaxeComponentName> variables = HaxeMacroUtil.findVariables(at);
     final List<HaxeComponentName> filtered = ContainerUtil.filter(variables, new Condition<HaxeComponentName>() {

@@ -17,7 +17,8 @@ package com.intellij.plugins.haxe.ide;
 
 import static com.intellij.patterns.PlatformPatterns.psiElement;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionResultSet;
@@ -49,15 +50,15 @@ public class HaxeSmartCompletionContributor extends CompletionContributor {
            idInExpression.and(psiElement().withSuperParent(3, HaxeVarInit.class)),
            new CompletionProvider() {
              @Override
-			 public void addCompletions(@NotNull CompletionParameters parameters,
+			 public void addCompletions(@Nonnull CompletionParameters parameters,
                                            ProcessingContext context,
-                                           @NotNull CompletionResultSet result) {
+                                           @Nonnull CompletionResultSet result) {
                tryAddVariantsForEnums(result, parameters.getPosition());
              }
            });
   }
 
-  private static void tryAddVariantsForEnums(CompletionResultSet result, @NotNull PsiElement element) {
+  private static void tryAddVariantsForEnums(CompletionResultSet result, @Nonnull PsiElement element) {
     final HaxeVarInit varInit = PsiTreeUtil.getParentOfType(element, HaxeVarInit.class);
     assert varInit != null;
     final HaxeClassResolveResult resolveResult =

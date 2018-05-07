@@ -16,9 +16,11 @@
 
 package consulo.haxe.module.extension.packageSupport;
 
+import javax.annotation.Nonnull;
+
 import consulo.haxe.module.extension.HaxeModuleExtension;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.lang.psi.HaxePackage;
 import consulo.psi.PsiPackageManager;
@@ -29,7 +31,7 @@ import consulo.psi.PsiPackageManager;
  */
 public class HaxePackageUtil
 {
-	public static HaxePackage findPackage(@NotNull Project project, @NotNull String packageName)
+	public static HaxePackage findPackage(@Nonnull Project project, @Nonnull String packageName)
 	{
 		return (HaxePackage) PsiPackageManager.getInstance(project).findPackage(packageName, HaxeModuleExtension.class);
 	}

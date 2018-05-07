@@ -15,6 +15,8 @@
  */
 package com.intellij.plugins.haxe.ide.formatter;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.formatting.FormattingModel;
 import com.intellij.formatting.FormattingModelBuilder;
 import com.intellij.lang.ASTNode;
@@ -22,14 +24,14 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 /**
  * @author fedor.korotkov
  */
 public class HaxeFormattingModelBuilder implements FormattingModelBuilder {
-  @NotNull
+  @Nonnull
   @Override
   public FormattingModel createModel(PsiElement element, CodeStyleSettings settings) {
     return new HaxeFormattingModel(

@@ -34,8 +34,8 @@ import com.intellij.plugins.haxe.util.HaxeStringUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.Set;
 
@@ -44,7 +44,7 @@ import java.util.Set;
  */
 public class HaxeColorAnnotator implements Annotator {
   @Override
-  public void annotate(@NotNull PsiElement node, @NotNull AnnotationHolder holder) {
+  public void annotate(@Nonnull PsiElement node, @Nonnull AnnotationHolder holder) {
     if (isNewOperator(node)) {
       holder.createInfoAnnotation(node, null).setTextAttributes(TextAttributesKey.find(HaxeSyntaxHighlighterColors.HAXE_KEYWORD));
     }

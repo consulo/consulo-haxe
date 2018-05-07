@@ -21,8 +21,8 @@ import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.ResolveState;
 import com.intellij.psi.scope.PsiScopeProcessor;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.Set;
 
@@ -37,7 +37,7 @@ public class ComponentNameScopeProcessor implements PsiScopeProcessor {
   }
 
   @Override
-  public boolean execute(@NotNull PsiElement element, ResolveState state) {
+  public boolean execute(@Nonnull PsiElement element, ResolveState state) {
     if (element instanceof HaxeNamedComponent) {
       final HaxeNamedComponent haxeNamedComponent = (HaxeNamedComponent)element;
       if (haxeNamedComponent.getComponentName() != null) {
@@ -48,7 +48,7 @@ public class ComponentNameScopeProcessor implements PsiScopeProcessor {
   }
 
   @Override
-  public <T> T getHint(@NotNull Key<T> hintKey) {
+  public <T> T getHint(@Nonnull Key<T> hintKey) {
     return null;
   }
 

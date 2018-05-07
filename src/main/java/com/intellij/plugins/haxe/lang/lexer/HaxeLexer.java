@@ -29,7 +29,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Set;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
+
 import com.intellij.lexer.Lexer;
 import com.intellij.lexer.LexerPosition;
 import com.intellij.lexer.LookAheadLexer;

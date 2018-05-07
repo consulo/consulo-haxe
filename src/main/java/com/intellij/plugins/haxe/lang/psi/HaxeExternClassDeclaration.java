@@ -2,33 +2,33 @@
 package com.intellij.plugins.haxe.lang.psi;
 
 import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
+
+import javax.annotation.*;
 
 public interface HaxeExternClassDeclaration extends HaxeClass {
 
-  @NotNull
+  @Nonnull
   List<HaxeAutoBuildMacro> getAutoBuildMacroList();
 
-  @NotNull
+  @Nonnull
   List<HaxeBitmapMeta> getBitmapMetaList();
 
-  @NotNull
+  @Nonnull
   List<HaxeBuildMacro> getBuildMacroList();
 
-  @NotNull
+  @Nonnull
   HaxeComponentName getComponentName();
 
-  @NotNull
+  @Nonnull
   List<HaxeCustomMeta> getCustomMetaList();
 
   @Nullable
   HaxeExternClassDeclarationBody getExternClassDeclarationBody();
 
-  @NotNull
+  @Nonnull
   List<HaxeExternOrPrivate> getExternOrPrivateList();
 
-  @NotNull
+  @Nonnull
   List<HaxeFakeEnumMeta> getFakeEnumMetaList();
 
   @Nullable
@@ -37,19 +37,19 @@ public interface HaxeExternClassDeclaration extends HaxeClass {
   @Nullable
   HaxeInheritList getInheritList();
 
-  @NotNull
+  @Nonnull
   List<HaxeJsRequireMeta> getJsRequireMetaList();
 
-  @NotNull
+  @Nonnull
   List<HaxeMetaMeta> getMetaMetaList();
 
-  @NotNull
+  @Nonnull
   List<HaxeNativeMeta> getNativeMetaList();
 
-  @NotNull
+  @Nonnull
   List<HaxeNsMeta> getNsMetaList();
 
-  @NotNull
+  @Nonnull
   List<HaxeRequireMeta> getRequireMetaList();
 
 }

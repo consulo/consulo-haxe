@@ -15,6 +15,8 @@
  */
 package com.intellij.plugins.haxe.lang.psi;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.extapi.psi.PsiFileBase;
 import com.intellij.openapi.fileTypes.FileType;
 import com.intellij.openapi.util.io.FileUtil;
@@ -25,14 +27,13 @@ import com.intellij.psi.FileViewProvider;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReference;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NotNull;
 
 public class HaxeFile extends PsiFileBase {
-  public HaxeFile(@NotNull FileViewProvider viewProvider) {
+  public HaxeFile(@Nonnull FileViewProvider viewProvider) {
     super(viewProvider, HaxeLanguage.INSTANCE);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public FileType getFileType() {
     return HaxeFileType.HAXE_FILE_TYPE;
@@ -49,7 +50,7 @@ public class HaxeFile extends PsiFileBase {
   }
 
   @Override
-  public PsiElement setName(@NotNull String newName) throws IncorrectOperationException {
+  public PsiElement setName(@Nonnull String newName) throws IncorrectOperationException {
     final String oldName = FileUtil.getNameWithoutExtension(getName());
     final PsiElement result = super.setName(newName);
     final HaxeClass haxeClass = HaxeResolveUtil.findComponentDeclaration(this, oldName);

@@ -18,8 +18,8 @@ package com.intellij.plugins.haxe.lang.psi;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
 import gnu.trove.THashMap;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.Map;
 
@@ -73,7 +73,7 @@ public class HaxeGenericSpecialization implements Cloneable {
     return new HaxeGenericSpecialization(result);
   }
 
-  public static String getGenericKey(@Nullable PsiElement element, @NotNull String genericName) {
+  public static String getGenericKey(@Nullable PsiElement element, @Nonnull String genericName) {
     final StringBuilder result = new StringBuilder();
     final HaxeNamedComponent namedComponent = PsiTreeUtil.getParentOfType(element, HaxeNamedComponent.class, false);
     if (namedComponent instanceof HaxeClass) {

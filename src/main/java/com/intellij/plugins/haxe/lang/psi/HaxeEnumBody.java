@@ -2,12 +2,12 @@
 package com.intellij.plugins.haxe.lang.psi;
 
 import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
+
+import javax.annotation.Nonnull;
 
 public interface HaxeEnumBody extends HaxePsiCompositeElement {
 
-  @NotNull
+  @Nonnull
   List<HaxeEnumValueDeclaration> getEnumValueDeclarationList();
 
 }

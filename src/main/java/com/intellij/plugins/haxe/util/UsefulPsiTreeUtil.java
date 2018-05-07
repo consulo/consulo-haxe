@@ -24,8 +24,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.impl.DirectoryIndex;
@@ -136,7 +136,7 @@ public class UsefulPsiTreeUtil
 	}
 
 	@Nullable
-	public static HaxeImportStatementRegular findImportByClassName(@NotNull PsiElement psiElement, String className)
+	public static HaxeImportStatementRegular findImportByClassName(@Nonnull PsiElement psiElement, String className)
 	{
 		final List<HaxeImportStatementRegular> haxeImportStatementList = getAllImportStatements(psiElement);
 		for(HaxeImportStatementRegular importStatement : haxeImportStatementList)
@@ -150,7 +150,7 @@ public class UsefulPsiTreeUtil
 	}
 
 	@Nullable
-	public static HaxeImportStatementWithInSupport findImportWithInByClassName(@NotNull PsiElement psiElement, String className)
+	public static HaxeImportStatementWithInSupport findImportWithInByClassName(@Nonnull PsiElement psiElement, String className)
 	{
 		final List<HaxeImportStatementWithInSupport> haxeImportStatementList = getAllInImportStatements(psiElement);
 		for(HaxeImportStatementWithInSupport importStatement : haxeImportStatementList)
@@ -163,7 +163,7 @@ public class UsefulPsiTreeUtil
 		return null;
 	}
 
-	@NotNull
+	@Nonnull
 	public static boolean importStatementForClassName(HaxeImportStatementRegular importStatement, String className)
 	{
 		final HaxeImportStatementRegular regularImport = importStatement;
@@ -177,7 +177,7 @@ public class UsefulPsiTreeUtil
 		return false;
 	}
 
-	@NotNull
+	@Nonnull
 	public static boolean importInStatementForClassName(HaxeImportStatementWithInSupport importStatementWithInSupport, String classname)
 	{
 		HaxeIdentifier identifier = importStatementWithInSupport.getIdentifier();
@@ -189,7 +189,7 @@ public class UsefulPsiTreeUtil
 		return false;
 	}
 
-	@NotNull
+	@Nonnull
 	public static String getQNameForImportStatementWithWildcardType(HaxeImportStatementWithWildcard importStatement)
 	{
 		final HaxeExpression expression = importStatement.getReferenceExpression();
@@ -198,7 +198,7 @@ public class UsefulPsiTreeUtil
 		return qName;
 	}
 
-	@NotNull
+	@Nonnull
 	public static boolean importStatementWithWildcardTypeForClassName(HaxeImportStatementWithWildcard importStatement, String className)
 	{
 		if(importStatement != null)
@@ -210,7 +210,7 @@ public class UsefulPsiTreeUtil
 	}
 
 
-	@NotNull
+	@Nonnull
 	public static String getPackageStatementForImportStatementWithWildcard(HaxeImportStatementWithWildcard importStatementWithWildcard)
 	{
 		String text = importStatementWithWildcard.getReferenceExpression().getText();
@@ -218,7 +218,7 @@ public class UsefulPsiTreeUtil
 		return packageStatement;
 	}
 
-	@NotNull
+	@Nonnull
 	public static List<HaxeClass> getClassesForImportStatementWithWildcard(HaxeImportStatementWithWildcard importStatementWithWildcard)
 	{
 		List<HaxeClass> classList = new ArrayList<HaxeClass>();
@@ -251,7 +251,7 @@ public class UsefulPsiTreeUtil
 		return classList;
 	}
 
-	@NotNull
+	@Nonnull
 	public static boolean importStatementWithWildcardForClassName(HaxeImportStatementWithWildcard importStatementWithWildcard, String classname)
 	{
 		if(!Character.isUpperCase(classname.charAt(0)))
@@ -314,7 +314,7 @@ public class UsefulPsiTreeUtil
 		return null;
 	}
 
-	@NotNull
+	@Nonnull
 	public static List<HaxeImportStatementRegular> getAllImportStatements(PsiElement element)
 	{
 		final HaxeImportStatementRegular[] haxeImportStatements = PsiTreeUtil.getChildrenOfType(element.getContainingFile(),
@@ -326,7 +326,7 @@ public class UsefulPsiTreeUtil
 		return Collections.emptyList();
 	}
 
-	@NotNull
+	@Nonnull
 	public static List<HaxeImportStatementWithInSupport> getAllInImportStatements(PsiElement element)
 	{
 		final HaxeImportStatementWithInSupport[] haxeImportStatements = PsiTreeUtil.getChildrenOfType(element.getContainingFile(),
@@ -338,7 +338,7 @@ public class UsefulPsiTreeUtil
 		return Collections.emptyList();
 	}
 
-	@NotNull
+	@Nonnull
 	public static List<HaxeImportStatementWithWildcard> getAllImportStatementsWithWildcard(PsiElement element)
 	{
 		final HaxeImportStatementWithWildcard[] haxeImportStatements = PsiTreeUtil.getChildrenOfType(element.getContainingFile(),
@@ -350,13 +350,13 @@ public class UsefulPsiTreeUtil
 		return Collections.emptyList();
 	}
 
-	@NotNull
+	@Nonnull
 	public static boolean isImportStatementWildcardForType(String qName)
 	{
 		return Character.isUpperCase(qName.charAt(qName.lastIndexOf(".") + 1));
 	}
 
-	@NotNull
+	@Nonnull
 	public static List<HaxeNamedComponent> getImportStatementWithWildcardTypeNamedSubComponents(HaxeImportStatementWithWildcard
 			importStatementWithWildcard,
 			PsiFile psiFile)
@@ -387,15 +387,15 @@ public class UsefulPsiTreeUtil
 		return Collections.emptyList();
 	}
 
-	@NotNull
+	@Nonnull
 	public static VirtualFile[] getVirtualDirectoriesForPackage(String packageStatement, Project project)
 	{
 		Query<VirtualFile> directoriesByPackageName = DirectoryIndex.getInstance(project).getDirectoriesByPackageName(packageStatement, true);
 		return directoriesByPackageName.toArray(VirtualFile.EMPTY_ARRAY);
 	}
 
-	@NotNull
-	public static <T extends PsiElement> List<T> getSubnodesOfType(@Nullable PsiElement element, @NotNull Class<T> aClass)
+	@Nonnull
+	public static <T extends PsiElement> List<T> getSubnodesOfType(@Nullable PsiElement element, @Nonnull Class<T> aClass)
 	{
 		final List<T> result = new ArrayList<T>();
 		final Queue<PsiElement> queue = new LinkedList<PsiElement>();
@@ -410,7 +410,7 @@ public class UsefulPsiTreeUtil
 	}
 
 	@Nullable
-	public static List<PsiElement> getPathToParentOfType(@Nullable PsiElement element, @NotNull Class<? extends PsiElement> aClass)
+	public static List<PsiElement> getPathToParentOfType(@Nullable PsiElement element, @Nonnull Class<? extends PsiElement> aClass)
 	{
 		if(element == null)
 		{
@@ -453,7 +453,7 @@ public class UsefulPsiTreeUtil
 
 	@Nullable
 	public static <T extends PsiElement> T[] getChildrenOfType(@Nullable PsiElement element,
-			@NotNull Class<T> aClass,
+			@Nonnull Class<T> aClass,
 			@Nullable PsiElement lastParent)
 	{
 		if(element == null)
@@ -481,7 +481,7 @@ public class UsefulPsiTreeUtil
 		return result == null ? null : ArrayUtil.toObjectArray(result, aClass);
 	}
 
-	public static boolean importStatementForClass(@NotNull HaxeImportStatementRegular importStatement, @NotNull HaxeClass haxeClass)
+	public static boolean importStatementForClass(@Nonnull HaxeImportStatementRegular importStatement, @Nonnull HaxeClass haxeClass)
 	{
 		final HaxeImportStatementRegular regularImport = importStatement;
 		if(regularImport != null)

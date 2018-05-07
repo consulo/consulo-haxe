@@ -33,8 +33,8 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.containers.ContainerUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import javax.swing.*;
 import javax.swing.event.TreeSelectionEvent;
@@ -55,7 +55,7 @@ public abstract class BaseHaxeGenerateHandler implements LanguageCodeInsightActi
   }
 
   @Override
-  public void invoke(@NotNull Project project, @NotNull Editor editor, @NotNull PsiFile file) {
+  public void invoke(@Nonnull Project project, @Nonnull Editor editor, @Nonnull PsiFile file) {
     if (!FileModificationService.getInstance().prepareFileForWrite(file)) return;
     final HaxeClass haxeClass =
       PsiTreeUtil.getParentOfType(file.findElementAt(editor.getCaretModel().getOffset()), HaxeClassDeclaration.class);

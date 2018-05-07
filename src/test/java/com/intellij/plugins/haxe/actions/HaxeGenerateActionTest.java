@@ -15,7 +15,8 @@
  */
 package com.intellij.plugins.haxe.actions;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.plugins.haxe.ide.generation.BaseHaxeGenerateHandler;
 import com.intellij.plugins.haxe.ide.generation.CreateGetterSetterFix;
@@ -29,7 +30,7 @@ import com.intellij.testFramework.LightPlatformCodeInsightTestCase;
  * @author: Fedor.Korotkov
  */
 abstract public class HaxeGenerateActionTest extends LightPlatformCodeInsightTestCase {
-  @NotNull
+  @Nonnull
   @Override
   protected String getTestDataPath() {
     return HaxeTestUtils.BASE_TEST_DATA_PATH + FileUtil.toSystemDependentName("/generate/");

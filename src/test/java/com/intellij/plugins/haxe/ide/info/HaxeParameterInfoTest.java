@@ -15,7 +15,7 @@
  */
 package com.intellij.plugins.haxe.ide.info;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.plugins.haxe.util.HaxeTestUtils;
 import com.intellij.testFramework.LightPlatformCodeInsightTestCase;
@@ -29,7 +29,7 @@ import com.intellij.testFramework.LightPlatformCodeInsightTestCase;
  */
 abstract public class HaxeParameterInfoTest extends LightPlatformCodeInsightTestCase
 {
-  @NotNull
+  @Nonnull
   @Override
   protected String getTestDataPath() {
     return HaxeTestUtils.BASE_TEST_DATA_PATH + FileUtil.toSystemDependentName("/paramInfo/");

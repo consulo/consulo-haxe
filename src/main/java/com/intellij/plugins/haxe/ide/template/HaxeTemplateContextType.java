@@ -19,7 +19,7 @@ import com.intellij.codeInsight.template.TemplateContextType;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.HaxeLanguage;
 import com.intellij.psi.PsiFile;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
@@ -30,7 +30,7 @@ public class HaxeTemplateContextType extends TemplateContextType {
   }
 
   @Override
-  public boolean isInContext(@NotNull PsiFile file, int offset) {
+  public boolean isInContext(@Nonnull PsiFile file, int offset) {
     return file.getLanguage() instanceof HaxeLanguage;
   }
 }

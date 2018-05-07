@@ -27,7 +27,7 @@ import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.HaxeFileType;
 import com.intellij.util.FileContentUtil;
 import com.intellij.util.indexing.FileBasedIndex;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,9 +36,9 @@ import java.util.Collection;
  * @author: Fedor.Korotkov
  */
 public class HaxeUtil {
-  public static void reparseProjectFiles(@NotNull final Project project) {
+  public static void reparseProjectFiles(@Nonnull final Project project) {
     Task.Backgroundable task = new Task.Backgroundable(project, HaxeBundle.message("haxe.project.reparsing"), false) {
-      public void run(@NotNull ProgressIndicator indicator) {
+      public void run(@Nonnull ProgressIndicator indicator) {
         final Collection<VirtualFile> haxeFiles = new ArrayList<VirtualFile>();
         final VirtualFile baseDir = project.getBaseDir();
         if (baseDir != null) {

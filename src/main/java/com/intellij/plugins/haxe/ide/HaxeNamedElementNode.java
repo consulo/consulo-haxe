@@ -24,7 +24,7 @@ import com.intellij.openapi.util.Iconable;
 import com.intellij.plugins.haxe.lang.psi.HaxeClass;
 import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 /**
  * @author: Fedor.Korotkov

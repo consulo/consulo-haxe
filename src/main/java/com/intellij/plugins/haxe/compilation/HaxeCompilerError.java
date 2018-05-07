@@ -17,8 +17,8 @@ package com.intellij.plugins.haxe.compilation;
 
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.util.text.StringUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.io.File;
 
@@ -49,12 +49,12 @@ public class HaxeCompilerError {
   }
 
   @Nullable
-  public static HaxeCompilerError create(@NotNull String rootPath, final String message) {
+  public static HaxeCompilerError create(@Nonnull String rootPath, final String message) {
     return create(rootPath, message, true);
   }
 
   @Nullable
-  public static HaxeCompilerError create(@NotNull String rootPath, final String message, boolean checkExistence) {
+  public static HaxeCompilerError create(@Nonnull String rootPath, final String message, boolean checkExistence) {
     final int index = message.indexOf(' ');
     if (index < 1) {
       return null;

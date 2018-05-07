@@ -2,15 +2,15 @@
 package com.intellij.plugins.haxe.lang.psi;
 
 import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
+
+import javax.annotation.*;
 
 public interface HaxeSwitchBlock extends HaxePsiCompositeElement {
 
   @Nullable
   HaxeDefaultCase getDefaultCase();
 
-  @NotNull
+  @Nonnull
   List<HaxeSwitchCase> getSwitchCaseList();
 
 }

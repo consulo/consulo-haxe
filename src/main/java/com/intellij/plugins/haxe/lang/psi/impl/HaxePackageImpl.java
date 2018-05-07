@@ -1,6 +1,6 @@
 package com.intellij.plugins.haxe.lang.psi.impl;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.lang.Language;
 import com.intellij.plugins.haxe.HaxeLanguage;
 import com.intellij.plugins.haxe.lang.psi.HaxePackage;
@@ -28,14 +28,14 @@ public class HaxePackageImpl extends PsiPackageBase implements HaxePackage
 		return HaxePackage.ARRAY_FACTORY;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public HaxePackage[] getSubPackages()
 	{
 		return (HaxePackage[]) super.getSubPackages();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Language getLanguage()
 	{

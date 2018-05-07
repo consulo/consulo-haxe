@@ -15,6 +15,8 @@
  */
 package com.intellij.plugins.haxe.lang.psi;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.Language;
 import consulo.lang.LanguageVersion;
@@ -28,8 +30,8 @@ import com.intellij.psi.search.SearchScope;
 import com.intellij.util.Function;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 /**
  * @author: Fedor.Korotkov
@@ -42,7 +44,7 @@ public class LazyPsiElement implements PsiElement {
     myCreator = creator;
   }
 
-  @NotNull
+  @Nonnull
   public PsiElement getElement() {
     if (element == null) {
       element = myCreator.fun(null);
@@ -50,19 +52,19 @@ public class LazyPsiElement implements PsiElement {
     return element;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Project getProject() throws PsiInvalidElementAccessException {
     return getElement().getProject();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Language getLanguage() {
     return getElement().getLanguage();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public LanguageVersion getLanguageVersion() {
     return getElement().getLanguageVersion();
@@ -73,7 +75,7 @@ public class LazyPsiElement implements PsiElement {
     return getElement().getManager();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public PsiElement[] getChildren() {
     return getElement().getChildren();
@@ -144,7 +146,7 @@ public class LazyPsiElement implements PsiElement {
     return getElement().getText();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public char[] textToCharArray() {
     return getElement().textToCharArray();
@@ -161,12 +163,12 @@ public class LazyPsiElement implements PsiElement {
   }
 
   @Override
-  public boolean textMatches(@NotNull @NonNls CharSequence text) {
+  public boolean textMatches(@Nonnull @NonNls CharSequence text) {
     return getElement().textMatches(text);
   }
 
   @Override
-  public boolean textMatches(@NotNull PsiElement element) {
+  public boolean textMatches(@Nonnull PsiElement element) {
     return getElement().textMatches(element);
   }
 
@@ -176,12 +178,12 @@ public class LazyPsiElement implements PsiElement {
   }
 
   @Override
-  public void accept(@NotNull PsiElementVisitor visitor) {
+  public void accept(@Nonnull PsiElementVisitor visitor) {
     getElement().accept(visitor);
   }
 
   @Override
-  public void acceptChildren(@NotNull PsiElementVisitor visitor) {
+  public void acceptChildren(@Nonnull PsiElementVisitor visitor) {
     getElement().acceptChildren(visitor);
   }
 
@@ -191,22 +193,22 @@ public class LazyPsiElement implements PsiElement {
   }
 
   @Override
-  public PsiElement add(@NotNull PsiElement element) throws IncorrectOperationException {
+  public PsiElement add(@Nonnull PsiElement element) throws IncorrectOperationException {
     return getElement().add(element);
   }
 
   @Override
-  public PsiElement addBefore(@NotNull PsiElement element, PsiElement anchor) throws IncorrectOperationException {
+  public PsiElement addBefore(@Nonnull PsiElement element, PsiElement anchor) throws IncorrectOperationException {
     return getElement().addBefore(element, anchor);
   }
 
   @Override
-  public PsiElement addAfter(@NotNull PsiElement element, PsiElement anchor) throws IncorrectOperationException {
+  public PsiElement addAfter(@Nonnull PsiElement element, PsiElement anchor) throws IncorrectOperationException {
     return getElement().addAfter(element, anchor);
   }
 
   @Override
-  public void checkAdd(@NotNull PsiElement element) throws IncorrectOperationException {
+  public void checkAdd(@Nonnull PsiElement element) throws IncorrectOperationException {
     getElement().checkAdd(element);
   }
 
@@ -216,7 +218,7 @@ public class LazyPsiElement implements PsiElement {
   }
 
   @Override
-  public PsiElement addRangeBefore(@NotNull PsiElement first, @NotNull PsiElement last, PsiElement anchor)
+  public PsiElement addRangeBefore(@Nonnull PsiElement first, @Nonnull PsiElement last, PsiElement anchor)
     throws IncorrectOperationException {
     return getElement().addRangeBefore(first, last, anchor);
   }
@@ -242,7 +244,7 @@ public class LazyPsiElement implements PsiElement {
   }
 
   @Override
-  public PsiElement replace(@NotNull PsiElement newElement) throws IncorrectOperationException {
+  public PsiElement replace(@Nonnull PsiElement newElement) throws IncorrectOperationException {
     return getElement().replace(newElement);
   }
 
@@ -261,7 +263,7 @@ public class LazyPsiElement implements PsiElement {
     return getElement().getReference();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public PsiReference[] getReferences() {
     return getElement().getReferences();
@@ -278,10 +280,10 @@ public class LazyPsiElement implements PsiElement {
   }
 
   @Override
-  public boolean processDeclarations(@NotNull PsiScopeProcessor processor,
-                                     @NotNull ResolveState state,
+  public boolean processDeclarations(@Nonnull PsiScopeProcessor processor,
+                                     @Nonnull ResolveState state,
                                      @Nullable PsiElement lastParent,
-                                     @NotNull PsiElement place) {
+                                     @Nonnull PsiElement place) {
     return getElement().processDeclarations(processor, state, lastParent, place);
   }
 
@@ -295,13 +297,13 @@ public class LazyPsiElement implements PsiElement {
     return getElement().isPhysical();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public GlobalSearchScope getResolveScope() {
     return getElement().getResolveScope();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public SearchScope getUseScope() {
     return getElement().getUseScope();
@@ -318,12 +320,12 @@ public class LazyPsiElement implements PsiElement {
   }
 
   @Override
-  public <T> T getUserData(@NotNull Key<T> key) {
+  public <T> T getUserData(@Nonnull Key<T> key) {
     return getElement().getUserData(key);
   }
 
   @Override
-  public <T> void putUserData(@NotNull Key<T> key, @Nullable T value) {
+  public <T> void putUserData(@Nonnull Key<T> key, @Nullable T value) {
     getElement().putUserData(key, value);
   }
 }

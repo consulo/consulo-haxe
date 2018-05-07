@@ -17,7 +17,7 @@ package com.intellij.plugins.haxe.config.ui;
 
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.plugins.haxe.HaxeBundle;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +29,7 @@ public class StringValueDialog extends DialogWrapper {
   private JTextField myTextField;
   private JPanel myMainPanel;
 
-  public StringValueDialog(@NotNull Component parent, boolean canBeParent) {
+  public StringValueDialog(@Nonnull Component parent, boolean canBeParent) {
     super(parent, canBeParent);
 
     setTitle(HaxeBundle.message("haxe.conditional.compilation.title"));

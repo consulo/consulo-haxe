@@ -15,7 +15,8 @@
  */
 package com.intellij.plugins.haxe.runner;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.ExecutionResult;
 import com.intellij.execution.Executor;
@@ -49,19 +50,19 @@ public class HaxeRunner extends DefaultProgramRunner {
   public static final String HAXE_RUNNER_ID = "HaxeRunner";
 
   public static final RunProfileState EMPTY_RUN_STATE = new RunProfileState() {
-    public ExecutionResult execute(final Executor executor, @NotNull final ProgramRunner runner) throws ExecutionException {
+    public ExecutionResult execute(final Executor executor, @Nonnull final ProgramRunner runner) throws ExecutionException {
       return null;
     }
   };
 
-  @NotNull
+  @Nonnull
   @Override
   public String getRunnerId() {
     return HAXE_RUNNER_ID;
   }
 
   @Override
-  public boolean canRun(@NotNull String executorId, @NotNull RunProfile profile) {
+  public boolean canRun(@Nonnull String executorId, @Nonnull RunProfile profile) {
     return DefaultRunExecutor.EXECUTOR_ID.equals(executorId) && profile instanceof HaxeApplicationConfiguration;
   }
 
@@ -92,7 +93,7 @@ public class HaxeRunner extends DefaultProgramRunner {
                               ? configuration.getCustomFileToLaunchPath()
                               : getOutputFilePath(module, settings);
       return super.doExecute(new CommandLineState(env) {
-        @NotNull
+        @Nonnull
         @Override
         protected ProcessHandler startProcess() throws ExecutionException {
           final GeneralCommandLine commandLine = new GeneralCommandLine();

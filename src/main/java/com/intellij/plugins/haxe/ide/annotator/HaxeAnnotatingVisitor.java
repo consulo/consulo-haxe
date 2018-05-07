@@ -23,7 +23,7 @@ import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import com.intellij.psi.PsiElement;
 import gnu.trove.THashSet;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.Arrays;
 import java.util.Set;
@@ -38,7 +38,7 @@ public class HaxeAnnotatingVisitor extends HaxeVisitor implements Annotator {
   private AnnotationHolder myHolder = null;
 
   @Override
-  public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
+  public void annotate(@Nonnull PsiElement element, @Nonnull AnnotationHolder holder) {
     assert myHolder == null;
     myHolder = holder;
     try {
@@ -50,7 +50,7 @@ public class HaxeAnnotatingVisitor extends HaxeVisitor implements Annotator {
   }
 
   @Override
-  public void visitReferenceExpression(@NotNull HaxeReferenceExpression reference) {
+  public void visitReferenceExpression(@Nonnull HaxeReferenceExpression reference) {
     if (reference.getTokenType() != HaxeTokenTypes.REFERENCE_EXPRESSION) {
       return; // call, array access, this, literal, etc
     }

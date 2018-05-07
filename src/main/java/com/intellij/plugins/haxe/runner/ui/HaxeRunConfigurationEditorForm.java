@@ -18,6 +18,7 @@ package com.intellij.plugins.haxe.runner.ui;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.annotation.Nonnull;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -25,7 +26,6 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 
 import consulo.haxe.module.extension.HaxeModuleExtension;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.fileChooser.FileChooser;
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
 import com.intellij.openapi.module.Module;
@@ -190,7 +190,7 @@ public class HaxeRunConfigurationEditorForm extends SettingsEditor<HaxeApplicati
     return (Module)myComboModules.getSelectedItem();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   protected JComponent createEditor() {
     return component;

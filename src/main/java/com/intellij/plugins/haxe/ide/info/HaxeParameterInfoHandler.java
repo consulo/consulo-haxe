@@ -15,6 +15,8 @@
  */
 package com.intellij.plugins.haxe.ide.info;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.lang.parameterInfo.*;
 import com.intellij.plugins.haxe.HaxeComponentType;
@@ -23,8 +25,8 @@ import com.intellij.plugins.haxe.util.UsefulPsiTreeUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.ArrayUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 /**
  * @author: Fedor.Korotkov
@@ -67,7 +69,7 @@ public class HaxeParameterInfoHandler implements ParameterInfoHandler<PsiElement
   }
 
   @Override
-  public void showParameterInfo(@NotNull PsiElement element, CreateParameterInfoContext context) {
+  public void showParameterInfo(@Nonnull PsiElement element, CreateParameterInfoContext context) {
     assert element instanceof HaxeCallExpression;
     final HaxeFunctionDescription functionDescription = tryGetDescription((HaxeCallExpression)element);
     if (functionDescription != null && functionDescription.getParameters().length > 0) {
@@ -92,7 +94,7 @@ public class HaxeParameterInfoHandler implements ParameterInfoHandler<PsiElement
   }
 
   @Override
-  public void updateParameterInfo(@NotNull PsiElement place, UpdateParameterInfoContext context) {
+  public void updateParameterInfo(@Nonnull PsiElement place, UpdateParameterInfoContext context) {
     final HaxeExpressionList expressionList = PsiTreeUtil.getParentOfType(place, HaxeExpressionList.class, false);
     int parameterIndex = -1;
     if (place == expressionList) {

@@ -17,7 +17,7 @@ package com.intellij.plugins.haxe.ide.refactoring.introduce;
 
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.psi.PsiElement;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -30,9 +30,9 @@ public class HaxeIntroduceVariableHandler extends HaxeIntroduceHandler {
   }
 
   @Override
-  protected PsiElement addDeclaration(@NotNull final PsiElement expression,
-                                      @NotNull final PsiElement declaration,
-                                      @NotNull HaxeIntroduceOperation operation) {
+  protected PsiElement addDeclaration(@Nonnull final PsiElement expression,
+                                      @Nonnull final PsiElement declaration,
+                                      @Nonnull HaxeIntroduceOperation operation) {
     return doIntroduceVariable(expression, declaration, operation.getOccurrences(), operation.isReplaceAll());
   }
 

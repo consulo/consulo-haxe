@@ -2,18 +2,18 @@
 package com.intellij.plugins.haxe.lang.psi;
 
 import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
+
+import javax.annotation.Nonnull;
 
 public interface HaxeExternClassDeclarationBody extends HaxePsiCompositeElement {
 
-  @NotNull
+  @Nonnull
   List<HaxeConditional> getConditionalList();
 
-  @NotNull
+  @Nonnull
   List<HaxeExternFunctionDeclaration> getExternFunctionDeclarationList();
 
-  @NotNull
+  @Nonnull
   List<HaxeVarDeclaration> getVarDeclarationList();
 
 }

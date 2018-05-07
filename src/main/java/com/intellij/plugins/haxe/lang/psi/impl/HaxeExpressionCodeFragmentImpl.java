@@ -19,9 +19,11 @@ import static com.intellij.lang.parser.GeneratedParserUtilBase._NONE_;
 import static com.intellij.lang.parser.GeneratedParserUtilBase.adapt_builder_;
 import static com.intellij.lang.parser.GeneratedParserUtilBase.enter_section_;
 
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.Language;
 import com.intellij.lang.PsiBuilder;
@@ -61,7 +63,7 @@ public class HaxeExpressionCodeFragmentImpl extends HaxeFile implements HaxeExpr
 				FileTypeManager.getInstance().getFileTypeByFileName(name), text), isPhysical)
 		{
 			@Override
-			public boolean supportsIncrementalReparse(@NotNull Language rootLanguage)
+			public boolean supportsIncrementalReparse(@Nonnull Language rootLanguage)
 			{
 				return false;
 			}
@@ -81,7 +83,7 @@ public class HaxeExpressionCodeFragmentImpl extends HaxeFile implements HaxeExpr
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public FileViewProvider getViewProvider()
 	{
 		if(myViewProvider != null)
@@ -160,7 +162,7 @@ public class HaxeExpressionCodeFragmentImpl extends HaxeFile implements HaxeExpr
 		}
 
 		@Override
-		protected ASTNode doParseContents(@NotNull ASTNode chameleon, @NotNull PsiElement psi)
+		protected ASTNode doParseContents(@Nonnull ASTNode chameleon, @Nonnull PsiElement psi)
 		{
 			final PsiBuilderFactory factory = PsiBuilderFactory.getInstance();
 			final PsiBuilder psiBuilder = factory.createBuilder(getProject(), chameleon, LanguageVersionUtil.findDefaultVersion(getLanguage()));

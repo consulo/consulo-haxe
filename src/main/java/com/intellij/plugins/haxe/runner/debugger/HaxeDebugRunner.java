@@ -15,11 +15,12 @@
  */
 package com.intellij.plugins.haxe.runner.debugger;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.execution.configurations.RunProfile;
 import com.intellij.execution.executors.DefaultDebugExecutor;
 import com.intellij.execution.runners.DefaultProgramRunner;
 import com.intellij.plugins.haxe.runner.HaxeApplicationConfiguration;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author: Fedor.Korotkov
@@ -29,14 +30,14 @@ import org.jetbrains.annotations.NotNull;
 public class HaxeDebugRunner extends DefaultProgramRunner {
   public static final String HAXE_DEBUG_RUNNER_ID = "HaxeDebugRunner";
 
-  @NotNull
+  @Nonnull
   @Override
   public String getRunnerId() {
     return HAXE_DEBUG_RUNNER_ID;
   }
 
   @Override
-  public boolean canRun(@NotNull String executorId, @NotNull RunProfile profile) {
+  public boolean canRun(@Nonnull String executorId, @Nonnull RunProfile profile) {
     return DefaultDebugExecutor.EXECUTOR_ID.equals(executorId) && profile instanceof HaxeApplicationConfiguration;
   }
 }

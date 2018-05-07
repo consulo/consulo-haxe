@@ -18,7 +18,7 @@ package com.intellij.plugins.haxe.nmml;
 import com.intellij.ide.highlighter.XmlLikeFileType;
 import com.intellij.lang.xml.XMLLanguage;
 import com.intellij.plugins.haxe.HaxeBundle;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 
@@ -33,19 +33,19 @@ public class NMMLFileType extends XmlLikeFileType {
     super(XMLLanguage.INSTANCE);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getName() {
     return HaxeBundle.message("nme.nmml");
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getDescription() {
     return HaxeBundle.message("nme.nmml.description");
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getDefaultExtension() {
     return DEFAULT_EXTENSION;

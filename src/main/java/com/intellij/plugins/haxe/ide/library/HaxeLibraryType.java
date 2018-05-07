@@ -15,11 +15,11 @@
  */
 package com.intellij.plugins.haxe.ide.library;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.swing.Icon;
 import javax.swing.JComponent;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.libraries.DummyLibraryProperties;
 import com.intellij.openapi.roots.libraries.LibraryType;
@@ -38,7 +38,7 @@ import icons.HaxeIcons;
 public class HaxeLibraryType extends LibraryType<DummyLibraryProperties> {
   public static final PersistentLibraryKind<DummyLibraryProperties> HAXE_LIBRARY =
     new PersistentLibraryKind<DummyLibraryProperties>("haXe") {
-      @NotNull
+      @Nonnull
       @Override
       public DummyLibraryProperties createDefaultProperties() {
         return new DummyLibraryProperties();
@@ -49,29 +49,29 @@ public class HaxeLibraryType extends LibraryType<DummyLibraryProperties> {
     super(HAXE_LIBRARY);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getCreateActionName() {
     return "haXe";
   }
 
   @Override
-  public NewLibraryConfiguration createNewLibrary(@NotNull JComponent parentComponent,
+  public NewLibraryConfiguration createNewLibrary(@Nonnull JComponent parentComponent,
                                                   @Nullable VirtualFile contextDirectory,
-                                                  @NotNull Project project) {
+                                                  @Nonnull Project project) {
 
     return LibraryTypeService.getInstance()
       .createLibraryFromFiles(createLibraryRootsComponentDescriptor(), parentComponent, contextDirectory, this, project);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public LibraryRootsComponentDescriptor createLibraryRootsComponentDescriptor() {
     return new HaxeLibraryRootsComponentDescriptor();
   }
 
   @Override
-  public LibraryPropertiesEditor createPropertiesEditor(@NotNull LibraryEditorComponent<DummyLibraryProperties> component) {
+  public LibraryPropertiesEditor createPropertiesEditor(@Nonnull LibraryEditorComponent<DummyLibraryProperties> component) {
     return null;
   }
 

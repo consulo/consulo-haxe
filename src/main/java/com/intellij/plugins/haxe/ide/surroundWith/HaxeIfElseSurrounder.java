@@ -15,18 +15,19 @@
  */
 package com.intellij.plugins.haxe.ide.surroundWith;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.util.TextRange;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.lang.psi.HaxeIfStatement;
 import com.intellij.plugins.haxe.util.HaxeElementGenerator;
 import com.intellij.psi.PsiElement;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author: Fedor.Korotkov
  */
 public class HaxeIfElseSurrounder extends HaxeManyStatementsSurrounder {
-  @NotNull
+  @Nonnull
   @Override
   protected PsiElement doSurroundElements(PsiElement[] elements, PsiElement parent) {
     final HaxeIfStatement ifStatement =

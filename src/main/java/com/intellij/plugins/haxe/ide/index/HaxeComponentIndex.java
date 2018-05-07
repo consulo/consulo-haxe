@@ -32,7 +32,7 @@ import com.intellij.util.io.DataExternalizer;
 import com.intellij.util.io.EnumeratorStringDescriptor;
 import com.intellij.util.io.KeyDescriptor;
 import gnu.trove.THashMap;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.*;
 
@@ -45,7 +45,7 @@ public class HaxeComponentIndex extends FileBasedIndexExtension<String, HaxeClas
   private final DataIndexer<String, HaxeClassInfo, FileContent> myIndexer = new MyDataIndexer();
   private final DataExternalizer<HaxeClassInfo> myExternalizer = new HaxeClassInfoExternalizer();
 
-  @NotNull
+  @Nonnull
   @Override
   public ID<String, HaxeClassInfo> getName() {
     return HAXE_COMPONENT_INDEX;
@@ -76,7 +76,7 @@ public class HaxeComponentIndex extends FileBasedIndexExtension<String, HaxeClas
     return HaxeSdkInputFilter.INSTANCE;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public DataIndexer<String, HaxeClassInfo, FileContent> getIndexer() {
     return myIndexer;
@@ -118,7 +118,7 @@ public class HaxeComponentIndex extends FileBasedIndexExtension<String, HaxeClas
 
   private static class MyDataIndexer implements DataIndexer<String, HaxeClassInfo, FileContent> {
     @Override
-    @NotNull
+    @Nonnull
     public Map<String, HaxeClassInfo> map(final FileContent inputData) {
       final PsiFile psiFile = inputData.getPsiFile();
       final List<HaxeClass> classes = HaxeResolveUtil.findComponentDeclarations(psiFile);

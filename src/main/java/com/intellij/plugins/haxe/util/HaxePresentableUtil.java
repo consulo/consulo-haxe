@@ -18,8 +18,8 @@ package com.intellij.plugins.haxe.util;
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.List;
 
@@ -27,23 +27,23 @@ import java.util.List;
  * @author: Fedor.Korotkov
  */
 public class HaxePresentableUtil {
-  public static String setterName(@NotNull @Nls String name) {
+  public static String setterName(@Nonnull @Nls String name) {
     return "set" + startsWithUpperCase(name);
   }
 
-  public static String getterName(@NotNull @Nls String name) {
+  public static String getterName(@Nonnull @Nls String name) {
     return "get" + startsWithUpperCase(name);
   }
 
-  public static String startsWithUpperCase(@NotNull @Nls String name) {
+  public static String startsWithUpperCase(@Nonnull @Nls String name) {
     if (name.length() == 1) {
       return String.valueOf(Character.toUpperCase(name.charAt(0)));
     }
     return Character.toUpperCase(name.charAt(0)) + name.substring(1);
   }
 
-  @NotNull
-  public static String unwrapCommentDelimiters(@NotNull String text) {
+  @Nonnull
+  public static String unwrapCommentDelimiters(@Nonnull String text) {
     if (text.startsWith("/**")) text = text.substring("/**".length());
     if (text.startsWith("/*")) text = text.substring("/*".length());
     if (text.startsWith("//")) text = text.substring("//".length());
@@ -52,12 +52,12 @@ public class HaxePresentableUtil {
     return text;
   }
 
-  @NotNull
+  @Nonnull
   public static String getPresentableParameterList(HaxeNamedComponent element) {
     return getPresentableParameterList(element, new HaxeGenericSpecialization());
   }
 
-  @NotNull
+  @Nonnull
   public static String getPresentableParameterList(HaxeNamedComponent element, HaxeGenericSpecialization specialization) {
     final StringBuilder result = new StringBuilder();
     final HaxeParameterList parameterList = PsiTreeUtil.getChildOfType(element, HaxeParameterList.class);

@@ -15,6 +15,8 @@
  */
 package com.intellij.plugins.haxe.ide.structure;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.ide.IdeBundle;
 import com.intellij.ide.structureView.StructureViewModel;
 import com.intellij.ide.structureView.StructureViewModelBase;
@@ -30,13 +32,12 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.util.PlatformIcons;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author: Fedor.Korotkov
  */
 public class HaxeStructureViewModel extends StructureViewModelBase implements StructureViewModel.ElementInfoProvider {
-  public HaxeStructureViewModel(@NotNull PsiFile psiFile) {
+  public HaxeStructureViewModel(@Nonnull PsiFile psiFile) {
     super(psiFile, new HaxeStructureViewElement(psiFile));
    // withSorters(Sorter.ALPHA_SORTER, VisibilitySorter.INSTANCE);
     withSuitableClasses(HaxeNamedComponent.class, HaxeClass.class);
@@ -47,7 +48,7 @@ public class HaxeStructureViewModel extends StructureViewModelBase implements St
     return false;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public Filter[] getFilters() {
     return new Filter[]{ourFieldsFilter};
@@ -83,7 +84,7 @@ public class HaxeStructureViewModel extends StructureViewModelBase implements St
       return true;
     }
 
-    @NotNull
+    @Nonnull
     public ActionPresentation getPresentation() {
       return new ActionPresentationData(
         IdeBundle.message("action.structureview.show.fields"),
@@ -92,7 +93,7 @@ public class HaxeStructureViewModel extends StructureViewModelBase implements St
       );
     }
 
-    @NotNull
+    @Nonnull
     public String getName() {
       return ID;
     }

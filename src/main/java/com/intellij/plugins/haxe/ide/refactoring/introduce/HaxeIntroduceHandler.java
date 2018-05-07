@@ -42,8 +42,8 @@ import com.intellij.refactoring.introduce.inplace.InplaceVariableIntroducer;
 import com.intellij.refactoring.introduce.inplace.OccurrencesChooser;
 import com.intellij.refactoring.util.CommonRefactoringUtil;
 import com.intellij.util.Function;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.*;
 
@@ -93,17 +93,17 @@ public abstract class HaxeIntroduceHandler implements RefactoringActionHandler {
 
   protected final String myDialogTitle;
 
-  public HaxeIntroduceHandler(@NotNull final String dialogTitle) {
+  public HaxeIntroduceHandler(@Nonnull final String dialogTitle) {
     myDialogTitle = dialogTitle;
   }
 
   @Override
-  public void invoke(@NotNull Project project, Editor editor, PsiFile file, DataContext dataContext) {
+  public void invoke(@Nonnull Project project, Editor editor, PsiFile file, DataContext dataContext) {
     performAction(new HaxeIntroduceOperation(project, editor, file, null));
   }
 
   @Override
-  public void invoke(@NotNull Project project, @NotNull PsiElement[] elements, DataContext dataContext) {
+  public void invoke(@Nonnull Project project, @Nonnull PsiElement[] elements, DataContext dataContext) {
   }
 
   protected void performAction(HaxeIntroduceOperation operation) {
@@ -289,7 +289,7 @@ public abstract class HaxeIntroduceHandler implements RefactoringActionHandler {
   }
 
 
-  protected List<PsiElement> getOccurrences(PsiElement element, @NotNull final HaxeExpression expression) {
+  protected List<PsiElement> getOccurrences(PsiElement element, @Nonnull final HaxeExpression expression) {
     PsiElement context = element;
     HaxeComponentType type = null;
     do {
@@ -407,7 +407,7 @@ public abstract class HaxeIntroduceHandler implements RefactoringActionHandler {
     return HaxeElementGenerator.createStatementFromText(project, text);
   }
 
-  private PsiElement performReplace(@NotNull final PsiElement declaration, final HaxeIntroduceOperation operation) {
+  private PsiElement performReplace(@Nonnull final PsiElement declaration, final HaxeIntroduceOperation operation) {
     final HaxeExpression expression = operation.getInitializer();
     final Project project = operation.getProject();
     return new WriteCommandAction<PsiElement>(project, expression.getContainingFile()) {
@@ -440,7 +440,7 @@ public abstract class HaxeIntroduceHandler implements RefactoringActionHandler {
     }.execute().getResultObject();
   }
 
-  protected void modifyDeclaration(@NotNull PsiElement declaration) {
+  protected void modifyDeclaration(@Nonnull PsiElement declaration) {
     final PsiElement newLineNode = PsiParserFacade.SERVICE.getInstance(declaration.getProject()).createWhiteSpaceFromText("\n");
     final PsiElement parent = declaration.getParent();
     parent.addAfter(newLineNode, declaration);
@@ -467,9 +467,9 @@ public abstract class HaxeIntroduceHandler implements RefactoringActionHandler {
   }
 
   @Nullable
-  protected abstract PsiElement addDeclaration(@NotNull final PsiElement expression,
-                                               @NotNull final PsiElement declaration,
-                                               @NotNull HaxeIntroduceOperation operation);
+  protected abstract PsiElement addDeclaration(@Nonnull final PsiElement expression,
+                                               @Nonnull final PsiElement declaration,
+                                               @Nonnull HaxeIntroduceOperation operation);
 
 
   private static class HaxeInplaceVariableIntroducer extends InplaceVariableIntroducer<PsiElement> {

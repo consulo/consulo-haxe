@@ -16,7 +16,7 @@
 package com.intellij.plugins.haxe.util;
 
 import com.intellij.openapi.util.text.StringUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -32,14 +32,14 @@ public class HaxeNameSuggesterUtil {
   private HaxeNameSuggesterUtil() {
   }
 
-  private static String deleteNonLetterFromString(@NotNull final String string) {
+  private static String deleteNonLetterFromString(@Nonnull final String string) {
     Pattern pattern = Pattern.compile("[^a-zA-Z_]+");
     Matcher matcher = pattern.matcher(string);
     return matcher.replaceAll("_");
   }
 
-  @NotNull
-  public static Collection<String> generateNames(@NotNull String name) {
+  @Nonnull
+  public static Collection<String> generateNames(@Nonnull String name) {
     name = StringUtil.decapitalize(deleteNonLetterFromString(StringUtil.unquoteString(name.replace('.', '_'))));
     if (name.startsWith("get")) {
       name = name.substring(3);

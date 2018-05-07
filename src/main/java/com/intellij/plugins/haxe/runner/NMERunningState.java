@@ -15,6 +15,8 @@
  */
 package com.intellij.plugins.haxe.runner;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.configurations.CommandLineState;
 import com.intellij.execution.configurations.GeneralCommandLine;
@@ -31,7 +33,6 @@ import com.intellij.plugins.haxe.config.sdk.HaxeSdkData;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
 import com.intellij.util.text.StringTokenizer;
 import consulo.haxe.module.extension.HaxeModuleExtension;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author: Fedor.Korotkov
@@ -52,7 +53,7 @@ public class NMERunningState extends CommandLineState {
     myDebug = debug;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   protected ProcessHandler startProcess() throws ExecutionException {
     final HaxeModuleSettings settings = HaxeModuleSettings.getInstance(module);

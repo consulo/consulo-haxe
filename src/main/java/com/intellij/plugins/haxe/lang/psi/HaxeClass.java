@@ -19,9 +19,11 @@ package com.intellij.plugins.haxe.lang.psi;
 
 import java.util.List;
 
+import javax.annotation.Nonnull;
+
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 /**
  * @author: Fedor.Korotkov
@@ -30,32 +32,32 @@ public interface HaxeClass extends HaxeComponent
 {
 	HaxeClass[] EMPTY_ARRAY = new HaxeClass[0];
 
-	@NotNull
+	@Nonnull
 	@NonNls
 	String getQualifiedName();
 
-	@NotNull
+	@Nonnull
 	List<HaxeType> getExtendsList();
 
-	@NotNull
+	@Nonnull
 	List<HaxeType> getImplementsList();
 
 	boolean isInterface();
 
-	@NotNull
+	@Nonnull
 	List<HaxeNamedComponent> getMethods();
 
-	@NotNull
+	@Nonnull
 	List<HaxeNamedComponent> getFields();
 
-	@NotNull
+	@Nonnull
 	List<HaxeVarDeclaration> getVarDeclarations();
 
 	@Nullable
-	HaxeNamedComponent findFieldByName(@NotNull final String name);
+	HaxeNamedComponent findFieldByName(@Nonnull final String name);
 
 	@Nullable
-	HaxeNamedComponent findMethodByName(@NotNull final String name);
+	HaxeNamedComponent findMethodByName(@Nonnull final String name);
 
 	boolean isGeneric();
 

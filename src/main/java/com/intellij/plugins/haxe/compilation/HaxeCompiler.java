@@ -21,7 +21,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.compiler.options.CompileStepBeforeRun;
 import com.intellij.execution.ExecutorRegistry;
 import com.intellij.execution.configurations.RunConfiguration;
@@ -55,7 +56,7 @@ public class HaxeCompiler implements SourceProcessingCompiler
 {
 	private static final Logger LOG = Logger.getInstance("#com.intellij.plugins.haxe.compilation.HaxeCompiler");
 
-	@NotNull
+	@Nonnull
 	public String getDescription()
 	{
 		return HaxeBundle.message("haxe.compiler.description");
@@ -67,7 +68,7 @@ public class HaxeCompiler implements SourceProcessingCompiler
 		return true;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public ProcessingItem[] getProcessingItems(CompileContext context)
 	{
@@ -142,7 +143,7 @@ public class HaxeCompiler implements SourceProcessingCompiler
 		return result.toArray(new ProcessingItem[result.size()]);
 	}
 
-	private static boolean compileModule(final CompileContext context, @NotNull final Module module)
+	private static boolean compileModule(final CompileContext context, @Nonnull final Module module)
 	{
 		final HaxeModuleSettings settings = HaxeModuleSettings.getInstance(module);
 		final boolean isDebug = ExecutorRegistry.getInstance().isStarting(context.getProject(), DefaultDebugExecutor.EXECUTOR_ID, HaxeDebugRunner.HAXE_DEBUG_RUNNER_ID);
@@ -154,7 +155,7 @@ public class HaxeCompiler implements SourceProcessingCompiler
 		}
 		boolean compiled = HaxeCommonCompilerUtil.compile(new HaxeCommonCompilerUtil.CompilationContext()
 		{
-			@NotNull
+			@Nonnull
 			@Override
 			public HaxeModuleSettingsBase getModuleSettings()
 			{
@@ -272,7 +273,7 @@ public class HaxeCompiler implements SourceProcessingCompiler
 			myModule = module;
 		}
 
-		@NotNull
+		@Nonnull
 		public File getFile()
 		{
 			return new File(myModule.getModuleDirPath());

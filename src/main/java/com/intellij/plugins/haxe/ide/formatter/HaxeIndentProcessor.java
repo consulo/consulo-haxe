@@ -22,7 +22,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.codeStyle.CommonCodeStyleSettings;
 import com.intellij.psi.tree.IElementType;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 
 import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.COMMENTS;
 import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.FUNCTION_DEFINITION;

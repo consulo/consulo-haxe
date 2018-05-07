@@ -24,7 +24,7 @@ import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.testIntegration.TestFinder;
 import gnu.trove.THashSet;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -34,13 +34,13 @@ import java.util.Collections;
  */
 public class HaxeTestFinder implements TestFinder {
   @Override
-  public HaxeClass findSourceElement(@NotNull PsiElement from) {
+  public HaxeClass findSourceElement(@Nonnull PsiElement from) {
     return PsiTreeUtil.getParentOfType(from, HaxeClass.class);
   }
 
-  @NotNull
+  @Nonnull
   @Override
-  public Collection<PsiElement> findTestsForClass(@NotNull PsiElement element) {
+  public Collection<PsiElement> findTestsForClass(@Nonnull PsiElement element) {
     final HaxeClass haxeClass = findSourceElement(element);
     if (haxeClass == null) {
       return Collections.emptyList();
@@ -53,9 +53,9 @@ public class HaxeTestFinder implements TestFinder {
     return result;
   }
 
-  @NotNull
+  @Nonnull
   @Override
-  public Collection<PsiElement> findClassesForTest(@NotNull PsiElement element) {
+  public Collection<PsiElement> findClassesForTest(@Nonnull PsiElement element) {
     final HaxeClass haxeClass = findSourceElement(element);
     if (haxeClass == null) {
       return Collections.emptyList();
@@ -76,7 +76,7 @@ public class HaxeTestFinder implements TestFinder {
   }
 
   @Override
-  public boolean isTest(@NotNull PsiElement element) {
+  public boolean isTest(@Nonnull PsiElement element) {
     final HaxeClass haxeClass = findSourceElement(element);
     if (haxeClass == null) {
       return false;

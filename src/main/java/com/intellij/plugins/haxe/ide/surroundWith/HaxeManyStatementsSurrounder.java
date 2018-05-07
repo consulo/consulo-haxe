@@ -15,6 +15,8 @@
  */
 package com.intellij.plugins.haxe.ide.surroundWith;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.surroundWith.Surrounder;
 import com.intellij.openapi.editor.Editor;
@@ -24,21 +26,20 @@ import com.intellij.plugins.haxe.lang.psi.HaxeBlockStatement;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiParserFacade;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author: Fedor.Korotkov
  */
 public abstract class HaxeManyStatementsSurrounder implements Surrounder {
   @Override
-  public boolean isApplicable(@NotNull PsiElement[] elements) {
+  public boolean isApplicable(@Nonnull PsiElement[] elements) {
     if (elements.length == 0) return false;
     final PsiElement parent = elements[0].getParent();
     return parent instanceof HaxeBlockStatement;
   }
 
   @Override
-  public TextRange surroundElements(@NotNull Project project, @NotNull Editor editor, @NotNull PsiElement[] elements)
+  public TextRange surroundElements(@Nonnull Project project, @Nonnull Editor editor, @Nonnull PsiElement[] elements)
     throws IncorrectOperationException {
     if (elements.length == 0) return null;
 
@@ -61,7 +62,7 @@ public abstract class HaxeManyStatementsSurrounder implements Surrounder {
     block.addAfter(newLineNode, block.getFirstChild());
   }
 
-  @NotNull
+  @Nonnull
   protected abstract PsiElement doSurroundElements(PsiElement[] elements, PsiElement parent);
 
   protected abstract TextRange getSurroundSelectionRange(PsiElement element);

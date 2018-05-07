@@ -19,8 +19,9 @@ package com.intellij.plugins.haxe.lang.psi.impl;
 
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.util.io.FileUtil;
@@ -40,7 +41,7 @@ import com.intellij.util.containers.ContainerUtil;
  */
 public abstract class AbstractHaxePsiClass extends AbstractHaxeNamedComponent implements HaxeClass
 {
-	public AbstractHaxePsiClass(@NotNull ASTNode node)
+	public AbstractHaxePsiClass(@Nonnull ASTNode node)
 	{
 		super(node);
 	}
@@ -51,7 +52,7 @@ public abstract class AbstractHaxePsiClass extends AbstractHaxeNamedComponent im
 		return this;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getQualifiedName()
 	{
@@ -84,21 +85,21 @@ public abstract class AbstractHaxePsiClass extends AbstractHaxeNamedComponent im
 		return HaxeComponentType.typeOf(this) == HaxeComponentType.INTERFACE;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public List<HaxeType> getExtendsList()
 	{
 		return HaxeResolveUtil.findExtendsList(PsiTreeUtil.getChildOfType(this, HaxeInheritList.class));
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public List<HaxeType> getImplementsList()
 	{
 		return HaxeResolveUtil.getImplementsList(PsiTreeUtil.getChildOfType(this, HaxeInheritList.class));
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public List<HaxeNamedComponent> getMethods()
 	{
@@ -106,7 +107,7 @@ public abstract class AbstractHaxePsiClass extends AbstractHaxeNamedComponent im
 		return HaxeResolveUtil.filterNamedComponentsByType(result, HaxeComponentType.METHOD);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public List<HaxeNamedComponent> getFields()
 	{
@@ -114,7 +115,7 @@ public abstract class AbstractHaxePsiClass extends AbstractHaxeNamedComponent im
 		return HaxeResolveUtil.filterNamedComponentsByType(result, HaxeComponentType.FIELD);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public List<HaxeVarDeclaration> getVarDeclarations()
 	{
@@ -124,7 +125,7 @@ public abstract class AbstractHaxePsiClass extends AbstractHaxeNamedComponent im
 
 	@Nullable
 	@Override
-	public HaxeNamedComponent findFieldByName(@NotNull final String name)
+	public HaxeNamedComponent findFieldByName(@Nonnull final String name)
 	{
 		return ContainerUtil.find(getFields(), new Condition<HaxeNamedComponent>()
 		{
@@ -137,7 +138,7 @@ public abstract class AbstractHaxePsiClass extends AbstractHaxeNamedComponent im
 	}
 
 	@Override
-	public HaxeNamedComponent findMethodByName(@NotNull final String name)
+	public HaxeNamedComponent findMethodByName(@Nonnull final String name)
 	{
 		return ContainerUtil.find(getMethods(), new Condition<HaxeNamedComponent>()
 		{

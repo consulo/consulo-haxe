@@ -29,10 +29,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import consulo.psi.PsiPackage;
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.module.Module;
@@ -81,8 +83,8 @@ public class HaxeResolveUtil
 		return null;
 	}
 
-	@NotNull
-	public static Pair<String, String> splitQName(@NotNull String qName)
+	@Nonnull
+	public static Pair<String, String> splitQName(@Nonnull String qName)
 	{
 		final int dotIndex = qName.lastIndexOf('.');
 		final String packageName = dotIndex == -1 ? "" : qName.substring(0, dotIndex);
@@ -91,7 +93,7 @@ public class HaxeResolveUtil
 		return new Pair<String, String>(packageName, className);
 	}
 
-	@NotNull
+	@Nonnull
 	public static String joinQName(@Nullable String packageName, @Nullable String className)
 	{
 		String result = "";
@@ -110,7 +112,7 @@ public class HaxeResolveUtil
 		return result;
 	}
 
-	@NotNull
+	@Nonnull
 	@NonNls
 	public static String getPackageName(@Nullable final PsiFile file)
 	{
@@ -118,7 +120,7 @@ public class HaxeResolveUtil
 		return getPackageName(packageStatement);
 	}
 
-	@NotNull
+	@Nonnull
 	@NonNls
 	public static String getPackageName(@Nullable HaxePackageStatement packageStatement)
 	{
@@ -142,8 +144,8 @@ public class HaxeResolveUtil
 		return findClassByQName(qName, psiManager, scope);
 	}
 
-	@NotNull
-	public static GlobalSearchScope getScopeForElement(@NotNull PsiElement context)
+	@Nonnull
+	public static GlobalSearchScope getScopeForElement(@Nonnull PsiElement context)
 	{
 		final Project project = context.getProject();
 		if(ApplicationManager.getApplication().isUnitTestMode())
@@ -171,7 +173,7 @@ public class HaxeResolveUtil
 		return null;
 	}
 
-	@NotNull
+	@Nonnull
 	public static List<HaxeClass> findComponentDeclarations(@Nullable PsiFile file)
 	{
 		if(file == null)
@@ -187,7 +189,7 @@ public class HaxeResolveUtil
 	}
 
 	@Nullable
-	public static HaxeClass findComponentDeclaration(@Nullable PsiFile file, @NotNull String componentName)
+	public static HaxeClass findComponentDeclaration(@Nullable PsiFile file, @Nonnull String componentName)
 	{
 		final List<HaxeClass> declarations = findComponentDeclarations(file);
 		for(HaxeClass haxeClass : declarations)
@@ -201,7 +203,7 @@ public class HaxeResolveUtil
 		return null;
 	}
 
-	@NotNull
+	@Nonnull
 	public static List<HaxeType> findExtendsList(@Nullable HaxeInheritList extendsList)
 	{
 		return findExtendsImplementsListImpl(extendsList, HaxeTokenTypes.KEXTENDS);
@@ -212,8 +214,8 @@ public class HaxeResolveUtil
 		return findExtendsImplementsListImpl(extendsList, HaxeTokenTypes.KIMPLEMENTS);
 	}
 
-	@NotNull
-	private static List<HaxeType> findExtendsImplementsListImpl(@Nullable HaxeInheritList extendsList, @NotNull IElementType expectedKeyword)
+	@Nonnull
+	private static List<HaxeType> findExtendsImplementsListImpl(@Nullable HaxeInheritList extendsList, @Nonnull IElementType expectedKeyword)
 	{
 		if(extendsList == null)
 		{
@@ -246,7 +248,7 @@ public class HaxeResolveUtil
 	}
 
 	@Nullable
-	public static HaxeNamedComponent findNamedSubComponent(@Nullable HaxeClass haxeClass, @NotNull final String name)
+	public static HaxeNamedComponent findNamedSubComponent(@Nullable HaxeClass haxeClass, @Nonnull final String name)
 	{
 		if(haxeClass == null)
 		{
@@ -256,14 +258,14 @@ public class HaxeResolveUtil
 		return result != null ? result : haxeClass.findFieldByName(name);
 	}
 
-	@NotNull
-	public static List<HaxeNamedComponent> findNamedSubComponents(@NotNull HaxeClass... rootHaxeClasses)
+	@Nonnull
+	public static List<HaxeNamedComponent> findNamedSubComponents(@Nonnull HaxeClass... rootHaxeClasses)
 	{
 		return findNamedSubComponents(true, rootHaxeClasses);
 	}
 
-	@NotNull
-	public static List<HaxeNamedComponent> findNamedSubComponents(boolean unique, @NotNull HaxeClass... rootHaxeClasses)
+	@Nonnull
+	public static List<HaxeNamedComponent> findNamedSubComponents(boolean unique, @Nonnull HaxeClass... rootHaxeClasses)
 	{
 		final List<HaxeNamedComponent> unfilteredResult = new ArrayList<HaxeNamedComponent>();
 		final LinkedList<HaxeClass> classes = new LinkedList<HaxeClass>();
@@ -304,7 +306,7 @@ public class HaxeResolveUtil
 		return result;
 	}
 
-	@NotNull
+	@Nonnull
 	public static List<HaxeNamedComponent> getNamedSubComponentsInOrder(HaxeClass haxeClass)
 	{
 		final List<HaxeNamedComponent> result = getNamedSubComponents(haxeClass);
@@ -434,14 +436,14 @@ public class HaxeResolveUtil
 	}
 
 
-	@NotNull
+	@Nonnull
 	public static HaxeClassResolveResult getHaxeClassResolveResult(@Nullable PsiElement element)
 	{
 		return getHaxeClassResolveResult(element, new HaxeGenericSpecialization());
 	}
 
-	@NotNull
-	public static HaxeClassResolveResult getHaxeClassResolveResult(@Nullable PsiElement element, @NotNull HaxeGenericSpecialization specialization)
+	@Nonnull
+	public static HaxeClassResolveResult getHaxeClassResolveResult(@Nullable PsiElement element, @Nonnull HaxeGenericSpecialization specialization)
 	{
 		if(element == null || element instanceof PsiPackage)
 		{
@@ -506,7 +508,7 @@ public class HaxeResolveUtil
 		return getHaxeClassResolveResult(initExpression);
 	}
 
-	@NotNull
+	@Nonnull
 	public static HaxeClassResolveResult tryResolveClassByTypeTag(PsiElement element, HaxeGenericSpecialization specialization)
 	{
 		final HaxeTypeTag typeTag = PsiTreeUtil.getChildOfType(element, HaxeTypeTag.class);
@@ -559,8 +561,8 @@ public class HaxeResolveUtil
 		return result;
 	}
 
-	@NotNull
-	public static List<HaxeClass> tyrResolveClassesByQName(@NotNull List<HaxeType> types)
+	@Nonnull
+	public static List<HaxeClass> tyrResolveClassesByQName(@Nonnull List<HaxeType> types)
 	{
 		final List<HaxeClass> result = new ArrayList<HaxeClass>();
 		for(HaxeType haxeType : types)
@@ -624,7 +626,7 @@ public class HaxeResolveUtil
 		return ownerClass == null ? null : findComponentDeclaration(ownerClass.getContainingFile(), element.getText());
 	}
 
-	public static String getQName(@NotNull PsiElement type, boolean searchInSamePackage)
+	public static String getQName(@Nonnull PsiElement type, boolean searchInSamePackage)
 	{
 		HaxeImportStatementWithInSupport importStatementWithInSupport = PsiTreeUtil.getParentOfType(type, HaxeImportStatementWithInSupport.class,
 				false);
@@ -825,7 +827,7 @@ public class HaxeResolveUtil
 		return resultSet;
 	}
 
-	@NotNull
+	@Nonnull
 	public static List<HaxeClass> findUsingClasses(PsiFile file)
 	{
 		final HaxeUsingStatement[] usingStatements = PsiTreeUtil.getChildrenOfType(file, HaxeUsingStatement.class);
@@ -850,7 +852,7 @@ public class HaxeResolveUtil
 		return result;
 	}
 
-	@NotNull
+	@Nonnull
 	public static List<HaxeComponentName> getComponentNames(List<? extends HaxeNamedComponent> components)
 	{
 		return ContainerUtil.map(components, new Function<HaxeNamedComponent, HaxeComponentName>()
@@ -863,7 +865,7 @@ public class HaxeResolveUtil
 		});
 	}
 
-	@NotNull
+	@Nonnull
 	public static HaxeClassResolveResult findFirstParameterClass(HaxeNamedComponent haxeNamedComponent)
 	{
 		final HaxeParameterList parameterList = PsiTreeUtil.getChildOfType(haxeNamedComponent, HaxeParameterList.class);

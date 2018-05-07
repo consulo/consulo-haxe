@@ -22,7 +22,7 @@ import com.intellij.plugins.haxe.ide.index.HaxeComponentIndex;
 import com.intellij.plugins.haxe.lang.psi.HaxeComponent;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.util.ArrayUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.Collection;
 
@@ -30,7 +30,7 @@ import java.util.Collection;
  * @author: Fedor.Korotkov
  */
 public class HaxeClassContributor implements ChooseByNameContributor {
-  @NotNull
+  @Nonnull
   @Override
   public NavigationItem[] getItemsByName(String name, String pattern, Project project, boolean includeNonProjectItems) {
     final GlobalSearchScope scope = includeNonProjectItems ? GlobalSearchScope.allScope(project) : GlobalSearchScope.projectScope(project);
@@ -38,7 +38,7 @@ public class HaxeClassContributor implements ChooseByNameContributor {
     return result.toArray(new NavigationItem[result.size()]);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String[] getNames(Project project, boolean includeNonProjectItems) {
     final Collection<String> result = HaxeComponentIndex.getNames(project);

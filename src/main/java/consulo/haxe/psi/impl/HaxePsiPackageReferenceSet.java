@@ -20,9 +20,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+
 import consulo.haxe.module.extension.packageSupport.HaxePackageUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.util.TextRange;
@@ -39,13 +41,13 @@ import com.intellij.util.containers.ContainerUtil;
 public class HaxePsiPackageReferenceSet extends ReferenceSetBase<HaxePsiPackageReference>
 {
 
-	public HaxePsiPackageReferenceSet(@NotNull final String str, @NotNull final PsiElement element, final int startInElement)
+	public HaxePsiPackageReferenceSet(@Nonnull final String str, @Nonnull final PsiElement element, final int startInElement)
 	{
 		super(str, element, startInElement, DOT_SEPARATOR);
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	protected HaxePsiPackageReference createReference(final TextRange range, final int index)
 	{
 		return new HaxePsiPackageReference(this, range, index);

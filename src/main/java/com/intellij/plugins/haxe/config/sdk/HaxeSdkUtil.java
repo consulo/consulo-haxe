@@ -20,8 +20,8 @@ import java.nio.charset.Charset;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.execution.ExecutionException;
 import com.intellij.execution.configurations.GeneralCommandLine;
 import com.intellij.execution.process.CapturingProcessHandler;
@@ -82,7 +82,7 @@ public class HaxeSdkUtil extends HaxeSdkUtilBase {
   }
 
   @Nullable
-  private static String suggestNekoBinPath(@NotNull String path) {
+  private static String suggestNekoBinPath(@Nonnull String path) {
     String result = System.getenv("NEKOPATH");
     if (result == null) {
       result = System.getenv("NEKO_INSTPATH");

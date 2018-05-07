@@ -16,7 +16,7 @@
 package com.intellij.plugins.haxe.config;
 
 import com.intellij.plugins.haxe.HaxeCommonBundle;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 
@@ -25,19 +25,19 @@ import javax.swing.*;
  */
 public enum HaxeTarget {
   NEKO("neko", HaxeCommonBundle.message("haxe.target.neko")) {
-    @NotNull
+    @Nonnull
     @Override
     public String getTargetFileNameWithExtension(String fileName) {
       return fileName + ".n";
     }
   }, JAVA_SCRIPT("js", HaxeCommonBundle.message("haxe.target.js")) {
-    @NotNull
+    @Nonnull
     @Override
     public String getTargetFileNameWithExtension(String fileName) {
       return fileName + ".js";
     }
   }, FLASH("swf", HaxeCommonBundle.message("haxe.target.swf")) {
-    @NotNull
+    @Nonnull
     @Override
     public String getTargetFileNameWithExtension(String fileName) {
       return fileName + ".swf";
@@ -56,10 +56,10 @@ public enum HaxeTarget {
     return "-" + flag;
   }
 
-  @NotNull
+  @Nonnull
   public abstract String getTargetFileNameWithExtension(String fileName);
 
-  public static void initCombo(@NotNull DefaultComboBoxModel comboBoxModel) {
+  public static void initCombo(@Nonnull DefaultComboBoxModel comboBoxModel) {
     for (HaxeTarget target : HaxeTarget.values()) {
       comboBoxModel.insertElementAt(target, 0);
     }

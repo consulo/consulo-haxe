@@ -17,7 +17,7 @@ package com.intellij.plugins.haxe;
 
 import javax.swing.Icon;
 
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nullable;
 import com.intellij.icons.AllIcons;
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.psi.PsiElement;

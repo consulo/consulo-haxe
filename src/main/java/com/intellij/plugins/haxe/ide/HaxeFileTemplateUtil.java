@@ -19,7 +19,7 @@ import java.util.List;
 
 import javax.swing.Icon;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.icons.AllIcons;
 import com.intellij.ide.fileTemplates.FileTemplate;
 import com.intellij.ide.fileTemplates.FileTemplateManager;
@@ -69,7 +69,7 @@ public class HaxeFileTemplateUtil {
     return templateName;
   }
 
-  @NotNull
+  @Nonnull
   public static Icon getTemplateIcon(String name) {
     name = getTemplateShortName(name);
     if ("Class".equals(name)) {

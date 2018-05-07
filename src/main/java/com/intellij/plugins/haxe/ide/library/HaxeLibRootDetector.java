@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.roots.OrderRootType;
 import com.intellij.openapi.roots.libraries.ui.RootDetector;
@@ -38,9 +38,9 @@ public class HaxeLibRootDetector extends RootDetector {
     super(rootType, false, presentableRootTypeName);
   }
 
-  @NotNull
+  @Nonnull
   @Override
-  public Collection<VirtualFile> detectRoots(@NotNull VirtualFile rootCandidate, @NotNull ProgressIndicator progressIndicator) {
+  public Collection<VirtualFile> detectRoots(@Nonnull VirtualFile rootCandidate, @Nonnull ProgressIndicator progressIndicator) {
     List<VirtualFile> result = new ArrayList<VirtualFile>();
     collectRoots(rootCandidate, result, progressIndicator);
     return result;
@@ -52,7 +52,7 @@ public class HaxeLibRootDetector extends RootDetector {
     }
     VfsUtilCore.visitChildrenRecursively(file, new VirtualFileVisitor() {
       @Override
-      public boolean visitFile(@NotNull VirtualFile file) {
+      public boolean visitFile(@Nonnull VirtualFile file) {
         if (progressIndicator != null) {
           progressIndicator.checkCanceled();
         }
@@ -77,9 +77,9 @@ public class HaxeLibRootDetector extends RootDetector {
 
   private static boolean containsHaxeFiles(final VirtualFile dir) {
     final VirtualFileVisitor.Result result = VfsUtilCore.visitChildrenRecursively(dir, new VirtualFileVisitor() {
-      @NotNull
+      @Nonnull
       @Override
-      public Result visitFileEx(@NotNull VirtualFile file) {
+      public Result visitFileEx(@Nonnull VirtualFile file) {
         return !file.isDirectory() && HaxeFileType.DEFAULT_EXTENSION.equalsIgnoreCase(file.getExtension()) ? skipTo(dir) : CONTINUE;
       }
     });

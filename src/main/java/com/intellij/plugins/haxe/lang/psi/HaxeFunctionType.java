@@ -2,15 +2,15 @@
 package com.intellij.plugins.haxe.lang.psi;
 
 import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
+
+import javax.annotation.*;
 
 public interface HaxeFunctionType extends HaxePsiCompositeElement {
 
   @Nullable
   HaxeFunctionType getFunctionType();
 
-  @NotNull
+  @Nonnull
   List<HaxeTypeOrAnonymous> getTypeOrAnonymousList();
 
 }

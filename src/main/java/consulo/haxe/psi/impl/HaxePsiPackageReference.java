@@ -21,7 +21,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.codeInsight.daemon.EmptyResolveMessageProvider;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.plugins.haxe.lang.psi.HaxePackage;
@@ -45,7 +45,7 @@ public class HaxePsiPackageReference extends PsiPolyVariantReferenceBase<PsiElem
 		myIndex = index;
 	}
 
-	@NotNull
+	@Nonnull
 	private Set<HaxePackage> getContext()
 	{
 		if(myIndex == 0)
@@ -65,7 +65,7 @@ public class HaxePsiPackageReference extends PsiPolyVariantReferenceBase<PsiElem
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public Object[] getVariants()
 	{
 		Set<HaxePackage> subPackages = new HashSet<HaxePackage>();
@@ -77,7 +77,7 @@ public class HaxePsiPackageReference extends PsiPolyVariantReferenceBase<PsiElem
 		return subPackages.toArray();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getUnresolvedMessagePattern()
 	{
@@ -85,7 +85,7 @@ public class HaxePsiPackageReference extends PsiPolyVariantReferenceBase<PsiElem
 	}
 
 	@Override
-	@NotNull
+	@Nonnull
 	public ResolveResult[] multiResolve(final boolean incompleteCode)
 	{
 		final Collection<HaxePackage> packages = new HashSet<HaxePackage>();
@@ -97,7 +97,7 @@ public class HaxePsiPackageReference extends PsiPolyVariantReferenceBase<PsiElem
 	}
 
 	@Override
-	public PsiElement bindToElement(@NotNull final PsiElement element) throws IncorrectOperationException
+	public PsiElement bindToElement(@Nonnull final PsiElement element) throws IncorrectOperationException
 	{
 		if(!(element instanceof HaxePackage))
 		{

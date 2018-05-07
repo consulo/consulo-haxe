@@ -37,7 +37,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.PsiElementProcessor;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -49,20 +49,20 @@ public class HaxeTypeAddImportIntentionAction implements HintAction, QuestionAct
   private final PsiElement myType;
   private Editor myEditor;
 
-  public HaxeTypeAddImportIntentionAction(@NotNull PsiElement type, @NotNull List<HaxeComponent> components) {
+  public HaxeTypeAddImportIntentionAction(@Nonnull PsiElement type, @Nonnull List<HaxeComponent> components) {
     myType = type;
     candidates = components;
   }
 
   @Override
-  public boolean showHint(@NotNull Editor editor) {
+  public boolean showHint(@Nonnull Editor editor) {
     myEditor = editor;
     TextRange range = InjectedLanguageManager.getInstance(myType.getProject()).injectedToHost(myType, myType.getTextRange());
     HintManager.getInstance().showQuestionHint(editor, getText(), range.getStartOffset(), range.getEndOffset(), this);
     return true;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getText() {
     if (candidates.size() > 1) {
@@ -76,37 +76,37 @@ public class HaxeTypeAddImportIntentionAction implements HintAction, QuestionAct
     return "";
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getName() {
     return getText();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public String getFamilyName() {
     return getText();
   }
 
   @Override
-  public void applyFix(@NotNull Project project, @NotNull ProblemDescriptor descriptor) {
+  public void applyFix(@Nonnull Project project, @Nonnull ProblemDescriptor descriptor) {
     invoke(project, myEditor, descriptor.getPsiElement().getContainingFile());
   }
 
   @Override
-  public boolean isAvailable(@NotNull Project project, Editor editor, PsiFile file) {
+  public boolean isAvailable(@Nonnull Project project, Editor editor, PsiFile file) {
     return myType.isValid();
   }
 
   @Override
-  public void invoke(@NotNull final Project project, final Editor editor, PsiFile file) throws IncorrectOperationException {
+  public void invoke(@Nonnull final Project project, final Editor editor, PsiFile file) throws IncorrectOperationException {
     if (candidates.size() > 1) {
       NavigationUtil.getPsiElementPopup(
         candidates.toArray(new PsiElement[candidates.size()]),
         new DefaultPsiElementCellRenderer(),
         HaxeBundle.message("choose.class.to.import.title"),
         new PsiElementProcessor<PsiElement>() {
-          public boolean execute(@NotNull final PsiElement element) {
+          public boolean execute(@Nonnull final PsiElement element) {
             CommandProcessor.getInstance().executeCommand(
               project,
               new Runnable() {

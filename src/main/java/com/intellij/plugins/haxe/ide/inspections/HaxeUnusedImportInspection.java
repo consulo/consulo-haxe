@@ -20,9 +20,10 @@ package com.intellij.plugins.haxe.ide.inspections;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.codeInspection.InspectionManager;
 import com.intellij.codeInspection.LocalInspectionTool;
 import com.intellij.codeInspection.LocalQuickFix;
@@ -49,14 +50,14 @@ import com.intellij.util.ArrayUtil;
 public class HaxeUnusedImportInspection extends LocalInspectionTool
 {
 	@Override
-	@NotNull
+	@Nonnull
 	public String getGroupDisplayName()
 	{
 		return HaxeBundle.message("inspections.group.name");
 	}
 
 	@Nls
-	@NotNull
+	@Nonnull
 	@Override
 	public String getDisplayName()
 	{
@@ -69,7 +70,7 @@ public class HaxeUnusedImportInspection extends LocalInspectionTool
 		return true;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getShortName()
 	{
@@ -78,7 +79,7 @@ public class HaxeUnusedImportInspection extends LocalInspectionTool
 
 	@Nullable
 	@Override
-	public ProblemDescriptor[] checkFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly)
+	public ProblemDescriptor[] checkFile(@Nonnull PsiFile file, @Nonnull InspectionManager manager, boolean isOnTheFly)
 	{
 		List<HaxeImportStatementRegular> unusedImports = HaxeImportUtil.findUnusedImports(file);
 		List<HaxeImportStatementWithInSupport> unusedInImports = HaxeImportUtil.findUnusedInImports(file);
@@ -111,7 +112,7 @@ public class HaxeUnusedImportInspection extends LocalInspectionTool
 
 	private static final LocalQuickFix OPTIMIZE_IMPORTS_FIX = new LocalQuickFix()
 	{
-		@NotNull
+		@Nonnull
 		@Override
 		public String getName()
 		{
@@ -119,20 +120,20 @@ public class HaxeUnusedImportInspection extends LocalInspectionTool
 		}
 
 		@Override
-		@NotNull
+		@Nonnull
 		public String getFamilyName()
 		{
 			return getName();
 		}
 
 		@Override
-		public void applyFix(@NotNull Project project, @NotNull ProblemDescriptor descriptor)
+		public void applyFix(@Nonnull Project project, @Nonnull ProblemDescriptor descriptor)
 		{
 			PsiElement psiElement = descriptor.getPsiElement();
 			invoke(project, psiElement.getContainingFile());
 		}
 
-		public void invoke(@NotNull final Project project, PsiFile file)
+		public void invoke(@Nonnull final Project project, PsiFile file)
 		{
 			ImportOptimizer optimizer = new HaxeImportOptimizer();
 			final Runnable runnable = optimizer.processFile(file);

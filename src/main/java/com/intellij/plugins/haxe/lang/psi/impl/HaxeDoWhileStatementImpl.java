@@ -2,12 +2,13 @@
 package com.intellij.plugins.haxe.lang.psi.impl;
 
 import java.util.List;
-import org.jetbrains.annotations.*;
+
 import com.intellij.lang.ASTNode;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
-import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes.*;
+
+import javax.annotation.*;
+
 import com.intellij.plugins.haxe.lang.psi.*;
 
 public class HaxeDoWhileStatementImpl extends HaxePsiCompositeElementImpl implements HaxeDoWhileStatement {
@@ -16,7 +17,7 @@ public class HaxeDoWhileStatementImpl extends HaxePsiCompositeElementImpl implem
     super(node);
   }
 
-  public void accept(@NotNull PsiElementVisitor visitor) {
+  public void accept(@Nonnull PsiElementVisitor visitor) {
     if (visitor instanceof HaxeVisitor) ((HaxeVisitor)visitor).visitDoWhileStatement(this);
     else super.accept(visitor);
   }
@@ -52,7 +53,7 @@ public class HaxeDoWhileStatementImpl extends HaxePsiCompositeElementImpl implem
   }
 
   @Override
-  @NotNull
+  @Nonnull
   public List<HaxeExpression> getExpressionList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, HaxeExpression.class);
   }

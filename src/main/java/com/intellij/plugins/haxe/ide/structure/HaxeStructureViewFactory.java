@@ -15,8 +15,8 @@
  */
 package com.intellij.plugins.haxe.ide.structure;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.ide.structureView.StructureViewBuilder;
 import com.intellij.ide.structureView.StructureViewModel;
 import com.intellij.ide.structureView.TreeBasedStructureViewBuilder;
@@ -35,7 +35,7 @@ public class HaxeStructureViewFactory implements PsiStructureViewFactory
 		return new TreeBasedStructureViewBuilder()
 		{
 			@Override
-			@NotNull
+			@Nonnull
 			public StructureViewModel createStructureViewModel(@Nullable Editor editor)
 			{
 				return new HaxeStructureViewModel(psiFile);

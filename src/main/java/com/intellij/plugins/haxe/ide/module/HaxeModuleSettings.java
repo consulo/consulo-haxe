@@ -15,6 +15,8 @@
  */
 package com.intellij.plugins.haxe.ide.module;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
@@ -25,7 +27,6 @@ import com.intellij.plugins.haxe.config.NMETarget;
 import com.intellij.plugins.haxe.module.HaxeModuleSettingsBase;
 import com.intellij.plugins.haxe.module.impl.HaxeModuleSettingsBaseImpl;
 import com.intellij.util.xmlb.XmlSerializerUtil;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author: Fedor.Korotkov
@@ -80,7 +81,7 @@ public class HaxeModuleSettings extends HaxeModuleSettingsBaseImpl
     return flexSdkName;
   }
 
-  public static HaxeModuleSettings getInstance(@NotNull Module module) {
+  public static HaxeModuleSettings getInstance(@Nonnull Module module) {
     return ModuleServiceManager.getService(module, HaxeModuleSettings.class);
   }
 

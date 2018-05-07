@@ -2,7 +2,7 @@ package com.intellij.plugins.haxe.lang.psi;
 
 import com.intellij.util.ArrayFactory;
 import consulo.psi.PsiPackage;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
@@ -13,14 +13,14 @@ public interface HaxePackage extends PsiPackage
 	HaxePackage[] EMPTY_ARRAY = new HaxePackage[0];
 
 	ArrayFactory<HaxePackage> ARRAY_FACTORY = new ArrayFactory<HaxePackage>() {
-		@NotNull
+		@Nonnull
 		@Override
 		public HaxePackage[] create(int i) {
 			return i == 0 ? EMPTY_ARRAY : new HaxePackage[i];
 		}
 	};
 
-	@NotNull
+	@Nonnull
 	@Override
 	HaxePackage[] getSubPackages();
 }

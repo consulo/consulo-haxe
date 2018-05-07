@@ -25,8 +25,8 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiParserFacade;
 import com.intellij.util.IncorrectOperationException;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.*;
 
@@ -62,10 +62,10 @@ abstract public class BaseCreateMethodsFix<T extends HaxeNamedComponent> {
   /**
    * must be called not in write action
    */
-  public void beforeInvoke(@NotNull final Project project, final Editor editor, final PsiFile file) {
+  public void beforeInvoke(@Nonnull final Project project, final Editor editor, final PsiFile file) {
   }
 
-  public void invoke(@NotNull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
+  public void invoke(@Nonnull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
     if (!FileModificationService.getInstance().prepareFileForWrite(file)) return;
     evalAnchor(editor, file);
     processElements(project, getElementsToProcess());

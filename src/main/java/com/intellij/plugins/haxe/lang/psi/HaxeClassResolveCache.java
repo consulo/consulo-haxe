@@ -17,8 +17,9 @@ package com.intellij.plugins.haxe.lang.psi;
 
 import gnu.trove.TObjectHashingStrategy;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.progress.ProgressIndicatorProvider;
 import com.intellij.openapi.project.Project;
@@ -38,7 +39,7 @@ public class HaxeClassResolveCache {
     return ServiceManager.getService(project, HaxeClassResolveCache.class);
   }
 
-  public HaxeClassResolveCache(@NotNull MessageBus messageBus) {
+  public HaxeClassResolveCache(@Nonnull MessageBus messageBus) {
     messageBus.connect().subscribe(PsiManagerImpl.ANY_PSI_CHANGE_TOPIC, new AnyPsiChangeListener() {
       @Override
       public void beforePsiChanged(boolean isPhysical) {
@@ -56,7 +57,7 @@ public class HaxeClassResolveCache {
                                           TObjectHashingStrategy.CANONICAL);
   }
 
-  public void put(@NotNull HaxeClass haxeClass, @NotNull HaxeClassResolveResult result) {
+  public void put(@Nonnull HaxeClass haxeClass, @Nonnull HaxeClassResolveResult result) {
     myMap.put(haxeClass, result);
   }
 

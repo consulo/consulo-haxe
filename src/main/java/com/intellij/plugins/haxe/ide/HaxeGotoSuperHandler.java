@@ -34,7 +34,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.containers.ContainerUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -48,7 +48,7 @@ public class HaxeGotoSuperHandler implements LanguageCodeInsightActionHandler {
   }
 
   @Override
-  public void invoke(@NotNull Project project, @NotNull Editor editor, @NotNull PsiFile file) {
+  public void invoke(@Nonnull Project project, @Nonnull Editor editor, @Nonnull PsiFile file) {
     final PsiElement at = file.findElementAt(editor.getCaretModel().getOffset());
     final HaxeComponentName componentName = PsiTreeUtil.getParentOfType(at, HaxeComponentName.class);
 

@@ -21,7 +21,7 @@ import com.intellij.plugins.haxe.lang.psi.HaxeDoWhileStatement;
 import com.intellij.plugins.haxe.lang.psi.HaxeExpression;
 import com.intellij.plugins.haxe.util.HaxeElementGenerator;
 import com.intellij.psi.PsiElement;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ import java.util.List;
  * @author: Fedor.Korotkov
  */
 public class HaxeDoWhileSurrounder extends HaxeManyStatementsSurrounder {
-  @NotNull
+  @Nonnull
   @Override
   protected PsiElement doSurroundElements(PsiElement[] elements, PsiElement parent) {
     final HaxeDoWhileStatement whileStatement =

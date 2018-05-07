@@ -27,7 +27,7 @@ import com.intellij.plugins.haxe.lang.psi.HaxeVisitor;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.search.GlobalSearchScope;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -38,7 +38,7 @@ public class HaxeTypeAnnotator extends HaxeVisitor implements Annotator {
   private AnnotationHolder myHolder = null;
 
   @Override
-  public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
+  public void annotate(@Nonnull PsiElement element, @Nonnull AnnotationHolder holder) {
     assert myHolder == null;
     myHolder = holder;
     try {
@@ -50,7 +50,7 @@ public class HaxeTypeAnnotator extends HaxeVisitor implements Annotator {
   }
 
   @Override
-  public void visitType(@NotNull HaxeType type) {
+  public void visitType(@Nonnull HaxeType type) {
     super.visitType(type);
     final HaxeReferenceExpression expression = type.getReferenceExpression();
     if (expression.resolve() != null) {
@@ -61,7 +61,7 @@ public class HaxeTypeAnnotator extends HaxeVisitor implements Annotator {
   }
 
   @Override
-  public void visitReferenceExpression(@NotNull HaxeReferenceExpression expression) {
+  public void visitReferenceExpression(@Nonnull HaxeReferenceExpression expression) {
     super.visitReferenceExpression(expression);
 
     if (expression.resolve() == null) {

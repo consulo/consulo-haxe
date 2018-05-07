@@ -27,9 +27,9 @@ import com.intellij.openapi.roots.ui.configuration.libraryEditor.DefaultLibraryR
 import com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditor;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.plugins.haxe.HaxeBundle;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
 
+import javax.annotation.Nullable;
 import javax.swing.*;
 import java.util.Arrays;
 import java.util.List;
@@ -39,11 +39,11 @@ import java.util.List;
  */
 public class HaxeLibraryRootsComponentDescriptor extends LibraryRootsComponentDescriptor {
   @Override
-  public OrderRootTypePresentation getRootTypePresentation(@NotNull OrderRootType type) {
+  public OrderRootTypePresentation getRootTypePresentation(@Nonnull OrderRootType type) {
     return DefaultLibraryRootsComponentDescriptor.getDefaultPresentation(type);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public List<? extends RootDetector> getRootDetectors() {
     return Arrays.asList(
@@ -52,7 +52,7 @@ public class HaxeLibraryRootsComponentDescriptor extends LibraryRootsComponentDe
     );
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public List<? extends AttachRootButtonDescriptor> createAttachButtons() {
     return Arrays.asList(new AttachUrlJavadocDescriptor());
@@ -64,10 +64,10 @@ public class HaxeLibraryRootsComponentDescriptor extends LibraryRootsComponentDe
     }
 
     @Override
-    public VirtualFile[] selectFiles(@NotNull JComponent parent,
+    public VirtualFile[] selectFiles(@Nonnull JComponent parent,
                                      @Nullable VirtualFile initialSelection,
                                      @Nullable Module contextModule,
-                                     @NotNull LibraryEditor libraryEditor) {
+                                     @Nonnull LibraryEditor libraryEditor) {
       final VirtualFile vFile = Util.showSpecifyJavadocUrlDialog(parent);
       if (vFile != null) {
         return new VirtualFile[]{vFile};

@@ -15,13 +15,15 @@
  */
 package com.intellij.plugins.haxe.ide;
 
+import javax.annotation.Nonnull;
+
 import com.intellij.lang.BracePair;
 import com.intellij.lang.PairedBraceMatcher;
 import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.tree.IElementType;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nullable;
 
 /**
  * @author: Fedor.Korotkov
@@ -40,7 +42,7 @@ public class HaxeBraceMatcher implements PairedBraceMatcher {
   }
 
   @Override
-  public boolean isPairedBracesAllowedBeforeType(@NotNull IElementType lbraceType, @Nullable IElementType contextType) {
+  public boolean isPairedBracesAllowedBeforeType(@Nonnull IElementType lbraceType, @Nullable IElementType contextType) {
     return true;
   }
 

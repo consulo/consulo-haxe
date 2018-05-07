@@ -24,8 +24,8 @@ import com.intellij.psi.ResolveState;
 import com.intellij.psi.scope.PsiScopeProcessor;
 import com.intellij.psi.util.PsiTreeUtil;
 import gnu.trove.THashSet;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.Collections;
 import java.util.Set;
@@ -41,7 +41,7 @@ public class HaxeMacroUtil {
     final Set<HaxeComponentName> result = new THashSet<HaxeComponentName>();
     PsiTreeUtil.treeWalkUp(new PsiScopeProcessor() {
       @Override
-      public boolean execute(@NotNull PsiElement element, ResolveState state) {
+      public boolean execute(@Nonnull PsiElement element, ResolveState state) {
         if (element instanceof HaxeNamedComponent) {
           final HaxeNamedComponent haxeNamedComponent = (HaxeNamedComponent)element;
           if (haxeNamedComponent.getComponentName() != null && HaxeComponentType.isVariable(HaxeComponentType.typeOf(haxeNamedComponent))) {
@@ -52,7 +52,7 @@ public class HaxeMacroUtil {
       }
 
       @Override
-      public <T> T getHint(@NotNull Key<T> hintKey) {
+      public <T> T getHint(@Nonnull Key<T> hintKey) {
         return null;
       }
 

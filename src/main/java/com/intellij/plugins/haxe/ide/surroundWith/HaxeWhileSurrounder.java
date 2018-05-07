@@ -20,13 +20,13 @@ import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.lang.psi.HaxeWhileStatement;
 import com.intellij.plugins.haxe.util.HaxeElementGenerator;
 import com.intellij.psi.PsiElement;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
  */
 public class HaxeWhileSurrounder extends HaxeManyStatementsSurrounder {
-  @NotNull
+  @Nonnull
   @Override
   protected PsiElement doSurroundElements(PsiElement[] elements, PsiElement parent) {
     final HaxeWhileStatement whileStatement =

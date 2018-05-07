@@ -15,7 +15,8 @@
  */
 package consulo.haxe.module.extension;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.projectRoots.SdkType;
 import com.intellij.plugins.haxe.config.sdk.HaxeSdkType;
 import consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
@@ -27,12 +28,12 @@ import consulo.roots.ModuleRootLayer;
  */
 public class HaxeModuleExtension extends ModuleExtensionWithSdkImpl<HaxeModuleExtension>
 {
-	public HaxeModuleExtension(@NotNull String id, @NotNull ModuleRootLayer module)
+	public HaxeModuleExtension(@Nonnull String id, @Nonnull ModuleRootLayer module)
 	{
 		super(id, module);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Class<? extends SdkType> getSdkTypeClass()
 	{

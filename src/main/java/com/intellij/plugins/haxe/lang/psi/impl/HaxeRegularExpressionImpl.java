@@ -15,12 +15,13 @@
  */
 package com.intellij.plugins.haxe.lang.psi.impl;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import org.intellij.lang.regexp.DefaultRegExpPropertiesProvider;
 import org.intellij.lang.regexp.psi.RegExpChar;
 import org.intellij.lang.regexp.psi.RegExpGroup;
 import org.intellij.lang.regexp.psi.RegExpNamedGroupRef;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.plugins.haxe.lang.psi.HaxeRegularExpression;
@@ -37,7 +38,7 @@ public class HaxeRegularExpressionImpl extends HaxeReferenceImpl implements Haxe
 {
 	private final DefaultRegExpPropertiesProvider myPropertiesProvider;
 
-	public HaxeRegularExpressionImpl(@NotNull ASTNode node)
+	public HaxeRegularExpressionImpl(@Nonnull ASTNode node)
 	{
 		super(node);
 		myPropertiesProvider = DefaultRegExpPropertiesProvider.getInstance();
@@ -50,7 +51,7 @@ public class HaxeRegularExpressionImpl extends HaxeReferenceImpl implements Haxe
 	}
 
 	@Override
-	public PsiLanguageInjectionHost updateText(@NotNull String text)
+	public PsiLanguageInjectionHost updateText(@Nonnull String text)
 	{
 		ASTNode node = getNode();
 		ASTNode parent = node.getTreeParent();
@@ -63,21 +64,21 @@ public class HaxeRegularExpressionImpl extends HaxeReferenceImpl implements Haxe
 		return (PsiLanguageInjectionHost) outerNode.getPsi();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public LiteralTextEscaper<? extends PsiLanguageInjectionHost> createLiteralTextEscaper()
 	{
 		return new LiteralTextEscaper<HaxeRegularExpression>(this)
 		{
 			@Override
-			public boolean decode(@NotNull TextRange rangeInsideHost, @NotNull StringBuilder outChars)
+			public boolean decode(@Nonnull TextRange rangeInsideHost, @Nonnull StringBuilder outChars)
 			{
 				outChars.append(myHost.getText(), rangeInsideHost.getStartOffset(), rangeInsideHost.getEndOffset());
 				return true;
 			}
 
 			@Override
-			public int getOffsetInHost(int offsetInDecoded, @NotNull TextRange rangeInsideHost)
+			public int getOffsetInHost(int offsetInDecoded, @Nonnull TextRange rangeInsideHost)
 			{
 				int offset = offsetInDecoded + rangeInsideHost.getStartOffset();
 				if(offset < rangeInsideHost.getStartOffset())
@@ -142,12 +143,12 @@ public class HaxeRegularExpressionImpl extends HaxeReferenceImpl implements Haxe
 	}
 
 	@Override
-	public boolean isValidCategory(@NotNull String category)
+	public boolean isValidCategory(@Nonnull String category)
 	{
 		return myPropertiesProvider.isValidCategory(category);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String[][] getAllKnownProperties()
 	{
@@ -161,7 +162,7 @@ public class HaxeRegularExpressionImpl extends HaxeReferenceImpl implements Haxe
 		return myPropertiesProvider.getPropertyDescription(name);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String[][] getKnownCharacterClasses()
 	{

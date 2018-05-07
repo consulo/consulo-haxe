@@ -27,7 +27,7 @@ import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 import com.intellij.lexer.Lexer;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterBase;
@@ -73,12 +73,12 @@ public class HaxeSyntaxHighlighter extends SyntaxHighlighterBase {
 	fillMap(ATTRIBUTES, CONDITIONALLY_NOT_COMPILED, HaxeSyntaxHighlighterColors.CONDITIONALLY_NOT_COMPILED);
   }
 
-  @NotNull
+  @Nonnull
   public Lexer getHighlightingLexer() {
     return new HaxeLexer();
   }
 
-  @NotNull
+  @Nonnull
   public TextAttributesKey[] getTokenHighlights(IElementType tokenType) {
     return pack(ATTRIBUTES.get(tokenType));
   }

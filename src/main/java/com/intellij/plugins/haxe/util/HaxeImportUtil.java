@@ -21,7 +21,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.util.Condition;
 import com.intellij.plugins.haxe.lang.psi.HaxeClass;
 import com.intellij.plugins.haxe.lang.psi.HaxeImportStatementRegular;
@@ -121,19 +122,19 @@ public class HaxeImportUtil
 			}
 
 			@Override
-			public void visitImportStatementRegular(@NotNull HaxeImportStatementRegular o)
+			public void visitImportStatementRegular(@Nonnull HaxeImportStatementRegular o)
 			{
 				// stop
 			}
 
 			@Override
-			public void visitImportStatementWithInSupport(@NotNull HaxeImportStatementWithInSupport o)
+			public void visitImportStatementWithInSupport(@Nonnull HaxeImportStatementWithInSupport o)
 			{
 				// stop
 			}
 
 			@Override
-			public void visitImportStatementWithWildcard(@NotNull HaxeImportStatementWithWildcard o)
+			public void visitImportStatementWithWildcard(@Nonnull HaxeImportStatementWithWildcard o)
 			{
 				// stop
 			}
@@ -157,19 +158,19 @@ public class HaxeImportUtil
 			}
 
 			@Override
-			public void visitImportStatementRegular(@NotNull HaxeImportStatementRegular o)
+			public void visitImportStatementRegular(@Nonnull HaxeImportStatementRegular o)
 			{
 				// stop
 			}
 
 			@Override
-			public void visitImportStatementWithInSupport(@NotNull HaxeImportStatementWithInSupport o)
+			public void visitImportStatementWithInSupport(@Nonnull HaxeImportStatementWithInSupport o)
 			{
 				// stop
 			}
 
 			@Override
-			public void visitImportStatementWithWildcard(@NotNull HaxeImportStatementWithWildcard o)
+			public void visitImportStatementWithWildcard(@Nonnull HaxeImportStatementWithWildcard o)
 			{
 				// stop
 			}
@@ -240,19 +241,19 @@ public class HaxeImportUtil
 			}
 
 			@Override
-			public void visitImportStatementRegular(@NotNull HaxeImportStatementRegular o)
+			public void visitImportStatementRegular(@Nonnull HaxeImportStatementRegular o)
 			{
 				// stop
 			}
 
 			@Override
-			public void visitImportStatementWithInSupport(@NotNull HaxeImportStatementWithInSupport o)
+			public void visitImportStatementWithInSupport(@Nonnull HaxeImportStatementWithInSupport o)
 			{
 				// stop
 			}
 
 			@Override
-			public void visitImportStatementWithWildcard(@NotNull HaxeImportStatementWithWildcard o)
+			public void visitImportStatementWithWildcard(@Nonnull HaxeImportStatementWithWildcard o)
 			{
 				// stop
 			}

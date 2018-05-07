@@ -18,7 +18,7 @@ package com.intellij.plugins.haxe.lang.psi.impl;
 import com.intellij.lang.ASTNode;
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ import java.util.List;
  * @author: Fedor.Korotkov
  */
 public abstract class AbstractHaxeTypeDefImpl extends AbstractHaxePsiClass implements HaxeTypedefDeclaration {
-  public AbstractHaxeTypeDefImpl(@NotNull ASTNode node) {
+  public AbstractHaxeTypeDefImpl(@Nonnull ASTNode node) {
     super(node);
   }
 
@@ -46,7 +46,7 @@ public abstract class AbstractHaxeTypeDefImpl extends AbstractHaxePsiClass imple
     return HaxeResolveUtil.getHaxeClassResolveResult(haxeTypeOrAnonymous.getType(), specialization);
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public List<HaxeType> getExtendsList() {
     final HaxeClass targetHaxeClass = getTargetClass().getHaxeClass();
@@ -56,7 +56,7 @@ public abstract class AbstractHaxeTypeDefImpl extends AbstractHaxePsiClass imple
     return super.getExtendsList();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public List<HaxeType> getImplementsList() {
     final HaxeClass targetHaxeClass = getTargetClass().getHaxeClass();
@@ -75,7 +75,7 @@ public abstract class AbstractHaxeTypeDefImpl extends AbstractHaxePsiClass imple
     return super.isInterface();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public List<HaxeNamedComponent> getMethods() {
     final HaxeClass targetHaxeClass = getTargetClass().getHaxeClass();
@@ -85,7 +85,7 @@ public abstract class AbstractHaxeTypeDefImpl extends AbstractHaxePsiClass imple
     return super.getMethods();
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public List<HaxeNamedComponent> getFields() {
     final HaxeClass targetHaxeClass = getTargetClass().getHaxeClass();
@@ -96,7 +96,7 @@ public abstract class AbstractHaxeTypeDefImpl extends AbstractHaxePsiClass imple
   }
 
   @Override
-  public HaxeNamedComponent findFieldByName(@NotNull String name) {
+  public HaxeNamedComponent findFieldByName(@Nonnull String name) {
     final HaxeClass targetHaxeClass = getTargetClass().getHaxeClass();
     if (targetHaxeClass != null) {
       return targetHaxeClass.findFieldByName(name);
@@ -105,7 +105,7 @@ public abstract class AbstractHaxeTypeDefImpl extends AbstractHaxePsiClass imple
   }
 
   @Override
-  public HaxeNamedComponent findMethodByName(@NotNull String name) {
+  public HaxeNamedComponent findMethodByName(@Nonnull String name) {
     final HaxeClass targetHaxeClass = getTargetClass().getHaxeClass();
     if (targetHaxeClass != null) {
       return targetHaxeClass.findMethodByName(name);

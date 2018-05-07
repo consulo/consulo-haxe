@@ -26,7 +26,7 @@ import com.intellij.plugins.haxe.util.UsefulPsiTreeUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 public class HaxeTypedHandler extends TypedHandlerDelegate {
   private boolean myAfterTypeOrComponentName = false;
@@ -60,7 +60,7 @@ public class HaxeTypedHandler extends TypedHandlerDelegate {
   }
 
   @Override
-  public Result charTyped(char c, Project project, Editor editor, @NotNull PsiFile file) {
+  public Result charTyped(char c, Project project, Editor editor, @Nonnull PsiFile file) {
     String textToInsert = null;
     if (c == '<' && myAfterTypeOrComponentName) {
       myAfterTypeOrComponentName = false;

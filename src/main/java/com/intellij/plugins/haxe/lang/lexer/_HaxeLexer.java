@@ -21,8 +21,6 @@ package com.intellij.plugins.haxe.lang.lexer;
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 import java.util.*;
-import java.lang.reflect.Field;
-import org.jetbrains.annotations.NotNull;
 
 
 /**

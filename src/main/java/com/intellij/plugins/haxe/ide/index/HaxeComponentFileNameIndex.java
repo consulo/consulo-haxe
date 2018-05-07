@@ -25,7 +25,7 @@ import com.intellij.util.indexing.*;
 import com.intellij.util.io.EnumeratorStringDescriptor;
 import com.intellij.util.io.KeyDescriptor;
 import gnu.trove.THashMap;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,13 +40,13 @@ public class HaxeComponentFileNameIndex extends ScalarIndexExtension<String> {
   private static final int INDEX_VERSION = 4;
   private DataIndexer<String, Void, FileContent> myDataIndexer = new MyDataIndexer();
 
-  @NotNull
+  @Nonnull
   @Override
   public ID<String, Void> getName() {
     return HAXE_COMPONENT_FILE_NAME_INDEX;
   }
 
-  @NotNull
+  @Nonnull
   @Override
   public DataIndexer<String, Void, FileContent> getIndexer() {
     return myDataIndexer;
@@ -72,8 +72,8 @@ public class HaxeComponentFileNameIndex extends ScalarIndexExtension<String> {
     return HaxeSdkInputFilter.INSTANCE;
   }
 
-  @NotNull
-  public static List<VirtualFile> getFilesNameByQName(@NotNull String qName, @NotNull final GlobalSearchScope filter) {
+  @Nonnull
+  public static List<VirtualFile> getFilesNameByQName(@Nonnull String qName, @Nonnull final GlobalSearchScope filter) {
     final List<VirtualFile> result = new ArrayList<VirtualFile>();
     getFileNames(qName, new Processor<VirtualFile>() {
       @Override
@@ -85,16 +85,16 @@ public class HaxeComponentFileNameIndex extends ScalarIndexExtension<String> {
     return result;
   }
 
-  public static boolean getFileNames(@NotNull String qName,
-                                     @NotNull Processor<VirtualFile> processor,
-                                     @NotNull final GlobalSearchScope filter) {
+  public static boolean getFileNames(@Nonnull String qName,
+                                     @Nonnull Processor<VirtualFile> processor,
+                                     @Nonnull final GlobalSearchScope filter) {
     return FileBasedIndex.getInstance()
       .getFilesWithKey(HAXE_COMPONENT_FILE_NAME_INDEX, Collections.<String>singleton(qName), processor, filter);
   }
 
   private static class MyDataIndexer implements DataIndexer<String, Void, FileContent> {
     @Override
-    @NotNull
+    @Nonnull
     public Map<String, Void> map(final FileContent inputData) {
       final PsiFile psiFile = inputData.getPsiFile();
       final List<HaxeClass> classes = HaxeResolveUtil.findComponentDeclarations(psiFile);

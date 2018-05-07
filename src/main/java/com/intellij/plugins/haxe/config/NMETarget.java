@@ -15,7 +15,7 @@
  */
 package com.intellij.plugins.haxe.config;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import javax.swing.*;
 
@@ -50,7 +50,7 @@ public enum NMETarget {
     return flags;
   }
 
-  public static void initCombo(@NotNull DefaultComboBoxModel comboBoxModel) {
+  public static void initCombo(@Nonnull DefaultComboBoxModel comboBoxModel) {
     for (NMETarget target : NMETarget.values()) {
       comboBoxModel.insertElementAt(target, 0);
     }

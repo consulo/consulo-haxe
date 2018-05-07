@@ -15,7 +15,8 @@
  */
 package com.intellij.plugins.haxe.ide.highlight;
 
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
+
 import com.intellij.openapi.fileTypes.SyntaxHighlighter;
 import com.intellij.openapi.fileTypes.SyntaxHighlighterFactory;
 import com.intellij.openapi.project.Project;
@@ -25,7 +26,7 @@ import com.intellij.openapi.vfs.VirtualFile;
  * @author fedor.korotkov
  */
 public class HaxeSyntaxHighlighterFactory extends SyntaxHighlighterFactory {
-  @NotNull
+  @Nonnull
   @Override
   public SyntaxHighlighter getSyntaxHighlighter(Project project, VirtualFile virtualFile) {
     return new HaxeSyntaxHighlighter();

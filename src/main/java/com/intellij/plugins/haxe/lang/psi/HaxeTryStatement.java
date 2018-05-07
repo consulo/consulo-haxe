@@ -2,8 +2,8 @@
 package com.intellij.plugins.haxe.lang.psi;
 
 import java.util.List;
-import org.jetbrains.annotations.*;
-import com.intellij.psi.PsiElement;
+
+import javax.annotation.*;
 
 public interface HaxeTryStatement extends HaxePsiCompositeElement {
 
@@ -13,7 +13,7 @@ public interface HaxeTryStatement extends HaxePsiCompositeElement {
   @Nullable
   HaxeBreakStatement getBreakStatement();
 
-  @NotNull
+  @Nonnull
   List<HaxeCatchStatement> getCatchStatementList();
 
   @Nullable

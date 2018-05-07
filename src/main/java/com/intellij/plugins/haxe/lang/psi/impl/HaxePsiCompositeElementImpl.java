@@ -24,15 +24,15 @@ import com.intellij.psi.ResolveState;
 import com.intellij.psi.scope.PsiScopeProcessor;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class HaxePsiCompositeElementImpl extends ASTWrapperPsiElement implements HaxePsiCompositeElement {
-  public HaxePsiCompositeElementImpl(@NotNull ASTNode node) {
+  public HaxePsiCompositeElementImpl(@Nonnull ASTNode node) {
     super(node);
   }
 
@@ -45,10 +45,10 @@ public class HaxePsiCompositeElementImpl extends ASTWrapperPsiElement implements
   }
 
   @Override
-  public boolean processDeclarations(@NotNull PsiScopeProcessor processor,
-                                     @NotNull ResolveState state,
+  public boolean processDeclarations(@Nonnull PsiScopeProcessor processor,
+                                     @Nonnull ResolveState state,
                                      PsiElement lastParent,
-                                     @NotNull PsiElement place) {
+                                     @Nonnull PsiElement place) {
     for (PsiElement element : getDeclarationElementToProcess(lastParent)) {
       if (!processor.execute(element, state)) {
         return false;
@@ -87,7 +87,7 @@ public class HaxePsiCompositeElementImpl extends ASTWrapperPsiElement implements
     return result;
   }
 
-  private static void addLocalVarDeclarations(@NotNull List<PsiElement> result,
+  private static void addLocalVarDeclarations(@Nonnull List<PsiElement> result,
                                               @Nullable HaxeLocalVarDeclaration[] items) {
     if (items == null) {
       return;
@@ -97,7 +97,7 @@ public class HaxePsiCompositeElementImpl extends ASTWrapperPsiElement implements
     }
   }
 
-  private static void addVarDeclarations(@NotNull List<PsiElement> result, @Nullable HaxeVarDeclaration[] items) {
+  private static void addVarDeclarations(@Nonnull List<PsiElement> result, @Nullable HaxeVarDeclaration[] items) {
     if (items == null) {
       return;
     }
@@ -106,7 +106,7 @@ public class HaxePsiCompositeElementImpl extends ASTWrapperPsiElement implements
     }
   }
 
-  private static void addDeclarations(@NotNull List<PsiElement> result, @Nullable PsiElement[] items) {
+  private static void addDeclarations(@Nonnull List<PsiElement> result, @Nullable PsiElement[] items) {
     if (items != null) {
       result.addAll(Arrays.asList(items));
     }

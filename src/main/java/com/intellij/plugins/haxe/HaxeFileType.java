@@ -15,10 +15,10 @@
  */
 package com.intellij.plugins.haxe;
 
+import javax.annotation.Nonnull;
 import javax.swing.Icon;
 
 import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import com.intellij.openapi.vfs.CharsetToolkit;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -34,21 +34,21 @@ public class HaxeFileType extends LanguageFileType {
   }
 
   @Override
-  @NotNull
+  @Nonnull
   @NonNls
-  public String getName() {
+  public String getId() {
     return "HAXE";
   }
 
   @Override
   @NonNls
-  @NotNull
+  @Nonnull
   public String getDescription() {
     return HaxeBundle.message("haxe.file.type.description");
   }
 
   @Override
-  @NotNull
+  @Nonnull
   @NonNls
   public String getDefaultExtension() {
     return DEFAULT_EXTENSION;
@@ -60,7 +60,7 @@ public class HaxeFileType extends LanguageFileType {
   }
 
   @Override
-  public String getCharset(@NotNull VirtualFile file, byte[] content) {
+  public String getCharset(@Nonnull VirtualFile file, byte[] content) {
     return CharsetToolkit.UTF8;
   }
 }

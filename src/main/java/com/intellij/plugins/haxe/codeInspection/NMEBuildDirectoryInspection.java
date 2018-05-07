@@ -29,7 +29,7 @@ import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.util.containers.ContainerUtil;
 import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NotNull;
+import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,21 +40,21 @@ import java.util.List;
 public class NMEBuildDirectoryInspection extends LocalInspectionTool {
 
   @Nls
-  @NotNull
+  @Nonnull
   @Override
   public String getGroupDisplayName() {
     return HaxeBundle.message("haxe.inspections.group.name");
   }
 
   @Nls
-  @NotNull
+  @Nonnull
   @Override
   public String getDisplayName() {
     return HaxeBundle.message("haxe.inspections.nme.build.directory");
   }
 
   @Override
-  public ProblemDescriptor[] checkFile(@NotNull PsiFile file, @NotNull InspectionManager manager, boolean isOnTheFly) {
+  public ProblemDescriptor[] checkFile(@Nonnull PsiFile file, @Nonnull InspectionManager manager, boolean isOnTheFly) {
     final boolean isNmml = FileUtilRt.extensionEquals(file.getName(), NMMLFileType.DEFAULT_EXTENSION);
     if (!isNmml || !(file instanceof XmlFile)) {
       return ProblemDescriptor.EMPTY_ARRAY;
@@ -110,20 +110,20 @@ public class NMEBuildDirectoryInspection extends LocalInspectionTool {
   }
 
   private static class AddTagFix implements LocalQuickFix {
-    @NotNull
+    @Nonnull
     @Override
     public String getName() {
       return HaxeBundle.message("haxe.inspections.nme.build.directory.fix.name");
     }
 
-    @NotNull
+    @Nonnull
     @Override
     public String getFamilyName() {
       return getName();
     }
 
     @Override
-    public void applyFix(@NotNull Project project, @NotNull ProblemDescriptor descriptor) {
+    public void applyFix(@Nonnull Project project, @Nonnull ProblemDescriptor descriptor) {
       final PsiElement element = descriptor.getPsiElement();
       assert element instanceof XmlTag;
 

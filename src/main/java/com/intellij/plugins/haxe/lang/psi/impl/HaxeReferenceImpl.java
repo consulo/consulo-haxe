@@ -23,9 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import consulo.haxe.module.extension.HaxeModuleExtension;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.util.TextRange;
@@ -83,7 +84,7 @@ public abstract class HaxeReferenceImpl extends HaxeExpressionImpl implements Ha
 		return new TextRange(0, textRange.getEndOffset() - textRange.getStartOffset());
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public String getCanonicalText()
 	{
@@ -106,7 +107,7 @@ public abstract class HaxeReferenceImpl extends HaxeExpressionImpl implements Ha
 				!resolveResults[0].isValidResult() ? null : resolveResults[0].getElement();
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public ResolveResult[] multiResolve(boolean incompleteCode)
 	{
@@ -115,7 +116,7 @@ public abstract class HaxeReferenceImpl extends HaxeExpressionImpl implements Ha
 		return toCandidateInfoArray(elements);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public HaxeClassResolveResult resolveHaxeClass()
 	{
@@ -350,7 +351,7 @@ public abstract class HaxeReferenceImpl extends HaxeExpressionImpl implements Ha
 		return result;
 	}
 
-	@NotNull
+	@Nonnull
 	private static HaxeClassResolveResult tryGetLeftResolveResult(HaxeExpression expression)
 	{
 		final HaxeReference[] childReferences = PsiTreeUtil.getChildrenOfType(expression, HaxeReference.class);
@@ -385,19 +386,19 @@ public abstract class HaxeReferenceImpl extends HaxeExpressionImpl implements Ha
 		return null;
 	}
 
-	private static ResolveResult[] resolveByClassAndSymbol(@Nullable HaxeClassResolveResult resolveResult, @NotNull String symbolName)
+	private static ResolveResult[] resolveByClassAndSymbol(@Nullable HaxeClassResolveResult resolveResult, @Nonnull String symbolName)
 	{
 		return resolveResult == null ? ResolveResult.EMPTY_ARRAY : resolveByClassAndSymbol(resolveResult.getHaxeClass(), symbolName);
 	}
 
-	private static ResolveResult[] resolveByClassAndSymbol(@Nullable HaxeClass referenceClass, @NotNull String symbolName)
+	private static ResolveResult[] resolveByClassAndSymbol(@Nullable HaxeClass referenceClass, @Nonnull String symbolName)
 	{
 		final HaxeNamedComponent namedSubComponent = HaxeResolveUtil.findNamedSubComponent(referenceClass, symbolName);
 		final HaxeComponentName componentName = namedSubComponent == null ? null : namedSubComponent.getComponentName();
 		return toCandidateInfoArray(componentName);
 	}
 
-	@NotNull
+	@Nonnull
 	private static ResolveResult[] toCandidateInfoArray(@Nullable PsiElement element)
 	{
 		if(element == null)
@@ -407,7 +408,7 @@ public abstract class HaxeReferenceImpl extends HaxeExpressionImpl implements Ha
 		return new ResolveResult[]{new PsiElementResolveResult(element)};
 	}
 
-	@NotNull
+	@Nonnull
 	private static ResolveResult[] toCandidateInfoArray(List<? extends PsiElement> elements)
 	{
 		final ResolveResult[] result = new ResolveResult[elements.size()];
@@ -438,7 +439,7 @@ public abstract class HaxeReferenceImpl extends HaxeExpressionImpl implements Ha
 	}
 
 	@Override
-	public PsiElement bindToElement(@NotNull PsiElement element) throws IncorrectOperationException
+	public PsiElement bindToElement(@Nonnull PsiElement element) throws IncorrectOperationException
 	{
 		if(element instanceof HaxeFile)
 		{
@@ -527,7 +528,7 @@ public abstract class HaxeReferenceImpl extends HaxeExpressionImpl implements Ha
 		return !chain && resolve == element;
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public Object[] getVariants()
 	{

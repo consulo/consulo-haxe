@@ -17,8 +17,8 @@ package consulo.haxe.module.extension;
 
 import javax.swing.JComponent;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.util.ui.JBUI;
 import consulo.annotations.RequiredDispatchThread;
@@ -33,7 +33,7 @@ import consulo.roots.ModuleRootLayer;
  */
 public class HaxeMutableModuleExtension extends HaxeModuleExtension implements MutableModuleExtensionWithSdk<HaxeModuleExtension>
 {
-	public HaxeMutableModuleExtension(@NotNull String id, @NotNull ModuleRootLayer module)
+	public HaxeMutableModuleExtension(@Nonnull String id, @Nonnull ModuleRootLayer module)
 	{
 		super(id, module);
 	}
@@ -54,12 +54,12 @@ public class HaxeMutableModuleExtension extends HaxeModuleExtension implements M
 	}
 
 	@Override
-	public boolean isModified(@NotNull HaxeModuleExtension extension)
+	public boolean isModified(@Nonnull HaxeModuleExtension extension)
 	{
 		return isModifiedImpl(extension);
 	}
 
-	@NotNull
+	@Nonnull
 	@Override
 	public MutableModuleInheritableNamedPointer<Sdk> getInheritableSdk()
 	{
