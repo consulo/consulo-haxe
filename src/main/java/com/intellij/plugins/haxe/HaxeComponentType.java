@@ -15,12 +15,12 @@
  */
 package com.intellij.plugins.haxe;
 
-import javax.swing.Icon;
-
 import javax.annotation.Nullable;
+
 import com.intellij.icons.AllIcons;
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.psi.PsiElement;
+import consulo.ui.image.Image;
 
 /**
  * @author: Fedor.Korotkov
@@ -28,47 +28,47 @@ import com.intellij.psi.PsiElement;
 public enum HaxeComponentType {
   CLASS(0) {
     @Override
-    public Icon getIcon() {
+    public Image getIcon() {
       return AllIcons.Nodes.Class;
     }
   }, ENUM(1) {
     @Override
-    public Icon getIcon() {
+    public Image getIcon() {
       return AllIcons.Nodes.Enum;
     }
   }, INTERFACE(2) {
     @Override
-    public Icon getIcon() {
+    public Image getIcon() {
       return AllIcons.Nodes.Interface;
     }
   }, FUNCTION(3) {
     @Override
-    public Icon getIcon() {
+    public Image getIcon() {
       return AllIcons.Nodes.Function;
     }
   }, METHOD(4) {
     @Override
-    public Icon getIcon() {
+    public Image getIcon() {
       return AllIcons.Nodes.Method;
     }
   }, VARIABLE(5) {
     @Override
-    public Icon getIcon() {
+    public Image getIcon() {
       return AllIcons.Nodes.Variable;
     }
   }, FIELD(6) {
     @Override
-    public Icon getIcon() {
+    public Image getIcon() {
       return AllIcons.Nodes.Field;
     }
   }, PARAMETER(7) {
     @Override
-    public Icon getIcon() {
+    public Image getIcon() {
       return AllIcons.Nodes.Parameter;
     }
   }, TYPEDEF(8) {
     @Override
-    public Icon getIcon() {
+    public Image getIcon() {
       return AllIcons.Nodes.TypeAlias;
     }
   };
@@ -83,7 +83,7 @@ public enum HaxeComponentType {
     return myKey;
   }
 
-  public abstract Icon getIcon();
+  public abstract Image getIcon();
 
   public static boolean isVariable(@Nullable HaxeComponentType type) {
     return type == VARIABLE || type == PARAMETER || type == FIELD;

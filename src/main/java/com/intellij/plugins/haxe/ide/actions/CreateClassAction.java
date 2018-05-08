@@ -53,7 +53,7 @@ public class CreateClassAction extends CreateTemplateInPackageAction<PsiFile>
 {
 	public CreateClassAction()
 	{
-		super(HaxeBundle.message("action.create.new.class"), HaxeBundle.message("action.create.new.class"), TargetAWT.to(ImageEffects.folded(AllIcons.Nodes.Class, HaxeIcons.HaxeLang)), true);
+		super(HaxeBundle.message("action.create.new.class"), HaxeBundle.message("action.create.new.class"), TargetAWT.to(ImageEffects.layered(AllIcons.Nodes.Class, HaxeIcons.HaxeLang)), true);
 	}
 
 	@Override

@@ -15,11 +15,11 @@
  */
 package com.intellij.plugins.haxe.ide.index;
 
-import com.intellij.plugins.haxe.HaxeComponentType;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import javax.swing.*;
+import com.intellij.plugins.haxe.HaxeComponentType;
+import consulo.ui.image.Image;
 
 /**
  * @author: Fedor.Korotkov
@@ -45,7 +45,7 @@ public class HaxeClassInfo {
   }
 
   @Nullable
-  public Icon getIcon() {
+  public Image getIcon() {
     return type == null ? null : type.getIcon();
   }
 }

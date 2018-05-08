@@ -73,13 +73,13 @@ public class HaxeFileTemplateUtil {
   public static Image getTemplateIcon(String name) {
     name = getTemplateShortName(name);
     if ("Class".equals(name)) {
-      return ImageEffects.folded(AllIcons.Nodes.Class, HaxeIcons.HaxeLang);
+      return ImageEffects.layered(AllIcons.Nodes.Class, HaxeIcons.HaxeLang);
     }
     else if ("Interface".equals(name)) {
-      return ImageEffects.folded(AllIcons.Nodes.Interface, HaxeIcons.HaxeLang);
+      return ImageEffects.layered(AllIcons.Nodes.Interface, HaxeIcons.HaxeLang);
     }
     else if ("Enum".equals(name)) {
-      return ImageEffects.folded(AllIcons.Nodes.Enum, HaxeIcons.HaxeLang);
+      return ImageEffects.layered(AllIcons.Nodes.Enum, HaxeIcons.HaxeLang);
     }
     return icons.HaxeIcons.Haxe;
   }

@@ -1,9 +1,8 @@
 package consulo.haxe;
 
 import javax.annotation.Nonnull;
-import javax.swing.Icon;
-
 import javax.annotation.Nullable;
+
 import com.intellij.openapi.util.Iconable;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.plugins.haxe.HaxeComponentType;
@@ -14,6 +13,7 @@ import com.intellij.psi.PsiElement;
 import consulo.ide.IconDescriptor;
 import consulo.ide.IconDescriptorUpdater;
 import consulo.ide.IconDescriptorUpdaters;
+import consulo.ui.image.Image;
 
 /**
  * @author VISTALL
@@ -39,7 +39,7 @@ public class HaxeIconDescriptorUpdater implements IconDescriptorUpdater
 	}
 
 	@Nullable
-	private static Icon getHaxeFileIcon(HaxeFile file, @Iconable.IconFlags int flags)
+	private static Image getHaxeFileIcon(HaxeFile file, @Iconable.IconFlags int flags)
 	{
 		final String fileName = FileUtil.getNameWithoutExtension(file.getName());
 		for(HaxeComponent component : HaxeResolveUtil.findComponentDeclarations(file))
