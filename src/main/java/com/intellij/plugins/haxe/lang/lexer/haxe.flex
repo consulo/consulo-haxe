@@ -1,10 +1,8 @@
 package com.intellij.plugins.haxe.lang.lexer;
 
-import com.intellij.lexer.FlexLexer;
+import com.intellij.lexer.LexerBase;
 import com.intellij.psi.tree.IElementType;
 import java.util.*;
-import java.lang.reflect.Field;
-import org.jetbrains.annotations.NotNull;
 
 %%
 %{
@@ -56,19 +54,16 @@ import org.jetbrains.annotations.NotNull;
         lBraceCount = state.lBraceCount;
         yybegin(state.state);
     }
-
-    public _HaxeLexer() {
-      this((java.io.Reader)null);
-    }
 %}
 
 %unicode
 %class _HaxeLexer
-%implements FlexLexer, HaxeTokenTypes, HaxeTokenTypeSets
+%extends LexerBase
+%implements  HaxeTokenTypes, HaxeTokenTypeSets
 %unicode
 %public
 
-%function advance
+%function advanceImpl
 %type IElementType
 
 %eof{

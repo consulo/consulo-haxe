@@ -58,7 +58,7 @@ public class HaxeLexer extends LookAheadLexer {
   private Project myProject;
 
   public HaxeLexer() {
-    super(new MergingLexerAdapter(new HaxeFlexLexer(), tokensToMerge));
+    super(new MergingLexerAdapter(new _HaxeLexer(), tokensToMerge));
     myProject = null;
   }
 
