@@ -17,7 +17,6 @@ package com.intellij.plugins.haxe.ide.library;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.Icon;
 import javax.swing.JComponent;
 
 import com.intellij.openapi.project.Project;
@@ -30,7 +29,7 @@ import com.intellij.openapi.roots.libraries.ui.LibraryEditorComponent;
 import com.intellij.openapi.roots.libraries.ui.LibraryPropertiesEditor;
 import com.intellij.openapi.roots.libraries.ui.LibraryRootsComponentDescriptor;
 import com.intellij.openapi.vfs.VirtualFile;
-import consulo.awt.TargetAWT;
+import consulo.ui.image.Image;
 import icons.HaxeIcons;
 
 /**
@@ -77,8 +76,8 @@ public class HaxeLibraryType extends LibraryType<DummyLibraryProperties> {
   }
 
   @Override
-  public Icon getIcon() {
-    return TargetAWT.to(HaxeIcons.Haxe);
+  public Image getIcon() {
+    return HaxeIcons.Haxe;
   }
 
   public static HaxeLibraryType getInstance() {
