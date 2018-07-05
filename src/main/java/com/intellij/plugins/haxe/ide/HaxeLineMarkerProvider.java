@@ -15,6 +15,14 @@
  */
 package com.intellij.plugins.haxe.ide;
 
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.intellij.codeHighlighting.Pass;
 import com.intellij.codeInsight.daemon.DaemonBundle;
 import com.intellij.codeInsight.daemon.GutterIconNavigationHandler;
@@ -29,21 +37,18 @@ import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.HaxeComponentType;
 import com.intellij.plugins.haxe.ide.index.HaxeInheritanceDefinitionsSearchExecutor;
 import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes;
-import com.intellij.plugins.haxe.lang.psi.*;
+import com.intellij.plugins.haxe.lang.psi.HaxeClass;
+import com.intellij.plugins.haxe.lang.psi.HaxeComponentName;
+import com.intellij.plugins.haxe.lang.psi.HaxeComponentWithDeclarationList;
+import com.intellij.plugins.haxe.lang.psi.HaxeInterfaceDeclaration;
+import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import com.intellij.psi.NavigatablePsiElement;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import javax.swing.*;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import consulo.ui.image.Image;
 
 /**
  * @author: Fedor.Korotkov
@@ -120,7 +125,7 @@ public class HaxeLineMarkerProvider implements LineMarkerProvider {
     final boolean overrides = componentWithDeclarationList != null &&
                               HaxeResolveUtil.getDeclarationTypes(componentWithDeclarationList.getDeclarationAttributeList()).
                                 contains(HaxeTokenTypes.KOVERRIDE);
-    final Icon icon = overrides ? AllIcons.Gutter.OverridingMethod : AllIcons.Gutter.ImplementingMethod;
+    final Image icon = overrides ? AllIcons.Gutter.OverridingMethod : AllIcons.Gutter.ImplementingMethod;
     assert element != null;
     return new LineMarkerInfo<PsiElement>(
       element,

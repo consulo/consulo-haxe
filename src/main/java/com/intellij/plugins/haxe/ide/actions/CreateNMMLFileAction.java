@@ -35,7 +35,7 @@ import consulo.haxe.module.extension.HaxeModuleExtension;
  */
 public class CreateNMMLFileAction extends CreateFileFromTemplateAction implements DumbAware {
   public CreateNMMLFileAction() {
-    super(HaxeBundle.message("create.nmml.file.action"), HaxeBundle.message("create.nmml.file.action.description"), TargetAWT.to(icons.HaxeIcons.Nmml_16));
+    super(HaxeBundle.message("create.nmml.file.action"), HaxeBundle.message("create.nmml.file.action.description"), icons.HaxeIcons.Nmml_16);
   }
 
   @Override
