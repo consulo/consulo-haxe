@@ -15,24 +15,25 @@
  */
 package com.intellij.plugins.haxe.util;
 
-import com.intellij.execution.process.BaseOSProcessHandler;
-import com.intellij.execution.process.ProcessAdapter;
-import com.intellij.execution.process.ProcessEvent;
-import com.intellij.openapi.util.Key;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.plugins.haxe.HaxeCommonBundle;
-import com.intellij.plugins.haxe.config.HaxeTarget;
-import com.intellij.plugins.haxe.config.NMETarget;
-import com.intellij.plugins.haxe.module.HaxeModuleSettingsBase;
-import com.intellij.util.BooleanValueHolder;
-import com.intellij.util.text.StringTokenizer;
-import javax.annotation.Nonnull;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nonnull;
+
+import com.intellij.execution.process.BaseOSProcessHandler;
+import com.intellij.execution.process.ProcessAdapter;
+import com.intellij.execution.process.ProcessEvent;
+import com.intellij.openapi.util.Key;
+import com.intellij.openapi.util.Ref;
+import com.intellij.openapi.util.io.FileUtil;
+import com.intellij.plugins.haxe.HaxeCommonBundle;
+import com.intellij.plugins.haxe.config.HaxeTarget;
+import com.intellij.plugins.haxe.config.NMETarget;
+import com.intellij.plugins.haxe.module.HaxeModuleSettingsBase;
+import com.intellij.util.text.StringTokenizer;
 
 /**
  * @author: Fedor.Korotkov
@@ -142,7 +143,7 @@ public class HaxeCommonCompilerUtil {
       setupUserProperties(commandLine, context);
     }
 
-    final BooleanValueHolder hasErrors = new BooleanValueHolder(false);
+    final Ref<Boolean> hasErrors = Ref.create(Boolean.FALSE);
 
     try {
       final File workingDirectory = new File(FileUtil.toSystemDependentName(workingPath));
@@ -163,7 +164,7 @@ public class HaxeCommonCompilerUtil {
 
         @Override
         public void processTerminated(ProcessEvent event) {
-          hasErrors.setValue(event.getExitCode() != 0);
+          hasErrors.set(event.getExitCode() != 0);
           super.processTerminated(event);
         }
       });
@@ -176,7 +177,7 @@ public class HaxeCommonCompilerUtil {
       return false;
     }
 
-    return !hasErrors.getValue();
+    return !hasErrors.get();
   }
 
   private static void setupUserProperties(List<String> commandLine, CompilationContext context) {
