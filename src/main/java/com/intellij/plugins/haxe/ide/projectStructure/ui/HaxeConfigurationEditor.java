@@ -31,7 +31,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.intellij.ide.actions.ShowSettingsUtilImpl;
 import com.intellij.ide.util.TreeFileChooser;
 import com.intellij.ide.util.TreeFileChooserFactory;
 import com.intellij.openapi.fileChooser.FileChooser;
@@ -63,6 +62,7 @@ import com.intellij.ui.components.JBRadioButton;
 import com.intellij.uiDesigner.core.GridConstraints;
 import com.intellij.uiDesigner.core.GridLayoutManager;
 import consulo.compiler.ModuleCompilerPathsManager;
+import consulo.ide.base.BaseShowSettingsUtil;
 import consulo.roots.impl.ProductionContentFolderTypeProvider;
 
 /**
@@ -234,7 +234,7 @@ public class HaxeConfigurationEditor
 			{
 				final Project project = myModule.getProject();
 				final HaxeSettingsConfigurable configurable = new HaxeSettingsConfigurable(project);
-				final SingleConfigurableEditor editor = new SingleConfigurableEditor(project, configurable, ShowSettingsUtilImpl.createDimensionKey(configurable), false);
+				final SingleConfigurableEditor editor = new SingleConfigurableEditor(project, configurable, BaseShowSettingsUtil.createDimensionKey(configurable), false);
 				editor.show();
 				updateMacroses();
 			}
