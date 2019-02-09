@@ -173,15 +173,4 @@ public class HaxeSdkType extends SdkType
 			XmlSerializer.serializeInto(additionalData, additional);
 		}
 	}
-
-	@Override
-	public FileChooserDescriptor getHomeChooserDescriptor()
-	{
-		final FileChooserDescriptor result = super.getHomeChooserDescriptor();
-		if(SystemInfo.isMac)
-		{
-			result.putUserData(PathChooserDialog.NATIVE_MAC_CHOOSER_SHOW_HIDDEN_FILES, Boolean.TRUE);
-		}
-		return result;
-	}
 }
