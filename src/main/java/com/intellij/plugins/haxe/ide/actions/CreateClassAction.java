@@ -17,8 +17,6 @@ package com.intellij.plugins.haxe.ide.actions;
 
 import java.util.Properties;
 
-import javax.swing.Icon;
-
 import consulo.awt.TargetAWT;
 import consulo.haxe.module.extension.HaxeModuleExtension;
 import javax.annotation.Nonnull;

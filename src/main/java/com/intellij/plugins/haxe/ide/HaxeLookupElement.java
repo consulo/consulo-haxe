@@ -15,16 +15,18 @@
  */
 package com.intellij.plugins.haxe.ide;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementPresentation;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.plugins.haxe.lang.psi.HaxeComponentName;
-import javax.annotation.Nonnull;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import consulo.awt.TargetAWT;
 
 /**
  * @author: Fedor.Korotkov
@@ -56,14 +58,14 @@ public class HaxeLookupElement extends LookupElement {
 
   @Override
   public void renderElement(LookupElementPresentation presentation) {
-    final ItemPresentation myComponentNamePresentation = myComponentName.getPresentation();
-    if (myComponentNamePresentation == null) {
+    final ItemPresentation componentNamePresentation = myComponentName.getPresentation();
+    if (componentNamePresentation == null) {
       presentation.setItemText(getLookupString());
       return;
     }
-    presentation.setItemText(myComponentNamePresentation.getPresentableText());
-    presentation.setIcon(myComponentNamePresentation.getIcon(true));
-    final String pkg = myComponentNamePresentation.getLocationString();
+    presentation.setItemText(componentNamePresentation.getPresentableText());
+    presentation.setIcon(TargetAWT.to(componentNamePresentation.getIcon()));
+    final String pkg = componentNamePresentation.getLocationString();
     if (StringUtil.isNotEmpty(pkg)) {
       presentation.setTailText(" " + pkg, true);
     }

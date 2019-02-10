@@ -18,14 +18,9 @@ package com.intellij.plugins.haxe.config.sdk;
 import java.util.Collection;
 import java.util.Collections;
 
-import javax.annotation.Nullable;
-import javax.swing.Icon;
-
-import org.jdom.Element;
 import javax.annotation.Nonnull;
 
-import com.intellij.openapi.fileChooser.FileChooserDescriptor;
-import com.intellij.openapi.fileChooser.PathChooserDialog;
+import org.jdom.Element;
 import com.intellij.openapi.projectRoots.AdditionalDataConfigurable;
 import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.openapi.projectRoots.SdkAdditionalData;
@@ -124,8 +119,7 @@ public class HaxeSdkType extends SdkType
 	@Override
 	public boolean isRootTypeApplicable(OrderRootType type)
 	{
-		return type == SourcesOrderRootType.getInstance() || type == BinariesOrderRootType.getInstance() || type == DocumentationOrderRootType
-				.getInstance();
+		return type == SourcesOrderRootType.getInstance() || type == BinariesOrderRootType.getInstance() || type == DocumentationOrderRootType.getInstance();
 	}
 
 	@Override

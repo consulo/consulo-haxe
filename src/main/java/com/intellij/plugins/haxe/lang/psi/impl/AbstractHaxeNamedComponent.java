@@ -16,7 +16,6 @@
 package com.intellij.plugins.haxe.lang.psi.impl;
 
 import javax.annotation.Nonnull;
-import javax.swing.Icon;
 
 import org.jetbrains.annotations.NonNls;
 import com.intellij.lang.ASTNode;
@@ -33,8 +32,8 @@ import com.intellij.psi.PsiNamedElement;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.IncorrectOperationException;
-import consulo.awt.TargetAWT;
 import consulo.ide.IconDescriptorUpdaters;
+import consulo.ui.image.Image;
 
 /**
  * @author: Fedor.Korotkov
@@ -119,8 +118,8 @@ abstract public class AbstractHaxeNamedComponent extends HaxePsiCompositeElement
       }
 
       @Override
-      public Icon getIcon(boolean open) {
-        return TargetAWT.to(IconDescriptorUpdaters.getIcon(AbstractHaxeNamedComponent.this, 0));
+      public Image getIcon() {
+        return IconDescriptorUpdaters.getIcon(AbstractHaxeNamedComponent.this, 0);
       }
     };
   }
