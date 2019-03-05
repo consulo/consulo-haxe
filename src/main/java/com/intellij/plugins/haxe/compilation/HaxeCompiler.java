@@ -23,9 +23,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import com.intellij.compiler.options.CompileStepBeforeRun;
 import com.intellij.execution.ExecutorRegistry;
-import com.intellij.execution.configurations.RunConfiguration;
 import com.intellij.execution.configurations.RunConfigurationModule;
 import com.intellij.execution.executors.DefaultDebugExecutor;
 import com.intellij.openapi.compiler.CompileContext;
@@ -97,11 +95,6 @@ public class HaxeCompiler implements SourceProcessingCompiler
 	@Override
 	public ProcessingItem[] process(CompileContext context, ProcessingItem[] items)
 	{
-		final RunConfiguration runConfiguration = CompileStepBeforeRun.getRunConfiguration(context.getCompileScope());
-		if(runConfiguration instanceof HaxeApplicationConfiguration)
-		{
-			return run(context, items, (HaxeApplicationConfiguration) runConfiguration);
-		}
 		return make(context, items);
 	}
 
