@@ -15,15 +15,15 @@
  */
 package com.intellij.plugins.haxe.lang.psi.impl;
 
-import com.intellij.openapi.util.Key;
 import com.intellij.plugins.haxe.lang.psi.HaxeComponentName;
 import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.ResolveState;
 import com.intellij.psi.scope.PsiScopeProcessor;
+import consulo.util.dataholder.Key;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.util.Set;
 
 /**

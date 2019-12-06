@@ -16,7 +16,6 @@
 package com.intellij.plugins.haxe.ide.refactoring.move;
 
 import com.intellij.openapi.roots.impl.DirectoryIndex;
-import com.intellij.openapi.util.Key;
 import com.intellij.plugins.haxe.lang.psi.HaxeFile;
 import com.intellij.plugins.haxe.lang.psi.HaxePackageStatement;
 import com.intellij.plugins.haxe.util.HaxeElementGenerator;
@@ -27,6 +26,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.refactoring.move.moveFilesOrDirectories.MoveFileHandler;
 import com.intellij.usageView.UsageInfo;
 import com.intellij.util.IncorrectOperationException;
+import consulo.util.dataholder.Key;
 
 import java.util.List;
 import java.util.Map;

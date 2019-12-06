@@ -15,13 +15,9 @@
  */
 package com.intellij.plugins.haxe.lang.psi;
 
-import javax.annotation.Nonnull;
-
 import com.intellij.lang.ASTNode;
 import com.intellij.lang.Language;
-import consulo.lang.LanguageVersion;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Key;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.*;
 import com.intellij.psi.scope.PsiScopeProcessor;
@@ -29,8 +25,11 @@ import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.search.SearchScope;
 import com.intellij.util.Function;
 import com.intellij.util.IncorrectOperationException;
+import consulo.lang.LanguageVersion;
+import consulo.util.dataholder.Key;
 import org.jetbrains.annotations.NonNls;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**

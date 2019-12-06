@@ -15,32 +15,26 @@
  */
 package com.intellij.plugins.haxe.lang.lexer;
 
-import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.MML_COMMENT;
-import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.MSL_COMMENT;
-import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.PPBODY;
-import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.PPEXPRESSION;
-import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.WSNLS;
-import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes.*;
-
-import gnu.trove.THashSet;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Set;
-
-import javax.annotation.Nullable;
-
 import com.intellij.lexer.Lexer;
 import com.intellij.lexer.LexerPosition;
 import com.intellij.lexer.LookAheadLexer;
 import com.intellij.lexer.MergingLexerAdapter;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Key;
 import com.intellij.plugins.haxe.config.HaxeProjectSettings;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
+import consulo.util.dataholder.Key;
+import gnu.trove.THashSet;
+
+import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Set;
+
+import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.*;
+import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes.*;
 
 public class HaxeLexer extends LookAheadLexer {
   public static Key<Object> DEFINES_KEY = Key.create("haxe.test.defines");

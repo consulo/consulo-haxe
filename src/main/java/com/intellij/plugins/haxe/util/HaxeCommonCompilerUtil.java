@@ -15,18 +15,9 @@
  */
 package com.intellij.plugins.haxe.util;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import com.intellij.execution.process.BaseOSProcessHandler;
 import com.intellij.execution.process.ProcessAdapter;
 import com.intellij.execution.process.ProcessEvent;
-import com.intellij.openapi.util.Key;
 import com.intellij.openapi.util.Ref;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.plugins.haxe.HaxeCommonBundle;
@@ -34,6 +25,14 @@ import com.intellij.plugins.haxe.config.HaxeTarget;
 import com.intellij.plugins.haxe.config.NMETarget;
 import com.intellij.plugins.haxe.module.HaxeModuleSettingsBase;
 import com.intellij.util.text.StringTokenizer;
+import consulo.util.dataholder.Key;
+
+import javax.annotation.Nonnull;
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author: Fedor.Korotkov

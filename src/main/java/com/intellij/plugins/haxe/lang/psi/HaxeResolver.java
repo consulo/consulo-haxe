@@ -15,7 +15,6 @@
  */
 package com.intellij.plugins.haxe.lang.psi;
 
-import com.intellij.openapi.util.Key;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.ResolveState;
@@ -26,9 +25,10 @@ import com.intellij.util.containers.ContainerUtil;
 import consulo.haxe.module.extension.packageSupport.HaxePackageUtil;
 import consulo.haxe.psi.impl.HaxePsiPackageReference;
 import consulo.haxe.psi.impl.HaxePsiPackageReferenceSet;
+import consulo.util.dataholder.Key;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;

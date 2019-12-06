@@ -15,7 +15,6 @@
  */
 package com.intellij.plugins.haxe.util;
 
-import com.intellij.openapi.util.Key;
 import com.intellij.plugins.haxe.HaxeComponentType;
 import com.intellij.plugins.haxe.lang.psi.HaxeComponentName;
 import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
@@ -23,10 +22,11 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.ResolveState;
 import com.intellij.psi.scope.PsiScopeProcessor;
 import com.intellij.psi.util.PsiTreeUtil;
+import consulo.util.dataholder.Key;
 import gnu.trove.THashSet;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.util.Collections;
 import java.util.Set;
 
