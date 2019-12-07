@@ -15,8 +15,6 @@
  */
 package com.intellij.plugins.haxe.util;
 
-import com.intellij.openapi.application.PathManager;
-
 import java.io.File;
 
 /**
@@ -33,6 +31,6 @@ public class HaxeTestUtils {
     if (f.exists()) {
       return f.getAbsolutePath();
     }
-    return PathManager.getHomePath() + "/plugins/haxe/testData";
+    return "";
   }
 }
