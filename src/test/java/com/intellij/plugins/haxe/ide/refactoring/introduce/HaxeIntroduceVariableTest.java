@@ -20,7 +20,7 @@ import com.intellij.plugins.haxe.lang.psi.HaxeCallExpression;
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeIntroduceVariableTest extends HaxeIntroduceTestBase {
+public abstract class HaxeIntroduceVariableTest extends HaxeIntroduceTestBase {
   @Override
   protected String getBasePath() {
     return "/refactoring/introduceVariable/";

@@ -15,7 +15,7 @@
  */
 package com.intellij.plugins.haxe.lang.parser.statements;
 
-public class WhileTest extends StatementTestBase {
+public abstract class WhileTest extends StatementTestBase {
   public WhileTest() {
     super("while");
   }

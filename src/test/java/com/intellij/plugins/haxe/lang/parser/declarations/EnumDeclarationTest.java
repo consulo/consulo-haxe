@@ -18,7 +18,7 @@ package com.intellij.plugins.haxe.lang.parser.declarations;
 /**
  * @author fedor.korotkov
  */
-public class EnumDeclarationTest extends DeclarationTestBase {
+public abstract class EnumDeclarationTest extends DeclarationTestBase {
   public EnumDeclarationTest() {
     super("enum");
   }

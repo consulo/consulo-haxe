@@ -23,7 +23,7 @@ import com.intellij.psi.PsiFile;
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeTestFinderTest extends HaxeCodeInsightFixtureTestCase {
+public abstract class HaxeTestFinderTest extends HaxeCodeInsightFixtureTestCase {
   private HaxeTestFinder myTestFinder = null;
 
   @Override

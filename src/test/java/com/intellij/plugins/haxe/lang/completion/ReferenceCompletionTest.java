@@ -18,7 +18,7 @@ package com.intellij.plugins.haxe.lang.completion;
 /**
  * @author: Fedor.Korotkov
  */
-public class ReferenceCompletionTest extends HaxeCompletionTestBase {
+public abstract class ReferenceCompletionTest extends HaxeCompletionTestBase {
   public ReferenceCompletionTest() {
     super("completion", "references");
   }

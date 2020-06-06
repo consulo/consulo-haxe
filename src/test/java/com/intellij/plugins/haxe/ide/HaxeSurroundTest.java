@@ -30,7 +30,7 @@ import com.intellij.psi.codeStyle.CodeStyleSettingsManager;
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeSurroundTest extends HaxeCodeInsightFixtureTestCase {
+public abstract class HaxeSurroundTest extends HaxeCodeInsightFixtureTestCase {
   @Override
   protected String getBasePath() {
     return "/surroundWith/";

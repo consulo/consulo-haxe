@@ -15,7 +15,7 @@
  */
 package com.intellij.plugins.haxe.lang.completion;
 
-public class EditorCompletionTest extends HaxeCompletionTestBase {
+public abstract class EditorCompletionTest extends HaxeCompletionTestBase {
   public EditorCompletionTest() {
     super("completion", "editor");
   }

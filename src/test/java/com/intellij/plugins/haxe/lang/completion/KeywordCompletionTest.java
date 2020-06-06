@@ -18,7 +18,7 @@ package com.intellij.plugins.haxe.lang.completion;
 /**
  * @author: Fedor.Korotkov
  */
-public class KeywordCompletionTest extends HaxeCompletionTestBase {
+public abstract class KeywordCompletionTest extends HaxeCompletionTestBase {
   public KeywordCompletionTest() {
     super("completion", "keywords");
   }

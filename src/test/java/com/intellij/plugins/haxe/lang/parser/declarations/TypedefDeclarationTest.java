@@ -18,7 +18,7 @@ package com.intellij.plugins.haxe.lang.parser.declarations;
 /**
  * @author fedor.korotkov
  */
-public class TypedefDeclarationTest extends DeclarationTestBase {
+public abstract class TypedefDeclarationTest extends DeclarationTestBase {
   public TypedefDeclarationTest() {
     super("typedef");
   }

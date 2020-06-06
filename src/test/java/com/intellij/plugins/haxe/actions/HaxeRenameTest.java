@@ -20,7 +20,7 @@ import com.intellij.plugins.haxe.HaxeCodeInsightFixtureTestCase;
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeRenameTest extends HaxeCodeInsightFixtureTestCase {
+public abstract class HaxeRenameTest extends HaxeCodeInsightFixtureTestCase {
   @Override
   protected String getBasePath() {
     return "/rename/";

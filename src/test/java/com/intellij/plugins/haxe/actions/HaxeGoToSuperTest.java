@@ -23,7 +23,7 @@ import com.intellij.plugins.haxe.HaxeLanguage;
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeGoToSuperTest extends HaxeCodeInsightFixtureTestCase {
+public abstract class HaxeGoToSuperTest extends HaxeCodeInsightFixtureTestCase {
   @Override
   protected String getBasePath() {
     return "/gotoSuper/";

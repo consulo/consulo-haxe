@@ -28,7 +28,7 @@ import com.intellij.psi.util.PsiTreeUtil;
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeTypeAddImportIntentionActionTest extends HaxeCodeInsightFixtureTestCase {
+public abstract class HaxeTypeAddImportIntentionActionTest extends HaxeCodeInsightFixtureTestCase {
   @Override
   protected String getBasePath() {
     return "/addImportIntention/";

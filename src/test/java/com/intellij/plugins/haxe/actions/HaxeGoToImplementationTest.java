@@ -22,7 +22,7 @@ import com.intellij.plugins.haxe.HaxeCodeInsightFixtureTestCase;
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeGoToImplementationTest extends HaxeCodeInsightFixtureTestCase {
+public abstract class HaxeGoToImplementationTest extends HaxeCodeInsightFixtureTestCase {
   @Override
   protected String getBasePath() {
     return "/gotoImplementation/";

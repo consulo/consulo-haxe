@@ -18,7 +18,7 @@ package com.intellij.plugins.haxe.lang.parser.statements;
 /**
  * @author fedor.korotkov
  */
-public class ExceptionTest extends StatementTestBase {
+public abstract class ExceptionTest extends StatementTestBase {
   public ExceptionTest() {
     super("exception");
   }

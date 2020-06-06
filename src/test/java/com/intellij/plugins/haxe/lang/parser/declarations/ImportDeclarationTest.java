@@ -15,7 +15,7 @@
  */
 package com.intellij.plugins.haxe.lang.parser.declarations;
 
-public class ImportDeclarationTest extends DeclarationTestBase {
+public abstract class ImportDeclarationTest extends DeclarationTestBase {
   public ImportDeclarationTest() {
     super("import");
   }

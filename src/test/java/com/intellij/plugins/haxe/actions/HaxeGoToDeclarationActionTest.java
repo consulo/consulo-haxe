@@ -15,17 +15,17 @@
  */
 package com.intellij.plugins.haxe.actions;
 
-import java.util.Collection;
-
 import com.intellij.plugins.haxe.HaxeCodeInsightFixtureTestCase;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import consulo.codeInsight.TargetElementUtil;
 
+import java.util.Collection;
+
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeGoToDeclarationActionTest extends HaxeCodeInsightFixtureTestCase {
+public abstract class HaxeGoToDeclarationActionTest extends HaxeCodeInsightFixtureTestCase {
   @Override
   protected String getBasePath() {
     return "/goto/";

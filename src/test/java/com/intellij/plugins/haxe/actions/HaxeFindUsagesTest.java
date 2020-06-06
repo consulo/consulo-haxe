@@ -30,7 +30,7 @@ import java.util.Collection;
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeFindUsagesTest extends HaxeCodeInsightFixtureTestCase {
+public abstract class HaxeFindUsagesTest extends HaxeCodeInsightFixtureTestCase {
   @Override
   protected String getBasePath() {
     return "/findUsages/";

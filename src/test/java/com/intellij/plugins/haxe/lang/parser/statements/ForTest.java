@@ -18,7 +18,7 @@ package com.intellij.plugins.haxe.lang.parser.statements;
 /**
  * @author fedor.korotkov
  */
-public class ForTest extends StatementTestBase {
+public abstract class ForTest extends StatementTestBase {
   public ForTest() {
     super("for");
   }

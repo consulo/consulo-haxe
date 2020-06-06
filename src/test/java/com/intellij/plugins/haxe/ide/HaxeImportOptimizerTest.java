@@ -24,7 +24,7 @@ import com.intellij.util.ArrayUtil;
 /**
  * Created by fedorkorotkov.
  */
-public class HaxeImportOptimizerTest extends HaxeCodeInsightFixtureTestCase {
+public abstract class HaxeImportOptimizerTest extends HaxeCodeInsightFixtureTestCase {
   @Override
   protected String getBasePath() {
     return "/imports/optimize/";

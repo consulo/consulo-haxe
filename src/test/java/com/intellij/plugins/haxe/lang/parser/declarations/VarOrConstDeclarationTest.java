@@ -15,7 +15,7 @@
  */
 package com.intellij.plugins.haxe.lang.parser.declarations;
 
-public class VarOrConstDeclarationTest extends DeclarationTestBase {
+public abstract class VarOrConstDeclarationTest extends DeclarationTestBase {
   public VarOrConstDeclarationTest() {
     super("variable");
   }

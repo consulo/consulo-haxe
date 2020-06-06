@@ -18,7 +18,7 @@ package com.intellij.plugins.haxe.lang.parser.statements;
 /**
  * @author fedor.korotkov
  */
-public class SwitchTest extends StatementTestBase {
+public abstract class SwitchTest extends StatementTestBase {
   public SwitchTest() {
     super("switch");
   }

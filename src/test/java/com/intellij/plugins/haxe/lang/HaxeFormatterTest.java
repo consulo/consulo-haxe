@@ -15,10 +15,6 @@
  */
 package com.intellij.plugins.haxe.lang;
 
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-
-import org.junit.Assert;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.io.FileUtil;
@@ -29,11 +25,15 @@ import com.intellij.psi.codeStyle.CodeStyleManager;
 import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.codeStyle.CodeStyleSettingsManager;
 import com.intellij.psi.codeStyle.CommonCodeStyleSettings;
+import org.junit.Assert;
+
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeFormatterTest extends HaxeCodeInsightFixtureTestCase {
+public abstract class HaxeFormatterTest extends HaxeCodeInsightFixtureTestCase {
   protected CommonCodeStyleSettings myTestStyleSettings;
 
   @Override

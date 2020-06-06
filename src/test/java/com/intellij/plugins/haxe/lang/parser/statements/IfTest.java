@@ -17,7 +17,7 @@ package com.intellij.plugins.haxe.lang.parser.statements;
 
 import com.intellij.plugins.haxe.lang.lexer.HaxeLexer;
 
-public class IfTest extends StatementTestBase {
+public abstract class IfTest extends StatementTestBase {
   public IfTest() {
     super("if");
   }

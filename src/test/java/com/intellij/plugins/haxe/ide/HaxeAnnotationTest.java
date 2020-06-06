@@ -23,7 +23,7 @@ import com.intellij.util.ArrayUtil;
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeAnnotationTest extends HaxeCodeInsightFixtureTestCase {
+public abstract class HaxeAnnotationTest extends HaxeCodeInsightFixtureTestCase {
   @Override
   protected String getBasePath() {
     return "/annotation/";

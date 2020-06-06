@@ -20,7 +20,7 @@ import com.intellij.plugins.haxe.lang.parser.HaxeParsingTestBase;
 /**
  * @author fedor.korotkov
  */
-public class ExpressionTest extends HaxeParsingTestBase {
+public abstract class ExpressionTest extends HaxeParsingTestBase {
   public ExpressionTest() {
     super("parsing", "haxe", "expressions");
   }

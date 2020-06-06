@@ -31,7 +31,7 @@ import com.intellij.psi.codeStyle.CodeStyleSettingsManager;
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeLiveTemplatesTest extends HaxeCodeInsightFixtureTestCase {
+public abstract class HaxeLiveTemplatesTest extends HaxeCodeInsightFixtureTestCase {
   @Override
   protected String getBasePath() {
     return "/liveTemplates/";

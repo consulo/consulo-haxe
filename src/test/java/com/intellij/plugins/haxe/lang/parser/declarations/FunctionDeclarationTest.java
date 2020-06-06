@@ -15,7 +15,7 @@
  */
 package com.intellij.plugins.haxe.lang.parser.declarations;
 
-public class FunctionDeclarationTest extends DeclarationTestBase {
+public abstract class FunctionDeclarationTest extends DeclarationTestBase {
   public FunctionDeclarationTest() {
     super("function");
   }

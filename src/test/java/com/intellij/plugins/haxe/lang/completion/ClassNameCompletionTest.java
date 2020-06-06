@@ -18,7 +18,7 @@ package com.intellij.plugins.haxe.lang.completion;
 /**
  * @author: Fedor.Korotkov
  */
-public class ClassNameCompletionTest extends HaxeCompletionTestBase {
+public abstract class ClassNameCompletionTest extends HaxeCompletionTestBase {
   public ClassNameCompletionTest() {
     super("completion", "types");
   }
