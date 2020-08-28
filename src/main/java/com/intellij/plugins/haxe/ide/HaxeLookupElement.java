@@ -15,18 +15,16 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import com.intellij.codeInsight.lookup.LookupElement;
 import com.intellij.codeInsight.lookup.LookupElementPresentation;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.plugins.haxe.lang.psi.HaxeComponentName;
-import consulo.awt.TargetAWT;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author: Fedor.Korotkov
@@ -64,7 +62,7 @@ public class HaxeLookupElement extends LookupElement {
       return;
     }
     presentation.setItemText(componentNamePresentation.getPresentableText());
-    presentation.setIcon(TargetAWT.to(componentNamePresentation.getIcon()));
+    presentation.setIcon(componentNamePresentation.getIcon());
     final String pkg = componentNamePresentation.getLocationString();
     if (StringUtil.isNotEmpty(pkg)) {
       presentation.setTailText(" " + pkg, true);
