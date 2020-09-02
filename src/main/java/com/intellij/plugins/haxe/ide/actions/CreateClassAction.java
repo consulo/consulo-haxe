@@ -51,7 +51,7 @@ public class CreateClassAction extends CreateTemplateInPackageAction<PsiFile>
 {
 	public CreateClassAction()
 	{
-		super(HaxeBundle.message("action.create.new.class"), HaxeBundle.message("action.create.new.class"), TargetAWT.to(ImageEffects.layered(AllIcons.Nodes.Class, HaxeIcons.HaxeLang)), true);
+		super(HaxeBundle.message("action.create.new.class"), HaxeBundle.message("action.create.new.class"), ImageEffects.layered(AllIcons.Nodes.Class, HaxeIcons.HaxeLang), true);
 	}
 
 	@Override
@@ -88,7 +88,7 @@ public class CreateClassAction extends CreateTemplateInPackageAction<PsiFile>
 			final String templateName = fileTemplate.getName();
 			final String shortName = HaxeFileTemplateUtil.getTemplateShortName(templateName);
 			final Image icon = HaxeFileTemplateUtil.getTemplateIcon(templateName);
-			builder.addKind(shortName, TargetAWT.to(icon), templateName);
+			builder.addKind(shortName, icon, templateName);
 		}
 	}
 

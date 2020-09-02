@@ -50,7 +50,7 @@ public class CreateNMMLFileAction extends CreateFileFromTemplateAction implement
     for (FileTemplate fileTemplate : HaxeFileTemplateUtil.getNMMLTemplates()) {
       final String templateName = fileTemplate.getName();
       final String shortName = HaxeFileTemplateUtil.getTemplateShortName(templateName);
-      builder.addKind(shortName, TargetAWT.to(icons.HaxeIcons.Nmml_16), templateName);
+      builder.addKind(shortName, icons.HaxeIcons.Nmml_16, templateName);
     }
   }
 
