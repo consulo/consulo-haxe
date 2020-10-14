@@ -38,7 +38,7 @@
 
 		<moduleExtensionProvider key="haxe"
 								 name="Haxe"
-								 icon="/icons/haxe.png"
+								 icon="consulo.haxe.HaxeIconGroup@haxe"
 								 immutableClass="consulo.haxe.module.extension.HaxeModuleExtension"
 								 mutableClass="consulo.haxe.module.extension.HaxeMutableModuleExtension"/>
 		<psi.packageSupportProvider implementation="consulo.haxe.module.extension.packageSupport.HaxePsiPackageSupportProvider"/>
@@ -146,7 +146,6 @@
 						 key="haxe.inspection.unused.import.name"
 						 groupKey="inspections.group.name" enabledByDefault="true"
 						 implementationClass="com.intellij.plugins.haxe.ide.inspections.HaxeUnusedImportInspection"/>
-		<lang.elementIcon language="HAXE" file="/icons/haxeLang.png" />
 	</extensions>
 
 	<actions>

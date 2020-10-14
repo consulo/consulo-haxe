@@ -33,7 +33,7 @@ import consulo.ide.IconDescriptorUpdaters;
  */
 public class HaxeNamedElementNode extends PsiElementMemberChooserObject implements ClassMember {
   public HaxeNamedElementNode(final HaxeNamedComponent haxeNamedComponent) {
-    super(haxeNamedComponent, buildPresentationText(haxeNamedComponent), TargetAWT.to(IconDescriptorUpdaters.getIcon(haxeNamedComponent, Iconable.ICON_FLAG_VISIBILITY)));
+    super(haxeNamedComponent, buildPresentationText(haxeNamedComponent), IconDescriptorUpdaters.getIcon(haxeNamedComponent, Iconable.ICON_FLAG_VISIBILITY));
   }
 
   @Nullable
