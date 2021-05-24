@@ -17,6 +17,8 @@ package com.intellij.plugins.haxe.lang.psi;
 
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import com.intellij.psi.PsiElement;
+import com.intellij.util.containers.ContainerUtil;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -71,7 +73,7 @@ public class HaxeClassResolveResult implements Cloneable {
       for (HaxeGenericListPart genericListPart : genericListPartList) {
         HaxeComponentName componentName = genericListPart.getComponentName();
         HaxeTypeListPart typeListPart = genericListPart.getTypeListPart();
-        HaxeTypeOrAnonymous typeOrAnonymous = typeListPart != null ? typeListPart.getTypeOrAnonymous() : null;
+        HaxeTypeOrAnonymous typeOrAnonymous = typeListPart != null ? ContainerUtil.getFirstItem(typeListPart.getTypeOrAnonymousList()) : null;
         HaxeType specializedType = typeOrAnonymous != null ? typeOrAnonymous.getType() : null;
         if (specializedType != null) {
           resolveResult.specialization.put(aClass,
@@ -143,7 +145,7 @@ public class HaxeClassResolveResult implements Cloneable {
     int size = Math.min(genericParam.getGenericListPartList().size(), typeList.getTypeListPartList().size());
     for (int i = 0; i < size; i++) {
       HaxeGenericListPart haxeGenericListPart = genericParam.getGenericListPartList().get(i);
-      final HaxeTypeOrAnonymous typeOrAnonymous = typeList.getTypeListPartList().get(i).getTypeOrAnonymous();
+      final HaxeTypeOrAnonymous typeOrAnonymous = ContainerUtil.getFirstItem(typeList.getTypeListPartList().get(i).getTypeOrAnonymousList());
       final HaxeType specializedType = typeOrAnonymous == null ? null : typeOrAnonymous.getType();
       if (haxeGenericListPart.getText() == null || specializedType == null) continue;
       specialization

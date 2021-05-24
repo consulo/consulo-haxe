@@ -17,24 +17,6 @@
  */
 package com.intellij.plugins.haxe.util;
 
-import gnu.trove.THashSet;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-
-import consulo.psi.PsiPackage;
-import org.jetbrains.annotations.NonNls;
-
-import javax.annotation.Nullable;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.module.Module;
@@ -58,6 +40,13 @@ import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
+import consulo.psi.PsiPackage;
+import gnu.trove.THashSet;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.*;
 
 /**
  * @author: Fedor.Korotkov
@@ -530,7 +519,7 @@ public class HaxeResolveUtil
 
 		if(typeTag != null)
 		{
-			return tryResolveFunctionType(typeTag.getFunctionType(), specialization);
+			return tryResolveFunctionType(ContainerUtil.getFirstItem(typeTag.getFunctionTypeList()), specialization);
 		}
 
 		return HaxeClassResolveResult.EMPTY;

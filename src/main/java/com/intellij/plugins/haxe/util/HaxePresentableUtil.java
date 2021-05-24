@@ -17,6 +17,7 @@ package com.intellij.plugins.haxe.util;
 
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.psi.util.PsiTreeUtil;
+import com.intellij.util.containers.ContainerUtil;
 import org.jetbrains.annotations.Nls;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -83,7 +84,7 @@ public class HaxePresentableUtil {
   public static String buildTypeText(HaxeNamedComponent element,
                                      @Nullable HaxeTypeListPart typeTag,
                                      HaxeGenericSpecialization specializations) {
-    final HaxeTypeOrAnonymous typeOrAnonymous = typeTag != null ? typeTag.getTypeOrAnonymous() : null;
+    final HaxeTypeOrAnonymous typeOrAnonymous = typeTag != null ? ContainerUtil.getFirstItem(typeTag.getTypeOrAnonymousList()) : null;
     if (typeOrAnonymous == null) {
       return "";
     }
@@ -101,7 +102,7 @@ public class HaxePresentableUtil {
   }
 
   public static String buildTypeText(HaxeNamedComponent element, HaxeTypeTag typeTag, HaxeGenericSpecialization specialization) {
-    final HaxeFunctionType haxeFunctionType = typeTag.getFunctionType();
+    final HaxeFunctionType haxeFunctionType = ContainerUtil.getFirstItem(typeTag.getFunctionTypeList());
     if (haxeFunctionType != null) {
       return buildTypeText(element, haxeFunctionType, specialization);
     }
