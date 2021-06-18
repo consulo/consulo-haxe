@@ -17,10 +17,10 @@ package com.intellij.plugins.haxe.lang.psi;
 
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
-import gnu.trove.THashMap;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -31,12 +31,12 @@ public class HaxeGenericSpecialization implements Cloneable {
   final Map<String, HaxeClassResolveResult> map;
 
   public HaxeGenericSpecialization() {
-    this(new THashMap<String, HaxeClassResolveResult>());
+    this(new HashMap<String, HaxeClassResolveResult>());
   }
 
   @Override
   protected HaxeGenericSpecialization clone() {
-    final Map<String, HaxeClassResolveResult> clonedMap = new THashMap<String, HaxeClassResolveResult>();
+    final Map<String, HaxeClassResolveResult> clonedMap = new HashMap<String, HaxeClassResolveResult>();
     for (String key : map.keySet()) {
       clonedMap.put(key, map.get(key));
     }
@@ -61,7 +61,7 @@ public class HaxeGenericSpecialization implements Cloneable {
 
   public HaxeGenericSpecialization getInnerSpecialization(PsiElement element) {
     final String prefixToRemove = getGenericKey(element, "");
-    final Map<String, HaxeClassResolveResult> result = new THashMap<String, HaxeClassResolveResult>();
+    final Map<String, HaxeClassResolveResult> result = new HashMap<String, HaxeClassResolveResult>();
     for (String key : map.keySet()) {
       final HaxeClassResolveResult value = map.get(key);
       String newKey = key;

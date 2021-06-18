@@ -15,21 +15,16 @@
  */
 package com.intellij.plugins.haxe.config;
 
-import gnu.trove.THashSet;
-
-import java.util.Arrays;
-import java.util.Set;
-
-import org.jdom.Element;
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.components.State;
-import com.intellij.openapi.components.Storage;
-import com.intellij.openapi.components.StoragePathMacros;
+import com.intellij.openapi.components.*;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.util.containers.ContainerUtil;
+import org.jdom.Element;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Fedor.Korotkov
@@ -43,7 +38,7 @@ public class HaxeProjectSettings implements PersistentStateComponent<Element>
 
 	public Set<String> getUserCompilerDefinitionsAsSet()
 	{
-		return new THashSet<String>(Arrays.asList(getCompilerDefinitions()));
+		return new HashSet<String>(Arrays.asList(getCompilerDefinitions()));
 	}
 
 	public static HaxeProjectSettings getInstance(Project project)

@@ -16,15 +16,15 @@
 package com.intellij.plugins.haxe.ide.template.macro;
 
 import com.intellij.codeInsight.template.*;
+import com.intellij.navigation.NavigationItem;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.lang.psi.HaxeComponentName;
 import com.intellij.plugins.haxe.util.HaxeMacroUtil;
 import com.intellij.psi.PsiElement;
-import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
-import gnu.trove.THashSet;
-import javax.annotation.Nonnull;
 
+import javax.annotation.Nonnull;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -51,12 +51,7 @@ public class HaxeSuggestIndexNameMacro extends Macro {
   public Result calculateResult(@Nonnull Expression[] params, ExpressionContext context) {
     final PsiElement at = context.getPsiElementAtStartOffset();
     final Set<HaxeComponentName> variables = HaxeMacroUtil.findVariables(at);
-    final Set<String> names = new THashSet<String>(ContainerUtil.map(variables, new Function<HaxeComponentName, String>() {
-      @Override
-      public String fun(HaxeComponentName name) {
-        return name.getName();
-      }
-    }));
+    final Set<String> names = new HashSet<String>(ContainerUtil.map(variables, NavigationItem::getName));
     for (char i = 'i'; i < 'z'; ++i) {
       if (!names.contains(Character.toString(i))) {
         return new TextResult(Character.toString(i));

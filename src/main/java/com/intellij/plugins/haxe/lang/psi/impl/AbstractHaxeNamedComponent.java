@@ -15,9 +15,6 @@
  */
 package com.intellij.plugins.haxe.lang.psi.impl;
 
-import javax.annotation.Nonnull;
-
-import org.jetbrains.annotations.NonNls;
 import com.intellij.lang.ASTNode;
 import com.intellij.navigation.ItemPresentation;
 import com.intellij.openapi.util.Pair;
@@ -32,8 +29,12 @@ import com.intellij.psi.PsiNamedElement;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.IncorrectOperationException;
+import com.intellij.util.containers.ContainerUtil;
 import consulo.ide.IconDescriptorUpdaters;
 import consulo.ui.image.Image;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
@@ -87,7 +88,7 @@ abstract public class AbstractHaxeNamedComponent extends HaxePsiCompositeElement
         }
         if (type == HaxeComponentType.METHOD || type == HaxeComponentType.FIELD) {
           final HaxeTypeTag typeTag = PsiTreeUtil.getChildOfType(AbstractHaxeNamedComponent.this, HaxeTypeTag.class);
-          final HaxeTypeOrAnonymous typeOrAnonymous = typeTag != null ? typeTag.getTypeOrAnonymous() : null;
+          final HaxeTypeOrAnonymous typeOrAnonymous = typeTag != null ? ContainerUtil.getFirstItem(typeTag.getTypeOrAnonymousList()) : null;
           if (typeOrAnonymous != null) {
             result.append(":");
             result.append(HaxePresentableUtil.buildTypeText(AbstractHaxeNamedComponent.this, typeOrAnonymous.getType()));
@@ -127,7 +128,7 @@ abstract public class AbstractHaxeNamedComponent extends HaxePsiCompositeElement
   @Override
   public HaxeNamedComponent getTypeComponent() {
     final HaxeTypeTag typeTag = PsiTreeUtil.getChildOfType(getParent(), HaxeTypeTag.class);
-    final HaxeType type = typeTag == null ? null : typeTag.getTypeOrAnonymous().getType();
+    final HaxeType type = typeTag == null ? null : ContainerUtil.getFirstItem(typeTag.getTypeOrAnonymousList()).getType();
     final PsiReference reference = type == null ? null : type.getReference();
     if (reference != null) {
       final PsiElement result = reference.resolve();

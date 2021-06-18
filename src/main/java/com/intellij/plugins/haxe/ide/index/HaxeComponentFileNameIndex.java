@@ -24,13 +24,9 @@ import com.intellij.util.Processor;
 import com.intellij.util.indexing.*;
 import com.intellij.util.io.EnumeratorStringDescriptor;
 import com.intellij.util.io.KeyDescriptor;
-import gnu.trove.THashMap;
-import javax.annotation.Nonnull;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import javax.annotation.Nonnull;
+import java.util.*;
 
 /**
  * @author: Fedor.Korotkov
@@ -101,7 +97,7 @@ public class HaxeComponentFileNameIndex extends ScalarIndexExtension<String> {
       if (classes.isEmpty()) {
         return Collections.emptyMap();
       }
-      final Map<String, Void> result = new THashMap<String, Void>(classes.size());
+      final Map<String, Void> result = new HashMap<String, Void>(classes.size());
       for (HaxeClass haxeClass : classes) {
         final String className = haxeClass.getName();
         if (className != null) {

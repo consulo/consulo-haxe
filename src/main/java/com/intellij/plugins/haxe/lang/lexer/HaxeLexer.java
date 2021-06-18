@@ -25,13 +25,9 @@ import com.intellij.plugins.haxe.config.HaxeProjectSettings;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
 import consulo.util.dataholder.Key;
-import gnu.trove.THashSet;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 
 import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.*;
 import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes.*;
@@ -44,7 +40,7 @@ public class HaxeLexer extends LookAheadLexer {
     WSNLS
   );
 
-  private final static Set<String> SDK_DEFINES = new THashSet<String>(Arrays.asList(
+  private final static Set<String> SDK_DEFINES = new HashSet<String>(Arrays.asList(
     "macro"
   ));
 
@@ -98,7 +94,7 @@ public class HaxeLexer extends LookAheadLexer {
 
   @Nullable
   protected static IElementType eatUntil(Lexer baseLexer, IElementType... types) {
-    final Set<IElementType> typeSet = new THashSet<IElementType>(Arrays.asList(types));
+    final Set<IElementType> typeSet = new HashSet<IElementType>(Arrays.asList(types));
     IElementType type = null;
     int counter = 0;
     do {

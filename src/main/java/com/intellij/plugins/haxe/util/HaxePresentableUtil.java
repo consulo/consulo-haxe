@@ -107,12 +107,12 @@ public class HaxePresentableUtil {
       return buildTypeText(element, haxeFunctionType, specialization);
     }
 
-    final HaxeAnonymousType anonymousType = typeTag.getTypeOrAnonymous().getAnonymousType();
+    final HaxeAnonymousType anonymousType = ContainerUtil.getFirstItem(typeTag.getTypeOrAnonymousList()).getAnonymousType();
     if (anonymousType != null) {
       return anonymousType.getText();
     }
 
-    final HaxeType haxeType = typeTag.getTypeOrAnonymous().getType();
+    final HaxeType haxeType = ContainerUtil.getFirstItem(typeTag.getTypeOrAnonymousList()).getType();
     if (haxeType != null) {
       return buildTypeText(element, haxeType, specialization);
     }

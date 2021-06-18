@@ -16,6 +16,7 @@
 package com.intellij.plugins.haxe.ide.refactoring;
 
 import com.intellij.codeInsight.PsiEquivalenceUtil;
+import com.intellij.navigation.NavigationItem;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.lang.psi.*;
@@ -24,31 +25,20 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.ResolveState;
 import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
-import gnu.trove.THashSet;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author: Fedor.Korotkov
  */
 public class HaxeRefactoringUtil {
   public static Set<String> collectUsedNames(HaxePsiCompositeElement context) {
-    final Set<HaxeComponentName> usedComponentNames = new THashSet<HaxeComponentName>();
+    final Set<HaxeComponentName> usedComponentNames = new HashSet<HaxeComponentName>();
     PsiTreeUtil.treeWalkUp(new ComponentNameScopeProcessor(usedComponentNames), context, null, new ResolveState());
-    return new THashSet<String>(ContainerUtil.map(usedComponentNames, new Function<HaxeComponentName, String>() {
-      @Nullable
-      @Override
-      public String fun(HaxeComponentName componentName) {
-        return componentName.getName();
-      }
-    }));
+    return new HashSet<String>(ContainerUtil.map(usedComponentNames, NavigationItem::getName));
   }
 
   @Nullable

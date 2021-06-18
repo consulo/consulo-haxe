@@ -22,7 +22,7 @@ import com.intellij.psi.impl.AnyPsiChangeListener;
 import com.intellij.psi.impl.PsiManagerImpl;
 import com.intellij.util.containers.ContainerUtil;
 import com.intellij.util.messages.MessageBus;
-import gnu.trove.TObjectHashingStrategy;
+import consulo.util.collection.HashingStrategy;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -53,7 +53,7 @@ public class HaxeClassResolveCache {
   }
 
   private static <K, V> Map<K, V> createWeakMap() {
-    return ContainerUtil.<K, V>createWeakMap(7, 0.75f, TObjectHashingStrategy.CANONICAL);
+    return ContainerUtil.<K, V>createWeakMap(7, 0.75f, HashingStrategy.canonical());
   }
 
   public void put(@Nonnull HaxeClass haxeClass, @Nonnull HaxeClassResolveResult result) {

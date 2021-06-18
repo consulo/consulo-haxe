@@ -17,16 +17,6 @@
  */
 package com.intellij.plugins.haxe.lang.psi.impl;
 
-import gnu.trove.THashSet;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import consulo.haxe.module.extension.HaxeModuleExtension;
 import com.intellij.lang.ASTNode;
 import com.intellij.openapi.util.Condition;
 import com.intellij.openapi.util.TextRange;
@@ -40,13 +30,7 @@ import com.intellij.plugins.haxe.util.HaxeAddImportHelper;
 import com.intellij.plugins.haxe.util.HaxeElementGenerator;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import com.intellij.plugins.haxe.util.UsefulPsiTreeUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementResolveResult;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiPolyVariantReference;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.ResolveResult;
-import com.intellij.psi.ResolveState;
+import com.intellij.psi.*;
 import com.intellij.psi.impl.source.resolve.ResolveCache;
 import com.intellij.psi.impl.source.tree.LeafPsiElement;
 import com.intellij.psi.tree.IElementType;
@@ -54,8 +38,16 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.ArrayUtil;
 import com.intellij.util.IncorrectOperationException;
 import com.intellij.util.containers.ContainerUtil;
+import consulo.haxe.module.extension.HaxeModuleExtension;
 import consulo.psi.PsiPackage;
 import consulo.psi.PsiPackageManager;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public abstract class HaxeReferenceImpl extends HaxeExpressionImpl implements HaxeReference, PsiPolyVariantReference
 {
@@ -532,7 +524,7 @@ public abstract class HaxeReferenceImpl extends HaxeExpressionImpl implements Ha
 	@Override
 	public Object[] getVariants()
 	{
-		final Set<HaxeComponentName> suggestedVariants = new THashSet<HaxeComponentName>();
+		final Set<HaxeComponentName> suggestedVariants = new HashSet<HaxeComponentName>();
 
 
 		// if not first in chain

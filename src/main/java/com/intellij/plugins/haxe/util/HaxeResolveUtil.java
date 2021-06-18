@@ -41,7 +41,6 @@ import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
 import com.intellij.util.containers.ContainerUtil;
 import consulo.psi.PsiPackage;
-import gnu.trove.THashSet;
 import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;
@@ -328,7 +327,7 @@ public class HaxeResolveUtil
 		}
 		else if(haxeClass instanceof HaxeTypedefDeclaration)
 		{
-			final HaxeTypeOrAnonymous typeOrAnonymous = ((HaxeTypedefDeclaration) haxeClass).getTypeOrAnonymous();
+			final HaxeTypeOrAnonymous typeOrAnonymous = ContainerUtil.getFirstItem(((HaxeTypedefDeclaration) haxeClass).getTypeOrAnonymousList());
 			if(typeOrAnonymous != null && typeOrAnonymous.getAnonymousType() != null)
 			{
 				typeOrAnonymous.getAnonymousType();
@@ -419,7 +418,7 @@ public class HaxeResolveUtil
 			public HaxeType fun(HaxeParameter parameter)
 			{
 				final HaxeTypeTag typeTag = parameter.getTypeTag();
-				return typeTag == null ? null : typeTag.getTypeOrAnonymous().getType();
+				return typeTag == null ? null : typeTag.getTypeOrAnonymousList().get(0).getType();
 			}
 		});
 	}
@@ -501,7 +500,7 @@ public class HaxeResolveUtil
 	public static HaxeClassResolveResult tryResolveClassByTypeTag(PsiElement element, HaxeGenericSpecialization specialization)
 	{
 		final HaxeTypeTag typeTag = PsiTreeUtil.getChildOfType(element, HaxeTypeTag.class);
-		final HaxeTypeOrAnonymous typeOrAnonymous = typeTag == null ? null : typeTag.getTypeOrAnonymous();
+		final HaxeTypeOrAnonymous typeOrAnonymous = typeTag == null ? null : ContainerUtil.getFirstItem(typeTag.getTypeOrAnonymousList());
 		final HaxeType type = typeOrAnonymous != null ? typeOrAnonymous.getType() : element instanceof HaxeType ? (HaxeType) element : null;
 
 		HaxeClass haxeClass = type == null ? null : tryResolveClassByQName(type);
@@ -799,7 +798,7 @@ public class HaxeResolveUtil
 		{
 			return Collections.emptySet();
 		}
-		final Set<IElementType> resultSet = new THashSet<IElementType>();
+		final Set<IElementType> resultSet = new HashSet<IElementType>();
 		for(HaxeDeclarationAttribute attribute : attributeList)
 		{
 			PsiElement result = attribute.getFirstChild();

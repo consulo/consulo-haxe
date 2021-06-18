@@ -24,6 +24,7 @@ import com.intellij.plugins.haxe.lang.psi.HaxeTypeTag;
 import com.intellij.plugins.haxe.util.HaxePresentableUtil;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.Function;
+import com.intellij.util.containers.ContainerUtil;
 
 /**
  * @author: Fedor.Korotkov
@@ -70,7 +71,7 @@ public class OverrideImplementMethodFix extends BaseCreateMethodsFix<HaxeNamedCo
     final HaxeTypeTag typeTag = PsiTreeUtil.getChildOfType(element, HaxeTypeTag.class);
     if (typeTag != null) {
       result.append(":");
-      result.append(HaxePresentableUtil.buildTypeText(element, typeTag.getTypeOrAnonymous().getType(), specializations));
+      result.append(HaxePresentableUtil.buildTypeText(element, ContainerUtil.getFirstItem(typeTag.getTypeOrAnonymousList()).getType(), specializations));
     }
     result.append(componentType == HaxeComponentType.FIELD ? ";" : "{\n}");
     return result.toString();

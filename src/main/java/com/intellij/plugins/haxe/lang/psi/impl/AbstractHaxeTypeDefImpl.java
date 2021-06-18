@@ -18,6 +18,8 @@ package com.intellij.plugins.haxe.lang.psi.impl;
 import com.intellij.lang.ASTNode;
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
+import com.intellij.util.containers.ContainerUtil;
+
 import javax.annotation.Nonnull;
 
 import java.util.List;
@@ -35,7 +37,7 @@ public abstract class AbstractHaxeTypeDefImpl extends AbstractHaxePsiClass imple
   }
 
   public HaxeClassResolveResult getTargetClass(HaxeGenericSpecialization specialization) {
-    final HaxeTypeOrAnonymous haxeTypeOrAnonymous = getTypeOrAnonymous();
+    final HaxeTypeOrAnonymous haxeTypeOrAnonymous = ContainerUtil.getFirstItem(getTypeOrAnonymousList());
     if (haxeTypeOrAnonymous == null) {
       // cause parse error
       return HaxeClassResolveResult.create(null);

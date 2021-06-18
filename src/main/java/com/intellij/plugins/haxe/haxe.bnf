@@ -16,6 +16,7 @@
 
     generateFirstCheck=100
 
+    tokens = [
     pLCURLY="{"
     pRCURLY="}"
     pLBRACK="["
@@ -166,6 +167,7 @@
     ppElse="#else"
     ppError="#error"
     ppElseIf="#elseif"
+    ]
 
     extends(".*(Expression|Literal)")="expression"
     pin(".*Expression")=1
