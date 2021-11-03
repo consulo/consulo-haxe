@@ -20,6 +20,9 @@
 	<category>Custom Languages</category>
 	<version>SNAPSHOT</version>
 	<vendor>JetBrains</vendor>
+	<tags>
+		<tag>custom.language</tag>
+	</tags>
 
 	<depends>com.intellij.regexp</depends>
 	<depends>com.intellij.xml</depends>
