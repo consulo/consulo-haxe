@@ -15,12 +15,13 @@
  */
 package com.intellij.plugins.haxe.nmml;
 
-import javax.annotation.Nonnull;
-
 import com.intellij.ide.highlighter.XmlLikeFileType;
 import com.intellij.lang.xml.XMLLanguage;
-import com.intellij.plugins.haxe.HaxeBundle;
+import consulo.haxe.localize.HaxeLocalize;
+import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
@@ -36,13 +37,13 @@ public class NMMLFileType extends XmlLikeFileType {
   @Nonnull
   @Override
   public String getId() {
-    return HaxeBundle.message("nme.nmml");
+    return "NMML";
   }
 
   @Nonnull
   @Override
-  public String getDescription() {
-    return HaxeBundle.message("nme.nmml.description");
+  public LocalizeValue getDescription() {
+    return HaxeLocalize.nmeNmmlDescription();
   }
 
   @Nonnull

@@ -1,0 +1,234 @@
+haxe.title:
+  text: Haxe
+haxe.sdk.name.presentable:
+  text: Haxe SDK
+runner.configuration.name:
+  text: Haxe Application
+hxcpp.remote.debug.configuration.name:
+  text: HXCPP Remote Debug
+haxe.sdk.name.suggest:
+  text: Haxe {0}
+haxe.run.exclude.compile:
+  text: '&Skip compilation'
+haxe.main.class:
+  text: 'Main &class:'
+haxe.run.parameters:
+  text: '&Parameters:'
+haxe.run.module:
+  text: '&Module:'
+haxe.run.target:
+  text: '&Target:'
+haxe.compiler.description:
+  text: Haxe Compiler
+haxe.language.id:
+  text: Haxe
+haxe.file.type.name:
+  text: Haxe
+haxe.file.type.description:
+  text: Haxe Files
+no.sdk.for.module:
+  text: 'No SDK for module: {0}'
+no.module.for.run.configuration:
+  text: No module for Run Configuration {0}
+action.create.new.class:
+  text: Haxe Class
+progress.creating.class:
+  text: Creating Class {0}
+haxe.run.wrong.target:
+  text: Wrong target {0}! You can run only Neko, Flash or JavaScript.
+haxe.run.bad.neko.bin.path:
+  text: No Neko! Select Neko binary for you Haxe sdk.
+choose.haxe.main.class:
+  text: Choose Haxe Main class
+neko.executable:
+  text: '&Neko executable:'
+haxe.color.settings.description.line.comment:
+  text: Line comment
+haxe.color.settings.description.block.comment:
+  text: Block comment
+haxe.color.settings.description.doc.comment:
+  text: Documentation comment
+haxe.color.settings.description.keyword:
+  text: Keyword
+haxe.color.settings.description.number:
+  text: Number
+haxe.color.settings.description.string:
+  text: String
+haxe.color.settings.description.operator:
+  text: Operator
+haxe.color.settings.description.parenths:
+  text: Parenths
+haxe.color.settings.description.brackets:
+  text: Brackets
+haxe.color.settings.description.braces:
+  text: Braces
+haxe.color.settings.description.comma:
+  text: Comma
+haxe.color.settings.description.dot:
+  text: Dot
+haxe.color.settings.description.semicolon:
+  text: Semicolon
+haxe.color.settings.description.bad.character:
+  text: Bad character
+haxe.color.settings.description.class:
+  text: Class
+haxe.color.settings.description.interface:
+  text: Interface
+haxe.color.settings.description.instance.member.variable:
+  text: Instance member variable
+haxe.color.settings.description.instance.member.function:
+  text: Instance member function
+haxe.color.settings.description.static.member.function:
+  text: Static member function
+haxe.color.settings.description.static.member.variable:
+  text: Static member variable
+haxe.color.settings.description.parameter:
+  text: Parameter
+haxe.color.settings.description.local.variable:
+  text: Local variable
+haxe.output.file.name:
+  text: '&Output file name:'
+haxe.output.folder:
+  text: 'Output &folder:'
+cannot.resolve.reference:
+  text: Can't resolve reference
+flex.sdk.not.specified:
+  text: Flex SDK is required for Flash applications debugging. Please configure Flex SDK in Project Structure dialog.
+flex.sdk.not.found:
+  text: Flex SDK ''{0}'' not found. Please configure Flex SDK in Project Structure dialog.
+haxe.proper.debug.targets:
+  text: You can debug only flash or HXCPP targets!
+haxe.break.point.title:
+  text: Haxe Breakpoints
+flex.sdk.label:
+  text: '&Flex SDK for Flash applications debugging:'
+haxe.run.file.to.run:
+  text: Custom file to &run
+nme.nmml:
+  text: NMML
+nme.nmml.description:
+  text: NMML project file
+haxe.configuration.use.hxml.to.build:
+  text: '&HXML'
+haxe.configuration.use.nmml.to.build:
+  text: '&NMML'
+haxe.configuration.hxml.file:
+  text: 'HXML file:'
+haxe.configuration.nmml.file:
+  text: 'NMML file:'
+haxe.run.no.module:
+  text: 'No module for configuration: {0}'
+haxe.run.select.custom.file:
+  text: Select file to launch in case of using HXML
+haxe.run.do.not.select.custom.file:
+  text: You cannot launch custom file in case of using NME
+haxe.run.do.not.select.custom.executable:
+  text: You cannot use custom executable in case of using NME
+overrides.method.in:
+  text: Overrides method ''{0}'' in ''{1}''
+implements.method.in:
+  text: Implements method ''{0}'' in ''{1}''
+haxe.override.method:
+  text: Choose method to override
+haxe.implement.method:
+  text: Choose method to implement
+fields.to.generate.getters:
+  text: Select Fields to Generate Getters
+fields.to.generate.setters:
+  text: Select Fields to Generate Setters
+fields.to.generate.getters.setters:
+  text: Select Fields to Generate Getters and Setters
+haxe.configuration.use.custon.properties:
+  text: 'ha&Xe compiler:'
+haxelib.executable:
+  text: '&Haxelib executable:'
+haxe.compile.with:
+  text: 'Compile with:'
+sources.root.detector.sources.name:
+  text: Library sources
+sources.root.detector.classes.name:
+  text: Library classes
+create.nmml.file.action:
+  text: NMML File
+create.nmml.file.action.description:
+  text: Create NMML File
+haxe.unresolved.type:
+  text: Unresolved type
+choose.class.to.import.title:
+  text: Choose Class To Import
+add.import.multiple.candidates:
+  text: '{0} ? (multiple choices...) Alt+Enter'
+autodetected.source.root.type:
+  text: Haxe
+macro.haxe.array.variable:
+  text: haxeArrayVariable()
+macro.haxe.variable.name:
+  text: haxeSuggestVariableName()
+macro.haxe.index.name:
+  text: haxeSuggestIndexName()
+livetemplate.description.iter:
+  text: Iterate (for..in)
+livetemplate.description.itar:
+  text: Iterate elements of array
+haxe.surrounder.if:
+  text: if
+haxe.surrounder.if.else:
+  text: if / else
+haxe.surrounder.while:
+  text: while
+haxe.surrounder.do.while:
+  text: do / while
+haxe.surrounder.try.catch:
+  text: try / catch
+haxe.settings.name:
+  text: Haxe
+haxe.conditional.compilation.defined.macros:
+  text: 'Defined Haxe conditional compilation macros:'
+haxe.conditional.compilation.title:
+  text: Define Haxe Macros
+haxe.conditional.compilation.macros:
+  text: 'Conditional compilation macros:'
+haxe.color.settings.description.conditional.compilation:
+  text: Conditionally non-compiled
+haxe.conditional.compilation.setting:
+  text: 'Project Macros:'
+haxe.settings.edit:
+  text: Edit
+haxe.intention.undefine:
+  text: Undefine flag ''{0}''
+haxe.intention.define:
+  text: Define flag ''{0}''
+quick.fixes.family:
+  text: Haxe Quick Fixes
+haxe.color.settings.description.conditional.compilation.defined.flag:
+  text: Defined flag
+haxe.color.settings.description.conditional.compilation.undefined.flag:
+  text: Undefined Flag
+haxe.project.reparsing:
+  text: Applying new compiler macros...
+refactoring.introduce.selection.error:
+  text: Cannot perform refactoring using selected element(s)
+refactoring.introduce.variable.dialog.title:
+  text: Introduce Variable
+install.flex.plugin:
+  text: Please install Flex plugin for debugging Flash target!
+hxcpp.port.label:
+  text: 'HXCPP Debugging Port:'
+hxcpp.debugging.description:
+  text: Creates debug server that communicates with application across protocol supported by hxcpp.DebugSocket
+haxe.inspections.group.name:
+  text: Haxe
+haxe.inspections.nme.build.directory:
+  text: NMML Build Directory Inspection
+haxe.inspections.nme.build.directory.descriptor:
+  text: You need to provide separate build directories for release and debug builds
+haxe.inspections.nme.build.directory.fix.name:
+  text: Create debug tag
+haxe.nme.arguments:
+  text: 'NME arguments:'
+inspections.group.name:
+  text: Haxe
+haxe.inspection.unused.import.name:
+  text: Unused import statement
+haxe.fix.optimize.imports:
+  text: Optimize imports
