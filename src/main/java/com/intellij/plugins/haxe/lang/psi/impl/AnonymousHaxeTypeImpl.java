@@ -15,8 +15,9 @@
  */
 package com.intellij.plugins.haxe.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
 import com.intellij.plugins.haxe.lang.psi.*;
+import consulo.language.ast.ASTNode;
+
 import javax.annotation.Nonnull;
 
 import java.util.Arrays;

@@ -15,30 +15,31 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import com.intellij.ide.actions.QualifiedNameProvider;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.EditorModificationUtil;
-import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.HaxeComponentType;
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.util.PsiTreeUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.QualifiedNameProvider;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiManager;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.project.Project;
+
 import javax.annotation.Nullable;
 
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeQualifiedNameProvider implements QualifiedNameProvider {
   @Override
   public PsiElement adjustElementToCopy(PsiElement element) {
     if (element instanceof HaxeCallExpression) {
-      element = ((HaxeCallExpression)element).getExpression();
+      element = ((HaxeCallExpression) element).getExpression();
     }
     if (element instanceof HaxeReference) {
-      element = ((HaxeReference)element).resolve();
+      element = ((HaxeReference) element).resolve();
     }
     if (element instanceof HaxeComponentName) {
       return element.getParent();
@@ -49,11 +50,11 @@ public class HaxeQualifiedNameProvider implements QualifiedNameProvider {
   @Override
   public String getQualifiedName(PsiElement element) {
     if (element instanceof HaxeClass) {
-      return ((HaxeClass)element).getQualifiedName();
+      return ((HaxeClass) element).getQualifiedName();
     }
     final HaxeComponentType componentType = HaxeComponentType.typeOf(element);
     if (componentType == HaxeComponentType.METHOD || componentType == HaxeComponentType.FIELD) {
-      final String name = ((HaxeComponent)element).getName();
+      final String name = ((HaxeComponent) element).getName();
       final HaxeClass haxeClass = PsiTreeUtil.getParentOfType(element, HaxeClass.class, true);
       if (name != null && haxeClass != null) {
         return haxeClass.getQualifiedName() + "#" + name;
@@ -68,11 +69,11 @@ public class HaxeQualifiedNameProvider implements QualifiedNameProvider {
     final int index = fqn.indexOf("#");
     if (index == -1) {
       final HaxeClass haxeClass =
-        HaxeResolveUtil.findClassByQName(fqn, PsiManager.getInstance(project), GlobalSearchScope.projectScope(project));
+          HaxeResolveUtil.findClassByQName(fqn, PsiManager.getInstance(project), GlobalSearchScope.projectScope(project));
       return haxeClass == null ? null : haxeClass.getComponentName();
     }
     final HaxeClass haxeClass =
-      HaxeResolveUtil.findClassByQName(fqn.substring(0, index), PsiManager.getInstance(project), GlobalSearchScope.projectScope(project));
+        HaxeResolveUtil.findClassByQName(fqn.substring(0, index), PsiManager.getInstance(project), GlobalSearchScope.projectScope(project));
     if (haxeClass == null) {
       return null;
     }
@@ -82,10 +83,5 @@ public class HaxeQualifiedNameProvider implements QualifiedNameProvider {
       namedComponent = haxeClass.findFieldByName(memberName);
     }
     return namedComponent == null ? null : namedComponent.getComponentName();
-  }
-
-  @Override
-  public void insertQualifiedName(String fqn, PsiElement element, Editor editor, Project project) {
-    EditorModificationUtil.insertStringAtCaret(editor, fqn);
   }
 }

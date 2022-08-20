@@ -15,30 +15,32 @@
  */
 package com.intellij.plugins.haxe.ide.actions;
 
-import com.intellij.codeInsight.hint.HintManager;
-import com.intellij.codeInsight.hint.QuestionAction;
-import com.intellij.codeInsight.navigation.NavigationUtil;
-import com.intellij.codeInspection.HintAction;
-import com.intellij.codeInspection.LocalQuickFix;
-import com.intellij.codeInspection.ProblemDescriptor;
-import com.intellij.ide.util.DefaultPsiElementCellRenderer;
-import com.intellij.lang.injection.InjectedLanguageManager;
-import com.intellij.openapi.application.Result;
-import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.command.WriteCommandAction;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.TextRange;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.lang.psi.HaxeClass;
 import com.intellij.plugins.haxe.lang.psi.HaxeComponent;
 import com.intellij.plugins.haxe.util.HaxeAddImportHelper;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.search.PsiElementProcessor;
-import com.intellij.util.IncorrectOperationException;
-import javax.annotation.Nonnull;
+import consulo.application.Result;
+import consulo.codeEditor.Editor;
+import consulo.codeEditor.EditorPopupHelper;
+import consulo.document.util.TextRange;
+import consulo.language.editor.WriteCommandAction;
+import consulo.language.editor.hint.HintManager;
+import consulo.language.editor.hint.QuestionAction;
+import consulo.language.editor.inspection.LocalQuickFix;
+import consulo.language.editor.inspection.ProblemDescriptor;
+import consulo.language.editor.intention.HintAction;
+import consulo.language.editor.ui.DefaultPsiElementCellRenderer;
+import consulo.language.editor.ui.PopupNavigationUtil;
+import consulo.language.inject.InjectedLanguageManager;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.resolve.PsiElementProcessor;
+import consulo.language.util.IncorrectOperationException;
+import consulo.project.Project;
+import consulo.ui.ex.popup.JBPopup;
+import consulo.undoRedo.CommandProcessor;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -66,11 +68,10 @@ public class HaxeTypeAddImportIntentionAction implements HintAction, QuestionAct
   @Override
   public String getText() {
     if (candidates.size() > 1) {
-      final HaxeClass haxeClass = (HaxeClass)candidates.iterator().next();
+      final HaxeClass haxeClass = (HaxeClass) candidates.iterator().next();
       return HaxeBundle.message("add.import.multiple.candidates", haxeClass.getQualifiedName());
-    }
-    else if (candidates.size() == 1) {
-      final HaxeClass haxeClass = (HaxeClass)candidates.iterator().next();
+    } else if (candidates.size() == 1) {
+      final HaxeClass haxeClass = (HaxeClass) candidates.iterator().next();
       return haxeClass.getQualifiedName() + " ?";
     }
     return "";
@@ -101,28 +102,25 @@ public class HaxeTypeAddImportIntentionAction implements HintAction, QuestionAct
   @Override
   public void invoke(@Nonnull final Project project, final Editor editor, PsiFile file) throws IncorrectOperationException {
     if (candidates.size() > 1) {
-      NavigationUtil.getPsiElementPopup(
-        candidates.toArray(new PsiElement[candidates.size()]),
-        new DefaultPsiElementCellRenderer(),
-        HaxeBundle.message("choose.class.to.import.title"),
-        new PsiElementProcessor<PsiElement>() {
-          public boolean execute(@Nonnull final PsiElement element) {
-            CommandProcessor.getInstance().executeCommand(
-              project,
-              new Runnable() {
-                public void run() {
-                  doImport(editor, element);
-                }
-              },
-              getClass().getName(),
-              this
-            );
-            return false;
+      JBPopup popup = PopupNavigationUtil.getPsiElementPopup(
+          candidates.toArray(new PsiElement[candidates.size()]),
+          new DefaultPsiElementCellRenderer(),
+          HaxeBundle.message("choose.class.to.import.title"),
+          new PsiElementProcessor<PsiElement>() {
+            public boolean execute(@Nonnull final PsiElement element) {
+              CommandProcessor.getInstance().executeCommand(
+                  project,
+                  () -> doImport(editor, element),
+                  getClass().getName(),
+                  this
+              );
+              return false;
+            }
           }
-        }
-      ).showInBestPositionFor(editor);
-    }
-    else {
+      );
+
+      EditorPopupHelper.getInstance().showPopupInBestPositionFor(editor, popup);
+    } else {
       doImport(editor, candidates.iterator().next());
     }
   }
@@ -131,7 +129,7 @@ public class HaxeTypeAddImportIntentionAction implements HintAction, QuestionAct
     new WriteCommandAction(myType.getProject(), myType.getContainingFile()) {
       @Override
       protected void run(Result result) throws Throwable {
-        HaxeAddImportHelper.addImport(((HaxeClass)component).getQualifiedName(), myType.getContainingFile());
+        HaxeAddImportHelper.addImport(((HaxeClass) component).getQualifiedName(), myType.getContainingFile());
       }
     }.execute();
   }

@@ -15,13 +15,18 @@
  */
 package com.intellij.plugins.haxe.ide.template.macro;
 
-import com.intellij.codeInsight.template.*;
-import com.intellij.navigation.NavigationItem;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.lang.psi.HaxeComponentName;
 import com.intellij.plugins.haxe.util.HaxeMacroUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.template.Expression;
+import consulo.language.editor.template.ExpressionContext;
+import consulo.language.editor.template.Result;
+import consulo.language.editor.template.TextResult;
+import consulo.language.editor.template.macro.Macro;
+import consulo.language.psi.PsiElement;
+import consulo.navigation.NavigationItem;
+import consulo.util.collection.ContainerUtil;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
@@ -30,6 +35,7 @@ import java.util.Set;
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeSuggestIndexNameMacro extends Macro {
   @Override
   public String getName() {

@@ -15,37 +15,43 @@
  */
 package com.intellij.plugins.haxe.ide.structure;
 
+import com.intellij.plugins.haxe.HaxeLanguage;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.codeEditor.Editor;
+import consulo.fileEditor.structureView.StructureViewBuilder;
+import consulo.fileEditor.structureView.StructureViewModel;
+import consulo.fileEditor.structureView.TreeBasedStructureViewBuilder;
+import consulo.language.Language;
+import consulo.language.editor.structureView.PsiStructureViewFactory;
+import consulo.language.psi.PsiFile;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import com.intellij.ide.structureView.StructureViewBuilder;
-import com.intellij.ide.structureView.StructureViewModel;
-import com.intellij.ide.structureView.TreeBasedStructureViewBuilder;
-import com.intellij.lang.PsiStructureViewFactory;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.psi.PsiFile;
 
 /**
  * @author Fedor.Korotkov
  */
-public class HaxeStructureViewFactory implements PsiStructureViewFactory
-{
-	@Override
-	public StructureViewBuilder getStructureViewBuilder(final PsiFile psiFile)
-	{
-		return new TreeBasedStructureViewBuilder()
-		{
-			@Override
-			@Nonnull
-			public StructureViewModel createStructureViewModel(@Nullable Editor editor)
-			{
-				return new HaxeStructureViewModel(psiFile);
-			}
+@ExtensionImpl
+public class HaxeStructureViewFactory implements PsiStructureViewFactory {
+  @Override
+  public StructureViewBuilder getStructureViewBuilder(final PsiFile psiFile) {
+    return new TreeBasedStructureViewBuilder() {
+      @Override
+      @Nonnull
+      public StructureViewModel createStructureViewModel(@Nullable Editor editor) {
+        return new HaxeStructureViewModel(psiFile);
+      }
 
-			@Override
-			public boolean isRootNodeShown()
-			{
-				return false;
-			}
-		};
-	}
+      @Override
+      public boolean isRootNodeShown() {
+        return false;
+      }
+    };
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return HaxeLanguage.INSTANCE;
+  }
 }

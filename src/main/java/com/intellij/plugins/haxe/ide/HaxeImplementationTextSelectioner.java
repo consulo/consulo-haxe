@@ -15,15 +15,20 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import com.intellij.codeInsight.hint.ImplementationTextSelectioner;
-import com.intellij.openapi.util.TextRange;
+import com.intellij.plugins.haxe.HaxeLanguage;
 import com.intellij.plugins.haxe.lang.psi.HaxeComponentName;
-import com.intellij.psi.PsiElement;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.document.util.TextRange;
+import consulo.language.Language;
+import consulo.language.editor.ImplementationTextSelectioner;
+import consulo.language.psi.PsiElement;
+
 import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeImplementationTextSelectioner implements ImplementationTextSelectioner {
   @Override
   public int getTextStartOffset(@Nonnull PsiElement element) {
@@ -41,5 +46,11 @@ public class HaxeImplementationTextSelectioner implements ImplementationTextSele
     }
     final TextRange textRange = element.getTextRange();
     return textRange.getEndOffset();
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return HaxeLanguage.INSTANCE;
   }
 }

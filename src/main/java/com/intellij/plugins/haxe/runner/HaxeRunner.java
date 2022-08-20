@@ -15,37 +15,39 @@
  */
 package com.intellij.plugins.haxe.runner;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.execution.ExecutionException;
-import com.intellij.execution.ExecutionResult;
-import com.intellij.execution.Executor;
-import com.intellij.execution.configurations.CommandLineState;
-import com.intellij.execution.configurations.GeneralCommandLine;
-import com.intellij.execution.configurations.RunProfile;
-import com.intellij.execution.configurations.RunProfileState;
-import com.intellij.execution.executors.DefaultRunExecutor;
-import com.intellij.execution.filters.TextConsoleBuilder;
-import com.intellij.execution.filters.TextConsoleBuilderFactory;
-import com.intellij.execution.process.OSProcessHandler;
-import com.intellij.execution.process.ProcessHandler;
-import com.intellij.execution.runners.DefaultProgramRunner;
-import com.intellij.execution.runners.ExecutionEnvironment;
-import com.intellij.execution.runners.ProgramRunner;
-import com.intellij.execution.ui.RunContentDescriptor;
-import com.intellij.ide.BrowserUtil;
-import com.intellij.openapi.fileEditor.FileDocumentManager;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.util.io.FileUtilRt;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.config.HaxeTarget;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
+import consulo.annotation.component.ExtensionImpl;
 import consulo.compiler.ModuleCompilerPathsManager;
-import consulo.roots.impl.ProductionContentFolderTypeProvider;
+import consulo.document.FileDocumentManager;
+import consulo.execution.ExecutionResult;
+import consulo.execution.configuration.CommandLineState;
+import consulo.execution.configuration.RunProfile;
+import consulo.execution.configuration.RunProfileState;
+import consulo.execution.executor.DefaultRunExecutor;
+import consulo.execution.executor.Executor;
+import consulo.execution.runner.DefaultProgramRunner;
+import consulo.execution.runner.ExecutionEnvironment;
+import consulo.execution.runner.ProgramRunner;
+import consulo.execution.ui.RunContentDescriptor;
+import consulo.execution.ui.console.TextConsoleBuilder;
+import consulo.execution.ui.console.TextConsoleBuilderFactory;
+import consulo.language.content.ProductionContentFolderTypeProvider;
+import consulo.module.Module;
+import consulo.platform.Platform;
+import consulo.process.ExecutionException;
+import consulo.process.ProcessHandler;
+import consulo.process.cmd.GeneralCommandLine;
+import consulo.process.local.ProcessHandlerFactory;
+import consulo.util.io.FileUtil;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeRunner extends DefaultProgramRunner {
   public static final String HAXE_RUNNER_ID = "HaxeRunner";
 
@@ -69,7 +71,7 @@ public class HaxeRunner extends DefaultProgramRunner {
   @Override
   protected RunContentDescriptor doExecute(RunProfileState state,
                                            ExecutionEnvironment env) throws ExecutionException {
-    final HaxeApplicationConfiguration configuration = (HaxeApplicationConfiguration)env.getRunProfile();
+    final HaxeApplicationConfiguration configuration = (HaxeApplicationConfiguration) env.getRunProfile();
     final Module module = configuration.getConfigurationModule().getModule();
 
     if (module == null) {
@@ -83,15 +85,15 @@ public class HaxeRunner extends DefaultProgramRunner {
       return super.doExecute(nmeRunningState, env);
     }
 
-    if (configuration.isCustomFileToLaunch() && FileUtilRt.extensionEquals(configuration.getCustomFileToLaunchPath(), "n")) {
+    if (configuration.isCustomFileToLaunch() && FileUtil.extensionEquals(configuration.getCustomFileToLaunchPath(), "n")) {
       final NekoRunningState nekoRunningState = new NekoRunningState(env, module, configuration.getCustomFileToLaunchPath());
       return super.doExecute(nekoRunningState, env);
     }
 
     if (configuration.isCustomExecutable()) {
       final String filePath = configuration.isCustomFileToLaunch()
-                              ? configuration.getCustomFileToLaunchPath()
-                              : getOutputFilePath(module, settings);
+          ? configuration.getCustomFileToLaunchPath()
+          : getOutputFilePath(module, settings);
       return super.doExecute(new CommandLineState(env) {
         @Nonnull
         @Override
@@ -104,18 +106,18 @@ public class HaxeRunner extends DefaultProgramRunner {
           final TextConsoleBuilder consoleBuilder = TextConsoleBuilderFactory.getInstance().createBuilder(module.getProject());
           setConsoleBuilder(consoleBuilder);
 
-          return new OSProcessHandler(commandLine.createProcess(), commandLine.getCommandLineString());
+          return ProcessHandlerFactory.getInstance().createProcessHandler(commandLine);
         }
       }, env);
     }
 
     if (configuration.isCustomFileToLaunch()) {
-      BrowserUtil.open(configuration.getCustomFileToLaunchPath());
+      Platform.current().openInBrowser(configuration.getCustomFileToLaunchPath());
       return null;
     }
 
     if (settings.getHaxeTarget() == HaxeTarget.FLASH) {
-      BrowserUtil.open(getOutputFilePath(module, settings));
+      Platform.current().openInBrowser(getOutputFilePath(module, settings));
       return null;
     }
 

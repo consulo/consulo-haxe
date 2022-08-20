@@ -15,12 +15,15 @@
  */
 package com.intellij.plugins.haxe.ide.surroundWith;
 
-import com.intellij.lang.surroundWith.SurroundDescriptor;
-import com.intellij.lang.surroundWith.Surrounder;
+import com.intellij.plugins.haxe.HaxeLanguage;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.editor.surroundWith.SurroundDescriptor;
+import consulo.language.editor.surroundWith.Surrounder;
 import com.intellij.plugins.haxe.lang.psi.HaxeBlockStatement;
 import com.intellij.plugins.haxe.util.UsefulPsiTreeUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
 import javax.annotation.Nonnull;
 
 import java.util.ArrayList;
@@ -29,6 +32,7 @@ import java.util.List;
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeSurroundDescriptor implements SurroundDescriptor {
   @Nonnull
   @Override
@@ -61,5 +65,11 @@ public class HaxeSurroundDescriptor implements SurroundDescriptor {
   @Override
   public boolean isExclusive() {
     return false;
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return HaxeLanguage.INSTANCE;
   }
 }

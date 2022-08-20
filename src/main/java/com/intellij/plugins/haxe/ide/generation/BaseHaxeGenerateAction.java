@@ -15,16 +15,16 @@
  */
 package com.intellij.plugins.haxe.ide.generation;
 
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.actionSystem.LangDataKeys;
-import com.intellij.openapi.actionSystem.PlatformDataKeys;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Pair;
+import consulo.language.editor.LangDataKeys;
+import consulo.language.editor.PlatformDataKeys;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.ui.ex.action.AnActionEvent;
+import consulo.codeEditor.Editor;
+import consulo.project.Project;
+import consulo.util.lang.Pair;
 import com.intellij.plugins.haxe.lang.psi.HaxeClass;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.util.PsiTreeUtil;
+import consulo.language.psi.PsiFile;
+import consulo.ui.ex.action.AnAction;
 
 /**
  * @author: Fedor.Korotkov

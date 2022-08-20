@@ -16,78 +16,51 @@
 
 package consulo.haxe.psi.impl;
 
+import com.intellij.plugins.haxe.lang.psi.HaxePackage;
+import consulo.document.util.TextRange;
+import consulo.haxe.module.extension.packageSupport.HaxePackageUtil;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.ReferenceSetBase;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.lang.Comparing;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
-import consulo.haxe.module.extension.packageSupport.HaxePackageUtil;
-
-import javax.annotation.Nullable;
-import com.intellij.openapi.util.Comparing;
-import com.intellij.openapi.util.Condition;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.plugins.haxe.lang.psi.HaxePackage;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.ResolveResult;
-import com.intellij.psi.util.ReferenceSetBase;
-import com.intellij.util.NullableFunction;
-import com.intellij.util.containers.ContainerUtil;
-
 /**
  * @author Dmitry Avdeev
  */
-public class HaxePsiPackageReferenceSet extends ReferenceSetBase<HaxePsiPackageReference>
-{
+public class HaxePsiPackageReferenceSet extends ReferenceSetBase<HaxePsiPackageReference> {
 
-	public HaxePsiPackageReferenceSet(@Nonnull final String str, @Nonnull final PsiElement element, final int startInElement)
-	{
-		super(str, element, startInElement, DOT_SEPARATOR);
-	}
+  public HaxePsiPackageReferenceSet(@Nonnull final String str, @Nonnull final PsiElement element, final int startInElement) {
+    super(str, element, startInElement, DOT_SEPARATOR);
+  }
 
-	@Override
-	@Nonnull
-	protected HaxePsiPackageReference createReference(final TextRange range, final int index)
-	{
-		return new HaxePsiPackageReference(this, range, index);
-	}
+  @Override
+  @Nonnull
+  protected HaxePsiPackageReference createReference(final TextRange range, final int index) {
+    return new HaxePsiPackageReference(this, range, index);
+  }
 
-	public Collection<HaxePackage> resolvePackageName(@Nullable HaxePackage context, final String packageName)
-	{
-		if(context != null)
-		{
-			return ContainerUtil.filter(context.getSubPackages(), new Condition<HaxePackage>()
-			{
-				@Override
-				public boolean value(HaxePackage aPackage)
-				{
-					return Comparing.equal(aPackage.getName(), packageName);
-				}
-			});
-		}
-		return Collections.emptyList();
-	}
+  public Collection<HaxePackage> resolvePackageName(@Nullable HaxePackage context, final String packageName) {
+    if (context != null) {
+      return ContainerUtil.filter(context.getSubPackages(), aPackage -> Comparing.equal(aPackage.getName(), packageName));
+    }
+    return Collections.emptyList();
+  }
 
-	public Collection<HaxePackage> resolvePackage()
-	{
-		final HaxePsiPackageReference packageReference = getLastReference();
-		if(packageReference == null)
-		{
-			return Collections.emptyList();
-		}
-		return ContainerUtil.map2List(packageReference.multiResolve(false), new NullableFunction<ResolveResult, HaxePackage>()
-		{
-			@Override
-			public HaxePackage fun(final ResolveResult resolveResult)
-			{
-				return (HaxePackage) resolveResult.getElement();
-			}
-		});
-	}
+  public Collection<HaxePackage> resolvePackage() {
+    final HaxePsiPackageReference packageReference = getLastReference();
+    if (packageReference == null) {
+      return Collections.emptyList();
+    }
+    return ContainerUtil.map2List(packageReference.multiResolve(false), resolveResult -> (HaxePackage) resolveResult.getElement());
+  }
 
-	public Set<HaxePackage> getInitialContext()
-	{
-		return Collections.singleton(HaxePackageUtil.findPackage(getElement().getProject(), ""));
-	}
+  public Set<HaxePackage> getInitialContext() {
+    return Collections.singleton(HaxePackageUtil.findPackage(getElement().getProject(), ""));
+  }
 }

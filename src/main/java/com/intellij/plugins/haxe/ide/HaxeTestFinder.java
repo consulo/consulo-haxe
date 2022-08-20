@@ -15,14 +15,15 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import com.intellij.openapi.util.Pair;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.util.lang.Pair;
 import com.intellij.plugins.haxe.ide.index.HaxeComponentIndex;
 import com.intellij.plugins.haxe.lang.psi.HaxeClass;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.testIntegration.TestFinder;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.editor.testIntegration.TestFinder;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
@@ -32,6 +33,7 @@ import java.util.HashSet;
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeTestFinder implements TestFinder {
   @Override
   public HaxeClass findSourceElement(@Nonnull PsiElement from) {

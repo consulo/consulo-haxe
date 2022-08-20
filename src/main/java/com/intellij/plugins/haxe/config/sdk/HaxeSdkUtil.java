@@ -15,26 +15,26 @@
  */
 package com.intellij.plugins.haxe.config.sdk;
 
+import com.intellij.plugins.haxe.util.HaxeSdkUtilBase;
+import consulo.application.util.SystemInfo;
+import consulo.logging.Logger;
+import consulo.process.ExecutionException;
+import consulo.process.cmd.GeneralCommandLine;
+import consulo.process.local.CapturingProcessHandler;
+import consulo.process.local.ProcessOutput;
+import consulo.util.io.FileUtil;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.VirtualFileManager;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import com.intellij.execution.ExecutionException;
-import com.intellij.execution.configurations.GeneralCommandLine;
-import com.intellij.execution.process.CapturingProcessHandler;
-import com.intellij.execution.process.ProcessOutput;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.util.SystemInfo;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.vfs.VirtualFileManager;
-import com.intellij.plugins.haxe.util.HaxeSdkUtilBase;
-
 public class HaxeSdkUtil extends HaxeSdkUtilBase {
-  private static final Logger LOG = Logger.getInstance("#com.intellij.plugins.haxe.config.sdk.HaxeSdkUtil");
+  private static final Logger LOG = Logger.getInstance(HaxeSdkUtil.class);
   private static final Pattern VERSION_MATCHER = Pattern.compile("(\\d+(\\.\\d+)+)");
   private static final String COMPILER_EXECUTABLE_NAME = "haxe";
   private static final String HAXELIB_EXECUTABLE_NAME = "haxelib";

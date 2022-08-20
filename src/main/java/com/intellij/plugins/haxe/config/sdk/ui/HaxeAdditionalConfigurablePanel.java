@@ -15,11 +15,11 @@
  */
 package com.intellij.plugins.haxe.config.sdk.ui;
 
-import com.intellij.openapi.fileChooser.FileChooser;
-import com.intellij.openapi.fileChooser.FileChooserDescriptor;
-import com.intellij.openapi.ui.TextFieldWithBrowseButton;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.openapi.vfs.VirtualFile;
+import consulo.fileChooser.FileChooserDescriptor;
+import consulo.fileChooser.IdeaFileChooser;
+import consulo.ui.ex.awt.TextFieldWithBrowseButton;
+import consulo.util.io.FileUtil;
+import consulo.virtualFileSystem.VirtualFile;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -40,7 +40,7 @@ public class HaxeAdditionalConfigurablePanel {
       @Override
       public void actionPerformed(ActionEvent e) {
         final FileChooserDescriptor descriptor = new FileChooserDescriptor(true, false, false, false, false, false);
-        final VirtualFile file = FileChooser.chooseFile(descriptor, myPanel, null, null);
+        final VirtualFile file = IdeaFileChooser.chooseFile(descriptor, myPanel, null, null);
         if (file != null) {
           setNekoBinPath(FileUtil.toSystemIndependentName(file.getPath()));
         }
@@ -51,7 +51,7 @@ public class HaxeAdditionalConfigurablePanel {
       @Override
       public void actionPerformed(ActionEvent e) {
         final FileChooserDescriptor descriptor = new FileChooserDescriptor(true, false, false, false, false, false);
-        final VirtualFile file = FileChooser.chooseFile(descriptor, myPanel, null, null);
+        final VirtualFile file = IdeaFileChooser.chooseFile(descriptor, myPanel, null, null);
         if (file != null) {
           setHaxelibPath(FileUtil.toSystemIndependentName(file.getPath()));
         }

@@ -15,13 +15,14 @@
  */
 package com.intellij.plugins.haxe.ide.formatter;
 
-import com.intellij.formatting.Indent;
-import com.intellij.lang.ASTNode;
+import consulo.language.codeStyle.Indent;
+import consulo.language.ast.ASTNode;
 import com.intellij.plugins.haxe.util.UsefulPsiTreeUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.codeStyle.CommonCodeStyleSettings;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.psi.PsiElement;
+import consulo.language.codeStyle.CommonCodeStyleSettings;
+import consulo.language.ast.IElementType;
+import consulo.language.psi.PsiFile;
+
 import javax.annotation.Nullable;
 
 import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.COMMENTS;

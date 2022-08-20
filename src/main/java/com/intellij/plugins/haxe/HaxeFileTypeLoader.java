@@ -15,16 +15,16 @@
  */
 package com.intellij.plugins.haxe;
 
+import consulo.annotation.component.ExtensionImpl;
+import consulo.virtualFileSystem.fileType.FileTypeConsumer;
+import consulo.virtualFileSystem.fileType.FileTypeFactory;
+
 import javax.annotation.Nonnull;
 
-import com.intellij.openapi.fileTypes.FileTypeConsumer;
-import com.intellij.openapi.fileTypes.FileTypeFactory;
-
-public class HaxeFileTypeLoader extends FileTypeFactory
-{
-	@Override
-	public void createFileTypes(@Nonnull FileTypeConsumer consumer)
-	{
-		consumer.consume(HaxeFileType.HAXE_FILE_TYPE);
-	}
+@ExtensionImpl
+public class HaxeFileTypeLoader extends FileTypeFactory {
+  @Override
+  public void createFileTypes(@Nonnull FileTypeConsumer consumer) {
+    consumer.consume(HaxeFileType.HAXE_FILE_TYPE);
+  }
 }

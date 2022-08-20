@@ -17,24 +17,18 @@
  */
 package com.intellij.plugins.haxe.lang.psi.impl;
 
-import java.util.List;
+import com.intellij.plugins.haxe.HaxeComponentType;
+import com.intellij.plugins.haxe.lang.psi.*;
+import com.intellij.plugins.haxe.util.HaxeResolveUtil;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.io.FileUtil;
+import consulo.util.lang.function.Condition;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.util.Condition;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.plugins.haxe.HaxeComponentType;
-import com.intellij.plugins.haxe.lang.psi.HaxeClass;
-import com.intellij.plugins.haxe.lang.psi.HaxeExternClassDeclaration;
-import com.intellij.plugins.haxe.lang.psi.HaxeInheritList;
-import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
-import com.intellij.plugins.haxe.lang.psi.HaxeType;
-import com.intellij.plugins.haxe.lang.psi.HaxeVarDeclaration;
-import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.containers.ContainerUtil;
+import java.util.List;
 
 /**
  * @author: Fedor.Korotkov
@@ -140,7 +134,7 @@ public abstract class AbstractHaxePsiClass extends AbstractHaxeNamedComponent im
 	@Override
 	public HaxeNamedComponent findMethodByName(@Nonnull final String name)
 	{
-		return ContainerUtil.find(getMethods(), new Condition<HaxeNamedComponent>()
+		return ContainerUtil.find(getMethods(), new consulo.util.lang.function.Condition<HaxeNamedComponent>()
 		{
 			@Override
 			public boolean value(HaxeNamedComponent component)

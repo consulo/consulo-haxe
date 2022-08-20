@@ -16,15 +16,14 @@
 package com.intellij.plugins.haxe.lang.psi;
 
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.ResolveState;
-import com.intellij.psi.impl.source.resolve.ResolveCache;
-import com.intellij.psi.scope.PsiScopeProcessor;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.containers.ContainerUtil;
 import consulo.haxe.module.extension.packageSupport.HaxePackageUtil;
 import consulo.haxe.psi.impl.HaxePsiPackageReference;
 import consulo.haxe.psi.impl.HaxePsiPackageReferenceSet;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.resolve.PsiScopeProcessor;
+import consulo.language.psi.resolve.ResolveCache;
+import consulo.language.psi.resolve.ResolveState;
+import consulo.language.psi.util.PsiTreeUtil;
 import consulo.util.dataholder.Key;
 
 import javax.annotation.Nonnull;
@@ -112,7 +111,7 @@ public class HaxeResolver implements ResolveCache.AbstractResolver<HaxeReference
       }
     }
 
-    return ContainerUtil.emptyList();
+    return List.of();
   }
 
   @Nullable

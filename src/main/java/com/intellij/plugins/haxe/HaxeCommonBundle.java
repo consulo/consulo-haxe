@@ -15,8 +15,8 @@
  */
 package com.intellij.plugins.haxe;
 
-import com.intellij.CommonBundle;
-import com.intellij.reference.SoftReference;
+import consulo.application.CommonBundle;
+import consulo.util.lang.ref.SoftReference;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.PropertyKey;
 

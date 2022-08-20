@@ -15,16 +15,12 @@
  */
 package com.intellij.plugins.haxe.ide.formatter;
 
-import javax.annotation.Nonnull;
+import consulo.document.util.TextRange;
+import consulo.language.ast.ASTNode;
+import consulo.language.codeStyle.*;
+import consulo.language.psi.PsiFile;
 
-import com.intellij.formatting.Block;
-import com.intellij.formatting.FormattingDocumentModel;
-import com.intellij.formatting.FormattingModel;
-import com.intellij.formatting.FormattingModelProvider;
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.codeStyle.CodeStyleSettings;
+import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov

@@ -15,27 +15,27 @@
  */
 package com.intellij.plugins.haxe.runner;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.execution.ExecutionException;
-import com.intellij.execution.configurations.CommandLineState;
-import com.intellij.execution.configurations.GeneralCommandLine;
-import com.intellij.execution.filters.TextConsoleBuilder;
-import com.intellij.execution.filters.TextConsoleBuilderFactory;
-import com.intellij.execution.process.OSProcessHandler;
-import com.intellij.execution.process.ProcessHandler;
-import com.intellij.execution.runners.ExecutionEnvironment;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtilCore;
-import com.intellij.openapi.projectRoots.Sdk;
 import com.intellij.plugins.haxe.HaxeCommonBundle;
 import com.intellij.plugins.haxe.config.sdk.HaxeSdkData;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
-import com.intellij.util.text.StringTokenizer;
+import consulo.content.bundle.Sdk;
+import consulo.execution.configuration.CommandLineState;
+import consulo.execution.runner.ExecutionEnvironment;
+import consulo.execution.ui.console.TextConsoleBuilder;
+import consulo.execution.ui.console.TextConsoleBuilderFactory;
 import consulo.haxe.module.extension.HaxeModuleExtension;
+import consulo.language.util.ModuleUtilCore;
+import consulo.module.Module;
+import consulo.process.ExecutionException;
+import consulo.process.ProcessHandler;
+import consulo.process.cmd.GeneralCommandLine;
+import consulo.process.local.ProcessHandlerFactory;
+import consulo.util.lang.text.StringTokenizer;
+
+import javax.annotation.Nonnull;
 
 /**
- * @author: Fedor.Korotkov
+ * @author Fedor.Korotkov
  */
 public class NMERunningState extends CommandLineState {
   private final Module module;
@@ -62,11 +62,11 @@ public class NMERunningState extends CommandLineState {
 
     GeneralCommandLine commandLine = getCommandForNeko(sdk, settings);
 
-    return new OSProcessHandler(commandLine.createProcess(), commandLine.getCommandLineString());
+    return ProcessHandlerFactory.getInstance().createProcessHandler(commandLine);
   }
 
   private GeneralCommandLine getCommandForNeko(Sdk sdk, HaxeModuleSettings settings) throws ExecutionException {
-    final HaxeSdkData sdkData = sdk.getSdkAdditionalData() instanceof HaxeSdkData ? (HaxeSdkData)sdk.getSdkAdditionalData() : null;
+    final HaxeSdkData sdkData = sdk.getSdkAdditionalData() instanceof HaxeSdkData ? (HaxeSdkData) sdk.getSdkAdditionalData() : null;
     if (sdkData == null) {
       throw new ExecutionException(HaxeCommonBundle.message("invalid.haxe.sdk"));
     }
@@ -90,7 +90,7 @@ public class NMERunningState extends CommandLineState {
       commandLine.addParameter("-Ddebug");
     }
 
-    final StringTokenizer flagsTokenizer = new StringTokenizer(settings.getNmeFlags());
+    final consulo.util.lang.text.StringTokenizer flagsTokenizer = new StringTokenizer(settings.getNmeFlags());
     while (flagsTokenizer.hasMoreTokens()) {
       commandLine.addParameter(flagsTokenizer.nextToken());
     }

@@ -15,14 +15,16 @@
  */
 package com.intellij.plugins.haxe.nmml;
 
-import javax.annotation.Nonnull;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.virtualFileSystem.fileType.FileTypeConsumer;
+import consulo.virtualFileSystem.fileType.FileTypeFactory;
 
-import com.intellij.openapi.fileTypes.FileTypeConsumer;
-import com.intellij.openapi.fileTypes.FileTypeFactory;
+import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class NMMLFileTypeFactory extends FileTypeFactory {
   public void createFileTypes(final @Nonnull FileTypeConsumer consumer) {
     final NMMLFileType fileType = NMMLFileType.INSTANCE;

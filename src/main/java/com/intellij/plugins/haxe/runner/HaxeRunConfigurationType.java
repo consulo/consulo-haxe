@@ -15,83 +15,72 @@
  */
 package com.intellij.plugins.haxe.runner;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.execution.configurations.ConfigurationFactory;
-import com.intellij.execution.configurations.ConfigurationType;
-import com.intellij.execution.configurations.RunConfiguration;
-import com.intellij.openapi.extensions.Extensions;
-import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.HaxeBundle;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.execution.configuration.ConfigurationFactory;
+import consulo.execution.configuration.ConfigurationType;
+import consulo.execution.configuration.RunConfiguration;
 import consulo.haxe.module.extension.HaxeModuleExtension;
 import consulo.module.extension.ModuleExtensionHelper;
+import consulo.project.Project;
 import consulo.ui.image.Image;
-import icons.HaxeIcons;
+import com.intellij.plugins.haxe.HaxeIcons;
 
-public class HaxeRunConfigurationType implements ConfigurationType
-{
-	private final HaxeFactory configurationFactory;
+import javax.annotation.Nonnull;
 
-	public HaxeRunConfigurationType()
-	{
-		configurationFactory = new HaxeFactory(this);
-	}
+@ExtensionImpl
+public class HaxeRunConfigurationType implements ConfigurationType {
+  private final HaxeFactory configurationFactory;
 
-	public static HaxeRunConfigurationType getInstance()
-	{
-		return ContainerUtil.findInstance(Extensions.getExtensions(CONFIGURATION_TYPE_EP), HaxeRunConfigurationType.class);
-	}
+  public HaxeRunConfigurationType() {
+    configurationFactory = new HaxeFactory(this);
+  }
 
-	@Override
-	public String getDisplayName()
-	{
-		return HaxeBundle.message("runner.configuration.name");
-	}
+  @Nonnull
+  public static HaxeRunConfigurationType getInstance() {
+    return EP_NAME.findExtensionOrFail(HaxeRunConfigurationType.class);
+  }
 
-	@Override
-	public String getConfigurationTypeDescription()
-	{
-		return HaxeBundle.message("runner.configuration.name");
-	}
+  @Override
+  public String getDisplayName() {
+    return HaxeBundle.message("runner.configuration.name");
+  }
 
-	@Override
-	public Image getIcon()
-	{
-		return HaxeIcons.Haxe;
-	}
+  @Override
+  public String getConfigurationTypeDescription() {
+    return HaxeBundle.message("runner.configuration.name");
+  }
 
-	@Override
-	@Nonnull
-	public String getId()
-	{
-		return "HaxeApplicationRunConfiguration";
-	}
+  @Override
+  public Image getIcon() {
+    return HaxeIcons.Haxe;
+  }
 
-	@Override
-	public ConfigurationFactory[] getConfigurationFactories()
-	{
-		return new ConfigurationFactory[]{configurationFactory};
-	}
+  @Override
+  @Nonnull
+  public String getId() {
+    return "HaxeApplicationRunConfiguration";
+  }
 
-	public static class HaxeFactory extends ConfigurationFactory
-	{
-		public HaxeFactory(ConfigurationType type)
-		{
-			super(type);
-		}
+  @Override
+  public ConfigurationFactory[] getConfigurationFactories() {
+    return new ConfigurationFactory[]{configurationFactory};
+  }
 
-		@Override
-		public boolean isApplicable(@Nonnull Project project)
-		{
-			return ModuleExtensionHelper.getInstance(project).hasModuleExtension(HaxeModuleExtension.class);
-		}
+  public static class HaxeFactory extends ConfigurationFactory {
+    public HaxeFactory(ConfigurationType type) {
+      super(type);
+    }
 
-		@Override
-		public RunConfiguration createTemplateConfiguration(Project project)
-		{
-			final String name = HaxeBundle.message("runner.configuration.name");
-			return new HaxeApplicationConfiguration(name, project, getInstance());
-		}
-	}
+    @Override
+    public boolean isApplicable(@Nonnull Project project) {
+      return ModuleExtensionHelper.getInstance(project).hasModuleExtension(HaxeModuleExtension.class);
+    }
+
+    @Override
+    public RunConfiguration createTemplateConfiguration(Project project) {
+      final String name = HaxeBundle.message("runner.configuration.name");
+      return new HaxeApplicationConfiguration(name, project, getInstance());
+    }
+  }
 }

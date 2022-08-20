@@ -15,17 +15,19 @@
  */
 package com.intellij.plugins.haxe.ide.template.macro;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.codeInsight.template.Expression;
-import com.intellij.codeInsight.template.ExpressionContext;
-import com.intellij.codeInsight.template.Macro;
-import com.intellij.codeInsight.template.Result;
 import com.intellij.plugins.haxe.HaxeBundle;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.template.Expression;
+import consulo.language.editor.template.ExpressionContext;
+import consulo.language.editor.template.Result;
+import consulo.language.editor.template.macro.Macro;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeSuggestVariableNameMacro extends Macro {
   @Override
   public String getName() {

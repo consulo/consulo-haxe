@@ -15,19 +15,22 @@
  */
 package com.intellij.plugins.haxe.ide.editor;
 
-import com.intellij.codeInsight.editorActions.TypedHandlerDelegate;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.lang.psi.HaxeComponentName;
 import com.intellij.plugins.haxe.lang.psi.HaxePsiCompositeElement;
 import com.intellij.plugins.haxe.lang.psi.HaxeType;
 import com.intellij.plugins.haxe.util.UsefulPsiTreeUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.util.PsiTreeUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.codeEditor.Editor;
+import consulo.language.editor.action.TypedHandlerDelegate;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.project.Project;
+import consulo.virtualFileSystem.fileType.FileType;
+
 import javax.annotation.Nonnull;
 
+@ExtensionImpl(id = "haxe")
 public class HaxeTypedHandler extends TypedHandlerDelegate {
   private boolean myAfterTypeOrComponentName = false;
   private boolean myAfterDollar = false;
@@ -65,8 +68,7 @@ public class HaxeTypedHandler extends TypedHandlerDelegate {
     if (c == '<' && myAfterTypeOrComponentName) {
       myAfterTypeOrComponentName = false;
       textToInsert = ">";
-    }
-    else if (c == '{' && myAfterDollar) {
+    } else if (c == '{' && myAfterDollar) {
       myAfterDollar = false;
       textToInsert = "}";
     }

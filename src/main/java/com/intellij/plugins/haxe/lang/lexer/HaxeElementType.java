@@ -16,11 +16,12 @@
 package com.intellij.plugins.haxe.lang.lexer;
 
 import com.intellij.plugins.haxe.HaxeLanguage;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.IElementType;
 import org.jetbrains.annotations.NonNls;
 import javax.annotation.Nonnull;
 
-public class HaxeElementType extends IElementType {
+public class HaxeElementType extends IElementType
+{
 
   public HaxeElementType(@Nonnull @NonNls String debugName) {
     super(debugName, HaxeLanguage.INSTANCE);

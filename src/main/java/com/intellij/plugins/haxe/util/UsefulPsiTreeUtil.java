@@ -26,11 +26,16 @@ import java.util.Queue;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.impl.DirectoryIndex;
-import com.intellij.openapi.util.Condition;
-import com.intellij.openapi.vfs.VirtualFile;
+
+import consulo.application.util.query.Query;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.PsiComment;
+import consulo.language.psi.PsiFile;
+import consulo.module.content.DirectoryIndex;
+import consulo.project.Project;
+import consulo.util.collection.ArrayUtil;
+import consulo.util.collection.SmartList;
+import consulo.util.lang.function.Condition;
 import com.intellij.plugins.haxe.HaxeFileType;
 import com.intellij.plugins.haxe.lang.psi.HaxeClass;
 import com.intellij.plugins.haxe.lang.psi.HaxeExpression;
@@ -41,16 +46,12 @@ import com.intellij.plugins.haxe.lang.psi.HaxeImportStatementWithWildcard;
 import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
 import com.intellij.plugins.haxe.lang.psi.HaxePsiCompositeElement;
 import com.intellij.plugins.haxe.lang.psi.HaxeReferenceExpression;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.PsiWhiteSpace;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.ArrayUtil;
-import com.intellij.util.Query;
-import com.intellij.util.SmartList;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiManager;
+import consulo.language.psi.PsiWhiteSpace;
+import consulo.language.ast.IElementType;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.virtualFileSystem.VirtualFile;
 
 /**
  * @author: Fedor.Korotkov
@@ -453,8 +454,8 @@ public class UsefulPsiTreeUtil
 
 	@Nullable
 	public static <T extends PsiElement> T[] getChildrenOfType(@Nullable PsiElement element,
-			@Nonnull Class<T> aClass,
-			@Nullable PsiElement lastParent)
+																					@Nonnull Class<T> aClass,
+																					@Nullable PsiElement lastParent)
 	{
 		if(element == null)
 		{

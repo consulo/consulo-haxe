@@ -16,28 +16,26 @@
 
 package consulo.haxe.module.extension;
 
-import java.util.Set;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.content.ContentFolderTypeProvider;
+import consulo.language.content.ProductionContentFolderTypeProvider;
+import consulo.module.content.layer.ContentFolderSupportPatcher;
+import consulo.module.content.layer.ModifiableRootModel;
 
 import javax.annotation.Nonnull;
-
-import com.intellij.openapi.roots.ModifiableRootModel;
-import consulo.roots.ContentFolderSupportPatcher;
-import consulo.roots.ContentFolderTypeProvider;
-import consulo.roots.impl.ProductionContentFolderTypeProvider;
+import java.util.Set;
 
 /**
  * @author VISTALL
  * @since 13.02.15
  */
-public class HaxeContentFolderSupportPatcher implements ContentFolderSupportPatcher
-{
-	@Override
-	public void patch(@Nonnull ModifiableRootModel model, @Nonnull Set<ContentFolderTypeProvider> set)
-	{
-		HaxeModuleExtension extension = model.getExtension(HaxeModuleExtension.class);
-		if(extension != null)
-		{
-			set.add(ProductionContentFolderTypeProvider.getInstance());
-		}
-	}
+@ExtensionImpl
+public class HaxeContentFolderSupportPatcher implements ContentFolderSupportPatcher {
+  @Override
+  public void patch(@Nonnull ModifiableRootModel model, @Nonnull Set<ContentFolderTypeProvider> set) {
+    HaxeModuleExtension extension = model.getExtension(HaxeModuleExtension.class);
+    if (extension != null) {
+      set.add(ProductionContentFolderTypeProvider.getInstance());
+    }
+  }
 }

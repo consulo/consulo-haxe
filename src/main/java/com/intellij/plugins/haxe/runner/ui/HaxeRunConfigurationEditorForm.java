@@ -15,34 +15,29 @@
  */
 package com.intellij.plugins.haxe.runner.ui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.annotation.Nonnull;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JList;
-import javax.swing.JPanel;
-
-import consulo.haxe.module.extension.HaxeModuleExtension;
-import com.intellij.openapi.fileChooser.FileChooser;
-import com.intellij.openapi.fileChooser.FileChooserDescriptor;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleManager;
-import com.intellij.openapi.module.ModuleUtilCore;
-import com.intellij.openapi.options.ConfigurationException;
-import com.intellij.openapi.options.SettingsEditor;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.TextFieldWithBrowseButton;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.openapi.vfs.VfsUtil;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
 import com.intellij.plugins.haxe.runner.HaxeApplicationConfiguration;
-import com.intellij.ui.ListCellRendererWrapper;
 import consulo.compiler.ModuleCompilerPathsManager;
-import consulo.roots.impl.ProductionContentFolderTypeProvider;
+import consulo.configurable.ConfigurationException;
+import consulo.execution.configuration.ui.SettingsEditor;
+import consulo.fileChooser.FileChooserDescriptor;
+import consulo.fileChooser.IdeaFileChooser;
+import consulo.haxe.module.extension.HaxeModuleExtension;
+import consulo.language.content.ProductionContentFolderTypeProvider;
+import consulo.language.util.ModuleUtilCore;
+import consulo.module.Module;
+import consulo.module.ModuleManager;
+import consulo.project.Project;
+import consulo.ui.ex.awt.ListCellRendererWrapper;
+import consulo.ui.ex.awt.TextFieldWithBrowseButton;
+import consulo.util.io.FileUtil;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.util.VirtualFileUtil;
+
+import javax.annotation.Nonnull;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class HaxeRunConfigurationEditorForm extends SettingsEditor<HaxeApplicationConfiguration> {
   private JPanel component;
@@ -97,7 +92,7 @@ public class HaxeRunConfigurationEditorForm extends SettingsEditor<HaxeApplicati
       @Override
       public void actionPerformed(ActionEvent e) {
         final FileChooserDescriptor descriptor = new FileChooserDescriptor(true, false, false, true, false, false);
-        final VirtualFile file = FileChooser.chooseFile(descriptor, component, null, null);
+        final VirtualFile file = IdeaFileChooser.chooseFile(descriptor, component, null, null);
         if (file != null) {
           customPathToFile = FileUtil.toSystemIndependentName(file.getPath());
           updateComponents();
@@ -119,7 +114,7 @@ public class HaxeRunConfigurationEditorForm extends SettingsEditor<HaxeApplicati
       @Override
       public void actionPerformed(ActionEvent e) {
         final FileChooserDescriptor descriptor = new FileChooserDescriptor(true, false, false, true, false, false);
-        final VirtualFile file = FileChooser.chooseFile(descriptor, component, null, null);
+        final VirtualFile file = IdeaFileChooser.chooseFile(descriptor, component, null, null);
         if (file != null) {
           customPathToExecutable = FileUtil.toSystemIndependentName(file.getPath());
           updateComponents();
@@ -156,7 +151,7 @@ public class HaxeRunConfigurationEditorForm extends SettingsEditor<HaxeApplicati
       final ModuleCompilerPathsManager compilerPathsManager = ModuleCompilerPathsManager.getInstance(getSelectedModule());
 
       final String url = compilerPathsManager.getCompilerOutputUrl(ProductionContentFolderTypeProvider.getInstance()) + "/" + settings.getOutputFileName();
-      myPathToFileTextField.setText(FileUtil.toSystemDependentName(VfsUtil.urlToPath(url)));
+      myPathToFileTextField.setText(FileUtil.toSystemDependentName(VirtualFileUtil.urlToPath(url)));
     }
     else {
       myPathToFileTextField.setText("");
@@ -170,7 +165,8 @@ public class HaxeRunConfigurationEditorForm extends SettingsEditor<HaxeApplicati
   }
 
   @Override
-  protected void applyEditorTo(HaxeApplicationConfiguration configuration) throws ConfigurationException {
+  protected void applyEditorTo(HaxeApplicationConfiguration configuration) throws ConfigurationException
+  {
     configuration.setModule(getSelectedModule());
     configuration.setCustomFileToLaunch(myCustomPathCheckBox.isSelected());
     configuration.setCustomExecutable(myAlternativeExecutable.isSelected());

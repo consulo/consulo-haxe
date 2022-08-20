@@ -16,7 +16,7 @@
 package com.intellij.plugins.haxe.ide.refactoring.introduce;
 
 import com.intellij.plugins.haxe.HaxeBundle;
-import com.intellij.psi.PsiElement;
+import consulo.language.psi.PsiElement;
 import javax.annotation.Nonnull;
 
 import java.util.List;
@@ -37,9 +37,9 @@ public class HaxeIntroduceVariableHandler extends HaxeIntroduceHandler {
   }
 
   public static PsiElement doIntroduceVariable(PsiElement expression,
-                                               PsiElement declaration,
-                                               List<PsiElement> occurrences,
-                                               boolean replaceAll) {
+																	PsiElement declaration,
+																	List<PsiElement> occurrences,
+																	boolean replaceAll) {
     PsiElement anchor = replaceAll ? findAnchor(occurrences) : findAnchor(expression);
     assert anchor != null;
     final PsiElement parent = anchor.getParent();

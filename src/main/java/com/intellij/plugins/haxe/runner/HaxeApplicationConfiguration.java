@@ -15,24 +15,23 @@
  */
 package com.intellij.plugins.haxe.runner;
 
-import com.intellij.execution.ExecutionException;
-import com.intellij.execution.Executor;
-import com.intellij.execution.configurations.ModuleBasedConfiguration;
-import com.intellij.execution.configurations.RunConfiguration;
-import com.intellij.execution.configurations.RunProfileState;
-import com.intellij.execution.configurations.RuntimeConfigurationException;
-import com.intellij.execution.runners.ExecutionEnvironment;
-import com.intellij.execution.runners.RunConfigurationWithSuppressedDefaultRunAction;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleManager;
-import com.intellij.openapi.options.SettingsEditor;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.InvalidDataException;
-import com.intellij.openapi.util.WriteExternalException;
+import consulo.execution.RuntimeConfigurationException;
+import consulo.execution.configuration.*;
+import consulo.execution.configuration.ui.SettingsEditor;
+import consulo.execution.runner.ExecutionEnvironment;
+import consulo.process.ExecutionException;
+import consulo.execution.executor.Executor;
+import consulo.execution.configuration.ModuleBasedConfiguration;
+import consulo.execution.configuration.RunConfiguration;
+import consulo.module.Module;
+import consulo.module.ModuleManager;
+import consulo.util.xml.serializer.InvalidDataException;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
 import com.intellij.plugins.haxe.runner.ui.HaxeRunConfigurationEditorForm;
-import com.intellij.util.xmlb.XmlSerializer;
+import consulo.util.xml.serializer.XmlSerializer;
+import consulo.project.Project;
+import consulo.util.xml.serializer.WriteExternalException;
 import org.jdom.Element;
 import javax.annotation.Nonnull;
 
@@ -40,7 +39,8 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class HaxeApplicationConfiguration extends ModuleBasedConfiguration<HaxeApplicationModuleBasedConfiguration>
-  implements RunConfigurationWithSuppressedDefaultRunAction {
+  implements RunConfigurationWithSuppressedDefaultRunAction
+{
   private boolean customFileToLaunch = false;
   private String customFileToLaunchPath = "";
   private String customExecutablePath = "";
@@ -65,12 +65,14 @@ public class HaxeApplicationConfiguration extends ModuleBasedConfiguration<HaxeA
     return new HaxeRunConfigurationEditorForm(getProject());
   }
 
-  public RunProfileState getState(@Nonnull Executor executor, @Nonnull ExecutionEnvironment env) throws ExecutionException {
+  public RunProfileState getState(@Nonnull Executor executor, @Nonnull ExecutionEnvironment env) throws ExecutionException
+  {
     return HaxeRunner.EMPTY_RUN_STATE;
   }
 
   @Override
-  public void checkConfiguration() throws RuntimeConfigurationException {
+  public void checkConfiguration() throws RuntimeConfigurationException
+  {
     super.checkConfiguration();
     final HaxeApplicationModuleBasedConfiguration configurationModule = getConfigurationModule();
     final Module module = configurationModule.getModule();
@@ -121,7 +123,8 @@ public class HaxeApplicationConfiguration extends ModuleBasedConfiguration<HaxeA
     this.customExecutablePath = customExecutablePath;
   }
 
-  public void writeExternal(final Element element) throws WriteExternalException {
+  public void writeExternal(final Element element) throws WriteExternalException
+  {
     super.writeExternal(element);
     writeModule(element);
     XmlSerializer.serializeInto(this, element);

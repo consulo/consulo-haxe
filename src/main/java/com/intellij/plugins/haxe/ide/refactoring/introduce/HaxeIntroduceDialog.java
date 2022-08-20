@@ -15,14 +15,15 @@
  */
 package com.intellij.plugins.haxe.ide.refactoring.introduce;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.ui.ComboBox;
-import com.intellij.openapi.ui.DialogWrapper;
+import consulo.language.editor.ui.awt.EditorComboBoxEditor;
+import consulo.ui.ex.awt.ComboBox;
+import consulo.ui.ex.awt.DialogWrapper;
 import com.intellij.plugins.haxe.HaxeFileType;
 import com.intellij.plugins.haxe.lang.psi.HaxeExpression;
-import com.intellij.ui.EditorComboBoxEditor;
-import com.intellij.ui.EditorComboBoxRenderer;
-import com.intellij.ui.StringComboboxEditor;
+import consulo.language.editor.ui.awt.EditorComboBoxRenderer;
+import consulo.language.editor.ui.awt.StringComboboxEditor;
+import consulo.project.Project;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -35,7 +36,8 @@ import java.util.Collection;
 /**
  * User: Fedor.Korotkov
  */
-public class HaxeIntroduceDialog extends DialogWrapper {
+public class HaxeIntroduceDialog extends DialogWrapper
+{
   private JPanel myContentPane;
   private JLabel myNameLabel;
   private ComboBox myNameComboBox;

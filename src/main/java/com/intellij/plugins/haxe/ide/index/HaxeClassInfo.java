@@ -15,11 +15,12 @@
  */
 package com.intellij.plugins.haxe.ide.index;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import com.intellij.plugins.haxe.HaxeComponentType;
 import consulo.ui.image.Image;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Objects;
 
 /**
  * @author: Fedor.Korotkov
@@ -47,5 +48,19 @@ public class HaxeClassInfo {
   @Nullable
   public Image getIcon() {
     return type == null ? null : type.getIcon();
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    HaxeClassInfo that = (HaxeClassInfo) o;
+    return Objects.equals(value, that.value) &&
+        type == that.type;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(value, type);
   }
 }

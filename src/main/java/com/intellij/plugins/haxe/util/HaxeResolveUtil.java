@@ -17,35 +17,31 @@
  */
 package com.intellij.plugins.haxe.util;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtilCore;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Condition;
-import com.intellij.openapi.util.Pair;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.plugins.haxe.HaxeComponentType;
 import com.intellij.plugins.haxe.ide.index.HaxeComponentFileNameIndex;
 import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes;
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.plugins.haxe.lang.psi.impl.AbstractHaxeTypeDefImpl;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.impl.source.tree.LeafPsiElement;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.Function;
-import com.intellij.util.containers.ContainerUtil;
-import consulo.psi.PsiPackage;
+import consulo.application.ApplicationManager;
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.IElementType;
+import consulo.language.impl.psi.LeafPsiElement;
+import consulo.language.psi.*;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.util.ModuleUtilCore;
+import consulo.module.Module;
+import consulo.project.Project;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.lang.Pair;
+import consulo.util.lang.function.Condition;
+import consulo.virtualFileSystem.VirtualFile;
 import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
+import java.util.function.Function;
 
 /**
  * @author: Fedor.Korotkov
@@ -415,7 +411,7 @@ public class HaxeResolveUtil
 		return ContainerUtil.map(parameterList.getParameterList(), new Function<HaxeParameter, HaxeType>()
 		{
 			@Override
-			public HaxeType fun(HaxeParameter parameter)
+			public HaxeType apply(HaxeParameter parameter)
 			{
 				final HaxeTypeTag typeTag = parameter.getTypeTag();
 				return typeTag == null ? null : typeTag.getTypeOrAnonymousList().get(0).getType();
@@ -640,7 +636,7 @@ public class HaxeResolveUtil
 
 	public static String getQName(PsiElement[] fileChildren, final String result, boolean searchInSamePackage)
 	{
-		final HaxeImportStatementRegular importStatement = (HaxeImportStatementRegular) ContainerUtil.find(fileChildren, new Condition<PsiElement>()
+		final HaxeImportStatementRegular importStatement = (HaxeImportStatementRegular) ContainerUtil.find(fileChildren, new consulo.util.lang.function.Condition<PsiElement>()
 		{
 			@Override
 			public boolean value(PsiElement element)
@@ -661,7 +657,7 @@ public class HaxeResolveUtil
 			}
 		});
 
-		final List<PsiElement> importStatementWithWildcardList = ContainerUtil.findAll(fileChildren, new Condition<PsiElement>()
+		final List<PsiElement> importStatementWithWildcardList = ContainerUtil.findAll(fileChildren, new consulo.util.lang.function.Condition<PsiElement>()
 		{
 			@Override
 			public boolean value(PsiElement element)
@@ -846,7 +842,7 @@ public class HaxeResolveUtil
 		return ContainerUtil.map(components, new Function<HaxeNamedComponent, HaxeComponentName>()
 		{
 			@Override
-			public HaxeComponentName fun(HaxeNamedComponent component)
+			public HaxeComponentName apply(HaxeNamedComponent component)
 			{
 				return component.getComponentName();
 			}

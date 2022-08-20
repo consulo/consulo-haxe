@@ -15,10 +15,10 @@
  */
 package com.intellij.plugins.haxe.ide.index;
 
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.vfs.VirtualFile;
+import consulo.virtualFileSystem.VirtualFile;
 import com.intellij.plugins.haxe.HaxeFileType;
-import com.intellij.util.indexing.FileBasedIndex;
+import consulo.language.psi.stub.FileBasedIndex;
+import consulo.project.Project;
 
 public class HaxeSdkInputFilter implements FileBasedIndex.InputFilter {
   public static HaxeSdkInputFilter INSTANCE = new HaxeSdkInputFilter();

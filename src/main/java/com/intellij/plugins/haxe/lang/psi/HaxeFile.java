@@ -15,28 +15,20 @@
  */
 package com.intellij.plugins.haxe.lang.psi;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.extapi.psi.PsiFileBase;
-import com.intellij.openapi.fileTypes.FileType;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.plugins.haxe.HaxeFileType;
 import com.intellij.plugins.haxe.HaxeLanguage;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiReference;
-import com.intellij.util.IncorrectOperationException;
+import consulo.language.file.FileViewProvider;
+import consulo.language.impl.psi.PsiFileBase;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiReference;
+import consulo.language.util.IncorrectOperationException;
+import consulo.util.io.FileUtil;
+
+import javax.annotation.Nonnull;
 
 public class HaxeFile extends PsiFileBase {
   public HaxeFile(@Nonnull FileViewProvider viewProvider) {
     super(viewProvider, HaxeLanguage.INSTANCE);
-  }
-
-  @Nonnull
-  @Override
-  public FileType getFileType() {
-    return HaxeFileType.HAXE_FILE_TYPE;
   }
 
   @Override

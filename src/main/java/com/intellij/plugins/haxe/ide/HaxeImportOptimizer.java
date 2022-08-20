@@ -17,71 +17,71 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import javax.annotation.Nonnull;
-import com.intellij.injected.editor.VirtualFileWindow;
-import com.intellij.lang.ImportOptimizer;
-import com.intellij.openapi.roots.ProjectRootManager;
-import com.intellij.openapi.util.EmptyRunnable;
-import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.plugins.haxe.HaxeLanguage;
 import com.intellij.plugins.haxe.lang.psi.HaxeFile;
 import com.intellij.plugins.haxe.lang.psi.HaxeImportStatementRegular;
 import com.intellij.plugins.haxe.lang.psi.HaxeImportStatementWithInSupport;
 import com.intellij.plugins.haxe.lang.psi.HaxeImportStatementWithWildcard;
 import com.intellij.plugins.haxe.util.HaxeImportUtil;
-import com.intellij.psi.PsiFile;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.editor.refactoring.ImportOptimizer;
+import consulo.language.file.inject.VirtualFileWindow;
+import consulo.language.psi.PsiFile;
+import consulo.module.content.ProjectRootManager;
+import consulo.util.lang.EmptyRunnable;
+import consulo.virtualFileSystem.VirtualFile;
+
+import javax.annotation.Nonnull;
 
 /**
  * Created by fedorkorotkov.
  */
-public class HaxeImportOptimizer implements ImportOptimizer
-{
-	@Override
-	public boolean supports(PsiFile file)
-	{
-		return file instanceof HaxeFile;
-	}
+@ExtensionImpl
+public class HaxeImportOptimizer implements ImportOptimizer {
+  @Override
+  public boolean supports(PsiFile file) {
+    return file instanceof HaxeFile;
+  }
 
-	@Nonnull
-	@Override
-	public Runnable processFile(final PsiFile file)
-	{
-		VirtualFile vFile = file.getVirtualFile();
-		if(vFile instanceof VirtualFileWindow)
-		{
-			vFile = ((VirtualFileWindow) vFile).getDelegate();
-		}
-		if(vFile == null || !ProjectRootManager.getInstance(file.getProject()).getFileIndex().isInSourceContent(vFile))
-		{
-			return EmptyRunnable.INSTANCE;
-		}
+  @Nonnull
+  @Override
+  public Runnable processFile(final PsiFile file) {
+    VirtualFile vFile = file.getVirtualFile();
+    if (vFile instanceof VirtualFileWindow) {
+      vFile = ((VirtualFileWindow) vFile).getDelegate();
+    }
+    if (vFile == null || !ProjectRootManager.getInstance(file.getProject()).getFileIndex().isInSourceContent(vFile)) {
+      return EmptyRunnable.INSTANCE;
+    }
 
-		return new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				optimizeImports(file);
-			}
-		};
-	}
+    return new Runnable() {
+      @Override
+      public void run() {
+        optimizeImports(file);
+      }
+    };
+  }
 
-	private static void optimizeImports(PsiFile file)
-	{
-		for(HaxeImportStatementRegular unusedImportStatement : HaxeImportUtil.findUnusedImports(file))
-		{
-			unusedImportStatement.delete();
-		}
+  private static void optimizeImports(PsiFile file) {
+    for (HaxeImportStatementRegular unusedImportStatement : HaxeImportUtil.findUnusedImports(file)) {
+      unusedImportStatement.delete();
+    }
 
-		for(HaxeImportStatementWithInSupport unusedImportStatement : HaxeImportUtil.findUnusedInImports(file))
-		{
-			unusedImportStatement.delete();
-		}
+    for (HaxeImportStatementWithInSupport unusedImportStatement : HaxeImportUtil.findUnusedInImports(file)) {
+      unusedImportStatement.delete();
+    }
 
-		for(HaxeImportStatementWithWildcard unusedImportStatement : HaxeImportUtil.findUnusedInImportsWithWildcards(file))
-		{
-			unusedImportStatement.delete();
-		}
+    for (HaxeImportStatementWithWildcard unusedImportStatement : HaxeImportUtil.findUnusedInImportsWithWildcards(file)) {
+      unusedImportStatement.delete();
+    }
 
-		// todo: rearrange
-	}
+    // todo: rearrange
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return HaxeLanguage.INSTANCE;
+  }
 }

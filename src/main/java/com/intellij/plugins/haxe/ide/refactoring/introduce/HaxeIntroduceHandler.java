@@ -15,37 +15,36 @@
  */
 package com.intellij.plugins.haxe.ide.refactoring.introduce;
 
-import com.intellij.codeInsight.CodeInsightUtilBase;
-import com.intellij.codeInsight.template.impl.TemplateManagerImpl;
-import com.intellij.codeInsight.template.impl.TemplateState;
-import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.application.Result;
-import com.intellij.openapi.command.WriteCommandAction;
-import com.intellij.openapi.editor.CaretModel;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.SelectionModel;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Pass;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.HaxeComponentType;
 import com.intellij.plugins.haxe.ide.refactoring.HaxeRefactoringUtil;
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.plugins.haxe.util.HaxeElementGenerator;
 import com.intellij.plugins.haxe.util.HaxeNameSuggesterUtil;
-import com.intellij.psi.*;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.refactoring.IntroduceTargetChooser;
-import com.intellij.refactoring.RefactoringActionHandler;
-import com.intellij.refactoring.introduce.inplace.InplaceVariableIntroducer;
-import com.intellij.refactoring.introduce.inplace.OccurrencesChooser;
-import com.intellij.refactoring.util.CommonRefactoringUtil;
-import com.intellij.util.Function;
+import consulo.application.ApplicationManager;
+import consulo.application.Result;
+import consulo.codeEditor.CaretModel;
+import consulo.codeEditor.Editor;
+import consulo.codeEditor.SelectionModel;
+import consulo.dataContext.DataContext;
+import consulo.document.Document;
+import consulo.language.editor.CodeInsightUtilCore;
+import consulo.language.editor.WriteCommandAction;
+import consulo.language.editor.refactoring.IntroduceTargetChooser;
+import consulo.language.editor.refactoring.action.RefactoringActionHandler;
+import consulo.language.editor.refactoring.introduce.inplace.InplaceVariableIntroducer;
+import consulo.language.editor.refactoring.introduce.inplace.OccurrencesChooser;
+import consulo.language.editor.refactoring.util.CommonRefactoringUtil;
+import consulo.language.editor.template.TemplateManager;
+import consulo.language.editor.template.TemplateState;
+import consulo.language.psi.*;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.project.Project;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * @author: Fedor.Korotkov
@@ -113,7 +112,7 @@ public abstract class HaxeIntroduceHandler implements RefactoringActionHandler {
     }
     final Editor editor = operation.getEditor();
     if (editor.getSettings().isVariableInplaceRenameEnabled()) {
-      final TemplateState templateState = TemplateManagerImpl.getTemplateState(operation.getEditor());
+      final TemplateState templateState = TemplateManager.getInstance(operation.getProject()).getTemplateState(operation.getEditor());
       if (templateState != null && !templateState.isFinished()) {
         return;
       }
@@ -212,17 +211,13 @@ public abstract class HaxeIntroduceHandler implements RefactoringActionHandler {
       IntroduceTargetChooser.showChooser(
         editor,
         expressions,
-        new Pass<HaxeExpression>() {
+        new Consumer<HaxeExpression>() {
           @Override
-          public void pass(HaxeExpression expression) {
+          public void accept(HaxeExpression expression) {
             operation.setElement(expression);
             performActionOnElement(operation);
           }
-        }, new Function<HaxeExpression, String>() {
-          public String fun(HaxeExpression expression) {
-            return expression.getText();
-          }
-        }
+        }, expression -> expression.getText()
       );
       return true;
     }
@@ -258,9 +253,9 @@ public abstract class HaxeIntroduceHandler implements RefactoringActionHandler {
         OccurrencesChooser.simpleChooser(editor).showChooser(
           operation.getElement(),
           operation.getOccurrences(),
-          new Pass<OccurrencesChooser.ReplaceChoice>() {
+          new Consumer<OccurrencesChooser.ReplaceChoice>() {
             @Override
-            public void pass(OccurrencesChooser.ReplaceChoice replaceChoice) {
+            public void accept(OccurrencesChooser.ReplaceChoice replaceChoice) {
               operation.setReplaceAll(replaceChoice == OccurrencesChooser.ReplaceChoice.ALL);
               performInplaceIntroduce(operation);
             }
@@ -385,7 +380,7 @@ public abstract class HaxeIntroduceHandler implements RefactoringActionHandler {
     }
 
     declaration = performReplace(declaration, operation);
-    declaration = CodeInsightUtilBase.forcePsiPostprocessAndRestoreElement(declaration);
+    declaration = CodeInsightUtilCore.forcePsiPostprocessAndRestoreElement(declaration);
     return declaration;
   }
 
@@ -468,8 +463,8 @@ public abstract class HaxeIntroduceHandler implements RefactoringActionHandler {
 
   @Nullable
   protected abstract PsiElement addDeclaration(@Nonnull final PsiElement expression,
-                                               @Nonnull final PsiElement declaration,
-                                               @Nonnull HaxeIntroduceOperation operation);
+																	@Nonnull final PsiElement declaration,
+																	@Nonnull HaxeIntroduceOperation operation);
 
 
   private static class HaxeInplaceVariableIntroducer extends InplaceVariableIntroducer<PsiElement> {
@@ -489,7 +484,8 @@ public abstract class HaxeIntroduceHandler implements RefactoringActionHandler {
     }
   }
 
-  private static class InitializerTextBuilder extends PsiRecursiveElementVisitor {
+  private static class InitializerTextBuilder extends PsiRecursiveElementVisitor
+  {
     private final StringBuilder myResult = new StringBuilder();
 
     @Override

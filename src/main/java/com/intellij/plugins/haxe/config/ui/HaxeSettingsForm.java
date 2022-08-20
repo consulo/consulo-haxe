@@ -17,7 +17,7 @@ package com.intellij.plugins.haxe.config.ui;
 
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.config.HaxeProjectSettings;
-import com.intellij.ui.AddDeleteListPanel;
+import consulo.ui.ex.awt.AddDeleteListPanel;
 
 import javax.swing.*;
 import java.util.Arrays;

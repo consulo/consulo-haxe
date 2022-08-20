@@ -15,168 +15,141 @@
  */
 package com.intellij.plugins.haxe.lang.psi.impl;
 
-import static com.intellij.lang.parser.GeneratedParserUtilBase._NONE_;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.adapt_builder_;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.enter_section_;
-
-import javax.annotation.Nonnull;
-
-import org.jetbrains.annotations.NonNls;
-
-import javax.annotation.Nullable;
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.Language;
-import com.intellij.lang.PsiBuilder;
-import com.intellij.lang.PsiBuilderFactory;
-import com.intellij.openapi.fileTypes.FileTypeManager;
-import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.HaxeLanguage;
 import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes;
 import com.intellij.plugins.haxe.lang.parser.HaxeParser;
 import com.intellij.plugins.haxe.lang.psi.HaxeExpressionCodeFragment;
 import com.intellij.plugins.haxe.lang.psi.HaxeFile;
-import com.intellij.psi.FileViewProvider;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.SingleRootFileViewProvider;
-import com.intellij.psi.impl.PsiManagerEx;
-import com.intellij.psi.impl.file.impl.FileManager;
-import com.intellij.psi.impl.source.tree.FileElement;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.tree.IFileElementType;
-import com.intellij.testFramework.LightVirtualFile;
-import consulo.lang.util.LanguageVersionUtil;
+import consulo.language.Language;
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.IFileElementType;
+import consulo.language.file.FileTypeManager;
+import consulo.language.file.FileViewProvider;
+import consulo.language.file.light.LightVirtualFile;
+import consulo.language.impl.ast.FileElement;
+import consulo.language.impl.file.SingleRootFileViewProvider;
+import consulo.language.parser.PsiBuilder;
+import consulo.language.parser.PsiBuilderFactory;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiManager;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.version.LanguageVersionUtil;
+import consulo.project.Project;
+import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import static consulo.language.impl.parser.GeneratedParserUtilBase.*;
 
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeExpressionCodeFragmentImpl extends HaxeFile implements HaxeExpressionCodeFragment
-{
-	private PsiElement myContext;
-	private boolean myPhysical;
-	private FileViewProvider myViewProvider;
-	private GlobalSearchScope myScope = null;
+public class HaxeExpressionCodeFragmentImpl extends HaxeFile implements HaxeExpressionCodeFragment {
+  private PsiElement myContext;
+  private boolean myPhysical;
+  private FileViewProvider myViewProvider;
+  private GlobalSearchScope myScope = null;
 
-	public HaxeExpressionCodeFragmentImpl(Project project, @NonNls String name, CharSequence text, boolean isPhysical)
-	{
-		super(new SingleRootFileViewProvider(PsiManager.getInstance(project), new LightVirtualFile(name,
-				FileTypeManager.getInstance().getFileTypeByFileName(name), text), isPhysical)
-		{
-			@Override
-			public boolean supportsIncrementalReparse(@Nonnull Language rootLanguage)
-			{
-				return false;
-			}
-		});
+  public HaxeExpressionCodeFragmentImpl(Project project, @NonNls String name, CharSequence text, boolean isPhysical) {
+    super(new SingleRootFileViewProvider(PsiManager.getInstance(project), new LightVirtualFile(name,
+        FileTypeManager.getInstance().getFileTypeByFileName(name), text), isPhysical) {
+      @Override
+      public boolean supportsIncrementalReparse(@Nonnull Language rootLanguage) {
+        return false;
+      }
+    });
 
-		myPhysical = isPhysical;
-		((SingleRootFileViewProvider) getViewProvider()).forceCachedPsi(this);
-		final MyHaxeFileElementType type = new MyHaxeFileElementType();
-		init(type, type);
-	}
+    myPhysical = isPhysical;
+    ((SingleRootFileViewProvider) getViewProvider()).forceCachedPsi(this);
+    final MyHaxeFileElementType type = new MyHaxeFileElementType();
+    init(type, type);
+  }
 
 
-	@Override
-	public PsiElement getContext()
-	{
-		return myContext;
-	}
+  @Override
+  public PsiElement getContext() {
+    return myContext;
+  }
 
-	@Override
-	@Nonnull
-	public FileViewProvider getViewProvider()
-	{
-		if(myViewProvider != null)
-		{
-			return myViewProvider;
-		}
-		return super.getViewProvider();
-	}
+  @Override
+  @Nonnull
+  public FileViewProvider getViewProvider() {
+    if (myViewProvider != null) {
+      return myViewProvider;
+    }
+    return super.getViewProvider();
+  }
 
-	@Override
-	public boolean isValid()
-	{
-		if(!super.isValid())
-		{
-			return false;
-		}
-		if(myContext != null && !myContext.isValid())
-		{
-			return false;
-		}
-		return true;
-	}
+  @Override
+  public boolean isValid() {
+    if (!super.isValid()) {
+      return false;
+    }
+    if (myContext != null && !myContext.isValid()) {
+      return false;
+    }
+    return true;
+  }
 
-	@Override
-	protected HaxeExpressionCodeFragmentImpl clone()
-	{
-		final HaxeExpressionCodeFragmentImpl clone = (HaxeExpressionCodeFragmentImpl) cloneImpl((FileElement) calcTreeElement().clone());
-		clone.myPhysical = myPhysical;
+  @Override
+  protected HaxeExpressionCodeFragmentImpl clone() {
+    final HaxeExpressionCodeFragmentImpl clone = (HaxeExpressionCodeFragmentImpl) cloneImpl((FileElement) calcTreeElement().clone());
+    clone.myPhysical = myPhysical;
 
-		clone.myOriginalFile = this;
-		FileManager fileManager = ((PsiManagerEx) getManager()).getFileManager();
-		SingleRootFileViewProvider cloneViewProvider = (SingleRootFileViewProvider) fileManager.createFileViewProvider(new LightVirtualFile(getName
-				(), getLanguage(), getText()), myPhysical);
-		clone.myViewProvider = cloneViewProvider;
-		cloneViewProvider.forceCachedPsi(clone);
-		clone.init(getContentElementType(), getContentElementType());
-		return clone;
-	}
+    clone.myOriginalFile = this;
+    SingleRootFileViewProvider cloneViewProvider = new SingleRootFileViewProvider(getManager(), new LightVirtualFile(getName(), getLanguage(), getText()), myPhysical);
+    clone.myViewProvider = cloneViewProvider;
+    cloneViewProvider.forceCachedPsi(clone);
+    clone.init(getContentElementType(), getContentElementType());
+    return clone;
+  }
 
-	@Override
-	public boolean isPhysical()
-	{
-		return myPhysical;
-	}
+  @Override
+  public boolean isPhysical() {
+    return myPhysical;
+  }
 
-	public void setContext(PsiElement context)
-	{
-		myContext = context;
-	}
+  public void setContext(PsiElement context) {
+    myContext = context;
+  }
 
-	@Override
-	public void forceResolveScope(GlobalSearchScope scope)
-	{
-		myScope = scope;
-	}
+  @Override
+  public void forceResolveScope(GlobalSearchScope scope) {
+    myScope = scope;
+  }
 
-	@Override
-	public GlobalSearchScope getForcedResolveScope()
-	{
-		return myScope;
-	}
+  @Override
+  public GlobalSearchScope getForcedResolveScope() {
+    return myScope;
+  }
 
-	private class MyHaxeFileElementType extends IFileElementType
-	{
-		public MyHaxeFileElementType()
-		{
-			super(HaxeLanguage.INSTANCE);
-		}
+  private class MyHaxeFileElementType extends IFileElementType {
+    public MyHaxeFileElementType() {
+      super(HaxeLanguage.INSTANCE);
+    }
 
-		@Nullable
-		@Override
-		public ASTNode parseContents(final ASTNode chameleon)
-		{
-			final PsiElement psi = new HaxePsiCompositeElementImpl(chameleon);
-			return doParseContents(chameleon, psi);
-		}
+    @Nullable
+    @Override
+    public ASTNode parseContents(final ASTNode chameleon) {
+      final PsiElement psi = new HaxePsiCompositeElementImpl(chameleon);
+      return doParseContents(chameleon, psi);
+    }
 
-		@Override
-		protected ASTNode doParseContents(@Nonnull ASTNode chameleon, @Nonnull PsiElement psi)
-		{
-			final PsiBuilderFactory factory = PsiBuilderFactory.getInstance();
-			final PsiBuilder psiBuilder = factory.createBuilder(getProject(), chameleon, LanguageVersionUtil.findDefaultVersion(getLanguage()));
-			final PsiBuilder builder = adapt_builder_(HaxeTokenTypes.EXPRESSION, psiBuilder, new HaxeParser());
+    @Override
+    protected ASTNode doParseContents(@Nonnull ASTNode chameleon, @Nonnull PsiElement psi) {
+      final PsiBuilderFactory factory = PsiBuilderFactory.getInstance();
+      final PsiBuilder psiBuilder = factory.createBuilder(getProject(), chameleon, LanguageVersionUtil.findDefaultVersion(getLanguage()));
+      final PsiBuilder builder = adapt_builder_(HaxeTokenTypes.EXPRESSION, psiBuilder, new HaxeParser());
 
-			final PsiBuilder.Marker marker = builder.mark();
-			enter_section_(builder, 0, _NONE_, "<code fragment>");
-			HaxeParser.expression(builder, 1);
-			while(builder.getTokenType() != null)
-			{
-				builder.advanceLexer();
-			}
-			marker.done(HaxeTokenTypes.EXPRESSION);
-			return builder.getTreeBuilt();
-		}
-	}
+      final PsiBuilder.Marker marker = builder.mark();
+      enter_section_(builder, 0, _NONE_, "<code fragment>");
+      HaxeParser.expression(builder, 1);
+      while (builder.getTokenType() != null) {
+        builder.advanceLexer();
+      }
+      marker.done(HaxeTokenTypes.EXPRESSION);
+      return builder.getTreeBuilt();
+    }
+  }
 }

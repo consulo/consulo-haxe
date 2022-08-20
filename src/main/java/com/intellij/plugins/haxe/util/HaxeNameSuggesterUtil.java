@@ -15,7 +15,7 @@
  */
 package com.intellij.plugins.haxe.util;
 
-import com.intellij.openapi.util.text.StringUtil;
+import consulo.util.lang.StringUtil;
 import javax.annotation.Nonnull;
 
 import java.util.ArrayList;

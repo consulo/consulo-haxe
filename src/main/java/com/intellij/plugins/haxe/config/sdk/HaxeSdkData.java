@@ -15,12 +15,13 @@
  */
 package com.intellij.plugins.haxe.config.sdk;
 
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.projectRoots.SdkAdditionalData;
+import consulo.content.bundle.SdkAdditionalData;
 import com.intellij.plugins.haxe.config.sdk.impl.HaxeSdkAdditionalDataBaseImpl;
-import com.intellij.util.xmlb.XmlSerializerUtil;
+import consulo.component.persist.PersistentStateComponent;
+import consulo.util.xml.serializer.XmlSerializerUtil;
 
-public class HaxeSdkData extends HaxeSdkAdditionalDataBaseImpl implements SdkAdditionalData, PersistentStateComponent<HaxeSdkData> {
+public class HaxeSdkData extends HaxeSdkAdditionalDataBaseImpl implements SdkAdditionalData, PersistentStateComponent<HaxeSdkData>
+{
   public HaxeSdkData() {
     super();
   }

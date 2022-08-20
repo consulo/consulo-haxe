@@ -16,8 +16,8 @@
 package com.intellij.plugins.haxe.ide.index;
 
 import com.intellij.plugins.haxe.HaxeComponentType;
-import com.intellij.util.io.DataExternalizer;
-import com.intellij.util.io.IOUtil;
+import consulo.index.io.data.IOUtil;
+import consulo.index.io.data.DataExternalizer;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -28,7 +28,8 @@ import java.util.List;
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeClassInfoListExternalizer implements DataExternalizer<List<HaxeClassInfo>> {
+public class HaxeClassInfoListExternalizer implements DataExternalizer<List<HaxeClassInfo>>
+{
   private final byte[] buffer = IOUtil.allocReadWriteUTFBuffer();
 
   @Override

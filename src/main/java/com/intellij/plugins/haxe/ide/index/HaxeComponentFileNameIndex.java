@@ -15,15 +15,20 @@
  */
 package com.intellij.plugins.haxe.ide.index;
 
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.plugins.haxe.lang.psi.HaxeClass;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.util.Processor;
-import com.intellij.util.indexing.*;
-import com.intellij.util.io.EnumeratorStringDescriptor;
-import com.intellij.util.io.KeyDescriptor;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.application.util.function.Processor;
+import consulo.index.io.DataIndexer;
+import consulo.index.io.EnumeratorStringDescriptor;
+import consulo.index.io.ID;
+import consulo.index.io.KeyDescriptor;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.psi.stub.FileBasedIndex;
+import consulo.language.psi.stub.FileContent;
+import consulo.language.psi.stub.ScalarIndexExtension;
+import consulo.virtualFileSystem.VirtualFile;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -31,6 +36,7 @@ import java.util.*;
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeComponentFileNameIndex extends ScalarIndexExtension<String> {
   public static final ID<String, Void> HAXE_COMPONENT_FILE_NAME_INDEX = ID.create("HaxeComponentFileNameIndex");
   private static final int INDEX_VERSION = 4;
@@ -85,7 +91,7 @@ public class HaxeComponentFileNameIndex extends ScalarIndexExtension<String> {
                                      @Nonnull Processor<VirtualFile> processor,
                                      @Nonnull final GlobalSearchScope filter) {
     return FileBasedIndex.getInstance()
-      .getFilesWithKey(HAXE_COMPONENT_FILE_NAME_INDEX, Collections.<String>singleton(qName), processor, filter);
+        .getFilesWithKey(HAXE_COMPONENT_FILE_NAME_INDEX, Collections.<String>singleton(qName), processor, filter);
   }
 
   private static class MyDataIndexer implements DataIndexer<String, Void, FileContent> {

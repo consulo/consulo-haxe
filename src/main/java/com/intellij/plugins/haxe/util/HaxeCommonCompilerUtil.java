@@ -15,23 +15,24 @@
  */
 package com.intellij.plugins.haxe.util;
 
-import com.intellij.execution.process.BaseOSProcessHandler;
-import com.intellij.execution.process.ProcessAdapter;
-import com.intellij.execution.process.ProcessEvent;
-import com.intellij.openapi.util.Ref;
-import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.plugins.haxe.HaxeCommonBundle;
 import com.intellij.plugins.haxe.config.HaxeTarget;
 import com.intellij.plugins.haxe.config.NMETarget;
 import com.intellij.plugins.haxe.module.HaxeModuleSettingsBase;
-import com.intellij.util.text.StringTokenizer;
+import consulo.process.ExecutionException;
+import consulo.process.ProcessHandler;
+import consulo.process.cmd.GeneralCommandLine;
+import consulo.process.event.ProcessAdapter;
+import consulo.process.event.ProcessEvent;
+import consulo.process.local.ProcessHandlerFactory;
 import consulo.util.dataholder.Key;
+import consulo.util.io.FileUtil;
+import consulo.util.lang.ref.Ref;
+import consulo.util.lang.text.StringTokenizer;
 
 import javax.annotation.Nonnull;
 import java.io.File;
-import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -112,48 +113,45 @@ public class HaxeCommonCompilerUtil {
       return false;
     }
 
-    final List<String> commandLine = new ArrayList<String>();
+    final GeneralCommandLine commandLine = new GeneralCommandLine();
+    commandLine.setCharset(Charset.defaultCharset());
 
     if (settings.isUseNmmlToBuild()) {
-      commandLine.add(haxelibPath);
-    }
-    else {
-      commandLine.add(sdkExePath);
+      commandLine.setExePath(haxelibPath);
+    } else {
+      commandLine.setExePath(sdkExePath);
     }
 
     String workingPath = context.getCompileOutputPath() + "/" + (context.isDebug() ? "debug" : "release");
     if (settings.isUseNmmlToBuild()) {
       setupNME(commandLine, context);
-    }
-    else if (settings.isUseHxmlToBuild()) {
+    } else if (settings.isUseHxmlToBuild()) {
       String hxmlPath = settings.getHxmlPath();
-      commandLine.add(FileUtil.toSystemDependentName(hxmlPath));
+      commandLine.addParameter(FileUtil.toSystemDependentName(hxmlPath));
       final int endIndex = hxmlPath.lastIndexOf('/');
       if (endIndex > 0) {
         workingPath = hxmlPath.substring(0, endIndex);
       }
       if (context.isDebug() && settings.getHaxeTarget() == HaxeTarget.FLASH) {
-        commandLine.add("-D");
-        commandLine.add("fdb");
-        commandLine.add("-debug");
+        commandLine.addParameter("-D");
+        commandLine.addParameter("fdb");
+        commandLine.addParameter("-debug");
       }
-    }
-    else {
+    } else {
       setupUserProperties(commandLine, context);
     }
 
-    final Ref<Boolean> hasErrors = Ref.create(Boolean.FALSE);
+    final Ref<Boolean> hasErrors = consulo.util.lang.ref.Ref.create(Boolean.FALSE);
 
     try {
       final File workingDirectory = new File(FileUtil.toSystemDependentName(workingPath));
       if (!workingDirectory.exists()) {
         workingDirectory.mkdir();
       }
-      BaseOSProcessHandler handler = new BaseOSProcessHandler(
-        new ProcessBuilder(commandLine).directory(workingDirectory).start(),
-        null,
-        Charset.defaultCharset()
-      );
+
+      commandLine.setWorkDirectory(workingDirectory);
+
+      ProcessHandler handler = ProcessHandlerFactory.getInstance().createProcessHandler(commandLine);
 
       handler.addProcessListener(new ProcessAdapter() {
         @Override
@@ -170,8 +168,7 @@ public class HaxeCommonCompilerUtil {
 
       handler.startNotify();
       handler.waitFor();
-    }
-    catch (IOException e) {
+    } catch (ExecutionException e) {
       context.errorHandler("process throw exception: " + e.getMessage());
       return false;
     }
@@ -179,50 +176,50 @@ public class HaxeCommonCompilerUtil {
     return !hasErrors.get();
   }
 
-  private static void setupUserProperties(List<String> commandLine, CompilationContext context) {
+  private static void setupUserProperties(GeneralCommandLine commandLine, CompilationContext context) {
     final HaxeModuleSettingsBase settings = context.getModuleSettings();
-    commandLine.add("-main");
-    commandLine.add(settings.getMainClass());
+    commandLine.addParameter("-main");
+    commandLine.addParameter(settings.getMainClass());
 
-    final StringTokenizer argumentsTokenizer = new StringTokenizer(settings.getArguments());
+    final consulo.util.lang.text.StringTokenizer argumentsTokenizer = new StringTokenizer(settings.getArguments());
     while (argumentsTokenizer.hasMoreTokens()) {
-      commandLine.add(argumentsTokenizer.nextToken());
+      commandLine.addParameter(argumentsTokenizer.nextToken());
     }
 
     if (context.isDebug()) {
-      commandLine.add("-debug");
+      commandLine.addParameter("-debug");
     }
     if (settings.getHaxeTarget() == HaxeTarget.FLASH && context.isDebug()) {
-      commandLine.add("-D");
-      commandLine.add("fdb");
+      commandLine.addParameter("-D");
+      commandLine.addParameter("fdb");
     }
 
     for (String sourceRoot : context.getSourceRoots()) {
-      commandLine.add("-cp");
-      commandLine.add(sourceRoot);
+      commandLine.addParameter("-cp");
+      commandLine.addParameter(sourceRoot);
     }
 
-    commandLine.add(settings.getHaxeTarget().getCompilerFlag());
-    commandLine.add(settings.getOutputFileName());
+    commandLine.addParameter(settings.getHaxeTarget().getCompilerFlag());
+    commandLine.addParameter(settings.getOutputFileName());
   }
 
-  private static void setupNME(List<String> commandLine, CompilationContext context) {
+  private static void setupNME(GeneralCommandLine commandLine, CompilationContext context) {
     final HaxeModuleSettingsBase settings = context.getModuleSettings();
-    commandLine.add("run");
-    commandLine.add("nme");
-    commandLine.add("build");
-    commandLine.add(settings.getNmmlPath());
-    commandLine.add(settings.getNmeTarget().getTargetFlag());
+    commandLine.addParameter("run");
+    commandLine.addParameter("nme");
+    commandLine.addParameter("build");
+    commandLine.addParameter(settings.getNmmlPath());
+    commandLine.addParameter(settings.getNmeTarget().getTargetFlag());
     if (context.isDebug()) {
-      commandLine.add("-debug");
-      commandLine.add("-Ddebug");
+      commandLine.addParameter("-debug");
+      commandLine.addParameter("-Ddebug");
     }
     if (settings.getNmeTarget() == NMETarget.FLASH && context.isDebug()) {
-      commandLine.add("-Dfdb");
+      commandLine.addParameter("-Dfdb");
     }
-    final StringTokenizer flagsTokenizer = new StringTokenizer(settings.getNmeFlags());
+    final consulo.util.lang.text.StringTokenizer flagsTokenizer = new StringTokenizer(settings.getNmeFlags());
     while (flagsTokenizer.hasMoreTokens()) {
-      commandLine.add(flagsTokenizer.nextToken());
+      commandLine.addParameter(flagsTokenizer.nextToken());
     }
   }
 }

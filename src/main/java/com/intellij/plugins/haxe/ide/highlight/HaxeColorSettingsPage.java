@@ -15,25 +15,27 @@
  */
 package com.intellij.plugins.haxe.ide.highlight;
 
-import static com.intellij.plugins.haxe.ide.highlight.HaxeSyntaxHighlighterColors.*;
+import com.intellij.plugins.haxe.HaxeBundle;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.colorScheme.TextAttributesKey;
+import consulo.colorScheme.setting.AttributesDescriptor;
+import consulo.colorScheme.setting.ColorDescriptor;
+import consulo.language.editor.colorScheme.setting.ColorSettingsPage;
+import consulo.language.editor.highlight.SyntaxHighlighter;
+import org.jetbrains.annotations.NonNls;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nonnull;
-
-import org.jetbrains.annotations.NonNls;
-import com.intellij.openapi.editor.colors.TextAttributesKey;
-import com.intellij.openapi.fileTypes.SyntaxHighlighter;
-import com.intellij.openapi.options.colors.AttributesDescriptor;
-import com.intellij.openapi.options.colors.ColorDescriptor;
-import com.intellij.openapi.options.colors.ColorSettingsPage;
-import com.intellij.plugins.haxe.HaxeBundle;
+import static com.intellij.plugins.haxe.ide.highlight.HaxeSyntaxHighlighterColors.*;
 
 /**
  * @author fedor.korotkov
  */
-public class HaxeColorSettingsPage implements ColorSettingsPage {
+@ExtensionImpl
+public class HaxeColorSettingsPage implements ColorSettingsPage
+{
   private static final AttributesDescriptor[] ATTRS = new AttributesDescriptor[]{
     new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.line.comment"), LINE_COMMENT),
     new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.block.comment"), BLOCK_COMMENT),

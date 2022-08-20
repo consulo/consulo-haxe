@@ -61,7 +61,7 @@
               <text resource-bundle="com/intellij/plugins/haxe/HaxeBundle" key="haxe.run.file.to.run"/>
             </properties>
           </component>
-          <component id="ba8bd" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="myPathToFileTextField">
+          <component id="ba8bd" class="consulo.ui.ex.awt.TextFieldWithBrowseButton" binding="myPathToFileTextField">
             <constraints>
               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
@@ -75,7 +75,7 @@
               <text value="Alternative &amp;executable:"/>
             </properties>
           </component>
-          <component id="56a6e" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="myExecutableField">
+          <component id="56a6e" class="consulo.ui.ex.awt.TextFieldWithBrowseButton" binding="myExecutableField">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>

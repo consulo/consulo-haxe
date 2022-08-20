@@ -15,19 +15,19 @@
  */
 package com.intellij.plugins.haxe.ide.generation;
 
-import com.intellij.codeInsight.FileModificationService;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.ide.HaxeNamedElementNode;
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.plugins.haxe.util.HaxeElementGenerator;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiParserFacade;
-import com.intellij.util.IncorrectOperationException;
+import consulo.codeEditor.Editor;
+import consulo.language.editor.FileModificationService;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.PsiParserFacade;
+import consulo.language.util.IncorrectOperationException;
+import consulo.project.Project;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.util.*;
 
 /**
@@ -65,7 +65,8 @@ abstract public class BaseCreateMethodsFix<T extends HaxeNamedComponent> {
   public void beforeInvoke(@Nonnull final Project project, final Editor editor, final PsiFile file) {
   }
 
-  public void invoke(@Nonnull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException {
+  public void invoke(@Nonnull final Project project, final Editor editor, final PsiFile file) throws IncorrectOperationException
+  {
     if (!FileModificationService.getInstance().prepareFileForWrite(file)) return;
     evalAnchor(editor, file);
     processElements(project, getElementsToProcess());

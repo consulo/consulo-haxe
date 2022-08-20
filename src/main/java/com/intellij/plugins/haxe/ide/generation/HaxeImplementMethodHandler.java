@@ -21,14 +21,17 @@ import com.intellij.plugins.haxe.lang.psi.HaxeClass;
 import com.intellij.plugins.haxe.lang.psi.HaxeFunctionPrototypeDeclarationWithAttributes;
 import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import com.intellij.psi.util.PsiTreeUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.generation.ImplementMethodHandler;
+import consulo.language.psi.util.PsiTreeUtil;
 
 import java.util.List;
 
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeImplementMethodHandler extends BaseHaxeGenerateHandler {
+@ExtensionImpl
+public class HaxeImplementMethodHandler extends BaseHaxeGenerateHandler implements ImplementMethodHandler {
   @Override
   protected String getTitle() {
     return HaxeBundle.message("haxe.implement.method");
@@ -40,7 +43,7 @@ public class HaxeImplementMethodHandler extends BaseHaxeGenerateHandler {
       final boolean prototype = haxeNamedComponent instanceof HaxeFunctionPrototypeDeclarationWithAttributes;
       final HaxeClass parentClass = PsiTreeUtil.getParentOfType(haxeNamedComponent, HaxeClass.class, true);
       final boolean interfaceField = HaxeComponentType.typeOf(haxeNamedComponent) == HaxeComponentType.FIELD &&
-                                     HaxeComponentType.typeOf(parentClass) == HaxeComponentType.INTERFACE;
+          HaxeComponentType.typeOf(parentClass) == HaxeComponentType.INTERFACE;
       if (!prototype && !interfaceField) continue;
 
       candidates.add(haxeNamedComponent);

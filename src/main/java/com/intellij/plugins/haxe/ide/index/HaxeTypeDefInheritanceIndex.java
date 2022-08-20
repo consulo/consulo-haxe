@@ -15,7 +15,6 @@
  */
 package com.intellij.plugins.haxe.ide.index;
 
-import com.intellij.openapi.util.Condition;
 import com.intellij.plugins.haxe.HaxeComponentType;
 import com.intellij.plugins.haxe.lang.psi.HaxeAnonymousType;
 import com.intellij.plugins.haxe.lang.psi.HaxeType;
@@ -23,14 +22,18 @@ import com.intellij.plugins.haxe.lang.psi.HaxeTypeExtends;
 import com.intellij.plugins.haxe.lang.psi.HaxeTypeOrAnonymous;
 import com.intellij.plugins.haxe.lang.psi.impl.AbstractHaxeTypeDefImpl;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.util.Function;
-import com.intellij.util.containers.ContainerUtil;
-import com.intellij.util.indexing.*;
-import com.intellij.util.io.DataExternalizer;
-import com.intellij.util.io.EnumeratorStringDescriptor;
-import com.intellij.util.io.KeyDescriptor;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.index.io.DataIndexer;
+import consulo.index.io.EnumeratorStringDescriptor;
+import consulo.index.io.ID;
+import consulo.index.io.KeyDescriptor;
+import consulo.index.io.data.DataExternalizer;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.stub.FileBasedIndex;
+import consulo.language.psi.stub.FileBasedIndexExtension;
+import consulo.language.psi.stub.FileContent;
+import consulo.util.collection.ContainerUtil;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -38,6 +41,7 @@ import java.util.*;
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeTypeDefInheritanceIndex extends FileBasedIndexExtension<String, List<HaxeClassInfo>> {
   public static final ID<String, List<HaxeClassInfo>> HAXE_TYPEDEF_INHERITANCE_INDEX = ID.create("HaxeTypeDefInheritanceIndex");
   private static final int INDEX_VERSION = 2;
@@ -87,17 +91,7 @@ public class HaxeTypeDefInheritanceIndex extends FileBasedIndexExtension<String,
     public Map<String, List<HaxeClassInfo>> map(final FileContent inputData) {
       final PsiFile psiFile = inputData.getPsiFile();
       final PsiElement[] fileChildren = psiFile.getChildren();
-      final List<AbstractHaxeTypeDefImpl> classes = ContainerUtil.map(ContainerUtil.filter(fileChildren, new Condition<PsiElement>() {
-        @Override
-        public boolean value(PsiElement element) {
-          return element instanceof AbstractHaxeTypeDefImpl;
-        }
-      }), new Function<PsiElement, AbstractHaxeTypeDefImpl>() {
-        @Override
-        public AbstractHaxeTypeDefImpl fun(PsiElement element) {
-          return (AbstractHaxeTypeDefImpl)element;
-        }
-      });
+      final List<AbstractHaxeTypeDefImpl> classes = ContainerUtil.map(ContainerUtil.filter(fileChildren, element -> element instanceof AbstractHaxeTypeDefImpl), element -> (AbstractHaxeTypeDefImpl) element);
       if (classes.isEmpty()) {
         return Collections.emptyMap();
       }
@@ -113,16 +107,15 @@ public class HaxeTypeDefInheritanceIndex extends FileBasedIndexExtension<String,
           if (typeExtends != null) {
             final String classNameCandidate = typeExtends.getType().getText();
             final String key = classNameCandidate.indexOf('.') != -1 ?
-                               classNameCandidate :
-                               getQNameAndCache(qNameCache, fileChildren, classNameCandidate);
+                classNameCandidate :
+                getQNameAndCache(qNameCache, fileChildren, classNameCandidate);
             put(result, key, value);
           }
-        }
-        else if (type != null) {
+        } else if (type != null) {
           final String classNameCandidate = type.getText();
           final String qName = classNameCandidate.indexOf('.') != -1 ?
-                               classNameCandidate :
-                               getQNameAndCache(qNameCache, fileChildren, classNameCandidate);
+              classNameCandidate :
+              getQNameAndCache(qNameCache, fileChildren, classNameCandidate);
           put(result, qName, value);
         }
       }

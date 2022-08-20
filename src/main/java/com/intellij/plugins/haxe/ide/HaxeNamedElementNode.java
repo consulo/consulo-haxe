@@ -15,18 +15,17 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import javax.annotation.Nullable;
-
-import com.intellij.codeInsight.generation.ClassMember;
-import com.intellij.codeInsight.generation.MemberChooserObject;
-import com.intellij.codeInsight.generation.PsiElementMemberChooserObject;
-import com.intellij.navigation.ItemPresentation;
-import com.intellij.openapi.util.Iconable;
 import com.intellij.plugins.haxe.lang.psi.HaxeClass;
 import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
-import com.intellij.psi.util.PsiTreeUtil;
-import consulo.awt.TargetAWT;
-import consulo.ide.IconDescriptorUpdaters;
+import consulo.component.util.Iconable;
+import consulo.language.editor.generation.ClassMember;
+import consulo.language.editor.generation.MemberChooserObject;
+import consulo.language.editor.generation.PsiElementMemberChooserObject;
+import consulo.language.icon.IconDescriptorUpdaters;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.navigation.ItemPresentation;
+
+import javax.annotation.Nullable;
 
 /**
  * @author: Fedor.Korotkov

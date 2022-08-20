@@ -19,7 +19,7 @@ package com.intellij.plugins.haxe.lang.psi;
  * @author: Fedor.Korotkov
  */
 
-import com.intellij.psi.PsiLanguageInjectionHost;
+import consulo.language.psi.PsiLanguageInjectionHost;
 import org.intellij.lang.regexp.RegExpLanguageHost;
 
 public interface HaxeRegularExpression

@@ -17,9 +17,9 @@ package com.intellij.plugins.haxe;
 
 import javax.annotation.Nullable;
 
-import com.intellij.icons.AllIcons;
+import consulo.application.AllIcons;
 import com.intellij.plugins.haxe.lang.psi.*;
-import com.intellij.psi.PsiElement;
+import consulo.language.psi.PsiElement;
 import consulo.ui.image.Image;
 
 /**

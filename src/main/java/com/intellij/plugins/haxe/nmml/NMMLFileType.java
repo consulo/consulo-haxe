@@ -15,18 +15,20 @@
  */
 package com.intellij.plugins.haxe.nmml;
 
-import com.intellij.ide.highlighter.XmlLikeFileType;
-import com.intellij.lang.xml.XMLLanguage;
+import com.intellij.plugins.haxe.HaxeIcons;
 import consulo.haxe.localize.HaxeLocalize;
 import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
+import consulo.xml.ide.highlighter.XmlLikeFileType;
+import consulo.xml.lang.xml.XMLLanguage;
 
 import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
  */
-public class NMMLFileType extends XmlLikeFileType {
+public class NMMLFileType extends XmlLikeFileType
+{
   public static final NMMLFileType INSTANCE = new NMMLFileType();
   public static final String DEFAULT_EXTENSION = "nmml";
 
@@ -54,6 +56,6 @@ public class NMMLFileType extends XmlLikeFileType {
 
   @Override
   public Image getIcon() {
-    return icons.HaxeIcons.Nmml_16;
+    return HaxeIcons.Nmml_16;
   }
 }

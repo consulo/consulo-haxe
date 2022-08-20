@@ -15,7 +15,8 @@
  */
 package com.intellij.plugins.haxe.util;
 
-import com.intellij.openapi.util.Pair;
+import consulo.util.lang.Pair;
+import consulo.util.lang.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.List;
  */
 public class HaxeStringUtil {
   /**
-   * @see com.intellij.openapi.util.text.StringUtil#getWordsWithOffset
+   * @see StringUtil#getWordsWithOffset
    */
   public static List<Pair<String, Integer>> getWordsWithOffset(String s) {
     List<Pair<String, Integer>> res = new ArrayList<Pair<String, Integer>>();

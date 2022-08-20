@@ -15,106 +15,89 @@
  */
 package com.intellij.plugins.haxe.ide.actions;
 
-import java.util.Properties;
-
-import consulo.awt.TargetAWT;
-import consulo.haxe.module.extension.HaxeModuleExtension;
-import javax.annotation.Nonnull;
-import com.intellij.icons.AllIcons;
-import com.intellij.ide.IdeBundle;
-import com.intellij.ide.actions.CreateFileFromTemplateDialog;
-import com.intellij.ide.actions.CreateTemplateInPackageAction;
-import com.intellij.ide.fileTemplates.FileTemplate;
-import com.intellij.ide.fileTemplates.FileTemplateManager;
-import com.intellij.ide.fileTemplates.FileTemplateUtil;
-import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.actionSystem.LangDataKeys;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtilCore;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.impl.DirectoryIndex;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.ide.HaxeFileTemplateUtil;
-import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.util.IncorrectOperationException;
-import consulo.ide.IconDescriptor;
+import consulo.application.AllIcons;
+import consulo.dataContext.DataContext;
+import consulo.fileTemplate.FileTemplate;
+import consulo.fileTemplate.FileTemplateManager;
+import consulo.fileTemplate.FileTemplateUtil;
+import consulo.haxe.module.extension.HaxeModuleExtension;
+import consulo.ide.IdeBundle;
+import consulo.ide.action.CreateFileFromTemplateDialog;
+import consulo.ide.action.CreateTemplateInPackageAction;
+import consulo.language.editor.LangDataKeys;
+import consulo.language.psi.PsiDirectory;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.util.IncorrectOperationException;
+import consulo.language.util.ModuleUtilCore;
+import consulo.module.Module;
+import consulo.module.content.DirectoryIndex;
+import consulo.project.Project;
 import consulo.ui.image.Image;
-import consulo.ui.image.ImageEffects;
-import icons.HaxeIcons;
+
+import javax.annotation.Nonnull;
+import java.util.Properties;
 
 /**
  * @author: Fedor.Korotkov
  */
-public class CreateClassAction extends CreateTemplateInPackageAction<PsiFile>
-{
-	public CreateClassAction()
-	{
-		super(HaxeBundle.message("action.create.new.class"), HaxeBundle.message("action.create.new.class"), ImageEffects.layered(AllIcons.Nodes.Class, HaxeIcons.HaxeLang), true);
-	}
+public class CreateClassAction extends CreateTemplateInPackageAction<PsiFile> {
+  public CreateClassAction() {
+    super(HaxeBundle.message("action.create.new.class"), HaxeBundle.message("action.create.new.class"), AllIcons.Nodes.Class, true);
+  }
 
-	@Override
-	protected boolean isAvailable(DataContext dataContext)
-	{
-		final Module module = dataContext.getData(LangDataKeys.MODULE);
-		return super.isAvailable(dataContext) && module != null && ModuleUtilCore.getExtension(module, HaxeModuleExtension.class) != null;
-	}
+  @Override
+  protected boolean isAvailable(DataContext dataContext) {
+    final Module module = dataContext.getData(LangDataKeys.MODULE);
+    return super.isAvailable(dataContext) && module != null && ModuleUtilCore.getExtension(module, HaxeModuleExtension.class) != null;
+  }
 
-	@Override
-	protected PsiElement getNavigationElement(@Nonnull PsiFile createdElement)
-	{
-		return createdElement.getNavigationElement();
-	}
+  @Override
+  protected PsiElement getNavigationElement(@Nonnull PsiFile createdElement) {
+    return createdElement.getNavigationElement();
+  }
 
-	@Override
-	protected boolean checkPackageExists(PsiDirectory directory)
-	{
-		return DirectoryIndex.getInstance(directory.getProject()).getPackageName(directory.getVirtualFile()) != null;
-	}
+  @Override
+  protected boolean checkPackageExists(PsiDirectory directory) {
+    return DirectoryIndex.getInstance(directory.getProject()).getPackageName(directory.getVirtualFile()) != null;
+  }
 
-	@Override
-	protected String getActionName(PsiDirectory directory, String newName, String templateName)
-	{
-		return HaxeBundle.message("progress.creating.class", newName);
-	}
+  @Override
+  protected String getActionName(PsiDirectory directory, String newName, String templateName) {
+    return HaxeBundle.message("progress.creating.class", newName);
+  }
 
-	@Override
-	protected void buildDialog(Project project, PsiDirectory directory, CreateFileFromTemplateDialog.Builder builder)
-	{
-		builder.setTitle(IdeBundle.message("action.create.new.class"));
-		for(FileTemplate fileTemplate : HaxeFileTemplateUtil.getApplicableTemplates())
-		{
-			final String templateName = fileTemplate.getName();
-			final String shortName = HaxeFileTemplateUtil.getTemplateShortName(templateName);
-			final Image icon = HaxeFileTemplateUtil.getTemplateIcon(templateName);
-			builder.addKind(shortName, icon, templateName);
-		}
-	}
+  @Override
+  protected void buildDialog(Project project, PsiDirectory directory, CreateFileFromTemplateDialog.Builder builder) {
+    builder.setTitle(IdeBundle.message("action.create.new.class"));
+    for (FileTemplate fileTemplate : HaxeFileTemplateUtil.getApplicableTemplates()) {
+      final String templateName = fileTemplate.getName();
+      final String shortName = HaxeFileTemplateUtil.getTemplateShortName(templateName);
+      final Image icon = HaxeFileTemplateUtil.getTemplateIcon(templateName);
+      builder.addKind(shortName, icon, templateName);
+    }
+  }
 
-	@Override
-	protected PsiFile doCreate(@Nonnull PsiDirectory dir, String className, String templateName) throws IncorrectOperationException
-	{
-		String packageName = DirectoryIndex.getInstance(dir.getProject()).getPackageName(dir.getVirtualFile());
-		try
-		{
-			return createClass(className, packageName, dir, templateName).getContainingFile();
-		}
-		catch(Exception e)
-		{
-			throw new IncorrectOperationException(e.getMessage(), e);
-		}
-	}
+  @Override
+  protected PsiFile doCreate(@Nonnull PsiDirectory dir, String className, String templateName) throws IncorrectOperationException {
+    String packageName = DirectoryIndex.getInstance(dir.getProject()).getPackageName(dir.getVirtualFile());
+    try {
+      return createClass(className, packageName, dir, templateName).getContainingFile();
+    } catch (Exception e) {
+      throw new IncorrectOperationException(e.getMessage(), e);
+    }
+  }
 
-	private static PsiElement createClass(String className, String packageName, @Nonnull PsiDirectory directory,
-			final String templateName) throws Exception
-	{
-		final Properties props = new Properties(FileTemplateManager.getInstance(directory.getProject()).getDefaultProperties(directory.getProject()));
-		props.setProperty(FileTemplate.ATTRIBUTE_NAME, className);
-		props.setProperty(FileTemplate.ATTRIBUTE_PACKAGE_NAME, packageName);
+  private static PsiElement createClass(String className, String packageName, @Nonnull PsiDirectory directory,
+                                        final String templateName) throws Exception {
+    final Properties props = new Properties(FileTemplateManager.getInstance(directory.getProject()).getDefaultProperties(directory.getProject()));
+    props.setProperty(FileTemplate.ATTRIBUTE_NAME, className);
+    props.setProperty(FileTemplate.ATTRIBUTE_PACKAGE_NAME, packageName);
 
-		final FileTemplate template = FileTemplateManager.getInstance().getInternalTemplate(templateName);
+    final FileTemplate template = FileTemplateManager.getInstance().getInternalTemplate(templateName);
 
-		return FileTemplateUtil.createFromTemplate(template, className, props, directory, CreateClassAction.class.getClassLoader());
-	}
+    return FileTemplateUtil.createFromTemplate(template, className, props, directory, CreateClassAction.class.getClassLoader());
+  }
 }

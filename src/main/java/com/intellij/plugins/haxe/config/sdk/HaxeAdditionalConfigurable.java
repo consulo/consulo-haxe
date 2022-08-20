@@ -15,13 +15,13 @@
  */
 package com.intellij.plugins.haxe.config.sdk;
 
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.options.ConfigurationException;
-import com.intellij.openapi.projectRoots.AdditionalDataConfigurable;
-import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.projectRoots.SdkModificator;
-import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.plugins.haxe.config.sdk.ui.HaxeAdditionalConfigurablePanel;
+import consulo.application.ApplicationManager;
+import consulo.configurable.ConfigurationException;
+import consulo.content.bundle.AdditionalDataConfigurable;
+import consulo.content.bundle.Sdk;
+import consulo.content.bundle.SdkModificator;
+import consulo.util.io.FileUtil;
 
 import javax.annotation.Nullable;
 import javax.swing.*;
@@ -56,7 +56,8 @@ public class HaxeAdditionalConfigurable implements AdditionalDataConfigurable {
   }
 
   @Override
-  public void apply() throws ConfigurationException {
+  public void apply() throws ConfigurationException
+  {
     final HaxeSdkData haxeSdkData = getHaxeSdkData();
     if (haxeSdkData == null) {
       return;
