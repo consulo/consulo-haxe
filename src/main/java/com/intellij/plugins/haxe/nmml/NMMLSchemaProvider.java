@@ -19,15 +19,15 @@ import com.intellij.xml.XmlSchemaProvider;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.language.psi.PsiFile;
 import consulo.module.Module;
+import consulo.util.io.ClassPathUtil;
 import consulo.util.io.FileUtil;
+import consulo.virtualFileSystem.LocalFileSystem;
 import consulo.virtualFileSystem.VirtualFile;
-import consulo.virtualFileSystem.util.VirtualFileUtil;
+import consulo.virtualFileSystem.archive.ArchiveVfsUtil;
 import consulo.xml.psi.xml.XmlFile;
-import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.net.URL;
 
 /**
  * @author: Fedor.Korotkov
@@ -35,12 +35,20 @@ import java.net.URL;
 @ExtensionImpl
 public class NMMLSchemaProvider extends XmlSchemaProvider {
   @Override
-  public XmlFile getSchema(@Nonnull @NonNls String url, @Nullable Module module, @Nonnull PsiFile baseFile) {
-    final URL resource = NMMLSchemaProvider.class.getResource("/nmml.xsd");
-    final VirtualFile fileByURL = VirtualFileUtil.findFileByURL(resource);
-    PsiFile result = baseFile.getManager().findFile(fileByURL);
-    if (result instanceof XmlFile) {
-      return (XmlFile)result.copy();
+  public XmlFile getSchema(@Nonnull String url, @Nullable Module module, @Nonnull PsiFile baseFile) {
+    String jarFilePath = ClassPathUtil.getJarPathForClass(NMMLSchemaProvider.class);
+    VirtualFile jarFile = LocalFileSystem.getInstance().findFileByPath(jarFilePath);
+    if (jarFile != null) {
+      VirtualFile archiveRoot = ArchiveVfsUtil.getArchiveRootForLocalFile(jarFile);
+      if (archiveRoot != null) {
+        VirtualFile nmmlXsd = archiveRoot.findFileByRelativePath("/com/intellij/plugins/haxe/nmml/nmml.xsd");
+        if (nmmlXsd != null) {
+          PsiFile result = baseFile.getManager().findFile(nmmlXsd);
+          if (result instanceof XmlFile) {
+            return (XmlFile) result.copy();
+          }
+        }
+      }
     }
     return null;
   }
