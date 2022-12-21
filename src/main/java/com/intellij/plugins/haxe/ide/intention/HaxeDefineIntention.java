@@ -19,7 +19,7 @@ import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.config.HaxeProjectSettings;
 import com.intellij.plugins.haxe.util.HaxeUtil;
 import consulo.codeEditor.Editor;
-import consulo.language.editor.intention.IntentionAction;
+import consulo.language.editor.intention.SyntheticIntentionAction;
 import consulo.language.psi.PsiFile;
 import consulo.language.util.IncorrectOperationException;
 import consulo.project.Project;
@@ -32,7 +32,7 @@ import java.util.Set;
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeDefineIntention implements IntentionAction {
+public class HaxeDefineIntention implements SyntheticIntentionAction {
   private final String myWord;
   private final boolean isDefined;
 
@@ -47,20 +47,13 @@ public class HaxeDefineIntention implements IntentionAction {
     return HaxeBundle.message(isDefined ? "haxe.intention.undefine" : "haxe.intention.define", myWord);
   }
 
-  @Nonnull
-  @Override
-  public String getFamilyName() {
-    return HaxeBundle.message("quick.fixes.family");
-  }
-
   @Override
   public boolean isAvailable(@Nonnull Project project, Editor editor, PsiFile file) {
     return true;
   }
 
   @Override
-  public void invoke(@Nonnull Project project, Editor editor, PsiFile file) throws IncorrectOperationException
-  {
+  public void invoke(@Nonnull Project project, Editor editor, PsiFile file) throws IncorrectOperationException {
     final HaxeProjectSettings projectSettings = HaxeProjectSettings.getInstance(file.getProject());
     final Set<String> definitions = projectSettings.getUserCompilerDefinitionsAsSet();
     projectSettings.setCompilerDefinitions(changeDefinitions(definitions));
