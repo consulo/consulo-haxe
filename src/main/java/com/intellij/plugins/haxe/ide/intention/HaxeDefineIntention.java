@@ -15,24 +15,24 @@
  */
 package com.intellij.plugins.haxe.ide.intention;
 
-import com.intellij.codeInsight.intention.IntentionAction;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.config.HaxeProjectSettings;
 import com.intellij.plugins.haxe.util.HaxeUtil;
-import com.intellij.psi.PsiFile;
-import com.intellij.util.ArrayUtil;
-import com.intellij.util.IncorrectOperationException;
+import consulo.codeEditor.Editor;
+import consulo.language.editor.intention.SyntheticIntentionAction;
+import consulo.language.psi.PsiFile;
+import consulo.language.util.IncorrectOperationException;
+import consulo.project.Project;
+import consulo.util.collection.ArrayUtil;
 import org.jetbrains.annotations.Nls;
-import javax.annotation.Nonnull;
 
+import javax.annotation.Nonnull;
 import java.util.Set;
 
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeDefineIntention implements IntentionAction {
+public class HaxeDefineIntention implements SyntheticIntentionAction {
   private final String myWord;
   private final boolean isDefined;
 
@@ -45,12 +45,6 @@ public class HaxeDefineIntention implements IntentionAction {
   @Override
   public String getText() {
     return HaxeBundle.message(isDefined ? "haxe.intention.undefine" : "haxe.intention.define", myWord);
-  }
-
-  @Nonnull
-  @Override
-  public String getFamilyName() {
-    return HaxeBundle.message("quick.fixes.family");
   }
 
   @Override

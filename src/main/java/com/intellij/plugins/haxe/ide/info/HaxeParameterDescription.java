@@ -17,7 +17,7 @@ package com.intellij.plugins.haxe.ide.info;
 
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.plugins.haxe.util.HaxePresentableUtil;
-import com.intellij.psi.util.PsiTreeUtil;
+import consulo.language.psi.util.PsiTreeUtil;
 
 import java.util.List;
 

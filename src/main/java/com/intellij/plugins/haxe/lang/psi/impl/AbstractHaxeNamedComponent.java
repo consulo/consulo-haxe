@@ -15,23 +15,23 @@
  */
 package com.intellij.plugins.haxe.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.navigation.ItemPresentation;
-import com.intellij.openapi.util.Pair;
 import com.intellij.plugins.haxe.HaxeComponentType;
 import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes;
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.plugins.haxe.util.HaxePresentableUtil;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import com.intellij.plugins.haxe.util.UsefulPsiTreeUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiNamedElement;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.IncorrectOperationException;
-import com.intellij.util.containers.ContainerUtil;
-import consulo.ide.IconDescriptorUpdaters;
+import consulo.language.ast.ASTNode;
+import consulo.language.icon.IconDescriptorUpdaters;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiNamedElement;
+import consulo.language.psi.PsiReference;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.util.IncorrectOperationException;
+import consulo.navigation.ItemPresentation;
 import consulo.ui.image.Image;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.lang.Pair;
 import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;
@@ -39,7 +39,8 @@ import javax.annotation.Nonnull;
 /**
  * @author: Fedor.Korotkov
  */
-abstract public class AbstractHaxeNamedComponent extends HaxePsiCompositeElementImpl implements HaxeNamedComponent, PsiNamedElement {
+abstract public class AbstractHaxeNamedComponent extends HaxePsiCompositeElementImpl implements HaxeNamedComponent, PsiNamedElement
+{
   public AbstractHaxeNamedComponent(@Nonnull ASTNode node) {
     super(node);
   }
@@ -59,7 +60,8 @@ abstract public class AbstractHaxeNamedComponent extends HaxePsiCompositeElement
   }
 
   @Override
-  public PsiElement setName(@NonNls @Nonnull String name) throws IncorrectOperationException {
+  public PsiElement setName(@NonNls @Nonnull String name) throws IncorrectOperationException
+  {
     final HaxeComponentName componentName = getComponentName();
     if (componentName != null) {
       componentName.setName(name);

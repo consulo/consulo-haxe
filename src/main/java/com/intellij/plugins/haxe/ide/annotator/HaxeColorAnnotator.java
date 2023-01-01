@@ -15,13 +15,6 @@
  */
 package com.intellij.plugins.haxe.ide.annotator;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.annotation.Annotation;
-import com.intellij.lang.annotation.AnnotationHolder;
-import com.intellij.lang.annotation.Annotator;
-import com.intellij.openapi.editor.colors.TextAttributesKey;
-import com.intellij.openapi.util.Pair;
-import com.intellij.openapi.util.TextRange;
 import com.intellij.plugins.haxe.HaxeComponentType;
 import com.intellij.plugins.haxe.config.HaxeProjectSettings;
 import com.intellij.plugins.haxe.ide.highlight.HaxeSyntaxHighlighterColors;
@@ -31,12 +24,19 @@ import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes;
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import com.intellij.plugins.haxe.util.HaxeStringUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.util.PsiTreeUtil;
+import consulo.colorScheme.TextAttributesKey;
+import consulo.document.util.TextRange;
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.IElementType;
+import consulo.language.editor.annotation.Annotation;
+import consulo.language.editor.annotation.AnnotationHolder;
+import consulo.language.editor.annotation.Annotator;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.util.lang.Pair;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.util.Set;
 
 /**
@@ -56,7 +56,7 @@ public class HaxeColorAnnotator implements Annotator {
         tryAnnotateQName(node, holder);
         return;
       }
-      element = ((HaxeReference)element).resolve();
+      element = ((HaxeReference) element).resolve();
     }
     if (element instanceof HaxeComponentName) {
       final boolean isStatic = checkStatic(element.getParent());
@@ -85,7 +85,7 @@ public class HaxeColorAnnotator implements Annotator {
       final TextRange range = new TextRange(absoluteOffset, absoluteOffset + word.length());
       final Annotation annotation = holder.createInfoAnnotation(range, null);
       final String attributeName = definitions.contains(word) ? HaxeSyntaxHighlighterColors.HAXE_DEFINED_VAR
-                                                              : HaxeSyntaxHighlighterColors.HAXE_UNDEFINED_VAR;
+          : HaxeSyntaxHighlighterColors.HAXE_UNDEFINED_VAR;
       annotation.setTextAttributes(TextAttributesKey.find(attributeName));
       annotation.registerFix(new HaxeDefineIntention(word, definitions.contains(word)), range);
     }
@@ -93,7 +93,7 @@ public class HaxeColorAnnotator implements Annotator {
 
   private static boolean isNewOperator(PsiElement element) {
     return HaxeTokenTypes.ONEW.toString().equals(element.getText()) &&
-           element.getParent() instanceof HaxeNewExpression;
+        element.getParent() instanceof HaxeNewExpression;
   }
 
   private static void tryAnnotateQName(PsiElement node, AnnotationHolder holder) {
@@ -109,7 +109,7 @@ public class HaxeColorAnnotator implements Annotator {
 
   private static boolean checkStatic(PsiElement parent) {
     if (parent instanceof HaxeNamedComponent) {
-      return ((HaxeNamedComponent)parent).isStatic();
+      return ((HaxeNamedComponent) parent).isStatic();
     }
     return false;
   }

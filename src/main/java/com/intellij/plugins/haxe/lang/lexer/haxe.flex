@@ -1,7 +1,7 @@
 package com.intellij.plugins.haxe.lang.lexer;
 
-import com.intellij.lexer.LexerBase;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.lexer.LexerBase;
+import consulo.language.ast.IElementType;
 import java.util.*;
 
 %%
@@ -134,7 +134,7 @@ IDENTIFIER_NO_DOLLAR={IDENTIFIER_START_NO_DOLLAR}{IDENTIFIER_PART_NO_DOLLAR}*
 
 <YYINITIAL, LONG_TEMPLATE_ENTRY> {
 
-{WHITE_SPACE_CHAR}+                       { return com.intellij.psi.TokenType.WHITE_SPACE;}
+{WHITE_SPACE_CHAR}+                       { return consulo.language.ast.TokenType.WHITE_SPACE;}
 
 {END_OF_LINE_COMMENT}                     { return MSL_COMMENT; }
 {C_STYLE_COMMENT}                         { return MML_COMMENT; }
@@ -339,5 +339,5 @@ IDENTIFIER_NO_DOLLAR={IDENTIFIER_START_NO_DOLLAR}{IDENTIFIER_PART_NO_DOLLAR}*
 <SHORT_TEMPLATE_ENTRY> "this"          { popState(); return KTHIS; }
 <SHORT_TEMPLATE_ENTRY> {IDENTIFIER_NO_DOLLAR}    { popState(); return ID; }
 
-<QUO_STRING, APOS_STRING, SHORT_TEMPLATE_ENTRY, LONG_TEMPLATE_ENTRY> .  { return com.intellij.psi.TokenType.BAD_CHARACTER; }
-.                                                                       {  yybegin(YYINITIAL); return com.intellij.psi.TokenType.BAD_CHARACTER; }
+<QUO_STRING, APOS_STRING, SHORT_TEMPLATE_ENTRY, LONG_TEMPLATE_ENTRY> .  { return consulo.language.ast.TokenType.BAD_CHARACTER; }
+.                                                                       {  yybegin(YYINITIAL); return consulo.language.ast.TokenType.BAD_CHARACTER; }

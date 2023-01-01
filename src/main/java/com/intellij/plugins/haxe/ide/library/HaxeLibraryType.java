@@ -15,35 +15,33 @@
  */
 package com.intellij.plugins.haxe.ide.library;
 
+import consulo.annotation.component.ExtensionImpl;
+import consulo.content.library.*;
+import consulo.content.library.ui.LibraryEditorComponent;
+import consulo.content.library.ui.LibraryPropertiesEditor;
+import consulo.content.library.ui.LibraryRootsComponentDescriptor;
+import consulo.project.Project;
+import consulo.ui.image.Image;
+import consulo.virtualFileSystem.VirtualFile;
+import com.intellij.plugins.haxe.HaxeIcons;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.swing.JComponent;
-
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.libraries.DummyLibraryProperties;
-import com.intellij.openapi.roots.libraries.LibraryType;
-import com.intellij.openapi.roots.libraries.LibraryTypeService;
-import com.intellij.openapi.roots.libraries.NewLibraryConfiguration;
-import com.intellij.openapi.roots.libraries.PersistentLibraryKind;
-import com.intellij.openapi.roots.libraries.ui.LibraryEditorComponent;
-import com.intellij.openapi.roots.libraries.ui.LibraryPropertiesEditor;
-import com.intellij.openapi.roots.libraries.ui.LibraryRootsComponentDescriptor;
-import com.intellij.openapi.vfs.VirtualFile;
-import consulo.ui.image.Image;
-import icons.HaxeIcons;
+import javax.swing.*;
 
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeLibraryType extends LibraryType<DummyLibraryProperties> {
   public static final PersistentLibraryKind<DummyLibraryProperties> HAXE_LIBRARY =
-    new PersistentLibraryKind<DummyLibraryProperties>("haXe") {
-      @Nonnull
-      @Override
-      public DummyLibraryProperties createDefaultProperties() {
-        return new DummyLibraryProperties();
-      }
-    };
+      new PersistentLibraryKind<DummyLibraryProperties>("haXe") {
+        @Nonnull
+        @Override
+        public DummyLibraryProperties createDefaultProperties() {
+          return new DummyLibraryProperties();
+        }
+      };
 
   public HaxeLibraryType() {
     super(HAXE_LIBRARY);
@@ -61,7 +59,7 @@ public class HaxeLibraryType extends LibraryType<DummyLibraryProperties> {
                                                   @Nonnull Project project) {
 
     return LibraryTypeService.getInstance()
-      .createLibraryFromFiles(createLibraryRootsComponentDescriptor(), parentComponent, contextDirectory, this, project);
+        .createLibraryFromFiles(createLibraryRootsComponentDescriptor(), parentComponent, contextDirectory, this, project);
   }
 
   @Nonnull

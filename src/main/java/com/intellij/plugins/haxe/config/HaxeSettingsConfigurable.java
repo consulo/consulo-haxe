@@ -15,13 +15,19 @@
  */
 package com.intellij.plugins.haxe.config;
 
-import com.intellij.openapi.options.ConfigurationException;
-import com.intellij.openapi.options.NonDefaultProjectConfigurable;
-import com.intellij.openapi.options.SearchableConfigurable;
-import com.intellij.openapi.project.Project;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.configurable.ConfigurationException;
+import consulo.configurable.NonDefaultProjectConfigurable;
+import consulo.configurable.ProjectConfigurable;
+import consulo.configurable.SearchableConfigurable;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.config.ui.HaxeSettingsForm;
 import com.intellij.plugins.haxe.util.HaxeUtil;
+import consulo.disposer.Disposable;
+import consulo.project.Project;
+import consulo.ui.annotation.RequiredUIAccess;
+import jakarta.inject.Inject;
+
 import javax.annotation.Nonnull;
 
 import javax.swing.*;
@@ -29,10 +35,12 @@ import javax.swing.*;
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeSettingsConfigurable implements SearchableConfigurable, NonDefaultProjectConfigurable {
+@ExtensionImpl
+public class HaxeSettingsConfigurable implements SearchableConfigurable, NonDefaultProjectConfigurable, ProjectConfigurable {
   private HaxeSettingsForm mySettingsPane;
   private final Project myProject;
 
+  @Inject
   public HaxeSettingsConfigurable(Project project) {
     myProject = project;
   }
@@ -50,7 +58,8 @@ public class HaxeSettingsConfigurable implements SearchableConfigurable, NonDefa
     return null;
   }
 
-  public JComponent createComponent() {
+  @RequiredUIAccess
+  public JComponent createComponent(@Nonnull Disposable uiDisposable) {
     if (mySettingsPane == null) {
       mySettingsPane = new HaxeSettingsForm();
     }
@@ -58,10 +67,12 @@ public class HaxeSettingsConfigurable implements SearchableConfigurable, NonDefa
     return mySettingsPane.getPanel();
   }
 
+  @RequiredUIAccess
   public boolean isModified() {
     return mySettingsPane != null && mySettingsPane.isModified(getSettings());
   }
 
+  @RequiredUIAccess
   public void apply() throws ConfigurationException {
     if (mySettingsPane != null) {
       final boolean modified = isModified();
@@ -72,6 +83,7 @@ public class HaxeSettingsConfigurable implements SearchableConfigurable, NonDefa
     }
   }
 
+  @RequiredUIAccess
   public void reset() {
     if (mySettingsPane != null) {
       mySettingsPane.resetEditorFrom(getSettings());
@@ -82,6 +94,7 @@ public class HaxeSettingsConfigurable implements SearchableConfigurable, NonDefa
     return HaxeProjectSettings.getInstance(myProject);
   }
 
+  @RequiredUIAccess
   public void disposeUIResources() {
     mySettingsPane = null;
   }

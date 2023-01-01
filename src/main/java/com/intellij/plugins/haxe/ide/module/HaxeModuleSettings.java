@@ -15,36 +15,44 @@
  */
 package com.intellij.plugins.haxe.ide.module;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.openapi.components.PersistentStateComponent;
-import com.intellij.openapi.components.State;
-import com.intellij.openapi.components.Storage;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleServiceManager;
 import com.intellij.plugins.haxe.config.HaxeTarget;
 import com.intellij.plugins.haxe.config.NMETarget;
 import com.intellij.plugins.haxe.module.HaxeModuleSettingsBase;
 import com.intellij.plugins.haxe.module.impl.HaxeModuleSettingsBaseImpl;
-import com.intellij.util.xmlb.XmlSerializerUtil;
+import consulo.annotation.component.ComponentScope;
+import consulo.annotation.component.ServiceAPI;
+import consulo.annotation.component.ServiceImpl;
+import consulo.component.persist.PersistentStateComponent;
+import consulo.component.persist.State;
+import consulo.component.persist.Storage;
+import consulo.module.Module;
+import consulo.util.xml.serializer.XmlSerializerUtil;
+import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
  */
+@Singleton
 @State(
-  name = "HaxeModuleSettingsStorage",
-  storages = {
-    @Storage(
-      file = "$MODULE_FILE$"
-    )
-  }
+    name = "HaxeModuleSettingsStorage",
+    storages = {
+        @Storage(
+            file = "$MODULE_FILE$"
+        )
+    }
 )
+@ServiceAPI(ComponentScope.MODULE)
+@ServiceImpl
 public class HaxeModuleSettings extends HaxeModuleSettingsBaseImpl
-  implements PersistentStateComponent<HaxeModuleSettings>, HaxeModuleSettingsBase {
+    implements PersistentStateComponent<HaxeModuleSettings>, HaxeModuleSettingsBase {
 
   private String flexSdkName = "";
   private String myHXCPPPort = "";
 
+  @Inject
   public HaxeModuleSettings() {
   }
 
@@ -82,7 +90,7 @@ public class HaxeModuleSettings extends HaxeModuleSettingsBaseImpl
   }
 
   public static HaxeModuleSettings getInstance(@Nonnull Module module) {
-    return ModuleServiceManager.getService(module, HaxeModuleSettings.class);
+    return module.getInstance(HaxeModuleSettings.class);
   }
 
   public String getHXCPPPort() {
@@ -98,7 +106,7 @@ public class HaxeModuleSettings extends HaxeModuleSettingsBaseImpl
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
 
-    HaxeModuleSettings settings = (HaxeModuleSettings)o;
+    HaxeModuleSettings settings = (HaxeModuleSettings) o;
 
     if (excludeFromCompilation != settings.excludeFromCompilation) return false;
     if (buildConfig != settings.buildConfig) return false;
@@ -107,7 +115,8 @@ public class HaxeModuleSettings extends HaxeModuleSettingsBaseImpl
     if (flexSdkName != null ? !flexSdkName.equals(settings.flexSdkName) : settings.flexSdkName != null) return false;
     if (hxmlPath != null ? !hxmlPath.equals(settings.hxmlPath) : settings.hxmlPath != null) return false;
     if (mainClass != null ? !mainClass.equals(settings.mainClass) : settings.mainClass != null) return false;
-    if (outputFileName != null ? !outputFileName.equals(settings.outputFileName) : settings.outputFileName != null) return false;
+    if (outputFileName != null ? !outputFileName.equals(settings.outputFileName) : settings.outputFileName != null)
+      return false;
     if (haxeTarget != settings.haxeTarget) return false;
     if (nmeTarget != settings.nmeTarget) return false;
     if (myHXCPPPort != settings.myHXCPPPort) return false;

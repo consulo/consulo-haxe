@@ -15,33 +15,38 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import com.intellij.navigation.ChooseByNameContributor;
-import com.intellij.navigation.NavigationItem;
-import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.ide.index.HaxeComponentIndex;
 import com.intellij.plugins.haxe.lang.psi.HaxeComponent;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.util.ArrayUtil;
-import javax.annotation.Nonnull;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.application.util.function.Processor;
+import consulo.content.scope.SearchScope;
+import consulo.ide.navigation.GotoClassOrTypeContributor;
+import consulo.language.psi.search.FindSymbolParameters;
+import consulo.language.psi.stub.FileBasedIndex;
+import consulo.language.psi.stub.IdFilter;
+import consulo.navigation.NavigationItem;
 
-import java.util.Collection;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeClassContributor implements ChooseByNameContributor {
-  @Nonnull
+@ExtensionImpl
+public class HaxeClassContributor implements GotoClassOrTypeContributor {
   @Override
-  public NavigationItem[] getItemsByName(String name, String pattern, Project project, boolean includeNonProjectItems) {
-    final GlobalSearchScope scope = includeNonProjectItems ? GlobalSearchScope.allScope(project) : GlobalSearchScope.projectScope(project);
-    final Collection<HaxeComponent> result = HaxeComponentIndex.getItemsByName(name, project, scope);
-    return result.toArray(new NavigationItem[result.size()]);
+  public void processNames(@Nonnull Processor<String> processor, @Nonnull SearchScope searchScope, @Nullable IdFilter idFilter) {
+    FileBasedIndex.getInstance().processAllKeys(HaxeComponentIndex.HAXE_COMPONENT_INDEX, processor, searchScope, idFilter);
   }
 
-  @Nonnull
   @Override
-  public String[] getNames(Project project, boolean includeNonProjectItems) {
-    final Collection<String> result = HaxeComponentIndex.getNames(project);
-    return ArrayUtil.toStringArray(result);
+  public void processElementsWithName(@Nonnull String name, @Nonnull Processor<NavigationItem> processor, @Nonnull FindSymbolParameters findSymbolParameters) {
+    List<HaxeComponent> itemsByName = HaxeComponentIndex.getItemsByName(name, findSymbolParameters.getProject(), findSymbolParameters.getSearchScope());
+    for (HaxeComponent haxeComponent : itemsByName) {
+      if (!processor.process(haxeComponent)) {
+        break;
+      }
+    }
   }
 }

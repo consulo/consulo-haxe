@@ -15,21 +15,19 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import java.util.List;
+import com.intellij.plugins.haxe.HaxeFileType;
+import com.intellij.plugins.haxe.HaxeIcons;
+import com.intellij.plugins.haxe.nmml.NMMLFileType;
+import consulo.application.AllIcons;
+import consulo.fileTemplate.FileTemplate;
+import consulo.fileTemplate.FileTemplateManager;
+import consulo.ui.image.Image;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.collection.SmartList;
+import consulo.util.lang.function.Condition;
 
 import javax.annotation.Nonnull;
-
-import com.intellij.icons.AllIcons;
-import com.intellij.ide.fileTemplates.FileTemplate;
-import com.intellij.ide.fileTemplates.FileTemplateManager;
-import com.intellij.openapi.util.Condition;
-import com.intellij.plugins.haxe.HaxeFileType;
-import com.intellij.plugins.haxe.nmml.NMMLFileType;
-import com.intellij.util.SmartList;
-import com.intellij.util.containers.ContainerUtil;
-import consulo.ui.image.Image;
-import consulo.ui.image.ImageEffects;
-import icons.HaxeIcons;
+import java.util.List;
 
 /**
  * @author: Fedor.Korotkov
@@ -47,7 +45,7 @@ public class HaxeFileTemplateUtil {
   }
 
   public static List<FileTemplate> getNMMLTemplates() {
-    return getApplicableTemplates(new Condition<FileTemplate>() {
+    return getApplicableTemplates(new consulo.util.lang.function.Condition<FileTemplate>() {
       @Override
       public boolean value(FileTemplate fileTemplate) {
         return NMMLFileType.DEFAULT_EXTENSION.equals(fileTemplate.getExtension());
@@ -55,7 +53,7 @@ public class HaxeFileTemplateUtil {
     });
   }
 
-  public static List<FileTemplate> getApplicableTemplates(Condition<FileTemplate> filter) {
+  public static List<FileTemplate> getApplicableTemplates(consulo.util.lang.function.Condition<FileTemplate> filter) {
     List<FileTemplate> applicableTemplates = new SmartList<FileTemplate>();
     applicableTemplates.addAll(ContainerUtil.findAll(FileTemplateManager.getInstance().getInternalTemplates(), filter));
     applicableTemplates.addAll(ContainerUtil.findAll(FileTemplateManager.getInstance().getAllTemplates(), filter));
@@ -73,14 +71,14 @@ public class HaxeFileTemplateUtil {
   public static Image getTemplateIcon(String name) {
     name = getTemplateShortName(name);
     if ("Class".equals(name)) {
-      return ImageEffects.layered(AllIcons.Nodes.Class, HaxeIcons.HaxeLang);
+      return AllIcons.Nodes.Class;
     }
     else if ("Interface".equals(name)) {
-      return ImageEffects.layered(AllIcons.Nodes.Interface, HaxeIcons.HaxeLang);
+      return AllIcons.Nodes.Interface;
     }
     else if ("Enum".equals(name)) {
-      return ImageEffects.layered(AllIcons.Nodes.Enum, HaxeIcons.HaxeLang);
+      return AllIcons.Nodes.Enum;
     }
-    return icons.HaxeIcons.Haxe;
+    return HaxeIcons.Haxe;
   }
 }

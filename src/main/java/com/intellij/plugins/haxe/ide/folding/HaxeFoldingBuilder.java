@@ -15,18 +15,22 @@
  */
 package com.intellij.plugins.haxe.ide.folding;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.folding.FoldingBuilder;
-import com.intellij.lang.folding.FoldingDescriptor;
-import com.intellij.openapi.editor.Document;
-import com.intellij.openapi.util.TextRange;
+import com.intellij.plugins.haxe.HaxeLanguage;
 import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.document.Document;
+import consulo.document.util.TextRange;
+import consulo.language.Language;
+import consulo.language.ast.ASTNode;
+import consulo.language.editor.folding.FoldingBuilder;
+import consulo.language.editor.folding.FoldingDescriptor;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.List;
 
+@ExtensionImpl
 public class HaxeFoldingBuilder implements FoldingBuilder {
   @Nonnull
   @Override
@@ -56,5 +60,11 @@ public class HaxeFoldingBuilder implements FoldingBuilder {
   @Override
   public boolean isCollapsedByDefault(@Nonnull ASTNode node) {
     return false;
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return HaxeLanguage.INSTANCE;
   }
 }

@@ -15,24 +15,7 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import static com.intellij.patterns.PlatformPatterns.psiElement;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import com.intellij.codeInsight.completion.CompletionContributor;
-import com.intellij.codeInsight.completion.CompletionParameters;
-import com.intellij.codeInsight.completion.CompletionResultSet;
-import com.intellij.codeInsight.completion.CompletionType;
-import com.intellij.codeInsight.completion.InsertHandler;
-import com.intellij.codeInsight.completion.InsertionContext;
-import com.intellij.codeInsight.lookup.LookupElement;
-import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.openapi.application.Result;
-import com.intellij.openapi.command.WriteCommandAction;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Pair;
-import com.intellij.patterns.PsiElementPattern;
-import com.intellij.patterns.StandardPatterns;
+import com.intellij.plugins.haxe.HaxeLanguage;
 import com.intellij.plugins.haxe.ide.index.HaxeClassInfo;
 import com.intellij.plugins.haxe.ide.index.HaxeComponentIndex;
 import com.intellij.plugins.haxe.lang.psi.HaxeIdentifier;
@@ -41,48 +24,66 @@ import com.intellij.plugins.haxe.lang.psi.HaxeReference;
 import com.intellij.plugins.haxe.lang.psi.HaxeType;
 import com.intellij.plugins.haxe.util.HaxeAddImportHelper;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiReference;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.ProcessingContext;
-import com.intellij.util.Processor;
-import consulo.codeInsight.completion.CompletionProvider;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.application.Result;
+import consulo.application.util.function.Processor;
+import consulo.language.Language;
+import consulo.language.editor.WriteCommandAction;
+import consulo.language.editor.completion.*;
+import consulo.language.editor.completion.lookup.InsertHandler;
+import consulo.language.editor.completion.lookup.InsertionContext;
+import consulo.language.editor.completion.lookup.LookupElement;
+import consulo.language.editor.completion.lookup.LookupElementBuilder;
+import consulo.language.pattern.PsiElementPattern;
+import consulo.language.pattern.StandardPatterns;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.PsiReference;
+import consulo.language.psi.scope.GlobalSearchScope;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.util.ProcessingContext;
+import consulo.project.Project;
+import consulo.util.lang.Pair;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import static consulo.language.pattern.PlatformPatterns.psiElement;
 
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeClassNameCompletionContributor extends CompletionContributor {
   public HaxeClassNameCompletionContributor() {
     final PsiElementPattern.Capture<PsiElement> idInExpression =
-      psiElement().withSuperParent(1, HaxeIdentifier.class).withSuperParent(2, HaxeReference.class);
+        psiElement().withSuperParent(1, HaxeIdentifier.class).withSuperParent(2, HaxeReference.class);
     final PsiElementPattern.Capture<PsiElement> inComplexExpression = psiElement().withSuperParent(3, HaxeReference.class);
     extend(CompletionType.BASIC,
-           psiElement().andOr(StandardPatterns.instanceOf(HaxeType.class), idInExpression.andNot(inComplexExpression)),
-           new CompletionProvider() {
-             @Override
-			 public void addCompletions(@Nonnull CompletionParameters parameters,
-                                           ProcessingContext context,
-                                           @Nonnull CompletionResultSet result) {
-               addVariantsFromIndex(result, parameters.getOriginalFile(), null, CLASS_INSERT_HANDLER);
-             }
-           });
+        psiElement().andOr(StandardPatterns.instanceOf(HaxeType.class), idInExpression.andNot(inComplexExpression)),
+        new CompletionProvider() {
+          @Override
+          public void addCompletions(@Nonnull CompletionParameters parameters,
+                                     ProcessingContext context,
+                                     @Nonnull CompletionResultSet result) {
+            addVariantsFromIndex(result, parameters.getOriginalFile(), null, CLASS_INSERT_HANDLER);
+          }
+        });
     extend(CompletionType.BASIC,
-           psiElement().and(inComplexExpression),
-           new CompletionProvider() {
-             @Override
-			 public void addCompletions(@Nonnull CompletionParameters parameters,
-                                           ProcessingContext context,
-                                           @Nonnull CompletionResultSet result) {
-               HaxeReference leftReference =
-                 HaxeResolveUtil.getLeftReference(PsiTreeUtil.getParentOfType(parameters.getPosition(), HaxeReference.class));
-               PsiElement leftTarget = leftReference != null ? leftReference.resolve() : null;
-               if (leftTarget instanceof HaxePackage) {
-                 addVariantsFromIndex(result, parameters.getOriginalFile(), ((HaxePackage)leftTarget).getQualifiedName(), null);
-               }
-             }
-           });
+        psiElement().and(inComplexExpression),
+        new CompletionProvider() {
+          @Override
+          public void addCompletions(@Nonnull CompletionParameters parameters,
+                                     ProcessingContext context,
+                                     @Nonnull CompletionResultSet result) {
+            HaxeReference leftReference =
+                HaxeResolveUtil.getLeftReference(PsiTreeUtil.getParentOfType(parameters.getPosition(), HaxeReference.class));
+            PsiElement leftTarget = leftReference != null ? leftReference.resolve() : null;
+            if (leftTarget instanceof HaxePackage) {
+              addVariantsFromIndex(result, parameters.getOriginalFile(), ((HaxePackage) leftTarget).getQualifiedName(), null);
+            }
+          }
+        });
   }
 
   private static void addVariantsFromIndex(final CompletionResultSet resultSet,
@@ -109,16 +110,24 @@ public class HaxeClassNameCompletionContributor extends CompletionContributor {
     new WriteCommandAction(context.getProject(), context.getFile()) {
       @Override
       protected void run(Result result) throws Throwable {
-        final String importPath = (String)item.getObject();
+        final String importPath = (String) item.getObject();
         HaxeAddImportHelper.addImport(importPath, context.getFile());
       }
     }.execute();
   }
 
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return HaxeLanguage.INSTANCE;
+  }
+
   private static class MyProcessor implements Processor<Pair<String, HaxeClassInfo>> {
     private final CompletionResultSet myResultSet;
-    @Nullable private final InsertHandler<LookupElement> myInsertHandler;
-    @Nullable private final String myPrefixPackage;
+    @Nullable
+    private final InsertHandler<LookupElement> myInsertHandler;
+    @Nullable
+    private final String myPrefixPackage;
 
     private MyProcessor(CompletionResultSet resultSet,
                         @Nullable String prefixPackage,
@@ -135,9 +144,9 @@ public class HaxeClassNameCompletionContributor extends CompletionContributor {
         String name = pair.getFirst();
         final String qName = HaxeResolveUtil.joinQName(info.getValue(), name);
         myResultSet.addElement(LookupElementBuilder.create(qName, name)
-                                 .withIcon(info.getIcon())
-                                 .withTailText(" " + info.getValue(), true)
-                                 .withInsertHandler(myInsertHandler));
+            .withIcon(info.getIcon())
+            .withTailText(" " + info.getValue(), true)
+            .withInsertHandler(myInsertHandler));
       }
       return true;
     }

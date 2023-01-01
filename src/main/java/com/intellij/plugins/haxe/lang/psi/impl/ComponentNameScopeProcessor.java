@@ -17,9 +17,9 @@ package com.intellij.plugins.haxe.lang.psi.impl;
 
 import com.intellij.plugins.haxe.lang.psi.HaxeComponentName;
 import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.ResolveState;
-import com.intellij.psi.scope.PsiScopeProcessor;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.resolve.PsiScopeProcessor;
+import consulo.language.psi.resolve.ResolveState;
 import consulo.util.dataholder.Key;
 
 import javax.annotation.Nonnull;
@@ -29,7 +29,8 @@ import java.util.Set;
 /**
  * @author: Fedor.Korotkov
  */
-public class ComponentNameScopeProcessor implements PsiScopeProcessor {
+public class ComponentNameScopeProcessor implements PsiScopeProcessor
+{
   private final Set<HaxeComponentName> result;
 
   public ComponentNameScopeProcessor(Set<HaxeComponentName> result) {

@@ -15,33 +15,29 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import com.intellij.lang.documentation.DocumentationProvider;
 import com.intellij.plugins.haxe.HaxeComponentType;
+import com.intellij.plugins.haxe.HaxeLanguage;
 import com.intellij.plugins.haxe.lang.psi.HaxeClass;
 import com.intellij.plugins.haxe.lang.psi.HaxeComponentName;
 import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
 import com.intellij.plugins.haxe.util.HaxePresentableUtil;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiManager;
-import com.intellij.psi.util.PsiTreeUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.editor.documentation.LanguageDocumentationProvider;
+import consulo.language.psi.PsiComment;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiManager;
+import consulo.language.psi.util.PsiTreeUtil;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeDocumentationProvider implements DocumentationProvider {
-
-  /*
-    provides ctrl+hover info
-   */
-  @Override
-  public String getQuickNavigateInfo(PsiElement element, PsiElement originalElement) {
-    return null;
-  }
-
+@ExtensionImpl
+public class HaxeDocumentationProvider implements LanguageDocumentationProvider {
   @Override
   public String generateDoc(PsiElement element, PsiElement originalElement) {
     if (!(element instanceof HaxeComponentName) && !(element instanceof HaxeNamedComponent)) {
@@ -83,5 +79,11 @@ public class HaxeDocumentationProvider implements DocumentationProvider {
   @Override
   public PsiElement getDocumentationElementForLink(PsiManager psiManager, String link, PsiElement context) {
     return null;
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return HaxeLanguage.INSTANCE;
   }
 }

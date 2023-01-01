@@ -15,15 +15,15 @@
  */
 package com.intellij.plugins.haxe.lang.lexer;
 
-import com.intellij.lexer.Lexer;
-import com.intellij.lexer.LexerPosition;
-import com.intellij.lexer.LookAheadLexer;
-import com.intellij.lexer.MergingLexerAdapter;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.project.Project;
+import consulo.application.ApplicationManager;
+import consulo.language.ast.IElementType;
+import consulo.language.ast.TokenSet;
+import consulo.language.lexer.Lexer;
+import consulo.language.lexer.LexerPosition;
+import consulo.language.lexer.LookAheadLexer;
 import com.intellij.plugins.haxe.config.HaxeProjectSettings;
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.tree.TokenSet;
+import consulo.language.lexer.MergingLexerAdapter;
+import consulo.project.Project;
 import consulo.util.dataholder.Key;
 
 import javax.annotation.Nullable;

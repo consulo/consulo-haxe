@@ -17,134 +17,133 @@
  */
 package com.intellij.plugins.haxe.ide.inspections;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.jetbrains.annotations.Nls;
-import com.intellij.codeInspection.InspectionManager;
-import com.intellij.codeInspection.LocalInspectionTool;
-import com.intellij.codeInspection.LocalQuickFix;
-import com.intellij.codeInspection.ProblemDescriptor;
-import com.intellij.codeInspection.ProblemHighlightType;
-import com.intellij.lang.ImportOptimizer;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.TextRange;
 import com.intellij.plugins.haxe.HaxeBundle;
+import com.intellij.plugins.haxe.HaxeLanguage;
 import com.intellij.plugins.haxe.ide.HaxeImportOptimizer;
 import com.intellij.plugins.haxe.lang.psi.HaxeImportStatementRegular;
 import com.intellij.plugins.haxe.lang.psi.HaxeImportStatementWithInSupport;
 import com.intellij.plugins.haxe.lang.psi.HaxeImportStatementWithWildcard;
 import com.intellij.plugins.haxe.util.HaxeImportUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.util.ArrayUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.application.ApplicationManager;
+import consulo.document.util.TextRange;
+import consulo.language.Language;
+import consulo.language.editor.inspection.LocalInspectionTool;
+import consulo.language.editor.inspection.LocalQuickFix;
+import consulo.language.editor.inspection.ProblemDescriptor;
+import consulo.language.editor.inspection.ProblemHighlightType;
+import consulo.language.editor.inspection.scheme.InspectionManager;
+import consulo.language.editor.rawHighlight.HighlightDisplayLevel;
+import consulo.language.editor.refactoring.ImportOptimizer;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.project.Project;
+import consulo.undoRedo.CommandProcessor;
+import consulo.util.collection.ArrayUtil;
+import org.jetbrains.annotations.Nls;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by fedorkorotkov.
  */
-public class HaxeUnusedImportInspection extends LocalInspectionTool
-{
-	@Override
-	@Nonnull
-	public String getGroupDisplayName()
-	{
-		return HaxeBundle.message("inspections.group.name");
-	}
+@ExtensionImpl
+public class HaxeUnusedImportInspection extends LocalInspectionTool {
+  @Override
+  @Nonnull
+  public String getGroupDisplayName() {
+    return "General";
+  }
 
-	@Nls
-	@Nonnull
-	@Override
-	public String getDisplayName()
-	{
-		return HaxeBundle.message("haxe.inspection.unused.import.name");
-	}
+  @Nullable
+  @Override
+  public Language getLanguage() {
+    return HaxeLanguage.INSTANCE;
+  }
 
-	@Override
-	public boolean isEnabledByDefault()
-	{
-		return true;
-	}
+  @Nls
+  @Nonnull
+  @Override
+  public String getDisplayName() {
+    return HaxeBundle.message("haxe.inspection.unused.import.name");
+  }
 
-	@Nonnull
-	@Override
-	public String getShortName()
-	{
-		return "HaxeUnusedImport";
-	}
+  @Override
+  public boolean isEnabledByDefault() {
+    return true;
+  }
 
-	@Nullable
-	@Override
-	public ProblemDescriptor[] checkFile(@Nonnull PsiFile file, @Nonnull InspectionManager manager, boolean isOnTheFly)
-	{
-		List<HaxeImportStatementRegular> unusedImports = HaxeImportUtil.findUnusedImports(file);
-		List<HaxeImportStatementWithInSupport> unusedInImports = HaxeImportUtil.findUnusedInImports(file);
-		List<HaxeImportStatementWithWildcard> unusedImportsWithWildcard = HaxeImportUtil.findUnusedInImportsWithWildcards(file);
-		if(unusedImports.isEmpty() && unusedInImports.isEmpty() && unusedImportsWithWildcard.isEmpty())
-		{
-			return ProblemDescriptor.EMPTY_ARRAY;
-		}
-		final List<ProblemDescriptor> result = new ArrayList<ProblemDescriptor>();
-		for(HaxeImportStatementRegular haxeImportStatement : unusedImports)
-		{
-			result.add(manager.createProblemDescriptor(haxeImportStatement, TextRange.from(0, haxeImportStatement.getTextLength()),
-					getDisplayName(), ProblemHighlightType.LIKE_UNUSED_SYMBOL, isOnTheFly, OPTIMIZE_IMPORTS_FIX));
-		}
+  @Nonnull
+  @Override
+  public String getShortName() {
+    return "HaxeUnusedImport";
+  }
 
-		for(HaxeImportStatementWithInSupport haxeImportStatement : unusedInImports)
-		{
-			result.add(manager.createProblemDescriptor(haxeImportStatement, TextRange.from(0, haxeImportStatement.getTextLength()),
-					getDisplayName(), ProblemHighlightType.LIKE_UNUSED_SYMBOL, isOnTheFly, OPTIMIZE_IMPORTS_FIX));
-		}
+  @Nonnull
+  @Override
+  public HighlightDisplayLevel getDefaultLevel() {
+    return HighlightDisplayLevel.WARNING;
+  }
 
-		for(HaxeImportStatementWithWildcard haxeImportStatement : unusedImportsWithWildcard)
-		{
-			result.add(manager.createProblemDescriptor(haxeImportStatement, TextRange.from(0, haxeImportStatement.getTextLength()),
-					getDisplayName(), ProblemHighlightType.LIKE_UNUSED_SYMBOL, isOnTheFly, OPTIMIZE_IMPORTS_FIX));
-		}
+  @Nullable
+  @Override
+  public ProblemDescriptor[] checkFile(@Nonnull PsiFile file, @Nonnull InspectionManager manager, boolean isOnTheFly) {
+    List<HaxeImportStatementRegular> unusedImports = HaxeImportUtil.findUnusedImports(file);
+    List<HaxeImportStatementWithInSupport> unusedInImports = HaxeImportUtil.findUnusedInImports(file);
+    List<HaxeImportStatementWithWildcard> unusedImportsWithWildcard = HaxeImportUtil.findUnusedInImportsWithWildcards(file);
+    if (unusedImports.isEmpty() && unusedInImports.isEmpty() && unusedImportsWithWildcard.isEmpty()) {
+      return ProblemDescriptor.EMPTY_ARRAY;
+    }
+    final List<ProblemDescriptor> result = new ArrayList<ProblemDescriptor>();
+    for (HaxeImportStatementRegular haxeImportStatement : unusedImports) {
+      result.add(manager.createProblemDescriptor(haxeImportStatement, TextRange.from(0, haxeImportStatement.getTextLength()),
+          getDisplayName(), ProblemHighlightType.LIKE_UNUSED_SYMBOL, isOnTheFly, OPTIMIZE_IMPORTS_FIX));
+    }
 
-		return ArrayUtil.toObjectArray(result, ProblemDescriptor.class);
-	}
+    for (HaxeImportStatementWithInSupport haxeImportStatement : unusedInImports) {
+      result.add(manager.createProblemDescriptor(haxeImportStatement, TextRange.from(0, haxeImportStatement.getTextLength()),
+          getDisplayName(), ProblemHighlightType.LIKE_UNUSED_SYMBOL, isOnTheFly, OPTIMIZE_IMPORTS_FIX));
+    }
 
-	private static final LocalQuickFix OPTIMIZE_IMPORTS_FIX = new LocalQuickFix()
-	{
-		@Nonnull
-		@Override
-		public String getName()
-		{
-			return HaxeBundle.message("haxe.fix.optimize.imports");
-		}
+    for (HaxeImportStatementWithWildcard haxeImportStatement : unusedImportsWithWildcard) {
+      result.add(manager.createProblemDescriptor(haxeImportStatement, TextRange.from(0, haxeImportStatement.getTextLength()),
+          getDisplayName(), ProblemHighlightType.LIKE_UNUSED_SYMBOL, isOnTheFly, OPTIMIZE_IMPORTS_FIX));
+    }
 
-		@Override
-		@Nonnull
-		public String getFamilyName()
-		{
-			return getName();
-		}
+    return ArrayUtil.toObjectArray(result, ProblemDescriptor.class);
+  }
 
-		@Override
-		public void applyFix(@Nonnull Project project, @Nonnull ProblemDescriptor descriptor)
-		{
-			PsiElement psiElement = descriptor.getPsiElement();
-			invoke(project, psiElement.getContainingFile());
-		}
+  private static final LocalQuickFix OPTIMIZE_IMPORTS_FIX = new LocalQuickFix() {
+    @Nonnull
+    @Override
+    public String getName() {
+      return HaxeBundle.message("haxe.fix.optimize.imports");
+    }
 
-		public void invoke(@Nonnull final Project project, PsiFile file)
-		{
-			ImportOptimizer optimizer = new HaxeImportOptimizer();
-			final Runnable runnable = optimizer.processFile(file);
-			ApplicationManager.getApplication().runWriteAction(new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					CommandProcessor.getInstance().executeCommand(project, runnable, getFamilyName(), this);
-				}
-			});
-		}
-	};
+    @Override
+    @Nonnull
+    public String getFamilyName() {
+      return getName();
+    }
+
+    @Override
+    public void applyFix(@Nonnull Project project, @Nonnull ProblemDescriptor descriptor) {
+      PsiElement psiElement = descriptor.getPsiElement();
+      invoke(project, psiElement.getContainingFile());
+    }
+
+    public void invoke(@Nonnull final Project project, PsiFile file) {
+      ImportOptimizer optimizer = new HaxeImportOptimizer();
+      final Runnable runnable = optimizer.processFile(file);
+      ApplicationManager.getApplication().runWriteAction(new Runnable() {
+        @Override
+        public void run() {
+          CommandProcessor.getInstance().executeCommand(project, runnable, getFamilyName(), this);
+        }
+      });
+    }
+  };
 }

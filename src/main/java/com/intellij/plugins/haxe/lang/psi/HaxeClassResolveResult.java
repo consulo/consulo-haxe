@@ -16,8 +16,8 @@
 package com.intellij.plugins.haxe.lang.psi;
 
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.language.psi.PsiElement;
+import consulo.util.collection.ContainerUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

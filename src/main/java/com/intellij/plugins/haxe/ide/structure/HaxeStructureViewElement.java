@@ -15,17 +15,17 @@
  */
 package com.intellij.plugins.haxe.ide.structure;
 
-import com.intellij.ide.structureView.StructureViewTreeElement;
-import com.intellij.ide.util.treeView.smartTree.SortableTreeElement;
-import com.intellij.ide.util.treeView.smartTree.TreeElement;
-import com.intellij.navigation.ItemPresentation;
-import com.intellij.navigation.NavigationItem;
+import consulo.fileEditor.structureView.StructureViewTreeElement;
+import consulo.fileEditor.structureView.tree.TreeElement;
+import consulo.language.psi.PsiElement;
+import consulo.navigation.ItemPresentation;
+import consulo.navigation.NavigationItem;
 import com.intellij.plugins.haxe.lang.psi.HaxeClass;
 import com.intellij.plugins.haxe.lang.psi.HaxeFile;
 import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
+import consulo.language.psi.PsiFile;
+import consulo.fileEditor.structureView.tree.SortableTreeElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,8 @@ import javax.annotation.Nullable;
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeStructureViewElement implements StructureViewTreeElement/*, AccessLevelProvider*/, SortableTreeElement {
+public class HaxeStructureViewElement implements StructureViewTreeElement/*, AccessLevelProvider*/, SortableTreeElement
+{
   private final PsiElement myElement;
 
   public HaxeStructureViewElement(final PsiElement element) {

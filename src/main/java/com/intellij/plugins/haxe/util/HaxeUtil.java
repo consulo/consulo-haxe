@@ -15,20 +15,19 @@
  */
 package com.intellij.plugins.haxe.util;
 
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.application.ModalityState;
-import com.intellij.openapi.progress.ProgressIndicator;
-import com.intellij.openapi.progress.ProgressManager;
-import com.intellij.openapi.progress.Task;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ContentIterator;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.HaxeFileType;
-import com.intellij.util.FileContentUtil;
-import com.intellij.util.indexing.FileBasedIndex;
-import javax.annotation.Nonnull;
+import consulo.application.ApplicationManager;
+import consulo.application.progress.ProgressIndicator;
+import consulo.application.progress.ProgressManager;
+import consulo.application.progress.Task;
+import consulo.content.ContentIterator;
+import consulo.document.util.FileContentUtilCore;
+import consulo.language.psi.stub.FileBasedIndex;
+import consulo.project.Project;
+import consulo.virtualFileSystem.VirtualFile;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -53,9 +52,9 @@ public class HaxeUtil {
         }
         ApplicationManager.getApplication().invokeAndWait(new Runnable() {
           public void run() {
-            FileContentUtil.reparseFiles(project, haxeFiles, !project.isDefault());
+            FileContentUtilCore.reparseFiles(haxeFiles);
           }
-        }, ModalityState.NON_MODAL);
+        }, project.getApplication().getNoneModalityState());
       }
     };
     ProgressManager.getInstance().run(task);

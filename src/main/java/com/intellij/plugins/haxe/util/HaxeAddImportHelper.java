@@ -19,8 +19,8 @@ package com.intellij.plugins.haxe.util;
 
 import com.intellij.plugins.haxe.lang.psi.HaxeImportStatementRegular;
 import com.intellij.plugins.haxe.lang.psi.HaxePackageStatement;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.PsiElement;
 
 /**
  * @author: Fedor.Korotkov

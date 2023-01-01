@@ -15,32 +15,25 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.lang.cacheBuilder.WordsScanner;
-import com.intellij.lang.findUsages.FindUsagesProvider;
 import com.intellij.plugins.haxe.HaxeComponentType;
+import com.intellij.plugins.haxe.HaxeLanguage;
 import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.PsiTreeUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.findUsage.FindUsagesProvider;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.util.PsiTreeUtil;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeFindUsagesProvider implements FindUsagesProvider {
-  @Override
-  public WordsScanner getWordsScanner() {
-    return null;
-  }
-
   @Override
   public boolean canFindUsagesFor(@Nonnull PsiElement psiElement) {
     return PsiTreeUtil.getParentOfType(psiElement, HaxeNamedComponent.class, false) != null;
-  }
-
-  @Override
-  public String getHelpId(@Nonnull PsiElement psiElement) {
-    return null;
   }
 
   @Nonnull
@@ -58,5 +51,11 @@ public class HaxeFindUsagesProvider implements FindUsagesProvider {
   @Nonnull
   public String getNodeText(@Nonnull final PsiElement element, final boolean useFullName) {
     return element.getText();
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return HaxeLanguage.INSTANCE;
   }
 }

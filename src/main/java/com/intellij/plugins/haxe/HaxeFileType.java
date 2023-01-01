@@ -15,17 +15,18 @@
  */
 package com.intellij.plugins.haxe;
 
-import com.intellij.openapi.fileTypes.LanguageFileType;
-import com.intellij.openapi.vfs.CharsetToolkit;
-import com.intellij.openapi.vfs.VirtualFile;
+import consulo.util.io.CharsetToolkit;
+import consulo.virtualFileSystem.VirtualFile;
 import consulo.haxe.localize.HaxeLocalize;
+import consulo.language.file.LanguageFileType;
 import consulo.localize.LocalizeValue;
 import consulo.ui.image.Image;
 import org.jetbrains.annotations.NonNls;
 
 import javax.annotation.Nonnull;
 
-public class HaxeFileType extends LanguageFileType {
+public class HaxeFileType extends LanguageFileType
+{
   public static final HaxeFileType HAXE_FILE_TYPE = new HaxeFileType();
 
   @NonNls
@@ -57,7 +58,7 @@ public class HaxeFileType extends LanguageFileType {
 
   @Override
   public Image getIcon() {
-    return icons.HaxeIcons.Haxe;
+    return HaxeIcons.Haxe;
   }
 
   @Override

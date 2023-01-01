@@ -15,8 +15,9 @@
  */
 package com.intellij.plugins.haxe.config.ui;
 
-import com.intellij.openapi.ui.DialogWrapper;
+import consulo.ui.ex.awt.DialogWrapper;
 import com.intellij.plugins.haxe.HaxeBundle;
+
 import javax.annotation.Nonnull;
 
 import javax.swing.*;
@@ -25,7 +26,8 @@ import java.awt.*;
 /**
  * @author: Fedor.Korotkov
  */
-public class StringValueDialog extends DialogWrapper {
+public class StringValueDialog extends DialogWrapper
+{
   private JTextField myTextField;
   private JPanel myMainPanel;
 

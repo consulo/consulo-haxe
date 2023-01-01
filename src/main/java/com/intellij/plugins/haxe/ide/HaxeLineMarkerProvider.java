@@ -15,44 +15,43 @@
  */
 package com.intellij.plugins.haxe.ide;
 
+import com.intellij.plugins.haxe.HaxeBundle;
+import com.intellij.plugins.haxe.HaxeComponentType;
+import com.intellij.plugins.haxe.HaxeLanguage;
+import com.intellij.plugins.haxe.ide.index.HaxeInheritanceDefinitionsSearchExecutor;
+import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes;
+import com.intellij.plugins.haxe.lang.psi.*;
+import com.intellij.plugins.haxe.util.HaxeResolveUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.application.AllIcons;
+import consulo.codeEditor.markup.GutterIconRenderer;
+import consulo.language.Language;
+import consulo.language.editor.DaemonBundle;
+import consulo.language.editor.Pass;
+import consulo.language.editor.gutter.GutterIconNavigationHandler;
+import consulo.language.editor.gutter.LineMarkerInfo;
+import consulo.language.editor.gutter.LineMarkerProvider;
+import consulo.language.editor.ui.DefaultPsiElementCellRenderer;
+import consulo.language.editor.ui.PsiElementListNavigator;
+import consulo.language.psi.NavigatablePsiElement;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.ui.image.Image;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.lang.function.Condition;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import com.intellij.codeHighlighting.Pass;
-import com.intellij.codeInsight.daemon.DaemonBundle;
-import com.intellij.codeInsight.daemon.GutterIconNavigationHandler;
-import com.intellij.codeInsight.daemon.LineMarkerInfo;
-import com.intellij.codeInsight.daemon.LineMarkerProvider;
-import com.intellij.codeInsight.daemon.impl.PsiElementListNavigator;
-import com.intellij.icons.AllIcons;
-import com.intellij.ide.util.DefaultPsiElementCellRenderer;
-import com.intellij.openapi.editor.markup.GutterIconRenderer;
-import com.intellij.openapi.util.Condition;
-import com.intellij.plugins.haxe.HaxeBundle;
-import com.intellij.plugins.haxe.HaxeComponentType;
-import com.intellij.plugins.haxe.ide.index.HaxeInheritanceDefinitionsSearchExecutor;
-import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes;
-import com.intellij.plugins.haxe.lang.psi.HaxeClass;
-import com.intellij.plugins.haxe.lang.psi.HaxeComponentName;
-import com.intellij.plugins.haxe.lang.psi.HaxeComponentWithDeclarationList;
-import com.intellij.plugins.haxe.lang.psi.HaxeInterfaceDeclaration;
-import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
-import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import com.intellij.psi.NavigatablePsiElement;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.Function;
-import com.intellij.util.containers.ContainerUtil;
-import consulo.ui.image.Image;
+import java.util.function.Function;
 
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeLineMarkerProvider implements LineMarkerProvider {
 
   @Override
@@ -110,7 +109,7 @@ public class HaxeLineMarkerProvider implements LineMarkerProvider {
     if (methodName == null) {
       return null;
     }
-    final List<HaxeNamedComponent> filteredSuperItems = ContainerUtil.filter(superItems, new Condition<HaxeNamedComponent>() {
+    final List<HaxeNamedComponent> filteredSuperItems = ContainerUtil.filter(superItems, new consulo.util.lang.function.Condition<HaxeNamedComponent>() {
       @Override
       public boolean value(HaxeNamedComponent component) {
         return methodName.equals(component.getName());
@@ -134,7 +133,7 @@ public class HaxeLineMarkerProvider implements LineMarkerProvider {
       Pass.UPDATE_ALL,
       new Function<PsiElement, String>() {
         @Override
-        public String fun(PsiElement element) {
+        public String apply(PsiElement element) {
           final HaxeClass superHaxeClass = PsiTreeUtil.getParentOfType(namedComponent, HaxeClass.class);
           if (superHaxeClass == null) return "null";
           if (overrides) {
@@ -160,8 +159,8 @@ public class HaxeLineMarkerProvider implements LineMarkerProvider {
 
   @Nullable
   private static LineMarkerInfo tryCreateImplementationMarker(final HaxeNamedComponent namedComponent,
-                                                              List<HaxeNamedComponent> subItems,
-                                                              final boolean isInterface) {
+																							 List<HaxeNamedComponent> subItems,
+																							 final boolean isInterface) {
     final PsiElement componentName = namedComponent.getComponentName();
     final String methodName = namedComponent.getName();
     if (methodName == null) {
@@ -183,7 +182,7 @@ public class HaxeLineMarkerProvider implements LineMarkerProvider {
       Pass.UPDATE_ALL,
       new Function<PsiElement, String>() {
         @Override
-        public String fun(PsiElement element) {
+        public String apply(PsiElement element) {
           return isInterface
                  ? DaemonBundle.message("method.is.implemented.too.many")
                  : DaemonBundle.message("method.is.overridden.too.many");
@@ -209,7 +208,7 @@ public class HaxeLineMarkerProvider implements LineMarkerProvider {
 
   @Nullable
   private static LineMarkerInfo createImplementationMarker(final HaxeClass componentWithDeclarationList,
-                                                           final List<HaxeClass> items) {
+																						  final List<HaxeClass> items) {
     final HaxeComponentName componentName = componentWithDeclarationList.getComponentName();
     if (componentName == null) {
       return null;
@@ -223,7 +222,7 @@ public class HaxeLineMarkerProvider implements LineMarkerProvider {
       Pass.UPDATE_ALL,
       new Function<PsiElement, String>() {
         @Override
-        public String fun(PsiElement element) {
+        public String apply(PsiElement element) {
           return DaemonBundle.message("method.is.implemented.too.many");
         }
       },
@@ -240,5 +239,11 @@ public class HaxeLineMarkerProvider implements LineMarkerProvider {
       },
       GutterIconRenderer.Alignment.RIGHT
     );
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return HaxeLanguage.INSTANCE;
   }
 }

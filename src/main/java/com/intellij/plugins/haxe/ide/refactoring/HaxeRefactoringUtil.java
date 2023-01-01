@@ -15,17 +15,17 @@
  */
 package com.intellij.plugins.haxe.ide.refactoring;
 
-import com.intellij.codeInsight.PsiEquivalenceUtil;
-import com.intellij.navigation.NavigationItem;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.project.Project;
+import consulo.language.editor.PsiEquivalenceUtil;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.resolve.ResolveState;
+import consulo.navigation.NavigationItem;
+import consulo.codeEditor.Editor;
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.plugins.haxe.lang.psi.impl.ComponentNameScopeProcessor;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.ResolveState;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.project.Project;
+import consulo.util.collection.ContainerUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

@@ -15,13 +15,13 @@
  */
 package com.intellij.plugins.haxe.ide.annotator;
 
-import com.intellij.lang.annotation.AnnotationHolder;
-import com.intellij.lang.annotation.Annotator;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes;
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import com.intellij.psi.PsiElement;
+import consulo.language.psi.PsiElement;
+import consulo.language.editor.annotation.AnnotationHolder;
+import consulo.language.editor.annotation.Annotator;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
@@ -31,7 +31,8 @@ import java.util.Set;
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeAnnotatingVisitor extends HaxeVisitor implements Annotator {
+public class HaxeAnnotatingVisitor extends HaxeVisitor implements Annotator
+{
   private static final Set<String> BUILTIN = new HashSet<String>(Arrays.asList(
     "trace", "__call__", "__vmem_set__", "__vmem_get__", "__vmem_sign__", "__global__", "_global", "__foreach__"
   ));

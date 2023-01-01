@@ -16,46 +16,38 @@
 
 package consulo.haxe.module.extension.packageSupport;
 
-import javax.annotation.Nonnull;
-
-import consulo.haxe.module.extension.HaxeModuleExtension;
-
-import javax.annotation.Nullable;
-import com.intellij.openapi.project.Project;
 import com.intellij.plugins.haxe.lang.psi.HaxePackage;
-import consulo.psi.PsiPackageManager;
+import consulo.haxe.module.extension.HaxeModuleExtension;
+import consulo.language.psi.PsiPackageManager;
+import consulo.project.Project;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author VISTALL
  * @since 12.09.13.
  */
-public class HaxePackageUtil
-{
-	public static HaxePackage findPackage(@Nonnull Project project, @Nonnull String packageName)
-	{
-		return (HaxePackage) PsiPackageManager.getInstance(project).findPackage(packageName, HaxeModuleExtension.class);
-	}
+public class HaxePackageUtil {
+  public static HaxePackage findPackage(@Nonnull Project project, @Nonnull String packageName) {
+    return (HaxePackage) PsiPackageManager.getInstance(project).findPackage(packageName, HaxeModuleExtension.class);
+  }
 
-	public static boolean isQualifiedName(@Nullable String text)
-	{
-		if(text == null)
-		{
-			return false;
-		}
-		int index = 0;
-		while(true)
-		{
-			int index1 = text.indexOf('.', index);
-			if(index1 < 0)
-			{
-				index1 = text.length();
-			}
-			//if (!isIdentifier(text.substring(index, index1))) return false; TODO [VISTALL] check for keywords
-			if(index1 == text.length())
-			{
-				return true;
-			}
-			index = index1 + 1;
-		}
-	}
+  public static boolean isQualifiedName(@Nullable String text) {
+    if (text == null) {
+      return false;
+    }
+    int index = 0;
+    while (true) {
+      int index1 = text.indexOf('.', index);
+      if (index1 < 0) {
+        index1 = text.length();
+      }
+      //if (!isIdentifier(text.substring(index, index1))) return false; TODO [VISTALL] check for keywords
+      if (index1 == text.length()) {
+        return true;
+      }
+      index = index1 + 1;
+    }
+  }
 }

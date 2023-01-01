@@ -15,28 +15,38 @@
  */
 package com.intellij.plugins.haxe.codeInspection;
 
-import com.intellij.codeInspection.*;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.Condition;
-import com.intellij.openapi.util.io.FileUtilRt;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.nmml.NMMLFileType;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.XmlRecursiveElementVisitor;
-import com.intellij.psi.xml.XmlAttribute;
-import com.intellij.psi.xml.XmlFile;
-import com.intellij.psi.xml.XmlTag;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.editor.inspection.LocalInspectionTool;
+import consulo.language.editor.inspection.LocalQuickFix;
+import consulo.language.editor.inspection.ProblemDescriptor;
+import consulo.language.editor.inspection.ProblemHighlightType;
+import consulo.language.editor.inspection.scheme.InspectionManager;
+import consulo.language.editor.rawHighlight.HighlightDisplayLevel;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.project.Project;
+import consulo.util.collection.ContainerUtil;
+import consulo.util.io.FileUtil;
+import consulo.util.lang.function.Condition;
+import consulo.xml.lang.xml.XMLLanguage;
+import consulo.xml.psi.XmlRecursiveElementVisitor;
+import consulo.xml.psi.xml.XmlAttribute;
+import consulo.xml.psi.xml.XmlFile;
+import consulo.xml.psi.xml.XmlTag;
 import org.jetbrains.annotations.Nls;
-import javax.annotation.Nonnull;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class NMEBuildDirectoryInspection extends LocalInspectionTool {
 
   @Nls
@@ -46,6 +56,12 @@ public class NMEBuildDirectoryInspection extends LocalInspectionTool {
     return HaxeBundle.message("haxe.inspections.group.name");
   }
 
+  @Nullable
+  @Override
+  public Language getLanguage() {
+    return XMLLanguage.INSTANCE;
+  }
+
   @Nls
   @Nonnull
   @Override
@@ -53,9 +69,15 @@ public class NMEBuildDirectoryInspection extends LocalInspectionTool {
     return HaxeBundle.message("haxe.inspections.nme.build.directory");
   }
 
+  @Nonnull
+  @Override
+  public HighlightDisplayLevel getDefaultLevel() {
+    return HighlightDisplayLevel.WARNING;
+  }
+
   @Override
   public ProblemDescriptor[] checkFile(@Nonnull PsiFile file, @Nonnull InspectionManager manager, boolean isOnTheFly) {
-    final boolean isNmml = FileUtilRt.extensionEquals(file.getName(), NMMLFileType.DEFAULT_EXTENSION);
+    final boolean isNmml = FileUtil.extensionEquals(file.getName(), NMMLFileType.DEFAULT_EXTENSION);
     if (!isNmml || !(file instanceof XmlFile)) {
       return ProblemDescriptor.EMPTY_ARRAY;
     }
@@ -90,7 +112,8 @@ public class NMEBuildDirectoryInspection extends LocalInspectionTool {
     return new ProblemDescriptor[]{descriptor};
   }
 
-  private static class MyVisitor extends XmlRecursiveElementVisitor {
+  private static class MyVisitor extends XmlRecursiveElementVisitor
+  {
     final List<XmlTag> myResult = new ArrayList<XmlTag>();
 
     public List<XmlTag> getResult() {
@@ -109,7 +132,8 @@ public class NMEBuildDirectoryInspection extends LocalInspectionTool {
     }
   }
 
-  private static class AddTagFix implements LocalQuickFix {
+  private static class AddTagFix implements LocalQuickFix
+  {
     @Nonnull
     @Override
     public String getName() {

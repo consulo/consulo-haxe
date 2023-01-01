@@ -15,16 +15,29 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import com.intellij.codeInsight.editorActions.SimpleTokenSetQuoteHandler;
+import com.intellij.plugins.haxe.HaxeFileType;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.action.FileQuoteHandler;
+import consulo.language.editor.action.SimpleTokenSetQuoteHandler;
 import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets;
-import com.intellij.psi.TokenType;
-import com.intellij.util.ArrayUtil;
+import consulo.language.ast.TokenType;
+import consulo.util.collection.ArrayUtil;
+import consulo.virtualFileSystem.fileType.FileType;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author fedor.korotkov
  */
-public class HaxeQuoteHandler extends SimpleTokenSetQuoteHandler {
+@ExtensionImpl
+public class HaxeQuoteHandler extends SimpleTokenSetQuoteHandler implements FileQuoteHandler {
   public HaxeQuoteHandler() {
     super(ArrayUtil.append(HaxeTokenTypeSets.STRINGS.getTypes(), TokenType.BAD_CHARACTER));
+  }
+
+  @Nonnull
+  @Override
+  public FileType getFileType() {
+    return HaxeFileType.HAXE_FILE_TYPE;
   }
 }

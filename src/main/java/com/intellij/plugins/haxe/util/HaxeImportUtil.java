@@ -23,7 +23,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import com.intellij.openapi.util.Condition;
+import consulo.util.lang.function.Condition;
 import com.intellij.plugins.haxe.lang.psi.HaxeClass;
 import com.intellij.plugins.haxe.lang.psi.HaxeImportStatementRegular;
 import com.intellij.plugins.haxe.lang.psi.HaxeImportStatementWithInSupport;
@@ -32,9 +32,9 @@ import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
 import com.intellij.plugins.haxe.lang.psi.HaxeRecursiveVisitor;
 import com.intellij.plugins.haxe.lang.psi.HaxeReference;
 import com.intellij.plugins.haxe.lang.psi.HaxeReferenceExpression;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.util.collection.ContainerUtil;
 
 /**
  * Created by fedorkorotkov.
@@ -49,7 +49,7 @@ public class HaxeImportUtil
 
 		List<HaxeImportStatementRegular> allImportStatements = UsefulPsiTreeUtil.getAllImportStatements(file);
 		final List<HaxeImportStatementRegular> usefulImportStatements = ContainerUtil.findAll(allImportStatements,
-				new Condition<HaxeImportStatementRegular>()
+				new consulo.util.lang.function.Condition<HaxeImportStatementRegular>()
 		{
 			@Override
 			public boolean value(HaxeImportStatementRegular statement)
@@ -180,7 +180,7 @@ public class HaxeImportUtil
 
 		List<HaxeImportStatementWithInSupport> allImportStatementWithInSupports = UsefulPsiTreeUtil.getAllInImportStatements(file);
 		List<HaxeImportStatementWithInSupport> usefulImportStatementWithInSupports = ContainerUtil.findAll(allImportStatementWithInSupports,
-				new Condition<HaxeImportStatementWithInSupport>()
+				new consulo.util.lang.function.Condition<HaxeImportStatementWithInSupport>()
 		{
 			@Override
 			public boolean value(HaxeImportStatementWithInSupport importStatementWithInSupport)
@@ -375,7 +375,7 @@ public class HaxeImportUtil
 		classesForImportStatementWithWildcard.removeAll(alreadyImportedClasses);
 
 		List<HaxeClass> classesUsedClassesFromImportStatementWithWildcard = ContainerUtil.findAll(classesForImportStatementWithWildcard,
-				new Condition<HaxeClass>()
+				new consulo.util.lang.function.Condition<HaxeClass>()
 		{
 			@Override
 			public boolean value(HaxeClass haxeClass)

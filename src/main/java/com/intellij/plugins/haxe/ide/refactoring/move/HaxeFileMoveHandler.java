@@ -15,17 +15,18 @@
  */
 package com.intellij.plugins.haxe.ide.refactoring.move;
 
-import com.intellij.openapi.roots.impl.DirectoryIndex;
 import com.intellij.plugins.haxe.lang.psi.HaxeFile;
 import com.intellij.plugins.haxe.lang.psi.HaxePackageStatement;
 import com.intellij.plugins.haxe.util.HaxeElementGenerator;
-import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.refactoring.move.moveFilesOrDirectories.MoveFileHandler;
-import com.intellij.usageView.UsageInfo;
-import com.intellij.util.IncorrectOperationException;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.refactoring.move.MoveFileHandler;
+import consulo.language.psi.PsiDirectory;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.util.IncorrectOperationException;
+import consulo.module.content.DirectoryIndex;
+import consulo.usage.UsageInfo;
 import consulo.util.dataholder.Key;
 
 import java.util.List;
@@ -34,6 +35,7 @@ import java.util.Map;
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeFileMoveHandler extends MoveFileHandler {
   public static final Key<String> destinationPackageKey = Key.create("haxe.destination.package.key");
 
@@ -58,19 +60,17 @@ public class HaxeFileMoveHandler extends MoveFileHandler {
 
   @Override
   public void updateMovedFile(PsiFile file) throws IncorrectOperationException {
-    final HaxeFile haxeFile = (HaxeFile)file;
+    final HaxeFile haxeFile = (HaxeFile) file;
     final PsiElement firstChild = haxeFile.getFirstChild();
     final HaxePackageStatement packageStatement = PsiTreeUtil.getChildOfType(haxeFile, HaxePackageStatement.class);
     final HaxePackageStatement newPackageStatement =
-      HaxeElementGenerator.createPackageStatementFromPath(haxeFile.getProject(), file.getUserData(destinationPackageKey));
+        HaxeElementGenerator.createPackageStatementFromPath(haxeFile.getProject(), file.getUserData(destinationPackageKey));
     assert newPackageStatement != null;
     if (packageStatement == null && firstChild == null) {
       haxeFile.add(newPackageStatement);
-    }
-    else if (packageStatement == null && firstChild != null) {
+    } else if (packageStatement == null && firstChild != null) {
       haxeFile.addBefore(newPackageStatement, firstChild);
-    }
-    else {
+    } else {
       packageStatement.replace(newPackageStatement);
     }
   }

@@ -15,11 +15,11 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import com.intellij.codeInsight.lookup.LookupElement;
-import com.intellij.codeInsight.lookup.LookupElementPresentation;
-import com.intellij.navigation.ItemPresentation;
-import com.intellij.openapi.util.text.StringUtil;
+import consulo.language.editor.completion.lookup.LookupElement;
+import consulo.language.editor.completion.lookup.LookupElementPresentation;
 import com.intellij.plugins.haxe.lang.psi.HaxeComponentName;
+import consulo.navigation.ItemPresentation;
+import consulo.util.lang.StringUtil;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;

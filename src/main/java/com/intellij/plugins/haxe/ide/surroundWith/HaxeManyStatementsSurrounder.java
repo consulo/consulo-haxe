@@ -15,17 +15,17 @@
  */
 package com.intellij.plugins.haxe.ide.surroundWith;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.surroundWith.Surrounder;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.project.Project;
-import com.intellij.openapi.util.TextRange;
 import com.intellij.plugins.haxe.lang.psi.HaxeBlockStatement;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiParserFacade;
-import com.intellij.util.IncorrectOperationException;
+import consulo.codeEditor.Editor;
+import consulo.document.util.TextRange;
+import consulo.language.ast.ASTNode;
+import consulo.language.editor.surroundWith.Surrounder;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.PsiParserFacade;
+import consulo.language.util.IncorrectOperationException;
+import consulo.project.Project;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
@@ -40,7 +40,8 @@ public abstract class HaxeManyStatementsSurrounder implements Surrounder {
 
   @Override
   public TextRange surroundElements(@Nonnull Project project, @Nonnull Editor editor, @Nonnull PsiElement[] elements)
-    throws IncorrectOperationException {
+    throws IncorrectOperationException
+  {
     if (elements.length == 0) return null;
 
     PsiElement element1 = elements[0];

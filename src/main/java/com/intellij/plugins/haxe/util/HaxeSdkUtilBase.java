@@ -15,10 +15,10 @@
  */
 package com.intellij.plugins.haxe.util;
 
-import com.intellij.openapi.util.SystemInfo;
-import com.intellij.openapi.util.io.FileUtil;
-import javax.annotation.Nullable;
+import consulo.application.util.SystemInfo;
+import consulo.util.io.FileUtil;
 
+import javax.annotation.Nullable;
 import java.io.File;
 
 /**

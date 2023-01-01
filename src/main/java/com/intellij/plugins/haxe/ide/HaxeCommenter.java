@@ -15,14 +15,20 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import com.intellij.lang.CodeDocumentationAwareCommenter;
+import com.intellij.plugins.haxe.HaxeLanguage;
 import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets;
-import com.intellij.psi.PsiComment;
-import com.intellij.psi.tree.IElementType;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.CodeDocumentationAwareCommenter;
+import consulo.language.Language;
+import consulo.language.ast.IElementType;
+import consulo.language.psi.PsiComment;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeCommenter implements CodeDocumentationAwareCommenter {
   @Override
   public String getLineCommentPrefix() {
@@ -82,5 +88,11 @@ public class HaxeCommenter implements CodeDocumentationAwareCommenter {
   @Override
   public boolean isDocumentationComment(PsiComment element) {
     return element.getTokenType() == HaxeTokenTypeSets.DOC_COMMENT;
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return HaxeLanguage.INSTANCE;
   }
 }

@@ -15,25 +15,24 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.lang.BracePair;
-import com.intellij.lang.PairedBraceMatcher;
+import com.intellij.plugins.haxe.HaxeLanguage;
 import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.tree.IElementType;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.BracePair;
+import consulo.language.Language;
+import consulo.language.PairedBraceMatcher;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeBraceMatcher implements PairedBraceMatcher {
-
   private static final BracePair[] PAIRS = new BracePair[]{
-    new BracePair(HaxeTokenTypes.PLCURLY, HaxeTokenTypes.PRCURLY, false),
-    new BracePair(HaxeTokenTypes.PLBRACK, HaxeTokenTypes.PRBRACK, false),
-    new BracePair(HaxeTokenTypes.PLPAREN, HaxeTokenTypes.PRPAREN, false)
+      new BracePair(HaxeTokenTypes.PLCURLY, HaxeTokenTypes.PRCURLY, false),
+      new BracePair(HaxeTokenTypes.PLBRACK, HaxeTokenTypes.PRBRACK, false),
+      new BracePair(HaxeTokenTypes.PLPAREN, HaxeTokenTypes.PRPAREN, false)
   };
 
   @Override
@@ -41,13 +40,9 @@ public class HaxeBraceMatcher implements PairedBraceMatcher {
     return PAIRS;
   }
 
+  @Nonnull
   @Override
-  public boolean isPairedBracesAllowedBeforeType(@Nonnull IElementType lbraceType, @Nullable IElementType contextType) {
-    return true;
-  }
-
-  @Override
-  public int getCodeConstructStart(PsiFile file, int openingBraceOffset) {
-    return openingBraceOffset;
+  public Language getLanguage() {
+    return HaxeLanguage.INSTANCE;
   }
 }

@@ -15,15 +15,21 @@
  */
 package com.intellij.plugins.haxe.ide.refactoring;
 
-import com.intellij.lang.refactoring.RefactoringSupportProvider;
+import com.intellij.plugins.haxe.HaxeLanguage;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.editor.refactoring.RefactoringSupportProvider;
 import com.intellij.plugins.haxe.ide.refactoring.introduce.HaxeIntroduceVariableHandler;
 import com.intellij.plugins.haxe.lang.psi.HaxeNamedElement;
-import com.intellij.psi.PsiElement;
-import com.intellij.refactoring.RefactoringActionHandler;
+import consulo.language.psi.PsiElement;
+import consulo.language.editor.refactoring.action.RefactoringActionHandler;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeRefactoringSupportProvider extends RefactoringSupportProvider {
   @Override
   public boolean isInplaceRenameAvailable(PsiElement element, PsiElement context) {
@@ -33,5 +39,11 @@ public class HaxeRefactoringSupportProvider extends RefactoringSupportProvider {
   @Override
   public RefactoringActionHandler getIntroduceVariableHandler() {
     return new HaxeIntroduceVariableHandler();
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return HaxeLanguage.INSTANCE;
   }
 }

@@ -15,24 +15,24 @@
  */
 package com.intellij.plugins.haxe.ide.template;
 
-import com.intellij.codeInsight.template.impl.DefaultLiveTemplatesProvider;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.template.DefaultLiveTemplatesProvider;
 import org.jetbrains.annotations.NonNls;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeDefaultLiveTemplatesProvider implements DefaultLiveTemplatesProvider {
   private static final @NonNls String[] DEFAULT_TEMPLATES = new String[]{
     "/liveTemplates/haxe_miscellaneous",
     "/liveTemplates/haxe_iterations"
   };
 
+  @Nonnull
   public String[] getDefaultLiveTemplateFiles() {
     return DEFAULT_TEMPLATES;
-  }
-
-  @Override
-  public String[] getHiddenLiveTemplateFiles() {
-    return null;
   }
 }

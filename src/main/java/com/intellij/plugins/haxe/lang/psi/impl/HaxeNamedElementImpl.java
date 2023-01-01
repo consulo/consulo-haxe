@@ -15,20 +15,20 @@
  */
 package com.intellij.plugins.haxe.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
-import com.intellij.navigation.ItemPresentation;
-import com.intellij.navigation.NavigationItem;
-import com.intellij.openapi.util.io.FileUtil;
-import com.intellij.openapi.util.io.FileUtilRt;
 import com.intellij.plugins.haxe.HaxeComponentType;
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.plugins.haxe.util.HaxeElementGenerator;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.search.LocalSearchScope;
-import com.intellij.psi.search.SearchScope;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.IncorrectOperationException;
+import consulo.content.scope.SearchScope;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.scope.LocalSearchScope;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.util.IncorrectOperationException;
+import consulo.navigation.ItemPresentation;
+import consulo.navigation.NavigationItem;
+import consulo.util.io.FileUtil;
 import org.jetbrains.annotations.NonNls;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -41,7 +41,8 @@ public abstract class HaxeNamedElementImpl extends HaxePsiCompositeElementImpl i
   }
 
   @Override
-  public PsiElement setName(@NonNls @Nonnull String newElementName) throws IncorrectOperationException {
+  public PsiElement setName(@NonNls @Nonnull String newElementName) throws IncorrectOperationException
+  {
     final HaxeIdentifier identifier = getIdentifier();
     final HaxeIdentifier identifierNew = HaxeElementGenerator.createIdentifierFromText(getProject(), newElementName);
 
@@ -53,7 +54,7 @@ public abstract class HaxeNamedElementImpl extends HaxePsiCompositeElementImpl i
     if (getParent() instanceof HaxeClass) {
       final HaxeFile haxeFile = (HaxeFile)getParent().getParent();
       if (oldName != null && oldName.equals(FileUtil.getNameWithoutExtension(haxeFile.getName()))) {
-        haxeFile.setName(newElementName + "." + FileUtilRt.getExtension(haxeFile.getName()));
+        haxeFile.setName(newElementName + "." + FileUtil.getExtension(haxeFile.getName()));
       }
     }
     return this;

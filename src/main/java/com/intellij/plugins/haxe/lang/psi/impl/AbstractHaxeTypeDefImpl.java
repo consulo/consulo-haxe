@@ -15,10 +15,10 @@
  */
 package com.intellij.plugins.haxe.lang.psi.impl;
 
-import com.intellij.lang.ASTNode;
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import com.intellij.util.containers.ContainerUtil;
+import consulo.util.collection.ContainerUtil;
+import consulo.language.ast.ASTNode;
 
 import javax.annotation.Nonnull;
 

@@ -15,35 +15,37 @@
  */
 package com.intellij.plugins.haxe.ide.formatter;
 
+import com.intellij.plugins.haxe.HaxeLanguage;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.codeStyle.CodeStyleSettings;
+import consulo.language.codeStyle.FormattingContext;
+import consulo.language.codeStyle.FormattingModel;
+import consulo.language.codeStyle.FormattingModelBuilder;
+import consulo.language.psi.PsiElement;
+
 import javax.annotation.Nonnull;
-
-import com.intellij.formatting.FormattingModel;
-import com.intellij.formatting.FormattingModelBuilder;
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.codeStyle.CodeStyleSettings;
-
-import javax.annotation.Nullable;
 
 /**
  * @author fedor.korotkov
  */
+@ExtensionImpl
 public class HaxeFormattingModelBuilder implements FormattingModelBuilder {
   @Nonnull
   @Override
-  public FormattingModel createModel(PsiElement element, CodeStyleSettings settings) {
+  public FormattingModel createModel(@Nonnull FormattingContext formattingContext) {
+    PsiElement element = formattingContext.getPsiElement();
+    CodeStyleSettings settings = formattingContext.getCodeStyleSettings();
     return new HaxeFormattingModel(
-      element.getContainingFile(),
-      settings,
-      new HaxeBlock(element.getNode(), null, null, settings)
+        element.getContainingFile(),
+        settings,
+        new HaxeBlock(element.getNode(), null, null, settings)
     );
   }
 
-  @Nullable
+  @Nonnull
   @Override
-  public TextRange getRangeAffectingIndent(PsiFile file, int offset, ASTNode elementAtOffset) {
-    return null;
+  public Language getLanguage() {
+    return HaxeLanguage.INSTANCE;
   }
 }

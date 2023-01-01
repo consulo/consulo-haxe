@@ -15,18 +15,18 @@
  */
 package consulo.haxe.module.extension;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.openapi.projectRoots.SdkType;
 import com.intellij.plugins.haxe.config.sdk.HaxeSdkType;
-import consulo.module.extension.impl.ModuleExtensionWithSdkImpl;
-import consulo.roots.ModuleRootLayer;
+import consulo.content.bundle.SdkType;
+import consulo.module.content.layer.ModuleRootLayer;
+import consulo.module.content.layer.extension.ModuleExtensionWithSdkBase;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
  * @since 13:54/16.06.13
  */
-public class HaxeModuleExtension extends ModuleExtensionWithSdkImpl<HaxeModuleExtension>
+public class HaxeModuleExtension extends ModuleExtensionWithSdkBase<HaxeModuleExtension>
 {
 	public HaxeModuleExtension(@Nonnull String id, @Nonnull ModuleRootLayer module)
 	{

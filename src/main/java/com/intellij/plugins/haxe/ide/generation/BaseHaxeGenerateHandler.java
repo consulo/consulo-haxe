@@ -15,34 +15,32 @@
  */
 package com.intellij.plugins.haxe.ide.generation;
 
-import com.intellij.codeInsight.FileModificationService;
-import com.intellij.ide.util.MemberChooser;
-import com.intellij.lang.LanguageCodeInsightActionHandler;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.command.CommandProcessor;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.project.Project;
+import com.intellij.plugins.haxe.HaxeLanguage;
 import com.intellij.plugins.haxe.ide.HaxeNamedElementNode;
 import com.intellij.plugins.haxe.lang.psi.HaxeClass;
 import com.intellij.plugins.haxe.lang.psi.HaxeClassDeclaration;
 import com.intellij.plugins.haxe.lang.psi.HaxeFile;
 import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.Function;
-import com.intellij.util.IncorrectOperationException;
-import com.intellij.util.containers.ContainerUtil;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import consulo.application.ApplicationManager;
+import consulo.codeEditor.Editor;
+import consulo.language.Language;
+import consulo.language.editor.FileModificationService;
+import consulo.language.editor.action.LanguageCodeInsightActionHandler;
+import consulo.language.editor.generation.ClassMember;
+import consulo.language.editor.generation.MemberChooserBuilder;
+import consulo.language.psi.PsiFile;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.util.IncorrectOperationException;
+import consulo.localize.LocalizeValue;
+import consulo.logging.Logger;
+import consulo.project.Project;
+import consulo.ui.annotation.RequiredUIAccess;
+import consulo.undoRedo.CommandProcessor;
+import consulo.util.collection.ContainerUtil;
 
-import javax.swing.*;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import java.awt.*;
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -54,34 +52,38 @@ public abstract class BaseHaxeGenerateHandler implements LanguageCodeInsightActi
     return file instanceof HaxeFile;
   }
 
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return HaxeLanguage.INSTANCE;
+  }
+
+  @RequiredUIAccess
   @Override
   public void invoke(@Nonnull Project project, @Nonnull Editor editor, @Nonnull PsiFile file) {
     if (!FileModificationService.getInstance().prepareFileForWrite(file)) return;
     final HaxeClass haxeClass =
-      PsiTreeUtil.getParentOfType(file.findElementAt(editor.getCaretModel().getOffset()), HaxeClassDeclaration.class);
+        PsiTreeUtil.getParentOfType(file.findElementAt(editor.getCaretModel().getOffset()), HaxeClassDeclaration.class);
     if (haxeClass == null) return;
 
     final List<HaxeNamedComponent> candidates = new ArrayList<HaxeNamedComponent>();
     collectCandidates(haxeClass, candidates);
 
-    List<HaxeNamedElementNode> selectedElements = Collections.emptyList();
     if (ApplicationManager.getApplication().isUnitTestMode()) {
-      selectedElements = ContainerUtil.map(candidates, new Function<HaxeNamedComponent, HaxeNamedElementNode>() {
-        @Override
-        public HaxeNamedElementNode fun(HaxeNamedComponent namedComponent) {
-          return new HaxeNamedElementNode(namedComponent);
-        }
+      List<HaxeNamedElementNode> selectedElements = ContainerUtil.map(candidates, HaxeNamedElementNode::new);
+
+      final BaseCreateMethodsFix createMethodsFix = createFix(haxeClass);
+      doInvoke(project, editor, file, selectedElements, createMethodsFix);
+    } else if (!candidates.isEmpty()) {
+      final MemberChooserBuilder<HaxeNamedElementNode> chooser = createMemberChooserDialog(project, haxeClass, candidates, getTitle());
+
+      chooser.showAsync(project, dataHolder -> {
+        List elements = dataHolder.getUserData(ClassMember.KEY_OF_LIST);
+
+        final BaseCreateMethodsFix createMethodsFix = createFix(haxeClass);
+        doInvoke(project, editor, file, elements, createMethodsFix);
       });
     }
-    else if (!candidates.isEmpty()) {
-      final MemberChooser<HaxeNamedElementNode> chooser =
-        createMemberChooserDialog(project, haxeClass, candidates, getTitle());
-      chooser.show();
-      selectedElements = chooser.getSelectedElements();
-    }
-
-    final BaseCreateMethodsFix createMethodsFix = createFix(haxeClass);
-    doInvoke(project, editor, file, selectedElements, createMethodsFix);
   }
 
   protected void doInvoke(final Project project,
@@ -98,8 +100,7 @@ public abstract class BaseHaxeGenerateHandler implements LanguageCodeInsightActi
           public void run() {
             try {
               createMethodsFix.invoke(project, editor, file);
-            }
-            catch (IncorrectOperationException ex) {
+            } catch (IncorrectOperationException ex) {
               Logger.getInstance(getClass().getName()).error(ex);
             }
           }
@@ -107,10 +108,9 @@ public abstract class BaseHaxeGenerateHandler implements LanguageCodeInsightActi
       }
     };
 
-    if (CommandProcessor.getInstance().getCurrentCommand() == null) {
+    if (!CommandProcessor.getInstance().hasCurrentCommand()) {
       CommandProcessor.getInstance().executeCommand(project, runnable, getClass().getName(), null);
-    }
-    else {
+    } else {
       runnable.run();
     }
   }
@@ -121,54 +121,22 @@ public abstract class BaseHaxeGenerateHandler implements LanguageCodeInsightActi
 
   abstract void collectCandidates(HaxeClass aClass, List<HaxeNamedComponent> candidates);
 
-  @Nullable
-  protected JComponent getOptionsComponent(HaxeClass jsClass, final Collection<HaxeNamedComponent> candidates) {
-    return null;
-  }
 
   @Override
   public boolean startInWriteAction() {
     return true;
   }
 
-  protected MemberChooser<HaxeNamedElementNode> createMemberChooserDialog(final Project project,
-                                                                          final HaxeClass haxeClass,
-                                                                          final Collection<HaxeNamedComponent> candidates,
-                                                                          String title) {
-    final MemberChooser<HaxeNamedElementNode> chooser = new MemberChooser<HaxeNamedElementNode>(
-      ContainerUtil.map(candidates, new Function<HaxeNamedComponent, HaxeNamedElementNode>() {
-        @Override
-        public HaxeNamedElementNode fun(HaxeNamedComponent namedComponent) {
-          return new HaxeNamedElementNode(namedComponent);
-        }
-      }).toArray(new HaxeNamedElementNode[candidates.size()]), false, true, project, false) {
+  protected MemberChooserBuilder<HaxeNamedElementNode> createMemberChooserDialog(final Project project,
+                                                                                 final HaxeClass haxeClass,
+                                                                                 final Collection<HaxeNamedComponent> candidates,
+                                                                                 String title) {
+    HaxeNamedElementNode[] nodes = ContainerUtil.map(candidates, HaxeNamedElementNode::new).toArray(new HaxeNamedElementNode[candidates.size()]);
 
-      protected void init() {
-        super.init();
-        myTree.addTreeSelectionListener(new TreeSelectionListener() {
-          public void valueChanged(final TreeSelectionEvent e) {
-            setOKActionEnabled(myTree.getSelectionCount() > 0);
-          }
-        });
-      }
+    MemberChooserBuilder<HaxeNamedElementNode> builder = MemberChooserBuilder.create(nodes);
 
-      protected JComponent createCenterPanel() {
-        final JComponent superComponent = super.createCenterPanel();
-        final JComponent optionsComponent = getOptionsComponent(haxeClass, candidates);
-        if (optionsComponent == null) {
-          return superComponent;
-        }
-        else {
-          final JPanel panel = new JPanel(new BorderLayout());
-          panel.add(superComponent, BorderLayout.CENTER);
-          panel.add(optionsComponent, BorderLayout.SOUTH);
-          return panel;
-        }
-      }
-    };
+    builder.withTitle(LocalizeValue.of(title));
 
-    chooser.setTitle(title);
-    chooser.setCopyJavadocVisible(false);
-    return chooser;
+    return builder;
   }
 }

@@ -15,64 +15,26 @@
  */
 package com.intellij.plugins.haxe.ide.library;
 
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.project.ProjectBundle;
-import com.intellij.openapi.projectRoots.ui.Util;
-import com.intellij.openapi.roots.OrderRootType;
-import com.intellij.openapi.roots.libraries.ui.AttachRootButtonDescriptor;
-import com.intellij.openapi.roots.libraries.ui.LibraryRootsComponentDescriptor;
-import com.intellij.openapi.roots.libraries.ui.OrderRootTypePresentation;
-import com.intellij.openapi.roots.libraries.ui.RootDetector;
-import com.intellij.openapi.roots.ui.configuration.libraryEditor.DefaultLibraryRootsComponentDescriptor;
-import com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditor;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.plugins.haxe.HaxeBundle;
-import javax.annotation.Nonnull;
+import consulo.content.base.BinariesOrderRootType;
+import consulo.content.base.SourcesOrderRootType;
+import consulo.content.library.ui.DefaultLibraryRootsComponentDescriptor;
+import consulo.content.library.ui.RootDetector;
 
-import javax.annotation.Nullable;
-import javax.swing.*;
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * @author: Fedor.Korotkov
  */
-public class HaxeLibraryRootsComponentDescriptor extends LibraryRootsComponentDescriptor {
-  @Override
-  public OrderRootTypePresentation getRootTypePresentation(@Nonnull OrderRootType type) {
-    return DefaultLibraryRootsComponentDescriptor.getDefaultPresentation(type);
-  }
-
+public class HaxeLibraryRootsComponentDescriptor extends DefaultLibraryRootsComponentDescriptor {
   @Nonnull
   @Override
   public List<? extends RootDetector> getRootDetectors() {
     return Arrays.asList(
-      new HaxeLibRootDetector(OrderRootType.SOURCES, HaxeBundle.message("sources.root.detector.sources.name")),
-      new HaxeLibRootDetector(OrderRootType.CLASSES, HaxeBundle.message("sources.root.detector.classes.name"))
+        new HaxeLibRootDetector(SourcesOrderRootType.getInstance(), HaxeBundle.message("sources.root.detector.sources.name")),
+        new HaxeLibRootDetector(BinariesOrderRootType.getInstance(), HaxeBundle.message("sources.root.detector.classes.name"))
     );
-  }
-
-  @Nonnull
-  @Override
-  public List<? extends AttachRootButtonDescriptor> createAttachButtons() {
-    return Arrays.asList(new AttachUrlJavadocDescriptor());
-  }
-
-  private static class AttachUrlJavadocDescriptor extends AttachRootButtonDescriptor {
-    private AttachUrlJavadocDescriptor() {
-      super(OrderRootType.DOCUMENTATION, ProjectBundle.message("module.libraries.javadoc.url.button"));
-    }
-
-    @Override
-    public VirtualFile[] selectFiles(@Nonnull JComponent parent,
-                                     @Nullable VirtualFile initialSelection,
-                                     @Nullable Module contextModule,
-                                     @Nonnull LibraryEditor libraryEditor) {
-      final VirtualFile vFile = Util.showSpecifyJavadocUrlDialog(parent);
-      if (vFile != null) {
-        return new VirtualFile[]{vFile};
-      }
-      return VirtualFile.EMPTY_ARRAY;
-    }
   }
 }

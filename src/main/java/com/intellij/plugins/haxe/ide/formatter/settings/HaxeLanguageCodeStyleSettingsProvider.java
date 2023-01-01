@@ -15,15 +15,18 @@
  */
 package com.intellij.plugins.haxe.ide.formatter.settings;
 
-import com.intellij.lang.Language;
 import com.intellij.plugins.haxe.HaxeLanguage;
-import com.intellij.psi.codeStyle.CodeStyleSettingsCustomizable;
-import com.intellij.psi.codeStyle.LanguageCodeStyleSettingsProvider;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.codeStyle.setting.CodeStyleSettingsCustomizable;
+import consulo.language.codeStyle.setting.LanguageCodeStyleSettingsProvider;
+import consulo.language.Language;
+
 import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeLanguageCodeStyleSettingsProvider extends LanguageCodeStyleSettingsProvider {
 
   @Nonnull

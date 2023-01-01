@@ -15,54 +15,47 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import static com.intellij.patterns.PlatformPatterns.psiElement;
+import com.intellij.plugins.haxe.HaxeLanguage;
+import com.intellij.plugins.haxe.lang.psi.*;
+import com.intellij.plugins.haxe.util.HaxeResolveUtil;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.Language;
+import consulo.language.editor.completion.*;
+import consulo.language.editor.completion.lookup.LookupElementBuilder;
+import consulo.language.pattern.PsiElementPattern;
+import consulo.language.psi.PsiElement;
+import consulo.language.psi.util.PsiTreeUtil;
+import consulo.language.util.ProcessingContext;
 
 import javax.annotation.Nonnull;
 
-import com.intellij.codeInsight.completion.CompletionContributor;
-import com.intellij.codeInsight.completion.CompletionParameters;
-import com.intellij.codeInsight.completion.CompletionResultSet;
-import com.intellij.codeInsight.completion.CompletionType;
-import com.intellij.codeInsight.lookup.LookupElementBuilder;
-import com.intellij.patterns.PsiElementPattern;
-import com.intellij.plugins.haxe.lang.psi.HaxeClass;
-import com.intellij.plugins.haxe.lang.psi.HaxeClassResolveResult;
-import com.intellij.plugins.haxe.lang.psi.HaxeEnumDeclaration;
-import com.intellij.plugins.haxe.lang.psi.HaxeGenericSpecialization;
-import com.intellij.plugins.haxe.lang.psi.HaxeIdentifier;
-import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
-import com.intellij.plugins.haxe.lang.psi.HaxeReference;
-import com.intellij.plugins.haxe.lang.psi.HaxeVarInit;
-import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.util.PsiTreeUtil;
-import com.intellij.util.ProcessingContext;
-import consulo.codeInsight.completion.CompletionProvider;
+import static consulo.language.pattern.PlatformPatterns.psiElement;
 
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeSmartCompletionContributor extends CompletionContributor {
   public HaxeSmartCompletionContributor() {
     final PsiElementPattern.Capture<PsiElement> idInExpression =
-      psiElement().withSuperParent(1, HaxeIdentifier.class).withSuperParent(2, HaxeReference.class);
+        psiElement().withSuperParent(1, HaxeIdentifier.class).withSuperParent(2, HaxeReference.class);
     extend(CompletionType.SMART,
-           idInExpression.and(psiElement().withSuperParent(3, HaxeVarInit.class)),
-           new CompletionProvider() {
-             @Override
-			 public void addCompletions(@Nonnull CompletionParameters parameters,
-                                           ProcessingContext context,
-                                           @Nonnull CompletionResultSet result) {
-               tryAddVariantsForEnums(result, parameters.getPosition());
-             }
-           });
+        idInExpression.and(psiElement().withSuperParent(3, HaxeVarInit.class)),
+        new CompletionProvider() {
+          @Override
+          public void addCompletions(@Nonnull CompletionParameters parameters,
+                                     ProcessingContext context,
+                                     @Nonnull CompletionResultSet result) {
+            tryAddVariantsForEnums(result, parameters.getPosition());
+          }
+        });
   }
 
   private static void tryAddVariantsForEnums(CompletionResultSet result, @Nonnull PsiElement element) {
     final HaxeVarInit varInit = PsiTreeUtil.getParentOfType(element, HaxeVarInit.class);
     assert varInit != null;
     final HaxeClassResolveResult resolveResult =
-      HaxeResolveUtil.tryResolveClassByTypeTag(varInit.getParent(), HaxeGenericSpecialization.EMPTY);
+        HaxeResolveUtil.tryResolveClassByTypeTag(varInit.getParent(), HaxeGenericSpecialization.EMPTY);
     final HaxeClass haxeClass = resolveResult.getHaxeClass();
     if (haxeClass instanceof HaxeEnumDeclaration) {
       final String className = haxeClass.getName();
@@ -70,5 +63,11 @@ public class HaxeSmartCompletionContributor extends CompletionContributor {
         result.addElement(LookupElementBuilder.create(className + "." + component.getName()));
       }
     }
+  }
+
+  @Nonnull
+  @Override
+  public Language getLanguage() {
+    return HaxeLanguage.INSTANCE;
   }
 }

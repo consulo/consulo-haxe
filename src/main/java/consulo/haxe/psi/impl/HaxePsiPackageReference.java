@@ -16,22 +16,16 @@
 
 package consulo.haxe.psi.impl;
 
+import com.intellij.plugins.haxe.lang.psi.HaxePackage;
+import consulo.document.util.TextRange;
+import consulo.language.psi.*;
+import consulo.language.util.IncorrectOperationException;
+
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.annotation.Nonnull;
-import com.intellij.codeInsight.daemon.EmptyResolveMessageProvider;
-import com.intellij.openapi.util.TextRange;
-import com.intellij.plugins.haxe.lang.psi.HaxePackage;
-import com.intellij.psi.ElementManipulator;
-import com.intellij.psi.ElementManipulators;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementResolveResult;
-import com.intellij.psi.PsiPolyVariantReferenceBase;
-import com.intellij.psi.ResolveResult;
-import com.intellij.util.IncorrectOperationException;
 
 public class HaxePsiPackageReference extends PsiPolyVariantReferenceBase<PsiElement> implements EmptyResolveMessageProvider
 {

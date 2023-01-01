@@ -15,11 +15,12 @@
  */
 package com.intellij.plugins.haxe.lang.psi;
 
-import com.intellij.psi.PsiCodeFragment;
-import com.intellij.psi.impl.PsiFileEx;
+import consulo.language.psi.PsiCodeFragment;
+import consulo.language.psi.PsiFileEx;
 
 /**
  * @author: Fedor.Korotkov
  */
-public interface HaxeExpressionCodeFragment extends PsiFileEx, PsiCodeFragment {
+public interface HaxeExpressionCodeFragment extends PsiFileEx, PsiCodeFragment
+{
 }

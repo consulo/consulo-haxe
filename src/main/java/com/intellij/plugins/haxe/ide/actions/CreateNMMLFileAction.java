@@ -15,27 +15,27 @@
  */
 package com.intellij.plugins.haxe.ide.actions;
 
-import com.intellij.ide.actions.CreateFileFromTemplateAction;
-import com.intellij.ide.actions.CreateFileFromTemplateDialog;
-import com.intellij.ide.fileTemplates.FileTemplate;
-import com.intellij.openapi.actionSystem.DataContext;
-import com.intellij.openapi.actionSystem.LangDataKeys;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtilCore;
-import com.intellij.openapi.project.DumbAware;
-import com.intellij.openapi.project.Project;
+import com.intellij.plugins.haxe.HaxeIcons;
+import consulo.fileTemplate.FileTemplate;
+import consulo.ide.action.CreateFileFromTemplateAction;
+import consulo.dataContext.DataContext;
+import consulo.application.dumb.DumbAware;
+import consulo.project.Project;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.ide.HaxeFileTemplateUtil;
-import com.intellij.psi.PsiDirectory;
-import consulo.awt.TargetAWT;
+import consulo.language.psi.PsiDirectory;
 import consulo.haxe.module.extension.HaxeModuleExtension;
+import consulo.ide.action.CreateFileFromTemplateDialog;
+import consulo.language.editor.LangDataKeys;
+import consulo.language.util.ModuleUtilCore;
+import consulo.module.Module;
 
 /**
  * @author: Fedor.Korotkov
  */
 public class CreateNMMLFileAction extends CreateFileFromTemplateAction implements DumbAware {
   public CreateNMMLFileAction() {
-    super(HaxeBundle.message("create.nmml.file.action"), HaxeBundle.message("create.nmml.file.action.description"), icons.HaxeIcons.Nmml_16);
+    super(HaxeBundle.message("create.nmml.file.action"), HaxeBundle.message("create.nmml.file.action.description"), HaxeIcons.Nmml_16);
   }
 
   @Override
@@ -50,7 +50,7 @@ public class CreateNMMLFileAction extends CreateFileFromTemplateAction implement
     for (FileTemplate fileTemplate : HaxeFileTemplateUtil.getNMMLTemplates()) {
       final String templateName = fileTemplate.getName();
       final String shortName = HaxeFileTemplateUtil.getTemplateShortName(templateName);
-      builder.addKind(shortName, icons.HaxeIcons.Nmml_16, templateName);
+      builder.addKind(shortName, HaxeIcons.Nmml_16, templateName);
     }
   }
 

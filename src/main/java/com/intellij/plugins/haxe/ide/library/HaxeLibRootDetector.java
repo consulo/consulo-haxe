@@ -15,20 +15,20 @@
  */
 package com.intellij.plugins.haxe.ide.library;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import com.intellij.plugins.haxe.HaxeFileType;
+import consulo.application.progress.ProgressIndicator;
+import consulo.content.OrderRootType;
+import consulo.content.library.ui.RootDetector;
+import consulo.virtualFileSystem.VirtualFile;
+import consulo.virtualFileSystem.archive.ArchiveFileSystem;
+import consulo.virtualFileSystem.util.VirtualFileUtil;
+import consulo.virtualFileSystem.util.VirtualFileVisitor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import com.intellij.openapi.progress.ProgressIndicator;
-import com.intellij.openapi.roots.OrderRootType;
-import com.intellij.openapi.roots.libraries.ui.RootDetector;
-import com.intellij.openapi.vfs.VfsUtilCore;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.openapi.vfs.VirtualFileVisitor;
-import com.intellij.plugins.haxe.HaxeFileType;
-import consulo.vfs.ArchiveFileSystem;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author: Fedor.Korotkov
@@ -50,7 +50,7 @@ public class HaxeLibRootDetector extends RootDetector {
     if (file.getFileSystem() instanceof ArchiveFileSystem) {
       return;
     }
-    VfsUtilCore.visitChildrenRecursively(file, new VirtualFileVisitor() {
+    VirtualFileUtil.visitChildrenRecursively(file, new VirtualFileVisitor() {
       @Override
       public boolean visitFile(@Nonnull VirtualFile file) {
         if (progressIndicator != null) {
@@ -76,7 +76,7 @@ public class HaxeLibRootDetector extends RootDetector {
   }
 
   private static boolean containsHaxeFiles(final VirtualFile dir) {
-    final VirtualFileVisitor.Result result = VfsUtilCore.visitChildrenRecursively(dir, new VirtualFileVisitor() {
+    final VirtualFileVisitor.Result result = VirtualFileUtil.visitChildrenRecursively(dir, new VirtualFileVisitor() {
       @Nonnull
       @Override
       public Result visitFileEx(@Nonnull VirtualFile file) {

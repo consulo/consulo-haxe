@@ -15,20 +15,17 @@
  */
 package com.intellij.plugins.haxe.ide.formatter;
 
-import com.intellij.formatting.*;
-import com.intellij.formatting.templateLanguages.BlockWithParent;
-import com.intellij.lang.ASTNode;
 import com.intellij.plugins.haxe.HaxeLanguage;
 import com.intellij.plugins.haxe.ide.formatter.settings.HaxeCodeStyleSettings;
 import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes;
-import com.intellij.psi.PsiWhiteSpace;
-import com.intellij.psi.codeStyle.CodeStyleSettings;
-import com.intellij.psi.formatter.FormatterUtil;
-import com.intellij.psi.formatter.common.AbstractBlock;
-import com.intellij.psi.tree.IElementType;
+import consulo.language.ast.ASTNode;
+import consulo.language.ast.IElementType;
+import consulo.language.codeStyle.*;
+import consulo.language.codeStyle.template.BlockWithParent;
+import consulo.language.psi.PsiWhiteSpace;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,7 +111,7 @@ public class HaxeBlock extends AbstractBlock implements BlockWithParent {
       if (index == 0) {
         break;
       }
-      prev = (ASTBlock)getSubBlocks().get(index - 1);
+      prev = (ASTBlock) getSubBlocks().get(index - 1);
       index--;
     }
     while (prev.getNode().getElementType() == HaxeTokenTypes.OSEMI || prev.getNode() instanceof PsiWhiteSpace);
@@ -150,7 +147,7 @@ public class HaxeBlock extends AbstractBlock implements BlockWithParent {
 
   private static boolean isEndsWithRPAREN(IElementType elementType, IElementType prevType) {
     return prevType == HaxeTokenTypes.PRPAREN &&
-           (elementType == HaxeTokenTypes.IF_STATEMENT ||
+        (elementType == HaxeTokenTypes.IF_STATEMENT ||
             elementType == HaxeTokenTypes.FOR_STATEMENT ||
             elementType == HaxeTokenTypes.WHILE_STATEMENT);
   }

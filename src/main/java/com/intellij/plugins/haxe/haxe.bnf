@@ -1,6 +1,7 @@
 {
+    version = "3"
     parserClass="com.intellij.plugins.haxe.lang.parser.HaxeParser"
-    parserUtilClass="com.intellij.lang.parser.GeneratedParserUtilBase"
+    parserUtilClass="consulo.language.impl.parser.GeneratedParserUtilBase"
 
     implements="com.intellij.plugins.haxe.lang.psi.HaxePsiCompositeElement"
     extends="com.intellij.plugins.haxe.lang.psi.impl.HaxePsiCompositeElementImpl"

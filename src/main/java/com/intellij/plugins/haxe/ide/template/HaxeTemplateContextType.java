@@ -15,17 +15,19 @@
  */
 package com.intellij.plugins.haxe.ide.template;
 
-import com.intellij.codeInsight.template.TemplateContextType;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.language.editor.template.context.TemplateContextType;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.HaxeLanguage;
-import com.intellij.psi.PsiFile;
+import consulo.language.psi.PsiFile;
 import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
  */
+@ExtensionImpl
 public class HaxeTemplateContextType extends TemplateContextType {
-  protected HaxeTemplateContextType() {
+  public HaxeTemplateContextType() {
     super("HAXE", HaxeBundle.message("haxe.language.id"));
   }
 

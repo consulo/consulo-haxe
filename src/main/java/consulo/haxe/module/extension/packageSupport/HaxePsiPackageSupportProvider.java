@@ -16,40 +16,38 @@
 
 package consulo.haxe.module.extension.packageSupport;
 
-import javax.annotation.Nonnull;
-
-import consulo.haxe.module.extension.HaxeModuleExtension;
-import com.intellij.openapi.module.Module;
 import com.intellij.plugins.haxe.lang.psi.impl.HaxePackageImpl;
-import com.intellij.psi.PsiManager;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.haxe.module.extension.HaxeModuleExtension;
+import consulo.language.psi.PsiManager;
+import consulo.language.psi.PsiPackage;
+import consulo.language.psi.PsiPackageManager;
+import consulo.language.psi.PsiPackageSupportProvider;
+import consulo.module.Module;
 import consulo.module.extension.ModuleExtension;
-import consulo.psi.PsiPackage;
-import consulo.psi.PsiPackageManager;
-import consulo.psi.PsiPackageSupportProvider;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author VISTALL
  * @since 12.09.13.
  */
-public class HaxePsiPackageSupportProvider implements PsiPackageSupportProvider
-{
-	@Override
-	public boolean isSupported(@Nonnull ModuleExtension moduleExtension)
-	{
-		return moduleExtension instanceof HaxeModuleExtension;
-	}
+@ExtensionImpl
+public class HaxePsiPackageSupportProvider implements PsiPackageSupportProvider {
+  @Override
+  public boolean isSupported(@Nonnull ModuleExtension moduleExtension) {
+    return moduleExtension instanceof HaxeModuleExtension;
+  }
 
-	@Override
-	public boolean isValidPackageName(@Nonnull Module module, @Nonnull String packageName)
-	{
-		return true;
-	}
+  @Override
+  public boolean isValidPackageName(@Nonnull Module module, @Nonnull String packageName) {
+    return true;
+  }
 
-	@Nonnull
-	@Override
-	public PsiPackage createPackage(@Nonnull PsiManager psiManager, @Nonnull PsiPackageManager psiPackageManager,
-			@Nonnull Class<? extends ModuleExtension> aClass, @Nonnull String s)
-	{
-		return new HaxePackageImpl(psiManager, psiPackageManager, aClass, s);
-	}
+  @Nonnull
+  @Override
+  public PsiPackage createPackage(@Nonnull PsiManager psiManager, @Nonnull PsiPackageManager psiPackageManager,
+																	@Nonnull Class<? extends ModuleExtension> aClass, @Nonnull String s) {
+    return new HaxePackageImpl(psiManager, psiPackageManager, aClass, s);
+  }
 }

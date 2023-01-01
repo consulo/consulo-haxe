@@ -15,16 +15,16 @@
  */
 package com.intellij.plugins.haxe.runner.debugger;
 
-import javax.annotation.Nonnull;
-
-import com.intellij.execution.configurations.RunProfile;
-import com.intellij.execution.executors.DefaultDebugExecutor;
-import com.intellij.execution.runners.DefaultProgramRunner;
 import com.intellij.plugins.haxe.runner.HaxeApplicationConfiguration;
+import consulo.execution.configuration.RunProfile;
+import consulo.execution.debug.DefaultDebugExecutor;
+import consulo.execution.runner.DefaultProgramRunner;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
- *
+ * <p>
  * TODO [VISTALL] DUMMY!
  */
 public class HaxeDebugRunner extends DefaultProgramRunner {

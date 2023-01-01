@@ -15,11 +15,11 @@
  */
 package com.intellij.plugins.haxe.ide.surroundWith;
 
-import com.intellij.openapi.util.TextRange;
+import consulo.document.util.TextRange;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.lang.psi.HaxeIfStatement;
 import com.intellij.plugins.haxe.util.HaxeElementGenerator;
-import com.intellij.psi.PsiElement;
+import consulo.language.psi.PsiElement;
 import javax.annotation.Nonnull;
 
 /**

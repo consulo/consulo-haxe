@@ -15,157 +15,141 @@
  */
 package com.intellij.plugins.haxe.lang.psi.impl;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.intellij.lang.regexp.DefaultRegExpPropertiesProvider;
-import org.intellij.lang.regexp.psi.RegExpChar;
-import org.intellij.lang.regexp.psi.RegExpGroup;
-import org.intellij.lang.regexp.psi.RegExpNamedGroupRef;
-import com.intellij.lang.ASTNode;
-import com.intellij.openapi.util.TextRange;
 import com.intellij.plugins.haxe.lang.psi.HaxeRegularExpression;
 import com.intellij.plugins.haxe.lang.psi.HaxeVarDeclarationPart;
 import com.intellij.plugins.haxe.lang.psi.HaxeVarInit;
 import com.intellij.plugins.haxe.util.HaxeElementGenerator;
-import com.intellij.psi.LiteralTextEscaper;
-import com.intellij.psi.PsiLanguageInjectionHost;
+import consulo.document.util.TextRange;
+import consulo.language.ast.ASTNode;
+import consulo.language.psi.LiteralTextEscaper;
+import consulo.language.psi.PsiLanguageInjectionHost;
+import org.intellij.lang.regexp.DefaultRegExpPropertiesProvider;
+import org.intellij.lang.regexp.psi.RegExpChar;
+import org.intellij.lang.regexp.psi.RegExpGroup;
+import org.intellij.lang.regexp.psi.RegExpNamedGroupRef;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author Fedor.Korotkov
  */
-public class HaxeRegularExpressionImpl extends HaxeReferenceImpl implements HaxeRegularExpression
-{
-	private final DefaultRegExpPropertiesProvider myPropertiesProvider;
+public class HaxeRegularExpressionImpl extends HaxeReferenceImpl implements HaxeRegularExpression {
+  private final DefaultRegExpPropertiesProvider myPropertiesProvider;
 
-	public HaxeRegularExpressionImpl(@Nonnull ASTNode node)
-	{
-		super(node);
-		myPropertiesProvider = DefaultRegExpPropertiesProvider.getInstance();
-	}
+  public HaxeRegularExpressionImpl(@Nonnull ASTNode node) {
+    super(node);
+    myPropertiesProvider = DefaultRegExpPropertiesProvider.getInstance();
+  }
 
-	@Override
-	public boolean isValidHost()
-	{
-		return true;
-	}
+  @Override
+  public boolean isValidHost() {
+    return true;
+  }
 
-	@Override
-	public PsiLanguageInjectionHost updateText(@Nonnull String text)
-	{
-		ASTNode node = getNode();
-		ASTNode parent = node.getTreeParent();
-		final HaxeVarDeclarationPart varDeclarationPart = HaxeElementGenerator.createVarDeclarationPart(getProject(), "a=" + text);
-		final HaxeVarInit varInit = varDeclarationPart.getVarInit();
-		final ASTNode outerNode = varInit == null ? null : varInit.getNode();
-		assert outerNode != null;
-		parent.replaceChild(node, outerNode);
+  @Override
+  public PsiLanguageInjectionHost updateText(@Nonnull String text) {
+    ASTNode node = getNode();
+    ASTNode parent = node.getTreeParent();
+    final HaxeVarDeclarationPart varDeclarationPart = HaxeElementGenerator.createVarDeclarationPart(getProject(), "a=" + text);
+    final HaxeVarInit varInit = varDeclarationPart.getVarInit();
+    final ASTNode outerNode = varInit == null ? null : varInit.getNode();
+    assert outerNode != null;
+    parent.replaceChild(node, outerNode);
 
-		return (PsiLanguageInjectionHost) outerNode.getPsi();
-	}
+    return (PsiLanguageInjectionHost) outerNode.getPsi();
+  }
 
-	@Nonnull
-	@Override
-	public LiteralTextEscaper<? extends PsiLanguageInjectionHost> createLiteralTextEscaper()
-	{
-		return new LiteralTextEscaper<HaxeRegularExpression>(this)
-		{
-			@Override
-			public boolean decode(@Nonnull TextRange rangeInsideHost, @Nonnull StringBuilder outChars)
-			{
-				outChars.append(myHost.getText(), rangeInsideHost.getStartOffset(), rangeInsideHost.getEndOffset());
-				return true;
-			}
+  @Nonnull
+  @Override
+  public LiteralTextEscaper<? extends PsiLanguageInjectionHost> createLiteralTextEscaper() {
+    return new LiteralTextEscaper<HaxeRegularExpression>(this) {
+      @Override
+      public boolean decode(@Nonnull TextRange rangeInsideHost, @Nonnull StringBuilder outChars) {
+        outChars.append(myHost.getText(), rangeInsideHost.getStartOffset(), rangeInsideHost.getEndOffset());
+        return true;
+      }
 
-			@Override
-			public int getOffsetInHost(int offsetInDecoded, @Nonnull TextRange rangeInsideHost)
-			{
-				int offset = offsetInDecoded + rangeInsideHost.getStartOffset();
-				if(offset < rangeInsideHost.getStartOffset())
-				{
-					offset = rangeInsideHost.getStartOffset();
-				}
-				if(offset > rangeInsideHost.getEndOffset())
-				{
-					offset = rangeInsideHost.getEndOffset();
-				}
-				return offset;
-			}
+      @Override
+      public int getOffsetInHost(int offsetInDecoded, @Nonnull TextRange rangeInsideHost) {
+        int offset = offsetInDecoded + rangeInsideHost.getStartOffset();
+        if (offset < rangeInsideHost.getStartOffset()) {
+          offset = rangeInsideHost.getStartOffset();
+        }
+        if (offset > rangeInsideHost.getEndOffset()) {
+          offset = rangeInsideHost.getEndOffset();
+        }
+        return offset;
+      }
 
-			@Override
-			public boolean isOneLine()
-			{
-				return true;
-			}
-		};
-	}
+      @Override
+      public boolean isOneLine() {
+        return true;
+      }
+    };
+  }
 
-	@Override
-	public boolean characterNeedsEscaping(char c)
-	{
-		return false;
-	}
+  @Nonnull
+  @Override
+  public Class getHostClass() {
+    return getClass();
+  }
 
-	@Override
-	public boolean supportsPerl5EmbeddedComments()
-	{
-		return false;
-	}
+  @Override
+  public boolean characterNeedsEscaping(char c) {
+    return false;
+  }
 
-	@Override
-	public boolean supportsPossessiveQuantifiers()
-	{
-		return false;
-	}
+  @Override
+  public boolean supportsPerl5EmbeddedComments() {
+    return false;
+  }
 
-	@Override
-	public boolean supportsPythonConditionalRefs()
-	{
-		return false;
-	}
+  @Override
+  public boolean supportsPossessiveQuantifiers() {
+    return false;
+  }
 
-	@Override
-	public boolean supportsNamedGroupSyntax(RegExpGroup group)
-	{
-		return false;
-	}
+  @Override
+  public boolean supportsPythonConditionalRefs() {
+    return false;
+  }
 
-	@Override
-	public boolean supportsNamedGroupRefSyntax(RegExpNamedGroupRef regExpNamedGroupRef)
-	{
-		return false;
-	}
+  @Override
+  public boolean supportsNamedGroupSyntax(RegExpGroup group) {
+    return false;
+  }
 
-	@Override
-	public boolean supportsExtendedHexCharacter(RegExpChar regExpChar)
-	{
-		return false;
-	}
+  @Override
+  public boolean supportsNamedGroupRefSyntax(RegExpNamedGroupRef regExpNamedGroupRef) {
+    return false;
+  }
 
-	@Override
-	public boolean isValidCategory(@Nonnull String category)
-	{
-		return myPropertiesProvider.isValidCategory(category);
-	}
+  @Override
+  public boolean supportsExtendedHexCharacter(RegExpChar regExpChar) {
+    return false;
+  }
 
-	@Nonnull
-	@Override
-	public String[][] getAllKnownProperties()
-	{
-		return myPropertiesProvider.getAllKnownProperties();
-	}
+  @Override
+  public boolean isValidCategory(@Nonnull String category) {
+    return myPropertiesProvider.isValidCategory(category);
+  }
 
-	@Nullable
-	@Override
-	public String getPropertyDescription(@Nullable String name)
-	{
-		return myPropertiesProvider.getPropertyDescription(name);
-	}
+  @Nonnull
+  @Override
+  public String[][] getAllKnownProperties() {
+    return myPropertiesProvider.getAllKnownProperties();
+  }
 
-	@Nonnull
-	@Override
-	public String[][] getKnownCharacterClasses()
-	{
-		return myPropertiesProvider.getKnownCharacterClasses();
-	}
+  @Nullable
+  @Override
+  public String getPropertyDescription(@Nullable String name) {
+    return myPropertiesProvider.getPropertyDescription(name);
+  }
+
+  @Nonnull
+  @Override
+  public String[][] getKnownCharacterClasses() {
+    return myPropertiesProvider.getKnownCharacterClasses();
+  }
 }

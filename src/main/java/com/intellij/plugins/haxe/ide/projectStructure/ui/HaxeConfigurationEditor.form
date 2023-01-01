@@ -37,7 +37,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="df7a" class="com.intellij.ui.components.JBRadioButton" binding="myHxmlFileRadioButton">
+                  <component id="df7a" class="consulo.ui.ex.awt.JBRadioButton" binding="myHxmlFileRadioButton">
                     <constraints>
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -45,7 +45,7 @@
                       <text resource-bundle="com/intellij/plugins/haxe/HaxeBundle" key="haxe.configuration.use.hxml.to.build"/>
                     </properties>
                   </component>
-                  <component id="2d99c" class="com.intellij.ui.components.JBRadioButton" binding="myNmmlFileRadioButton">
+                  <component id="2d99c" class="consulo.ui.ex.awt.JBRadioButton" binding="myNmmlFileRadioButton">
                     <constraints>
                       <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -53,7 +53,7 @@
                       <text resource-bundle="com/intellij/plugins/haxe/HaxeBundle" key="haxe.configuration.use.nmml.to.build"/>
                     </properties>
                   </component>
-                  <component id="2b27c" class="com.intellij.ui.components.JBRadioButton" binding="myUserPropertiesRadioButton">
+                  <component id="2b27c" class="consulo.ui.ex.awt.JBRadioButton" binding="myUserPropertiesRadioButton">
                     <constraints>
                       <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -195,7 +195,7 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="92ebd" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="myNMEFileChooserTextField">
+                      <component id="92ebd" class="consulo.ui.ex.awt.TextFieldWithBrowseButton" binding="myNMEFileChooserTextField">
                         <constraints>
                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -217,7 +217,7 @@
                           <text resource-bundle="com/intellij/plugins/haxe/HaxeBundle" key="haxe.nme.arguments"/>
                         </properties>
                       </component>
-                      <component id="479f8" class="com.intellij.ui.RawCommandLineEditor" binding="myNMEArguments">
+                      <component id="479f8" class="consulo.execution.ui.awt.RawCommandLineEditor" binding="myNMEArguments">
                         <constraints>
                           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="7" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -241,7 +241,7 @@
                           <text resource-bundle="com/intellij/plugins/haxe/HaxeBundle" key="haxe.configuration.hxml.file"/>
                         </properties>
                       </component>
-                      <component id="a0b9c" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="myHxmlFileChooserTextField">
+                      <component id="a0b9c" class="consulo.ui.ex.awt.TextFieldWithBrowseButton" binding="myHxmlFileChooserTextField">
                         <constraints>
                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -275,7 +275,7 @@
                           <text resource-bundle="com/intellij/plugins/haxe/HaxeBundle" key="haxe.main.class"/>
                         </properties>
                       </component>
-                      <component id="83d52" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="myMainClassFieldWithButton">
+                      <component id="83d52" class="consulo.ui.ex.awt.TextFieldWithBrowseButton" binding="myMainClassFieldWithButton">
                         <constraints>
                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="7" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -311,7 +311,7 @@
                           <text resource-bundle="com/intellij/plugins/haxe/HaxeBundle" key="haxe.output.folder"/>
                         </properties>
                       </component>
-                      <component id="e22c3" class="com.intellij.openapi.ui.TextFieldWithBrowseButton" binding="myFolderTextField">
+                      <component id="e22c3" class="consulo.ui.ex.awt.TextFieldWithBrowseButton" binding="myFolderTextField">
                         <constraints>
                           <grid row="2" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -325,7 +325,7 @@
                           <text resource-bundle="com/intellij/plugins/haxe/HaxeBundle" key="haxe.run.parameters"/>
                         </properties>
                       </component>
-                      <component id="eeeaf" class="com.intellij.ui.RawCommandLineEditor" binding="myAppArguments">
+                      <component id="eeeaf" class="consulo.execution.ui.awt.RawCommandLineEditor" binding="myAppArguments">
                         <constraints>
                           <grid row="3" column="1" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>

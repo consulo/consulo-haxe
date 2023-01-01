@@ -15,11 +15,11 @@
  */
 package com.intellij.plugins.haxe.compilation;
 
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.compiler.CompileContext;
-import com.intellij.openapi.compiler.CompilerMessageCategory;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.vfs.VfsUtilCore;
+import consulo.application.ApplicationManager;
+import consulo.compiler.CompileContext;
+import consulo.compiler.CompilerMessageCategory;
+import consulo.module.Module;
+import consulo.virtualFileSystem.util.VirtualFileUtil;
 
 /**
  * @author: Fedor.Korotkov
@@ -33,21 +33,21 @@ public class HaxeCompilerUtil {
 
   private static void addErrorToContext(Module module, String error, CompileContext context) {
     final HaxeCompilerError compilerError = HaxeCompilerError.create(
-      module.getModuleDirPath(),
-      error,
-      !ApplicationManager.getApplication().isUnitTestMode()
+        module.getModuleDirPath(),
+        error,
+        !ApplicationManager.getApplication().isUnitTestMode()
     );
     if (compilerError == null) {
-      context.addMessage(CompilerMessageCategory.WARNING, error, null, -1, -1);
+      context.addMessage(consulo.compiler.CompilerMessageCategory.WARNING, error, null, -1, -1);
       return;
     }
 
     context.addMessage(
-      CompilerMessageCategory.WARNING,
-      compilerError.getErrorMessage(),
-      VfsUtilCore.pathToUrl(compilerError.getPath()),
-      compilerError.getLine(),
-      -1
+        CompilerMessageCategory.WARNING,
+        compilerError.getErrorMessage(),
+        VirtualFileUtil.pathToUrl(compilerError.getPath()),
+        compilerError.getLine(),
+        -1
     );
   }
 }

@@ -15,26 +15,28 @@
  */
 package com.intellij.plugins.haxe.runner;
 
-import consulo.haxe.module.extension.HaxeModuleExtension;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import com.intellij.execution.ExecutionException;
-import com.intellij.execution.configurations.CommandLineState;
-import com.intellij.execution.configurations.GeneralCommandLine;
-import com.intellij.execution.filters.TextConsoleBuilder;
-import com.intellij.execution.filters.TextConsoleBuilderFactory;
-import com.intellij.execution.process.OSProcessHandler;
-import com.intellij.execution.process.ProcessHandler;
-import com.intellij.execution.runners.ExecutionEnvironment;
-import com.intellij.openapi.module.Module;
-import com.intellij.openapi.module.ModuleUtilCore;
-import com.intellij.openapi.projectRoots.Sdk;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.config.HaxeTarget;
 import com.intellij.plugins.haxe.config.sdk.HaxeSdkData;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
-import consulo.compiler.roots.CompilerPathsImpl;
+import consulo.compiler.ModuleCompilerPathsManager;
+import consulo.content.bundle.Sdk;
+import consulo.execution.configuration.CommandLineState;
+import consulo.execution.runner.ExecutionEnvironment;
+import consulo.execution.ui.console.TextConsoleBuilder;
+import consulo.execution.ui.console.TextConsoleBuilderFactory;
+import consulo.haxe.module.extension.HaxeModuleExtension;
+import consulo.language.content.ProductionContentFolderTypeProvider;
+import consulo.language.util.ModuleUtilCore;
+import consulo.module.Module;
+import consulo.process.ExecutionException;
+import consulo.process.ProcessHandler;
+import consulo.process.cmd.GeneralCommandLine;
+import consulo.process.local.ProcessHandlerFactory;
+import consulo.virtualFileSystem.VirtualFile;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class NekoRunningState extends CommandLineState {
   private final Module module;
@@ -54,11 +56,11 @@ public class NekoRunningState extends CommandLineState {
     final Sdk sdk = ModuleUtilCore.getSdk(module, HaxeModuleExtension.class);
     assert sdk != null;
     assert settings.getHaxeTarget() == HaxeTarget.NEKO;
-    final HaxeSdkData sdkData = sdk.getSdkAdditionalData() instanceof HaxeSdkData ? (HaxeSdkData)sdk.getSdkAdditionalData() : null;
+    final HaxeSdkData sdkData = sdk.getSdkAdditionalData() instanceof HaxeSdkData ? (HaxeSdkData) sdk.getSdkAdditionalData() : null;
 
     GeneralCommandLine commandLine = getCommandForNeko(sdkData, settings);
 
-    return new OSProcessHandler(commandLine.createProcess(), commandLine.getCommandLineString());
+    return ProcessHandlerFactory.getInstance().createProcessHandler(commandLine);
   }
 
   private GeneralCommandLine getCommandForNeko(@Nullable HaxeSdkData sdkData, HaxeModuleSettings settings) throws ExecutionException {
@@ -73,9 +75,8 @@ public class NekoRunningState extends CommandLineState {
 
     if (customFileToLaunch != null) {
       commandLine.addParameter(customFileToLaunch);
-    }
-    else {
-      final VirtualFile outputDirectory = CompilerPathsImpl.getModuleOutputDirectory(module, false);
+    } else {
+      final VirtualFile outputDirectory = ModuleCompilerPathsManager.getInstance(module).getCompilerOutput(ProductionContentFolderTypeProvider.getInstance());
       final VirtualFile fileToLaunch = outputDirectory != null ? outputDirectory.findChild(settings.getOutputFileName()) : null;
       if (fileToLaunch != null) {
         commandLine.addParameter(fileToLaunch.getPath());

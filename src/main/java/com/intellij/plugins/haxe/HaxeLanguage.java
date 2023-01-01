@@ -15,7 +15,7 @@
  */
 package com.intellij.plugins.haxe;
 
-import com.intellij.lang.Language;
+import consulo.language.Language;
 
 public class HaxeLanguage extends Language {
   public static HaxeLanguage INSTANCE = new HaxeLanguage();
