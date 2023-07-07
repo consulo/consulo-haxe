@@ -20,11 +20,13 @@ import consulo.annotation.component.ExtensionImpl;
 import consulo.execution.configuration.ConfigurationFactory;
 import consulo.execution.configuration.ConfigurationType;
 import consulo.execution.configuration.RunConfiguration;
+import consulo.haxe.icon.HaxeIconGroup;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.haxe.module.extension.HaxeModuleExtension;
+import consulo.localize.LocalizeValue;
 import consulo.module.extension.ModuleExtensionHelper;
 import consulo.project.Project;
 import consulo.ui.image.Image;
-import com.intellij.plugins.haxe.HaxeIcons;
 
 import javax.annotation.Nonnull;
 
@@ -42,18 +44,13 @@ public class HaxeRunConfigurationType implements ConfigurationType {
   }
 
   @Override
-  public String getDisplayName() {
-    return HaxeBundle.message("runner.configuration.name");
-  }
-
-  @Override
-  public String getConfigurationTypeDescription() {
-    return HaxeBundle.message("runner.configuration.name");
+  public LocalizeValue getDisplayName() {
+    return HaxeLocalize.runnerConfigurationName();
   }
 
   @Override
   public Image getIcon() {
-    return HaxeIcons.Haxe;
+    return HaxeIconGroup.haxe();
   }
 
   @Override
