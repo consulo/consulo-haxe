@@ -20,8 +20,8 @@ import consulo.application.util.SystemInfo;
 import consulo.logging.Logger;
 import consulo.process.ExecutionException;
 import consulo.process.cmd.GeneralCommandLine;
-import consulo.process.local.ExecUtil;
-import consulo.process.local.ProcessOutput;
+import consulo.process.util.CapturingProcessUtil;
+import consulo.process.util.ProcessOutput;
 import consulo.util.io.FileUtil;
 import consulo.virtualFileSystem.VirtualFile;
 import consulo.virtualFileSystem.VirtualFileManager;
@@ -54,7 +54,7 @@ public class HaxeSdkUtil extends HaxeSdkUtilBase {
     command.withCharset(StandardCharsets.UTF_8);
 
     try {
-      final ProcessOutput output = ExecUtil.execAndGetOutput(command);
+      final ProcessOutput output = CapturingProcessUtil.execAndGetOutput(command);
 
       if (output.getExitCode() != 0) {
         LOG.error("haXe compiler exited with invalid exit code: " + output.getExitCode());
