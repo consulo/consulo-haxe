@@ -20,6 +20,7 @@ import com.intellij.plugins.haxe.lang.psi.HaxePackage;
 import consulo.document.util.TextRange;
 import consulo.language.psi.*;
 import consulo.language.util.IncorrectOperationException;
+import consulo.localize.LocalizeValue;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
@@ -27,85 +28,71 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class HaxePsiPackageReference extends PsiPolyVariantReferenceBase<PsiElement> implements EmptyResolveMessageProvider
-{
-	private final HaxePsiPackageReferenceSet myReferenceSet;
-	private final int myIndex;
+public class HaxePsiPackageReference extends PsiPolyVariantReferenceBase<PsiElement> implements EmptyResolveMessageProvider {
+  private final HaxePsiPackageReferenceSet myReferenceSet;
+  private final int myIndex;
 
-	public HaxePsiPackageReference(final HaxePsiPackageReferenceSet set, final TextRange range, final int index)
-	{
-		super(set.getElement(), range, set.isSoft());
-		myReferenceSet = set;
-		myIndex = index;
-	}
+  public HaxePsiPackageReference(final HaxePsiPackageReferenceSet set, final TextRange range, final int index) {
+    super(set.getElement(), range, set.isSoft());
+    myReferenceSet = set;
+    myIndex = index;
+  }
 
-	@Nonnull
-	private Set<HaxePackage> getContext()
-	{
-		if(myIndex == 0)
-		{
-			return myReferenceSet.getInitialContext();
-		}
-		Set<HaxePackage> psiPackages = new HashSet<HaxePackage>();
-		for(ResolveResult resolveResult : myReferenceSet.getReference(myIndex - 1).multiResolve(false))
-		{
-			PsiElement psiElement = resolveResult.getElement();
-			if(psiElement instanceof HaxePackage)
-			{
-				psiPackages.add((HaxePackage) psiElement);
-			}
-		}
-		return psiPackages;
-	}
+  @Nonnull
+  private Set<HaxePackage> getContext() {
+    if (myIndex == 0) {
+      return myReferenceSet.getInitialContext();
+    }
+    Set<HaxePackage> psiPackages = new HashSet<HaxePackage>();
+    for (ResolveResult resolveResult : myReferenceSet.getReference(myIndex - 1).multiResolve(false)) {
+      PsiElement psiElement = resolveResult.getElement();
+      if (psiElement instanceof HaxePackage) {
+        psiPackages.add((HaxePackage)psiElement);
+      }
+    }
+    return psiPackages;
+  }
 
-	@Override
-	@Nonnull
-	public Object[] getVariants()
-	{
-		Set<HaxePackage> subPackages = new HashSet<HaxePackage>();
-		for(HaxePackage psiPackage : getContext())
-		{
-			subPackages.addAll(Arrays.asList(psiPackage.getSubPackages()));
-		}
+  @Override
+  @Nonnull
+  public Object[] getVariants() {
+    Set<HaxePackage> subPackages = new HashSet<HaxePackage>();
+    for (HaxePackage psiPackage : getContext()) {
+      subPackages.addAll(Arrays.asList(psiPackage.getSubPackages()));
+    }
 
-		return subPackages.toArray();
-	}
+    return subPackages.toArray();
+  }
 
-	@Nonnull
-	@Override
-	public String getUnresolvedMessagePattern()
-	{
-		return "Cant not resolve package";
-	}
+  @Nonnull
+  @Override
+  public LocalizeValue buildUnresolvedMessaged(@Nonnull String s) {
+    return LocalizeValue.localizeTODO("Cant not resolve package");
+  }
 
-	@Override
-	@Nonnull
-	public ResolveResult[] multiResolve(final boolean incompleteCode)
-	{
-		final Collection<HaxePackage> packages = new HashSet<HaxePackage>();
-		for(HaxePackage parentPackage : getContext())
-		{
-			packages.addAll(myReferenceSet.resolvePackageName(parentPackage, getValue()));
-		}
-		return PsiElementResolveResult.createResults(packages);
-	}
+  @Override
+  @Nonnull
+  public ResolveResult[] multiResolve(final boolean incompleteCode) {
+    final Collection<HaxePackage> packages = new HashSet<HaxePackage>();
+    for (HaxePackage parentPackage : getContext()) {
+      packages.addAll(myReferenceSet.resolvePackageName(parentPackage, getValue()));
+    }
+    return PsiElementResolveResult.createResults(packages);
+  }
 
-	@Override
-	public PsiElement bindToElement(@Nonnull final PsiElement element) throws IncorrectOperationException
-	{
-		if(!(element instanceof HaxePackage))
-		{
-			throw new IncorrectOperationException("Cannot bind to " + element);
-		}
-		final String newName = ((HaxePackage) element).getQualifiedName();
-		final TextRange range = new TextRange(getReferenceSet().getReference(0).getRangeInElement().getStartOffset(),
-				getRangeInElement().getEndOffset());
-		final ElementManipulator<PsiElement> manipulator = ElementManipulators.getManipulator(getElement());
-		return manipulator.handleContentChange(getElement(), range, newName);
-	}
+  @Override
+  public PsiElement bindToElement(@Nonnull final PsiElement element) throws IncorrectOperationException {
+    if (!(element instanceof HaxePackage)) {
+      throw new IncorrectOperationException("Cannot bind to " + element);
+    }
+    final String newName = ((HaxePackage)element).getQualifiedName();
+    final TextRange range = new TextRange(getReferenceSet().getReference(0).getRangeInElement().getStartOffset(),
+                                          getRangeInElement().getEndOffset());
+    final ElementManipulator<PsiElement> manipulator = ElementManipulators.getManipulator(getElement());
+    return manipulator.handleContentChange(getElement(), range, newName);
+  }
 
-	public HaxePsiPackageReferenceSet getReferenceSet()
-	{
-		return myReferenceSet;
-	}
+  public HaxePsiPackageReferenceSet getReferenceSet() {
+    return myReferenceSet;
+  }
 }
