@@ -43,7 +43,7 @@ public class HaxePsiPackageReference extends PsiPolyVariantReferenceBase<PsiElem
     if (myIndex == 0) {
       return myReferenceSet.getInitialContext();
     }
-    Set<HaxePackage> psiPackages = new HashSet<HaxePackage>();
+    Set<HaxePackage> psiPackages = new HashSet<>();
     for (ResolveResult resolveResult : myReferenceSet.getReference(myIndex - 1).multiResolve(false)) {
       PsiElement psiElement = resolveResult.getElement();
       if (psiElement instanceof HaxePackage) {
@@ -56,7 +56,7 @@ public class HaxePsiPackageReference extends PsiPolyVariantReferenceBase<PsiElem
   @Override
   @Nonnull
   public Object[] getVariants() {
-    Set<HaxePackage> subPackages = new HashSet<HaxePackage>();
+    Set<HaxePackage> subPackages = new HashSet<>();
     for (HaxePackage psiPackage : getContext()) {
       subPackages.addAll(Arrays.asList(psiPackage.getSubPackages()));
     }
@@ -66,14 +66,14 @@ public class HaxePsiPackageReference extends PsiPolyVariantReferenceBase<PsiElem
 
   @Nonnull
   @Override
-  public LocalizeValue buildUnresolvedMessaged(@Nonnull String s) {
+  public LocalizeValue buildUnresolvedMessage(@Nonnull String s) {
     return LocalizeValue.localizeTODO("Cant not resolve package");
   }
 
   @Override
   @Nonnull
   public ResolveResult[] multiResolve(final boolean incompleteCode) {
-    final Collection<HaxePackage> packages = new HashSet<HaxePackage>();
+    final Collection<HaxePackage> packages = new HashSet<>();
     for (HaxePackage parentPackage : getContext()) {
       packages.addAll(myReferenceSet.resolvePackageName(parentPackage, getValue()));
     }
