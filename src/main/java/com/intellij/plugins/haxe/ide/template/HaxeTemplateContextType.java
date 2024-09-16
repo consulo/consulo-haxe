@@ -15,24 +15,27 @@
  */
 package com.intellij.plugins.haxe.ide.template;
 
-import consulo.annotation.component.ExtensionImpl;
-import consulo.language.editor.template.context.TemplateContextType;
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.HaxeLanguage;
+import consulo.annotation.component.ExtensionImpl;
+import consulo.haxe.localize.HaxeLocalize;
+import consulo.language.editor.template.context.BaseTemplateContextType;
+import consulo.language.editor.template.context.TemplateActionContext;
 import consulo.language.psi.PsiFile;
+
 import javax.annotation.Nonnull;
 
 /**
- * @author: Fedor.Korotkov
+ * @author Fedor.Korotkov
  */
 @ExtensionImpl
-public class HaxeTemplateContextType extends TemplateContextType {
-  public HaxeTemplateContextType() {
-    super("HAXE", HaxeBundle.message("haxe.language.id"));
-  }
+public class HaxeTemplateContextType extends BaseTemplateContextType {
+    public HaxeTemplateContextType() {
+        super("HAXE", HaxeLocalize.haxeLanguageId());
+    }
 
-  @Override
-  public boolean isInContext(@Nonnull PsiFile file, int offset) {
-    return file.getLanguage() instanceof HaxeLanguage;
-  }
+    @Override
+    public boolean isInContext(@Nonnull TemplateActionContext context) {
+        PsiFile file = context.getFile();
+        return file.getLanguage() instanceof HaxeLanguage;
+    }
 }
