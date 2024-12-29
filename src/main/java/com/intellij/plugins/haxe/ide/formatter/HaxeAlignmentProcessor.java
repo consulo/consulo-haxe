@@ -19,7 +19,7 @@ import consulo.language.ast.ASTNode;
 import consulo.language.codeStyle.Alignment;
 import consulo.language.codeStyle.CommonCodeStyleSettings;
 import consulo.language.ast.IElementType;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.BINARY_EXPRESSIONS;
 import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.FUNCTION_DEFINITION;

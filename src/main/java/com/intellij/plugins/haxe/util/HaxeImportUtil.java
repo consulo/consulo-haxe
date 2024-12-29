@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import consulo.util.lang.function.Condition;
 import com.intellij.plugins.haxe.lang.psi.HaxeClass;

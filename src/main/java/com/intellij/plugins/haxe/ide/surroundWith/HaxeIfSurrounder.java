@@ -20,7 +20,7 @@ import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.lang.psi.HaxeIfStatement;
 import com.intellij.plugins.haxe.util.HaxeElementGenerator;
 import consulo.language.psi.PsiElement;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov

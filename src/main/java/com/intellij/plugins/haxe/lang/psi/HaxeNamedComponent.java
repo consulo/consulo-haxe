@@ -15,7 +15,7 @@
  */
 package com.intellij.plugins.haxe.lang.psi;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 /**
  * @author: Fedor.Korotkov

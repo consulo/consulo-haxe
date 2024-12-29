@@ -26,7 +26,7 @@ import consulo.language.lexer.MergingLexerAdapter;
 import consulo.project.Project;
 import consulo.util.dataholder.Key;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import java.util.*;
 
 import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.*;

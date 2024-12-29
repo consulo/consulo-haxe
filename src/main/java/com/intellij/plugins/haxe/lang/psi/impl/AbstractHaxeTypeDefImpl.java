@@ -20,7 +20,7 @@ import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import consulo.util.collection.ContainerUtil;
 import consulo.language.ast.ASTNode;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.util.List;
 

@@ -33,7 +33,7 @@ import consulo.util.xml.serializer.XmlSerializer;
 import consulo.project.Project;
 import consulo.util.xml.serializer.WriteExternalException;
 import org.jdom.Element;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.util.Arrays;
 import java.util.Collection;

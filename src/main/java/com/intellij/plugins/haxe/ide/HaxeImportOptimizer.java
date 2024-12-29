@@ -32,7 +32,7 @@ import consulo.module.content.ProjectRootManager;
 import consulo.util.lang.EmptyRunnable;
 import consulo.virtualFileSystem.VirtualFile;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * Created by fedorkorotkov.

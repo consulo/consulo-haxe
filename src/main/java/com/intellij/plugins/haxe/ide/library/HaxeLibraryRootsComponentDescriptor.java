@@ -21,7 +21,7 @@ import consulo.content.base.SourcesOrderRootType;
 import consulo.content.library.ui.DefaultLibraryRootsComponentDescriptor;
 import consulo.content.library.ui.RootDetector;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 

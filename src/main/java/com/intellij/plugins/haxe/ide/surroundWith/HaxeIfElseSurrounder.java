@@ -15,7 +15,7 @@
  */
 package com.intellij.plugins.haxe.ide.surroundWith;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.lang.psi.HaxeIfStatement;

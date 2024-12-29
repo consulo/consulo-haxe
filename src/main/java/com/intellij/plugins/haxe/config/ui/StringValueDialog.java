@@ -18,7 +18,7 @@ package com.intellij.plugins.haxe.config.ui;
 import consulo.ui.ex.awt.DialogWrapper;
 import com.intellij.plugins.haxe.HaxeBundle;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import javax.swing.*;
 import java.awt.*;

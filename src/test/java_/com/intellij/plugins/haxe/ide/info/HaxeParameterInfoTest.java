@@ -15,7 +15,7 @@
  */
 package com.intellij.plugins.haxe.ide.info;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import consulo.ide.impl.idea.openapi.util.io.FileUtil;
 import com.intellij.plugins.haxe.util.HaxeTestUtils;
 import com.intellij.testFramework.LightPlatformCodeInsightTestCase;

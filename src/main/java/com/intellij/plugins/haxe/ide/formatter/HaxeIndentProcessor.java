@@ -23,7 +23,7 @@ import consulo.language.codeStyle.CommonCodeStyleSettings;
 import consulo.language.ast.IElementType;
 import consulo.language.psi.PsiFile;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.COMMENTS;
 import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets.FUNCTION_DEFINITION;

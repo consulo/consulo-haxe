@@ -18,7 +18,7 @@ package com.intellij.plugins.haxe.util;
 import consulo.application.util.SystemInfo;
 import consulo.util.io.FileUtil;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 import java.io.File;
 
 /**

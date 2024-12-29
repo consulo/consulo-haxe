@@ -21,7 +21,7 @@ import com.intellij.plugins.haxe.lang.psi.HaxeDoWhileStatement;
 import com.intellij.plugins.haxe.lang.psi.HaxeExpression;
 import com.intellij.plugins.haxe.util.HaxeElementGenerator;
 import consulo.language.psi.PsiElement;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.util.List;
 

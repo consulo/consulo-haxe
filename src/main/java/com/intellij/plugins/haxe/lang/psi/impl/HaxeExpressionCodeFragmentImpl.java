@@ -37,8 +37,8 @@ import consulo.language.version.LanguageVersionUtil;
 import consulo.project.Project;
 import org.jetbrains.annotations.NonNls;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 import static consulo.language.impl.parser.GeneratedParserUtilBase.*;
 

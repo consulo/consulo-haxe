@@ -28,7 +28,7 @@ import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.scope.GlobalSearchScope;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.util.List;
 

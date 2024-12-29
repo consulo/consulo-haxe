@@ -24,7 +24,7 @@ import com.intellij.plugins.haxe.lang.psi.HaxeBlockStatement;
 import com.intellij.plugins.haxe.util.UsefulPsiTreeUtil;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.util.ArrayList;
 import java.util.List;

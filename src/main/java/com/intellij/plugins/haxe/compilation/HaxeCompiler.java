@@ -38,7 +38,7 @@ import consulo.module.Module;
 import consulo.module.content.layer.OrderEnumerator;
 import consulo.virtualFileSystem.VirtualFile;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.io.DataInput;
 import java.io.File;
 import java.io.IOException;

@@ -24,7 +24,7 @@ import consulo.language.ast.TokenType;
 import consulo.util.collection.ArrayUtil;
 import consulo.virtualFileSystem.fileType.FileType;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author fedor.korotkov

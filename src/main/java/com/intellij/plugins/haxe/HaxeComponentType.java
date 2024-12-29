@@ -15,7 +15,7 @@
  */
 package com.intellij.plugins.haxe;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
 
 import consulo.application.AllIcons;
 import com.intellij.plugins.haxe.lang.psi.*;

@@ -23,7 +23,7 @@ import consulo.language.inject.LanguageInjector;
 import consulo.language.psi.PsiLanguageInjectionHost;
 import org.intellij.lang.regexp.RegExpLanguage;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov

@@ -3,7 +3,7 @@ package com.intellij.plugins.haxe.lang.psi;
 import consulo.language.psi.PsiPackage;
 import consulo.util.collection.ArrayFactory;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author VISTALL

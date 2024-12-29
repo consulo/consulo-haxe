@@ -28,7 +28,7 @@ import consulo.language.psi.PsiElement;
 import consulo.navigation.NavigationItem;
 import consulo.util.collection.ContainerUtil;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.Set;
 

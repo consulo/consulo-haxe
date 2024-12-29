@@ -15,7 +15,7 @@
  */
 package com.intellij.plugins.haxe.ide.surroundWith;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import consulo.document.util.TextRange;
 import com.intellij.plugins.haxe.HaxeBundle;

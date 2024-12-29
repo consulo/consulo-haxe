@@ -24,7 +24,7 @@ import consulo.language.psi.PsiReference;
 import consulo.language.util.IncorrectOperationException;
 import consulo.util.io.FileUtil;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 public class HaxeFile extends PsiFileBase {
   public HaxeFile(@Nonnull FileViewProvider viewProvider) {

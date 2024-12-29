@@ -23,7 +23,7 @@ import consulo.language.Language;
 import consulo.language.ast.IElementType;
 import consulo.language.psi.PsiComment;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov

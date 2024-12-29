@@ -30,7 +30,7 @@ import consulo.virtualFileSystem.VirtualFileManager;
 import com.intellij.plugins.haxe.HaxeIcons;
 import org.jdom.Element;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Collections;
 

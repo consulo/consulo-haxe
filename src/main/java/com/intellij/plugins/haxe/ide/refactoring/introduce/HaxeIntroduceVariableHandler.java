@@ -17,7 +17,7 @@ package com.intellij.plugins.haxe.ide.refactoring.introduce;
 
 import com.intellij.plugins.haxe.HaxeBundle;
 import consulo.language.psi.PsiElement;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import java.util.List;
 

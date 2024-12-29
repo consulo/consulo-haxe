@@ -30,7 +30,7 @@ import consulo.util.io.FileUtil;
 import consulo.util.lang.ref.Ref;
 import consulo.util.lang.text.StringTokenizer;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.util.List;

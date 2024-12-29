@@ -16,7 +16,7 @@
 package com.intellij.plugins.haxe.config;
 
 import com.intellij.plugins.haxe.HaxeCommonBundle;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import javax.swing.*;
 

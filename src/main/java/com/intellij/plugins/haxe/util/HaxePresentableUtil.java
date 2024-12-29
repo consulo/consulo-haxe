@@ -19,8 +19,8 @@ import com.intellij.plugins.haxe.lang.psi.*;
 import consulo.util.collection.ContainerUtil;
 import consulo.language.psi.util.PsiTreeUtil;
 import org.jetbrains.annotations.Nls;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import jakarta.annotation.Nonnull;
+import jakarta.annotation.Nullable;
 
 import java.util.List;
 

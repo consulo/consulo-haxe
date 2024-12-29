@@ -24,7 +24,7 @@ import com.intellij.plugins.haxe.lang.psi.HaxeNamedElement;
 import consulo.language.psi.PsiElement;
 import consulo.language.editor.refactoring.action.RefactoringActionHandler;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov

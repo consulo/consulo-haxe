@@ -18,7 +18,7 @@ package com.intellij.plugins.haxe.lang.lexer;
 import com.intellij.plugins.haxe.HaxeLanguage;
 import consulo.language.ast.IElementType;
 import org.jetbrains.annotations.NonNls;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 public class HaxeElementType extends IElementType
 {

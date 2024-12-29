@@ -16,7 +16,7 @@
 package com.intellij.plugins.haxe.lang.psi;
 
 import consulo.language.psi.PsiReference;
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
