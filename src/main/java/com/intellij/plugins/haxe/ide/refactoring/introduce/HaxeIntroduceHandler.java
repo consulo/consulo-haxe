@@ -47,7 +47,7 @@ import java.util.*;
 import java.util.function.Consumer;
 
 /**
- * @author: Fedor.Korotkov
+ * @author Fedor.Korotkov
  */
 @SuppressWarnings("MethodMayBeStatic")
 public abstract class HaxeIntroduceHandler implements RefactoringActionHandler {

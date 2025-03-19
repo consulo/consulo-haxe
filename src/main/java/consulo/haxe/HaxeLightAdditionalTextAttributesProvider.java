@@ -13,7 +13,7 @@ import jakarta.annotation.Nonnull;
  * @since 20-Aug-22
  */
 @ExtensionImpl
-public class HaxeDarkAdditionalTextAttributesProvider implements EditorColorSchemeExtender {
+public class HaxeLightAdditionalTextAttributesProvider implements EditorColorSchemeExtender {
     @Override
     public void extend(Builder builder) {
         builder.add(HaxeSyntaxHighlighterColors.CONDITIONALLY_NOT_COMPILED, AttributesFlyweightBuilder.create()

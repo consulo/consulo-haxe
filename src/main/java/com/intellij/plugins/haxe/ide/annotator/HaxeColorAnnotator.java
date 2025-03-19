@@ -46,7 +46,7 @@ public class HaxeColorAnnotator implements Annotator {
   @Override
   public void annotate(@Nonnull PsiElement node, @Nonnull AnnotationHolder holder) {
     if (isNewOperator(node)) {
-      holder.createInfoAnnotation(node, null).setTextAttributes(TextAttributesKey.find(HaxeSyntaxHighlighterColors.HAXE_KEYWORD));
+      holder.createInfoAnnotation(node, null).setTextAttributes(HaxeSyntaxHighlighterColors.KEYWORD);
     }
 
     PsiElement element = node;
@@ -84,9 +84,9 @@ public class HaxeColorAnnotator implements Annotator {
       final int absoluteOffset = node.getTextOffset() + offset;
       final TextRange range = new TextRange(absoluteOffset, absoluteOffset + word.length());
       final Annotation annotation = holder.createInfoAnnotation(range, null);
-      final String attributeName = definitions.contains(word) ? HaxeSyntaxHighlighterColors.HAXE_DEFINED_VAR
-          : HaxeSyntaxHighlighterColors.HAXE_UNDEFINED_VAR;
-      annotation.setTextAttributes(TextAttributesKey.find(attributeName));
+      final TextAttributesKey attributeName = definitions.contains(word) ? HaxeSyntaxHighlighterColors.DEFINED_VAR
+          : HaxeSyntaxHighlighterColors.UNDEFINED_VAR;
+      annotation.setTextAttributes(attributeName);
       annotation.registerFix(new HaxeDefineIntention(word, definitions.contains(word)), range);
     }
   }
@@ -123,19 +123,19 @@ public class HaxeColorAnnotator implements Annotator {
       case CLASS:
       case ENUM:
       case TYPEDEF:
-        return TextAttributesKey.find(HaxeSyntaxHighlighterColors.HAXE_CLASS);
+        return HaxeSyntaxHighlighterColors.CLASS;
       case INTERFACE:
-        return TextAttributesKey.find(HaxeSyntaxHighlighterColors.HAXE_INTERFACE);
+        return HaxeSyntaxHighlighterColors.INTERFACE;
       case PARAMETER:
-        return TextAttributesKey.find(HaxeSyntaxHighlighterColors.HAXE_PARAMETER);
+        return HaxeSyntaxHighlighterColors.PARAMETER;
       case VARIABLE:
-        return TextAttributesKey.find(HaxeSyntaxHighlighterColors.HAXE_LOCAL_VARIABLE);
+        return HaxeSyntaxHighlighterColors.LOCAL_VARIABLE;
       case FIELD:
-        if (isStatic) return TextAttributesKey.find(HaxeSyntaxHighlighterColors.HAXE_STATIC_MEMBER_VARIABLE);
-        return TextAttributesKey.find(HaxeSyntaxHighlighterColors.HAXE_INSTANCE_MEMBER_VARIABLE);
+        if (isStatic) return HaxeSyntaxHighlighterColors.STATIC_MEMBER_VARIABLE;
+        return HaxeSyntaxHighlighterColors.INSTANCE_MEMBER_VARIABLE;
       case METHOD:
-        if (isStatic) return TextAttributesKey.find(HaxeSyntaxHighlighterColors.HAXE_STATIC_MEMBER_FUNCTION);
-        return TextAttributesKey.find(HaxeSyntaxHighlighterColors.HAXE_INSTANCE_MEMBER_FUNCTION);
+        if (isStatic) return HaxeSyntaxHighlighterColors.STATIC_MEMBER_FUNCTION;
+        return HaxeSyntaxHighlighterColors.INSTANCE_MEMBER_FUNCTION;
       default:
         return null;
     }

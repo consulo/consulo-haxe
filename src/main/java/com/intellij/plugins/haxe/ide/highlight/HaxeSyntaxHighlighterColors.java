@@ -25,18 +25,6 @@ import static consulo.colorScheme.TextAttributesKey.createTextAttributesKey;
  * @author fedor.korotkov
  */
 public class HaxeSyntaxHighlighterColors {
-  public static final String HAXE_KEYWORD = "HAXE_KEYWORD";
-  public static final String HAXE_CLASS = "HAXE_CLASS";
-  public static final String HAXE_INTERFACE = "HAXE_INTERFACE";
-  public static final String HAXE_STATIC_MEMBER_FUNCTION = "HAXE_STATIC_MEMBER_FUNCTION";
-  public static final String HAXE_INSTANCE_MEMBER_FUNCTION = "HAXE_INSTANCE_MEMBER_FUNCTION";
-  public static final String HAXE_INSTANCE_MEMBER_VARIABLE = "HAXE_INSTANCE_MEMBER_VARIABLE";
-  public static final String HAXE_STATIC_MEMBER_VARIABLE = "HAXE_STATIC_MEMBER_VARIABLE";
-  public static final String HAXE_LOCAL_VARIABLE = "HAXE_LOCAL_VARIABLE";
-  public static final String HAXE_PARAMETER = "HAXE_PARAMETER";
-  public static final String HAXE_DEFINED_VAR = "HAXE_DEFINED_VAR";
-  public static final String HAXE_UNDEFINED_VAR = "HAXE_UNDEFINED_VAR";
-
   public static final TextAttributesKey LINE_COMMENT =
     createTextAttributesKey("HAXE_LINE_COMMENT", DefaultLanguageHighlighterColors.LINE_COMMENT);
   public static final TextAttributesKey BLOCK_COMMENT =
@@ -69,19 +57,19 @@ public class HaxeSyntaxHighlighterColors {
   public static final TextAttributesKey BAD_CHARACTER =
     createTextAttributesKey("HAXE_BAD_CHARACTER", HighlighterColors.BAD_CHARACTER);
   public static final TextAttributesKey CLASS =
-    createTextAttributesKey(HAXE_CLASS, DefaultLanguageHighlighterColors.CLASS_NAME);
+    createTextAttributesKey("HAXE_CLASS", DefaultLanguageHighlighterColors.CLASS_NAME);
   public static final TextAttributesKey INTERFACE =
-    createTextAttributesKey(HAXE_INTERFACE, DefaultLanguageHighlighterColors.INTERFACE_NAME);
+    createTextAttributesKey("HAXE_INTERFACE", DefaultLanguageHighlighterColors.INTERFACE_NAME);
   public static final TextAttributesKey STATIC_MEMBER_FUNCTION =
-    createTextAttributesKey(HAXE_STATIC_MEMBER_FUNCTION, DefaultLanguageHighlighterColors.STATIC_METHOD);
+    createTextAttributesKey("HAXE_STATIC_MEMBER_FUNCTION", DefaultLanguageHighlighterColors.STATIC_METHOD);
   public static final TextAttributesKey INSTANCE_MEMBER_FUNCTION =
-    createTextAttributesKey(HAXE_INSTANCE_MEMBER_FUNCTION, DefaultLanguageHighlighterColors.INSTANCE_METHOD);
+    createTextAttributesKey("HAXE_INSTANCE_MEMBER_FUNCTION", DefaultLanguageHighlighterColors.INSTANCE_METHOD);
   public static final TextAttributesKey INSTANCE_MEMBER_VARIABLE =
-    createTextAttributesKey(HAXE_INSTANCE_MEMBER_VARIABLE, DefaultLanguageHighlighterColors.INSTANCE_FIELD);
+    createTextAttributesKey("HAXE_INSTANCE_MEMBER_VARIABLE", DefaultLanguageHighlighterColors.INSTANCE_FIELD);
   public static final TextAttributesKey STATIC_MEMBER_VARIABLE =
-    createTextAttributesKey(HAXE_STATIC_MEMBER_VARIABLE, DefaultLanguageHighlighterColors.STATIC_FIELD);
+    createTextAttributesKey("HAXE_STATIC_MEMBER_VARIABLE", DefaultLanguageHighlighterColors.STATIC_FIELD);
   public static final TextAttributesKey LOCAL_VARIABLE =
-    createTextAttributesKey(HAXE_LOCAL_VARIABLE, DefaultLanguageHighlighterColors.LOCAL_VARIABLE);
+    createTextAttributesKey("HAXE_LOCAL_VARIABLE", DefaultLanguageHighlighterColors.LOCAL_VARIABLE);
   public static final TextAttributesKey PARAMETER =
-    createTextAttributesKey(HAXE_PARAMETER, DefaultLanguageHighlighterColors.PARAMETER);
+    createTextAttributesKey("HAXE_PARAMETER", DefaultLanguageHighlighterColors.PARAMETER);
 }
