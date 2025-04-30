@@ -17,6 +17,7 @@ package com.intellij.plugins.haxe.runner;
 
 import com.intellij.plugins.haxe.HaxeBundle;
 import consulo.annotation.component.ExtensionImpl;
+import consulo.application.Application;
 import consulo.execution.configuration.ConfigurationFactory;
 import consulo.execution.configuration.ConfigurationType;
 import consulo.execution.configuration.RunConfiguration;
@@ -40,7 +41,7 @@ public class HaxeRunConfigurationType implements ConfigurationType {
 
   @Nonnull
   public static HaxeRunConfigurationType getInstance() {
-    return EP_NAME.findExtensionOrFail(HaxeRunConfigurationType.class);
+    return Application.get().getExtensionPoint(ConfigurationType.class).findExtensionOrFail(HaxeRunConfigurationType.class);
   }
 
   @Override
