@@ -15,35 +15,36 @@
  */
 package com.intellij.plugins.haxe.ide.formatter.settings;
 
-import com.intellij.plugins.haxe.HaxeBundle;
+import com.intellij.plugins.haxe.HaxeLanguage;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.configurable.Configurable;
+import consulo.language.Language;
 import consulo.language.codeStyle.CodeStyleSettings;
 import consulo.language.codeStyle.CustomCodeStyleSettings;
 import consulo.language.codeStyle.setting.CodeStyleSettingsProvider;
-
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
 /**
- * @author: Fedor.Korotkov
+ * @author Fedor.Korotkov
  */
 @ExtensionImpl
 public class HaxeCodeStyleSettingsProvider extends CodeStyleSettingsProvider {
-  @Override
-  public String getConfigurableDisplayName() {
-    return HaxeBundle.message("haxe.title");
-  }
+    @Nullable
+    @Override
+    public Language getLanguage() {
+        return HaxeLanguage.INSTANCE;
+    }
 
-  @Nonnull
-  @Override
-  public Configurable createSettingsPage(CodeStyleSettings settings, CodeStyleSettings originalSettings) {
-    return new HaxeCodeStyleConfigurable(settings, originalSettings);
-  }
+    @Nonnull
+    @Override
+    public Configurable createSettingsPage(CodeStyleSettings settings, CodeStyleSettings originalSettings) {
+        return new HaxeCodeStyleConfigurable(settings, originalSettings);
+    }
 
-  @Nullable
-  @Override
-  public CustomCodeStyleSettings createCustomSettings(CodeStyleSettings settings) {
-    return new HaxeCodeStyleSettings(settings);
-  }
+    @Nullable
+    @Override
+    public CustomCodeStyleSettings createCustomSettings(CodeStyleSettings settings) {
+        return new HaxeCodeStyleSettings(settings);
+    }
 }
