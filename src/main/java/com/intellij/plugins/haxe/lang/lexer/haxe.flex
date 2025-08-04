@@ -56,7 +56,6 @@ import java.util.*;
     }
 %}
 
-%unicode
 %class _HaxeLexer
 %extends LexerBase
 %implements  HaxeTokenTypes, HaxeTokenTypeSets
@@ -341,3 +340,4 @@ IDENTIFIER_NO_DOLLAR={IDENTIFIER_START_NO_DOLLAR}{IDENTIFIER_PART_NO_DOLLAR}*
 
 <QUO_STRING, APOS_STRING, SHORT_TEMPLATE_ENTRY, LONG_TEMPLATE_ENTRY> [^]  { return consulo.language.ast.TokenType.BAD_CHARACTER; }
 [^]                                                                       {  yybegin(YYINITIAL); return consulo.language.ast.TokenType.BAD_CHARACTER; }
+
