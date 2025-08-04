@@ -69,7 +69,7 @@ import java.util.*;
 %eof{
 %eof}
 
-%xstate QUO_STRING APOS_STRING SHORT_TEMPLATE_ENTRY LONG_TEMPLATE_ENTRY
+%xstate QUO_STRING, APOS_STRING, SHORT_TEMPLATE_ENTRY, LONG_TEMPLATE_ENTRY
 
 WHITE_SPACE_CHAR=[\ \n\r\t\f]
 
@@ -339,5 +339,5 @@ IDENTIFIER_NO_DOLLAR={IDENTIFIER_START_NO_DOLLAR}{IDENTIFIER_PART_NO_DOLLAR}*
 <SHORT_TEMPLATE_ENTRY> "this"          { popState(); return KTHIS; }
 <SHORT_TEMPLATE_ENTRY> {IDENTIFIER_NO_DOLLAR}    { popState(); return ID; }
 
-<QUO_STRING, APOS_STRING, SHORT_TEMPLATE_ENTRY, LONG_TEMPLATE_ENTRY> .  { return consulo.language.ast.TokenType.BAD_CHARACTER; }
-.                                                                       {  yybegin(YYINITIAL); return consulo.language.ast.TokenType.BAD_CHARACTER; }
+<QUO_STRING, APOS_STRING, SHORT_TEMPLATE_ENTRY, LONG_TEMPLATE_ENTRY> [^]  { return consulo.language.ast.TokenType.BAD_CHARACTER; }
+[^]                                                                       {  yybegin(YYINITIAL); return consulo.language.ast.TokenType.BAD_CHARACTER; }
