@@ -15,16 +15,16 @@
  */
 package com.intellij.plugins.haxe.ide.highlight;
 
-import com.intellij.plugins.haxe.HaxeBundle;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.colorScheme.TextAttributesKey;
 import consulo.colorScheme.setting.AttributesDescriptor;
 import consulo.colorScheme.setting.ColorDescriptor;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.language.editor.colorScheme.setting.ColorSettingsPage;
 import consulo.language.editor.highlight.SyntaxHighlighter;
-import org.jetbrains.annotations.NonNls;
-
+import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,34 +37,34 @@ import static com.intellij.plugins.haxe.ide.highlight.HaxeSyntaxHighlighterColor
 public class HaxeColorSettingsPage implements ColorSettingsPage
 {
   private static final AttributesDescriptor[] ATTRS = new AttributesDescriptor[]{
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.line.comment"), LINE_COMMENT),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.block.comment"), BLOCK_COMMENT),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.doc.comment"), DOC_COMMENT),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.conditional.compilation"), CONDITIONALLY_NOT_COMPILED),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.conditional.compilation.defined.flag"), DEFINED_VAR),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.conditional.compilation.undefined.flag"), UNDEFINED_VAR),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.keyword"), KEYWORD),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.number"), NUMBER),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.string"), STRING),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.operator"), OPERATION_SIGN),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.parenths"), PARENTHS),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.brackets"), BRACKETS),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.braces"), BRACES),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.comma"), COMMA),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.dot"), DOT),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.semicolon"), SEMICOLON),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.bad.character"), BAD_CHARACTER),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.parameter"), PARAMETER),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.local.variable"), LOCAL_VARIABLE),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.class"), CLASS),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.interface"), INTERFACE),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.instance.member.function"), INSTANCE_MEMBER_FUNCTION),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.static.member.function"), STATIC_MEMBER_FUNCTION),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.instance.member.variable"), INSTANCE_MEMBER_VARIABLE),
-    new AttributesDescriptor(HaxeBundle.message("haxe.color.settings.description.static.member.variable"), STATIC_MEMBER_VARIABLE)
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionLineComment(), LINE_COMMENT),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionBlockComment(), BLOCK_COMMENT),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionDocComment(), DOC_COMMENT),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionConditionalCompilation(), CONDITIONALLY_NOT_COMPILED),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionConditionalCompilationDefinedFlag(), DEFINED_VAR),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionConditionalCompilationUndefinedFlag(), UNDEFINED_VAR),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionKeyword(), KEYWORD),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionNumber(), NUMBER),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionString(), STRING),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionOperator(), OPERATION_SIGN),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionParenths(), PARENTHS),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionBrackets(), BRACKETS),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionBraces(), BRACES),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionComma(), COMMA),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionDot(), DOT),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionSemicolon(), SEMICOLON),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionBadCharacter(), BAD_CHARACTER),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionParameter(), PARAMETER),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionLocalVariable(), LOCAL_VARIABLE),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionClass(), CLASS),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionInterface(), INTERFACE),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionInstanceMemberFunction(), INSTANCE_MEMBER_FUNCTION),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionStaticMemberFunction(), STATIC_MEMBER_FUNCTION),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionInstanceMemberVariable(), INSTANCE_MEMBER_VARIABLE),
+    new AttributesDescriptor(HaxeLocalize.haxeColorSettingsDescriptionStaticMemberVariable(), STATIC_MEMBER_VARIABLE)
   };
 
-  @NonNls private static final Map<String, TextAttributesKey> ourTags = new HashMap<String, TextAttributesKey>();
+  private static final Map<String, TextAttributesKey> ourTags = new HashMap<>();
 
   static {
     ourTags.put("parameter", PARAMETER);
@@ -82,8 +82,8 @@ public class HaxeColorSettingsPage implements ColorSettingsPage
 
   @Nonnull
   @Override
-  public String getDisplayName() {
-    return HaxeBundle.message("haxe.title");
+  public LocalizeValue getDisplayName() {
+    return HaxeLocalize.haxeTitle();
   }
 
   @Nonnull

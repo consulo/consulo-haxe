@@ -15,25 +15,25 @@
  */
 package com.intellij.plugins.haxe.config;
 
+import com.intellij.plugins.haxe.config.ui.HaxeSettingsForm;
+import com.intellij.plugins.haxe.util.HaxeUtil;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.configurable.ConfigurationException;
 import consulo.configurable.NonDefaultProjectConfigurable;
 import consulo.configurable.ProjectConfigurable;
 import consulo.configurable.SearchableConfigurable;
-import com.intellij.plugins.haxe.HaxeBundle;
-import com.intellij.plugins.haxe.config.ui.HaxeSettingsForm;
-import com.intellij.plugins.haxe.util.HaxeUtil;
 import consulo.disposer.Disposable;
+import consulo.haxe.localize.HaxeLocalize;
+import consulo.localize.LocalizeValue;
 import consulo.project.Project;
 import consulo.ui.annotation.RequiredUIAccess;
-import jakarta.inject.Inject;
-
 import jakarta.annotation.Nonnull;
+import jakarta.inject.Inject;
 
 import javax.swing.*;
 
 /**
- * @author: Fedor.Korotkov
+ * @author Fedor.Korotkov
  */
 @ExtensionImpl
 public class HaxeSettingsConfigurable implements SearchableConfigurable, NonDefaultProjectConfigurable, ProjectConfigurable {
@@ -45,8 +45,8 @@ public class HaxeSettingsConfigurable implements SearchableConfigurable, NonDefa
     myProject = project;
   }
 
-  public String getDisplayName() {
-    return HaxeBundle.message("haxe.settings.name");
+  public LocalizeValue getDisplayName() {
+    return HaxeLocalize.haxeSettingsName();
   }
 
   @Nonnull

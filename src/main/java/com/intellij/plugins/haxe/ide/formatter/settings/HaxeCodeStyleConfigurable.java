@@ -15,27 +15,22 @@
  */
 package com.intellij.plugins.haxe.ide.formatter.settings;
 
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.language.codeStyle.CodeStyleSettings;
 import consulo.language.codeStyle.ui.setting.CodeStyleAbstractConfigurable;
 import consulo.language.codeStyle.ui.setting.CodeStyleAbstractPanel;
-
 import jakarta.annotation.Nonnull;
 
 /**
- * @author: Fedor.Korotkov
+ * @author Fedor.Korotkov
  */
 public class HaxeCodeStyleConfigurable extends CodeStyleAbstractConfigurable {
   public HaxeCodeStyleConfigurable(@Nonnull CodeStyleSettings settings, CodeStyleSettings cloneSettings) {
-    super(settings, cloneSettings, "haXe");
+    super(settings, cloneSettings, HaxeLocalize.haxeTitle());
   }
 
   @Override
   protected CodeStyleAbstractPanel createPanel(CodeStyleSettings settings) {
     return new HaxeCodeStyleMainPanel(getCurrentSettings(), settings);
-  }
-
-  @Override
-  public String getHelpTopic() {
-    return null;
   }
 }
