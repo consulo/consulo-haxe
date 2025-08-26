@@ -15,15 +15,14 @@
  */
 package com.intellij.plugins.haxe.ide.actions;
 
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.ide.HaxeFileTemplateUtil;
 import consulo.application.AllIcons;
 import consulo.dataContext.DataContext;
 import consulo.fileTemplate.FileTemplate;
 import consulo.fileTemplate.FileTemplateManager;
 import consulo.fileTemplate.FileTemplateUtil;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.haxe.module.extension.HaxeModuleExtension;
-import consulo.ide.IdeBundle;
 import consulo.ide.action.CreateFileFromTemplateDialog;
 import consulo.ide.action.CreateTemplateInPackageAction;
 import consulo.language.editor.LangDataKeys;
@@ -32,20 +31,21 @@ import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
 import consulo.language.util.IncorrectOperationException;
 import consulo.language.util.ModuleUtilCore;
+import consulo.localize.LocalizeValue;
 import consulo.module.Module;
 import consulo.module.content.DirectoryIndex;
 import consulo.project.Project;
 import consulo.ui.image.Image;
-
 import jakarta.annotation.Nonnull;
+
 import java.util.Properties;
 
 /**
- * @author: Fedor.Korotkov
+ * @author Fedor.Korotkov
  */
 public class CreateClassAction extends CreateTemplateInPackageAction<PsiFile> {
   public CreateClassAction() {
-    super(HaxeBundle.message("action.create.new.class"), HaxeBundle.message("action.create.new.class"), AllIcons.Nodes.Class, true);
+    super(HaxeLocalize.actionCreateNewClass(), HaxeLocalize.actionCreateNewClass(), AllIcons.Nodes.Class, true);
   }
 
   @Override
@@ -65,18 +65,18 @@ public class CreateClassAction extends CreateTemplateInPackageAction<PsiFile> {
   }
 
   @Override
-  protected String getActionName(PsiDirectory directory, String newName, String templateName) {
-    return HaxeBundle.message("progress.creating.class", newName);
+  protected LocalizeValue getActionName(PsiDirectory directory, String newName, String templateName) {
+    return HaxeLocalize.progressCreatingClass(newName);
   }
 
   @Override
   protected void buildDialog(Project project, PsiDirectory directory, CreateFileFromTemplateDialog.Builder builder) {
-    builder.setTitle(IdeBundle.message("action.create.new.class"));
+    builder.setTitle(LocalizeValue.localizeTODO("Create New Class"));
     for (FileTemplate fileTemplate : HaxeFileTemplateUtil.getApplicableTemplates()) {
       final String templateName = fileTemplate.getName();
       final String shortName = HaxeFileTemplateUtil.getTemplateShortName(templateName);
       final Image icon = HaxeFileTemplateUtil.getTemplateIcon(templateName);
-      builder.addKind(shortName, icon, templateName);
+      builder.addKind(LocalizeValue.of(shortName), icon, templateName);
     }
   }
 

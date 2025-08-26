@@ -16,26 +16,27 @@
 package com.intellij.plugins.haxe.ide.actions;
 
 import com.intellij.plugins.haxe.HaxeIcons;
-import consulo.fileTemplate.FileTemplate;
-import consulo.ide.action.CreateFileFromTemplateAction;
-import consulo.dataContext.DataContext;
-import consulo.application.dumb.DumbAware;
-import consulo.project.Project;
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.ide.HaxeFileTemplateUtil;
-import consulo.language.psi.PsiDirectory;
+import consulo.application.dumb.DumbAware;
+import consulo.dataContext.DataContext;
+import consulo.fileTemplate.FileTemplate;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.haxe.module.extension.HaxeModuleExtension;
+import consulo.ide.action.CreateFileFromTemplateAction;
 import consulo.ide.action.CreateFileFromTemplateDialog;
 import consulo.language.editor.LangDataKeys;
+import consulo.language.psi.PsiDirectory;
 import consulo.language.util.ModuleUtilCore;
+import consulo.localize.LocalizeValue;
 import consulo.module.Module;
+import consulo.project.Project;
 
 /**
- * @author: Fedor.Korotkov
+ * @author Fedor.Korotkov
  */
 public class CreateNMMLFileAction extends CreateFileFromTemplateAction implements DumbAware {
   public CreateNMMLFileAction() {
-    super(HaxeBundle.message("create.nmml.file.action"), HaxeBundle.message("create.nmml.file.action.description"), HaxeIcons.Nmml_16);
+    super(HaxeLocalize.createNmmlFileAction(), HaxeLocalize.createNmmlFileActionDescription(), HaxeIcons.Nmml_16);
   }
 
   @Override
@@ -46,26 +47,16 @@ public class CreateNMMLFileAction extends CreateFileFromTemplateAction implement
 
   @Override
   protected void buildDialog(Project project, PsiDirectory directory, CreateFileFromTemplateDialog.Builder builder) {
-    builder.setTitle(HaxeBundle.message("create.nmml.file.action"));
+    builder.setTitle(HaxeLocalize.createNmmlFileAction());
     for (FileTemplate fileTemplate : HaxeFileTemplateUtil.getNMMLTemplates()) {
       final String templateName = fileTemplate.getName();
       final String shortName = HaxeFileTemplateUtil.getTemplateShortName(templateName);
-      builder.addKind(shortName, HaxeIcons.Nmml_16, templateName);
+      builder.addKind(LocalizeValue.of(shortName), HaxeIcons.Nmml_16, templateName);
     }
   }
 
   @Override
-  protected String getActionName(PsiDirectory directory, String newName, String templateName) {
-    return HaxeBundle.message("create.nmml.file.action");
-  }
-
-  @Override
-  public int hashCode() {
-    return 0;
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    return obj instanceof CreateNMMLFileAction;
+  protected LocalizeValue getActionName(PsiDirectory directory, String newName, String templateName) {
+    return HaxeLocalize.createNmmlFileAction();
   }
 }
