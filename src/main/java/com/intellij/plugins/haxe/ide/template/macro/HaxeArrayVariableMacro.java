@@ -15,13 +15,13 @@
  */
 package com.intellij.plugins.haxe.ide.template.macro;
 
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.lang.psi.HaxeClass;
 import com.intellij.plugins.haxe.lang.psi.HaxeClassResolveResult;
 import com.intellij.plugins.haxe.lang.psi.HaxeComponentName;
 import com.intellij.plugins.haxe.util.HaxeMacroUtil;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import consulo.annotation.component.ExtensionImpl;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.language.editor.template.Expression;
 import consulo.language.editor.template.ExpressionContext;
 import consulo.language.editor.template.PsiElementResult;
@@ -30,8 +30,8 @@ import consulo.language.editor.template.macro.Macro;
 import consulo.language.psi.PsiElement;
 import consulo.util.collection.ContainerUtil;
 import consulo.util.lang.function.Condition;
-
 import jakarta.annotation.Nonnull;
+
 import java.util.List;
 import java.util.Set;
 
@@ -47,7 +47,7 @@ public class HaxeArrayVariableMacro extends Macro {
 
   @Override
   public String getPresentableName() {
-    return HaxeBundle.message("macro.haxe.array.variable");
+    return HaxeLocalize.macroHaxeArrayVariable().get();
   }
 
   @Override

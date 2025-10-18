@@ -15,7 +15,6 @@
  */
 package com.intellij.plugins.haxe.config.sdk;
 
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.HaxeIcons;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.application.Application;
@@ -25,6 +24,7 @@ import consulo.content.base.BinariesOrderRootType;
 import consulo.content.base.DocumentationOrderRootType;
 import consulo.content.base.SourcesOrderRootType;
 import consulo.content.bundle.*;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.ui.image.Image;
 import consulo.util.xml.serializer.XmlSerializer;
 import consulo.virtualFileSystem.VirtualFile;
@@ -54,12 +54,12 @@ public class HaxeSdkType extends SdkType {
     @Nonnull
     @Override
     public String getPresentableName() {
-        return HaxeBundle.message("haxe.sdk.name.presentable");
+        return HaxeLocalize.haxeSdkNamePresentable().get();
     }
 
     @Override
     public String suggestSdkName(String currentSdkName, String sdkHome) {
-        return HaxeBundle.message("haxe.sdk.name.suggest", getVersionString(sdkHome));
+        return HaxeLocalize.haxeSdkNameSuggest(getVersionString(sdkHome)).get();
     }
 
     @Override

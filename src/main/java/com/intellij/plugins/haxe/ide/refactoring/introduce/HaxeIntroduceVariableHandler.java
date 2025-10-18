@@ -15,7 +15,7 @@
  */
 package com.intellij.plugins.haxe.ide.refactoring.introduce;
 
-import com.intellij.plugins.haxe.HaxeBundle;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.language.psi.PsiElement;
 import jakarta.annotation.Nonnull;
 
@@ -26,7 +26,7 @@ import java.util.List;
  */
 public class HaxeIntroduceVariableHandler extends HaxeIntroduceHandler {
   public HaxeIntroduceVariableHandler() {
-    super(HaxeBundle.message("refactoring.introduce.variable.dialog.title"));
+    super(HaxeLocalize.refactoringIntroduceVariableDialogTitle());
   }
 
   @Override

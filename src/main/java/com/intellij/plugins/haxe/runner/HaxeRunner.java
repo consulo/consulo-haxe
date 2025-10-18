@@ -15,7 +15,6 @@
  */
 package com.intellij.plugins.haxe.runner;
 
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.config.HaxeTarget;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
 import consulo.annotation.component.ExtensionImpl;
@@ -33,6 +32,7 @@ import consulo.execution.runner.ProgramRunner;
 import consulo.execution.ui.RunContentDescriptor;
 import consulo.execution.ui.console.TextConsoleBuilder;
 import consulo.execution.ui.console.TextConsoleBuilderFactory;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.language.content.ProductionContentFolderTypeProvider;
 import consulo.module.Module;
 import consulo.platform.Platform;
@@ -41,7 +41,6 @@ import consulo.process.ProcessHandler;
 import consulo.process.cmd.GeneralCommandLine;
 import consulo.process.local.ProcessHandlerFactory;
 import consulo.util.io.FileUtil;
-
 import jakarta.annotation.Nonnull;
 
 /**
@@ -75,7 +74,7 @@ public class HaxeRunner extends DefaultProgramRunner {
     final Module module = configuration.getConfigurationModule().getModule();
 
     if (module == null) {
-      throw new ExecutionException(HaxeBundle.message("no.module.for.run.configuration", configuration.getName()));
+      throw new ExecutionException(HaxeLocalize.noModuleForRunConfiguration(configuration.getName()).get());
     }
 
     final HaxeModuleSettings settings = HaxeModuleSettings.getInstance(module);
@@ -122,7 +121,7 @@ public class HaxeRunner extends DefaultProgramRunner {
     }
 
     if (settings.getHaxeTarget() != HaxeTarget.NEKO) {
-      throw new ExecutionException(HaxeBundle.message("haxe.run.wrong.target", settings.getHaxeTarget()));
+      throw new ExecutionException(HaxeLocalize.haxeRunWrongTarget(settings.getHaxeTarget()).get());
     }
 
     final NekoRunningState nekoRunningState = new NekoRunningState(env, module, null);

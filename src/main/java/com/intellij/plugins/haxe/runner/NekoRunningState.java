@@ -15,7 +15,6 @@
  */
 package com.intellij.plugins.haxe.runner;
 
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.config.HaxeTarget;
 import com.intellij.plugins.haxe.config.sdk.HaxeSdkData;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
@@ -25,6 +24,7 @@ import consulo.execution.configuration.CommandLineState;
 import consulo.execution.runner.ExecutionEnvironment;
 import consulo.execution.ui.console.TextConsoleBuilder;
 import consulo.execution.ui.console.TextConsoleBuilderFactory;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.haxe.module.extension.HaxeModuleExtension;
 import consulo.language.content.ProductionContentFolderTypeProvider;
 import consulo.language.util.ModuleUtilCore;
@@ -34,7 +34,6 @@ import consulo.process.ProcessHandler;
 import consulo.process.cmd.GeneralCommandLine;
 import consulo.process.local.ProcessHandlerFactory;
 import consulo.virtualFileSystem.VirtualFile;
-
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
@@ -65,7 +64,7 @@ public class NekoRunningState extends CommandLineState {
 
   private GeneralCommandLine getCommandForNeko(@Nullable HaxeSdkData sdkData, HaxeModuleSettings settings) throws ExecutionException {
     if (sdkData == null || sdkData.getNekoBinPath() == null || sdkData.getNekoBinPath().isEmpty()) {
-      throw new ExecutionException(HaxeBundle.message("haxe.run.bad.neko.bin.path"));
+      throw new ExecutionException(HaxeLocalize.haxeRunBadNekoBinPath().get());
     }
 
     GeneralCommandLine commandLine = new GeneralCommandLine();

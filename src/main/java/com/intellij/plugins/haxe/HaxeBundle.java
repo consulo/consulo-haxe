@@ -23,6 +23,7 @@ import org.jetbrains.annotations.PropertyKey;
 import java.lang.ref.Reference;
 import java.util.ResourceBundle;
 
+@Deprecated
 public class HaxeBundle {
   private static Reference<ResourceBundle> ourBundle;
 

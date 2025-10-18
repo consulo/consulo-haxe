@@ -15,14 +15,15 @@
  */
 package com.intellij.plugins.haxe.ide.generation;
 
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.lang.psi.HaxeClass;
 import com.intellij.plugins.haxe.lang.psi.HaxeFunctionDeclarationWithAttributes;
 import com.intellij.plugins.haxe.lang.psi.HaxeNamedComponent;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import consulo.annotation.component.ExtensionImpl;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.language.editor.generation.OverrideMethodHandler;
 import consulo.language.psi.util.PsiTreeUtil;
+import consulo.localize.LocalizeValue;
 
 import java.util.List;
 
@@ -32,8 +33,8 @@ import java.util.List;
 @ExtensionImpl
 public class HaxeOverrideMethodHandler extends BaseHaxeGenerateHandler implements OverrideMethodHandler {
   @Override
-  protected String getTitle() {
-    return HaxeBundle.message("haxe.override.method");
+  protected LocalizeValue getTitle() {
+    return HaxeLocalize.haxeOverrideMethod();
   }
 
   @Override

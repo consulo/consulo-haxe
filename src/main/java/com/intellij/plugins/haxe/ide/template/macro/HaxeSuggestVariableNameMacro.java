@@ -15,13 +15,12 @@
  */
 package com.intellij.plugins.haxe.ide.template.macro;
 
-import com.intellij.plugins.haxe.HaxeBundle;
 import consulo.annotation.component.ExtensionImpl;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.language.editor.template.Expression;
 import consulo.language.editor.template.ExpressionContext;
 import consulo.language.editor.template.Result;
 import consulo.language.editor.template.macro.Macro;
-
 import jakarta.annotation.Nonnull;
 
 /**
@@ -36,7 +35,7 @@ public class HaxeSuggestVariableNameMacro extends Macro {
 
   @Override
   public String getPresentableName() {
-    return HaxeBundle.message("macro.haxe.variable.name");
+    return HaxeLocalize.macroHaxeVariableName().get();
   }
 
   @Nonnull

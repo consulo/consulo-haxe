@@ -15,8 +15,8 @@
  */
 package com.intellij.plugins.haxe.config.ui;
 
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.config.HaxeProjectSettings;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.ui.ex.awt.AddDeleteListPanel;
 
 import javax.swing.*;
@@ -54,7 +54,7 @@ public class HaxeSettingsForm {
   }
 
   private void createUIComponents() {
-    myAddDeleteListPanel = new MyAddDeleteListPanel(HaxeBundle.message("haxe.conditional.compilation.defined.macros"));
+    myAddDeleteListPanel = new MyAddDeleteListPanel(HaxeLocalize.haxeConditionalCompilationDefinedMacros().get());
   }
 
   private class MyAddDeleteListPanel extends AddDeleteListPanel<String> {

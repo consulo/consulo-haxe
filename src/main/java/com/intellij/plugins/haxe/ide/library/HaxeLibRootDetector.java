@@ -19,6 +19,7 @@ import com.intellij.plugins.haxe.HaxeFileType;
 import consulo.application.progress.ProgressIndicator;
 import consulo.content.OrderRootType;
 import consulo.content.library.ui.RootDetector;
+import consulo.localize.LocalizeValue;
 import consulo.virtualFileSystem.VirtualFile;
 import consulo.virtualFileSystem.archive.ArchiveFileSystem;
 import consulo.virtualFileSystem.util.VirtualFileUtil;
@@ -34,8 +35,8 @@ import java.util.List;
  * @author: Fedor.Korotkov
  */
 public class HaxeLibRootDetector extends RootDetector {
-  protected HaxeLibRootDetector(OrderRootType rootType, String presentableRootTypeName) {
-    super(rootType, false, presentableRootTypeName);
+  protected HaxeLibRootDetector(OrderRootType rootType, LocalizeValue presentableRootTypeName) {
+    super(rootType, false, presentableRootTypeName.get());
   }
 
   @Nonnull

@@ -15,7 +15,6 @@
  */
 package com.intellij.plugins.haxe.util;
 
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.HaxeFileType;
 import consulo.application.ApplicationManager;
 import consulo.application.progress.ProgressIndicator;
@@ -23,11 +22,12 @@ import consulo.application.progress.ProgressManager;
 import consulo.application.progress.Task;
 import consulo.content.ContentIterator;
 import consulo.document.util.FileContentUtilCore;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.language.psi.stub.FileBasedIndex;
 import consulo.project.Project;
 import consulo.virtualFileSystem.VirtualFile;
-
 import jakarta.annotation.Nonnull;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -36,7 +36,7 @@ import java.util.Collection;
  */
 public class HaxeUtil {
   public static void reparseProjectFiles(@Nonnull final Project project) {
-    Task.Backgroundable task = new Task.Backgroundable(project, HaxeBundle.message("haxe.project.reparsing"), false) {
+    Task.Backgroundable task = new Task.Backgroundable(project, HaxeLocalize.haxeProjectReparsing(), false) {
       public void run(@Nonnull ProgressIndicator indicator) {
         final Collection<VirtualFile> haxeFiles = new ArrayList<VirtualFile>();
         final VirtualFile baseDir = project.getBaseDir();

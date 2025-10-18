@@ -15,15 +15,15 @@
  */
 package com.intellij.plugins.haxe.ide.surroundWith;
 
-import jakarta.annotation.Nonnull;
-
-import consulo.document.util.TextRange;
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.lang.psi.HaxeCatchStatement;
 import com.intellij.plugins.haxe.lang.psi.HaxeParameter;
 import com.intellij.plugins.haxe.lang.psi.HaxeTryStatement;
 import com.intellij.plugins.haxe.util.HaxeElementGenerator;
+import consulo.document.util.TextRange;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.language.psi.PsiElement;
+import consulo.localize.LocalizeValue;
+import jakarta.annotation.Nonnull;
 
 /**
  * @author: Fedor.Korotkov
@@ -46,7 +46,7 @@ public class HaxeTryCatchSurrounder extends HaxeManyStatementsSurrounder {
   }
 
   @Override
-  public String getTemplateDescription() {
-    return HaxeBundle.message("haxe.surrounder.try.catch");
+  public LocalizeValue getTemplateDescription() {
+    return HaxeLocalize.haxeSurrounderTryCatch();
   }
 }

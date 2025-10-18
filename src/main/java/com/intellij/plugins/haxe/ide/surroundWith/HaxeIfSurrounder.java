@@ -16,10 +16,11 @@
 package com.intellij.plugins.haxe.ide.surroundWith;
 
 import consulo.document.util.TextRange;
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.lang.psi.HaxeIfStatement;
 import com.intellij.plugins.haxe.util.HaxeElementGenerator;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.language.psi.PsiElement;
+import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
 
 /**
@@ -41,7 +42,7 @@ public class HaxeIfSurrounder extends HaxeManyStatementsSurrounder {
   }
 
   @Override
-  public String getTemplateDescription() {
-    return HaxeBundle.message("haxe.surrounder.if");
+  public LocalizeValue getTemplateDescription() {
+    return HaxeLocalize.haxeSurrounderIf();
   }
 }

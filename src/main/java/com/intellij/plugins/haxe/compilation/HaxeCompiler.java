@@ -15,7 +15,6 @@
  */
 package com.intellij.plugins.haxe.compilation;
 
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.config.sdk.HaxeSdkAdditionalDataBase;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
 import com.intellij.plugins.haxe.module.HaxeModuleSettingsBase;
@@ -30,6 +29,7 @@ import consulo.content.bundle.SdkAdditionalData;
 import consulo.execution.configuration.RunConfigurationModule;
 import consulo.execution.debug.DefaultDebugExecutor;
 import consulo.execution.executor.ExecutorRegistry;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.haxe.module.extension.HaxeModuleExtension;
 import consulo.language.content.ProductionContentFolderTypeProvider;
 import consulo.language.util.ModuleUtilCore;
@@ -37,8 +37,8 @@ import consulo.logging.Logger;
 import consulo.module.Module;
 import consulo.module.content.layer.OrderEnumerator;
 import consulo.virtualFileSystem.VirtualFile;
-
 import jakarta.annotation.Nonnull;
+
 import java.io.DataInput;
 import java.io.File;
 import java.io.IOException;
@@ -51,7 +51,7 @@ public class HaxeCompiler implements SourceProcessingCompiler {
 
   @Nonnull
   public String getDescription() {
-    return HaxeBundle.message("haxe.compiler.description");
+    return HaxeLocalize.haxeCompilerDescription().get();
   }
 
   @Override
@@ -88,7 +88,7 @@ public class HaxeCompiler implements SourceProcessingCompiler {
   private static ProcessingItem[] run(CompileContext context, ProcessingItem[] items, HaxeApplicationConfiguration haxeApplicationConfiguration) {
     final Module module = haxeApplicationConfiguration.getConfigurationModule().getModule();
     if (module == null) {
-      context.addMessage(consulo.compiler.CompilerMessageCategory.ERROR, HaxeBundle.message("no.module.for.run.configuration", haxeApplicationConfiguration.getName()), null, -1, -1);
+      context.addMessage(consulo.compiler.CompilerMessageCategory.ERROR, HaxeLocalize.noModuleForRunConfiguration(haxeApplicationConfiguration.getName()).get(), null, -1, -1);
       return ProcessingItem.EMPTY_ARRAY;
     }
     if (compileModule(context, module)) {
@@ -120,7 +120,7 @@ public class HaxeCompiler implements SourceProcessingCompiler {
     final boolean isDebug = ExecutorRegistry.getInstance().isStarting(context.getProject(), DefaultDebugExecutor.EXECUTOR_ID, HaxeDebugRunner.HAXE_DEBUG_RUNNER_ID);
     final Sdk sdk = ModuleUtilCore.getSdk(module, HaxeModuleExtension.class);
     if (sdk == null) {
-      context.addMessage(CompilerMessageCategory.ERROR, HaxeBundle.message("no.sdk.for.module", module.getName()), null, -1, -1);
+      context.addMessage(CompilerMessageCategory.ERROR, HaxeLocalize.noSdkForModule(module.getName()).get(), null, -1, -1);
       return false;
     }
     boolean compiled = HaxeCommonCompilerUtil.compile(new HaxeCommonCompilerUtil.CompilationContext() {

@@ -15,9 +15,6 @@
  */
 package com.intellij.plugins.haxe.ide.annotator;
 
-import consulo.language.editor.annotation.AnnotationHolder;
-import consulo.language.editor.annotation.Annotator;
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.ide.actions.HaxeTypeAddImportIntentionAction;
 import com.intellij.plugins.haxe.ide.index.HaxeComponentIndex;
 import com.intellij.plugins.haxe.lang.psi.HaxeComponent;
@@ -25,9 +22,11 @@ import com.intellij.plugins.haxe.lang.psi.HaxeReferenceExpression;
 import com.intellij.plugins.haxe.lang.psi.HaxeType;
 import com.intellij.plugins.haxe.lang.psi.HaxeVisitor;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
+import consulo.haxe.localize.HaxeLocalize;
+import consulo.language.editor.annotation.AnnotationHolder;
+import consulo.language.editor.annotation.Annotator;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.scope.GlobalSearchScope;
-
 import jakarta.annotation.Nonnull;
 
 import java.util.List;
@@ -75,7 +74,7 @@ public class HaxeTypeAnnotator extends HaxeVisitor implements Annotator {
     final List<HaxeComponent> components =
       HaxeComponentIndex.getItemsByName(expression.getText(), expression.getProject(), scope);
     if (!components.isEmpty()) {
-      myHolder.createErrorAnnotation(expression, HaxeBundle.message("haxe.unresolved.type"))
+      myHolder.createErrorAnnotation(expression, HaxeLocalize.haxeUnresolvedType().get())
         .registerFix(new HaxeTypeAddImportIntentionAction(expression, components));
     }
   }

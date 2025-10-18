@@ -15,13 +15,13 @@
  */
 package com.intellij.plugins.haxe.ide.library;
 
-import com.intellij.plugins.haxe.HaxeBundle;
 import consulo.content.base.BinariesOrderRootType;
 import consulo.content.base.SourcesOrderRootType;
 import consulo.content.library.ui.DefaultLibraryRootsComponentDescriptor;
 import consulo.content.library.ui.RootDetector;
-
+import consulo.haxe.localize.HaxeLocalize;
 import jakarta.annotation.Nonnull;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,8 +33,8 @@ public class HaxeLibraryRootsComponentDescriptor extends DefaultLibraryRootsComp
   @Override
   public List<? extends RootDetector> getRootDetectors() {
     return Arrays.asList(
-        new HaxeLibRootDetector(SourcesOrderRootType.getInstance(), HaxeBundle.message("sources.root.detector.sources.name")),
-        new HaxeLibRootDetector(BinariesOrderRootType.getInstance(), HaxeBundle.message("sources.root.detector.classes.name"))
+        new HaxeLibRootDetector(SourcesOrderRootType.getInstance(), HaxeLocalize.sourcesRootDetectorSourcesName()),
+        new HaxeLibRootDetector(BinariesOrderRootType.getInstance(), HaxeLocalize.sourcesRootDetectorClassesName())
     );
   }
 }

@@ -16,6 +16,7 @@
 package com.intellij.plugins.haxe.ide.refactoring.introduce;
 
 import consulo.language.editor.ui.awt.EditorComboBoxEditor;
+import consulo.localize.LocalizeValue;
 import consulo.ui.ex.awt.ComboBox;
 import consulo.ui.ex.awt.DialogWrapper;
 import com.intellij.plugins.haxe.HaxeFileType;
@@ -48,7 +49,7 @@ public class HaxeIntroduceDialog extends DialogWrapper
   private final HaxeExpression myExpression;
 
   public HaxeIntroduceDialog(@Nonnull final Project project,
-                             @Nonnull final String caption,
+                             @Nonnull final LocalizeValue caption,
                              final HaxeIntroduceOperation operation) {
     super(project, true);
     myOccurrencesCount = operation.getOccurrences().size();

@@ -15,9 +15,8 @@
  */
 package com.intellij.plugins.haxe.config.ui;
 
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.ui.ex.awt.DialogWrapper;
-import com.intellij.plugins.haxe.HaxeBundle;
-
 import jakarta.annotation.Nonnull;
 
 import javax.swing.*;
@@ -34,7 +33,7 @@ public class StringValueDialog extends DialogWrapper
   public StringValueDialog(@Nonnull Component parent, boolean canBeParent) {
     super(parent, canBeParent);
 
-    setTitle(HaxeBundle.message("haxe.conditional.compilation.title"));
+    setTitle(HaxeLocalize.haxeConditionalCompilationTitle());
 
     init();
   }

@@ -15,15 +15,15 @@
  */
 package com.intellij.plugins.haxe.ide.annotator;
 
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes;
 import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
-import consulo.language.psi.PsiElement;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.language.editor.annotation.AnnotationHolder;
 import consulo.language.editor.annotation.Annotator;
-
+import consulo.language.psi.PsiElement;
 import jakarta.annotation.Nonnull;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -69,7 +69,7 @@ public class HaxeAnnotatingVisitor extends HaxeVisitor implements Annotator
 
     if (!(reference.getParent() instanceof HaxeReference) && !(reference.getParent() instanceof HaxePackageStatement)) {
       // whole reference expression
-      myHolder.createErrorAnnotation(reference, HaxeBundle.message("cannot.resolve.reference"));
+      myHolder.createErrorAnnotation(reference, HaxeLocalize.cannotResolveReference().get());
     }
     final PsiElement leftSiblingReferenceTarget = leftSiblingReference == null ? null : leftSiblingReference.resolve();
     if (leftSiblingReference != null && leftSiblingReferenceTarget == null) {
@@ -87,6 +87,6 @@ public class HaxeAnnotatingVisitor extends HaxeVisitor implements Annotator
       return; // package
     }
 
-    myHolder.createErrorAnnotation(reference, HaxeBundle.message("cannot.resolve.reference"));
+    myHolder.createErrorAnnotation(reference, HaxeLocalize.cannotResolveReference().get());
   }
 }

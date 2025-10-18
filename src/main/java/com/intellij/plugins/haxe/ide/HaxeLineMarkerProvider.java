@@ -15,7 +15,6 @@
  */
 package com.intellij.plugins.haxe.ide;
 
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.HaxeComponentType;
 import com.intellij.plugins.haxe.HaxeLanguage;
 import com.intellij.plugins.haxe.ide.index.HaxeInheritanceDefinitionsSearchExecutor;
@@ -25,12 +24,14 @@ import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.application.AllIcons;
 import consulo.codeEditor.markup.GutterIconRenderer;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.language.Language;
 import consulo.language.editor.DaemonBundle;
 import consulo.language.editor.Pass;
 import consulo.language.editor.gutter.GutterIconNavigationHandler;
 import consulo.language.editor.gutter.LineMarkerInfo;
 import consulo.language.editor.gutter.LineMarkerProvider;
+import consulo.language.editor.localize.DaemonLocalize;
 import consulo.language.editor.ui.DefaultPsiElementCellRenderer;
 import consulo.language.editor.ui.PsiElementListNavigator;
 import consulo.language.psi.NavigatablePsiElement;
@@ -39,9 +40,9 @@ import consulo.language.psi.util.PsiTreeUtil;
 import consulo.ui.image.Image;
 import consulo.util.collection.ContainerUtil;
 import consulo.util.lang.function.Condition;
-
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
+
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -137,9 +138,9 @@ public class HaxeLineMarkerProvider implements LineMarkerProvider {
           final HaxeClass superHaxeClass = PsiTreeUtil.getParentOfType(namedComponent, HaxeClass.class);
           if (superHaxeClass == null) return "null";
           if (overrides) {
-            return HaxeBundle.message("overrides.method.in", namedComponent.getName(), superHaxeClass.getQualifiedName());
+            return HaxeLocalize.overridesMethodIn(namedComponent.getName(), superHaxeClass.getQualifiedName()).get();
           }
-          return HaxeBundle.message("implements.method.in", namedComponent.getName(), superHaxeClass.getQualifiedName());
+          return HaxeLocalize.implementsMethodIn(namedComponent.getName(), superHaxeClass.getQualifiedName()).get();
         }
       },
       new GutterIconNavigationHandler<PsiElement>() {
@@ -148,8 +149,8 @@ public class HaxeLineMarkerProvider implements LineMarkerProvider {
           PsiElementListNavigator.openTargets(
             e,
             HaxeResolveUtil.getComponentNames(filteredSuperItems).toArray(new NavigatablePsiElement[filteredSuperItems.size()]),
-            DaemonBundle.message("navigation.title.super.method", namedComponent.getName()),
-            DaemonBundle.message("navigation.findUsages.title.super.method", namedComponent.getName()),
+              DaemonLocalize.navigationTitleSuperMethod(namedComponent.getName()).get(),
+              DaemonLocalize.navigationFindusagesTitleSuperMethod(namedComponent.getName()).get(),
             new DefaultPsiElementCellRenderer());
         }
       },

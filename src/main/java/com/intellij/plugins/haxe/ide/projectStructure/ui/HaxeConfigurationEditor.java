@@ -15,7 +15,6 @@
  */
 package com.intellij.plugins.haxe.ide.projectStructure.ui;
 
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.HaxeFileType;
 import com.intellij.plugins.haxe.config.HaxeProjectSettings;
 import com.intellij.plugins.haxe.config.HaxeSettingsConfigurable;
@@ -30,6 +29,7 @@ import consulo.execution.ui.awt.RawCommandLineEditor;
 import consulo.fileChooser.FileChooserDescriptor;
 import consulo.fileChooser.FileChooserDescriptorFactory;
 import consulo.fileChooser.IdeaFileChooser;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.ide.setting.ShowSettingsUtil;
 import consulo.language.content.ProductionContentFolderTypeProvider;
 import consulo.language.editor.ui.TreeFileChooser;
@@ -107,7 +107,7 @@ public class HaxeConfigurationEditor {
   private void addActionListeners() {
     myMainClassFieldWithButton.getButton().addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        TreeFileChooser fileChooser = TreeFileChooserFactory.getInstance(myModule.getProject()).createFileChooser(HaxeBundle.message("choose.haxe.main.class"), null,
+        TreeFileChooser fileChooser = TreeFileChooserFactory.getInstance(myModule.getProject()).createFileChooser(HaxeLocalize.chooseHaxeMainClass().get(), null,
             HaxeFileType.HAXE_FILE_TYPE, null);
 
         fileChooser.showDialog();

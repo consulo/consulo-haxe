@@ -15,10 +15,10 @@
  */
 package com.intellij.plugins.haxe.ide.template.macro;
 
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.lang.psi.HaxeComponentName;
 import com.intellij.plugins.haxe.util.HaxeMacroUtil;
 import consulo.annotation.component.ExtensionImpl;
+import consulo.haxe.localize.HaxeLocalize;
 import consulo.language.editor.template.Expression;
 import consulo.language.editor.template.ExpressionContext;
 import consulo.language.editor.template.Result;
@@ -27,8 +27,8 @@ import consulo.language.editor.template.macro.Macro;
 import consulo.language.psi.PsiElement;
 import consulo.navigation.NavigationItem;
 import consulo.util.collection.ContainerUtil;
-
 import jakarta.annotation.Nonnull;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,7 +44,7 @@ public class HaxeSuggestIndexNameMacro extends Macro {
 
   @Override
   public String getPresentableName() {
-    return HaxeBundle.message("macro.haxe.index.name");
+    return HaxeLocalize.macroHaxeIndexName().get();
   }
 
   @Nonnull

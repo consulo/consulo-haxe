@@ -15,25 +15,26 @@
  */
 package com.intellij.plugins.haxe.runner;
 
-import consulo.execution.RuntimeConfigurationException;
-import consulo.execution.configuration.*;
-import consulo.execution.configuration.ui.SettingsEditor;
-import consulo.execution.runner.ExecutionEnvironment;
-import consulo.process.ExecutionException;
-import consulo.execution.executor.Executor;
-import consulo.execution.configuration.ModuleBasedConfiguration;
-import consulo.execution.configuration.RunConfiguration;
-import consulo.module.Module;
-import consulo.module.ModuleManager;
-import consulo.util.xml.serializer.InvalidDataException;
-import com.intellij.plugins.haxe.HaxeBundle;
 import com.intellij.plugins.haxe.ide.module.HaxeModuleSettings;
 import com.intellij.plugins.haxe.runner.ui.HaxeRunConfigurationEditorForm;
-import consulo.util.xml.serializer.XmlSerializer;
+import consulo.execution.RuntimeConfigurationException;
+import consulo.execution.configuration.ModuleBasedConfiguration;
+import consulo.execution.configuration.RunConfiguration;
+import consulo.execution.configuration.RunConfigurationWithSuppressedDefaultRunAction;
+import consulo.execution.configuration.RunProfileState;
+import consulo.execution.configuration.ui.SettingsEditor;
+import consulo.execution.executor.Executor;
+import consulo.execution.runner.ExecutionEnvironment;
+import consulo.haxe.localize.HaxeLocalize;
+import consulo.module.Module;
+import consulo.module.ModuleManager;
+import consulo.process.ExecutionException;
 import consulo.project.Project;
+import consulo.util.xml.serializer.InvalidDataException;
 import consulo.util.xml.serializer.WriteExternalException;
-import org.jdom.Element;
+import consulo.util.xml.serializer.XmlSerializer;
 import jakarta.annotation.Nonnull;
+import org.jdom.Element;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -77,17 +78,17 @@ public class HaxeApplicationConfiguration extends ModuleBasedConfiguration<HaxeA
     final HaxeApplicationModuleBasedConfiguration configurationModule = getConfigurationModule();
     final Module module = configurationModule.getModule();
     if (module == null) {
-      throw new RuntimeConfigurationException(HaxeBundle.message("haxe.run.no.module", getName()));
+      throw new RuntimeConfigurationException(HaxeLocalize.haxeRunNoModule(getName()));
     }
     final HaxeModuleSettings settings = HaxeModuleSettings.getInstance(module);
     if (settings.isUseHxmlToBuild() && !customFileToLaunch) {
-      throw new RuntimeConfigurationException(HaxeBundle.message("haxe.run.select.custom.file"));
+      throw new RuntimeConfigurationException(HaxeLocalize.haxeRunSelectCustomFile());
     }
     if (settings.isUseNmmlToBuild() && customFileToLaunch) {
-      throw new RuntimeConfigurationException(HaxeBundle.message("haxe.run.do.not.select.custom.file"));
+      throw new RuntimeConfigurationException(HaxeLocalize.haxeRunDoNotSelectCustomFile());
     }
     if (settings.isUseNmmlToBuild() && customExecutable) {
-      throw new RuntimeConfigurationException(HaxeBundle.message("haxe.run.do.not.select.custom.executable"));
+      throw new RuntimeConfigurationException(HaxeLocalize.haxeRunDoNotSelectCustomExecutable());
     }
   }
 

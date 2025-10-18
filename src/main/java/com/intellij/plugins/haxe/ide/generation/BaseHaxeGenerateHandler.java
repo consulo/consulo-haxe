@@ -117,7 +117,7 @@ public abstract class BaseHaxeGenerateHandler implements LanguageCodeInsightActi
 
   protected abstract BaseCreateMethodsFix createFix(HaxeClass haxeClass);
 
-  protected abstract String getTitle();
+  protected abstract LocalizeValue getTitle();
 
   abstract void collectCandidates(HaxeClass aClass, List<HaxeNamedComponent> candidates);
 
@@ -130,12 +130,12 @@ public abstract class BaseHaxeGenerateHandler implements LanguageCodeInsightActi
   protected MemberChooserBuilder<HaxeNamedElementNode> createMemberChooserDialog(final Project project,
                                                                                  final HaxeClass haxeClass,
                                                                                  final Collection<HaxeNamedComponent> candidates,
-                                                                                 String title) {
+                                                                                 LocalizeValue title) {
     HaxeNamedElementNode[] nodes = ContainerUtil.map(candidates, HaxeNamedElementNode::new).toArray(new HaxeNamedElementNode[candidates.size()]);
 
     MemberChooserBuilder<HaxeNamedElementNode> builder = MemberChooserBuilder.create(nodes);
 
-    builder.withTitle(LocalizeValue.of(title));
+    builder.withTitle(title);
 
     return builder;
   }

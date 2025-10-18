@@ -15,7 +15,6 @@
  */
 package com.intellij.plugins.haxe.runner;
 
-import com.intellij.plugins.haxe.HaxeBundle;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.application.Application;
 import consulo.execution.configuration.ConfigurationFactory;
@@ -28,7 +27,6 @@ import consulo.localize.LocalizeValue;
 import consulo.module.extension.ModuleExtensionHelper;
 import consulo.project.Project;
 import consulo.ui.image.Image;
-
 import jakarta.annotation.Nonnull;
 
 @ExtensionImpl
@@ -77,7 +75,7 @@ public class HaxeRunConfigurationType implements ConfigurationType {
 
     @Override
     public RunConfiguration createTemplateConfiguration(Project project) {
-      final String name = HaxeBundle.message("runner.configuration.name");
+      final String name = HaxeLocalize.runnerConfigurationName().get();
       return new HaxeApplicationConfiguration(name, project, getInstance());
     }
   }

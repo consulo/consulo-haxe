@@ -15,7 +15,8 @@
  */
 package com.intellij.plugins.haxe.ide.generation;
 
-import com.intellij.plugins.haxe.HaxeBundle;
+import consulo.haxe.localize.HaxeLocalize;
+import consulo.localize.LocalizeValue;
 
 /**
  * @author: Fedor.Korotkov
@@ -25,8 +26,8 @@ public class HaxeGenerateSetterAction extends BaseHaxeGenerateAction {
   protected BaseHaxeGenerateHandler getGenerateHandler() {
     return new HaxeGenerateAccessorHandler(CreateGetterSetterFix.Strategy.SETTER) {
       @Override
-      protected String getTitle() {
-        return HaxeBundle.message("fields.to.generate.setters");
+      protected LocalizeValue getTitle() {
+        return HaxeLocalize.fieldsToGenerateSetters();
       }
     };
   }
