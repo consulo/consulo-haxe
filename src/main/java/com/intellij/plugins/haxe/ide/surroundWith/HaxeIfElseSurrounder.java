@@ -15,34 +15,38 @@
  */
 package com.intellij.plugins.haxe.ide.surroundWith;
 
-import com.intellij.plugins.haxe.lang.psi.HaxeIfStatement;
-import com.intellij.plugins.haxe.util.HaxeElementGenerator;
-import consulo.document.util.TextRange;
+import consulo.annotation.access.RequiredReadAction;
 import consulo.haxe.localize.HaxeLocalize;
-import consulo.language.psi.PsiElement;
 import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
 
+import com.intellij.plugins.haxe.lang.psi.HaxeIfStatement;
+import com.intellij.plugins.haxe.util.HaxeElementGenerator;
+import consulo.language.psi.PsiElement;
+import consulo.document.util.TextRange;
+
 /**
- * @author: Fedor.Korotkov
+ * @author Fedor.Korotkov
  */
 public class HaxeIfElseSurrounder extends HaxeManyStatementsSurrounder {
-  @Nonnull
-  @Override
-  protected PsiElement doSurroundElements(PsiElement[] elements, PsiElement parent) {
-    final HaxeIfStatement ifStatement =
-      (HaxeIfStatement)HaxeElementGenerator.createStatementFromText(elements[0].getProject(), "if(a){\n}else{\n}");
-    addStatements(ifStatement.getBlockStatementList().iterator().next(), elements);
-    return ifStatement;
-  }
+    @Nonnull
+    @Override
+    protected PsiElement doSurroundElements(PsiElement[] elements, PsiElement parent) {
+        final HaxeIfStatement ifStatement =
+            (HaxeIfStatement) HaxeElementGenerator.createStatementFromText(elements[0].getProject(), "if(a){\n}else{\n}");
+        addStatements(ifStatement.getBlockStatementList().iterator().next(), elements);
+        return ifStatement;
+    }
 
-  @Override
-  protected TextRange getSurroundSelectionRange(PsiElement element) {
-    return ((HaxeIfStatement)element).getExpressionList().iterator().next().getTextRange();
-  }
+    @Override
+    @RequiredReadAction
+    protected TextRange getSurroundSelectionRange(PsiElement element) {
+        return ((HaxeIfStatement) element).getExpressionList().iterator().next().getTextRange();
+    }
 
-  @Override
-  public LocalizeValue getTemplateDescription() {
-    return HaxeLocalize.haxeSurrounderIfElse();
-  }
+    @Nonnull
+    @Override
+    public LocalizeValue getTemplateDescription() {
+        return HaxeLocalize.haxeSurrounderIfElse();
+    }
 }

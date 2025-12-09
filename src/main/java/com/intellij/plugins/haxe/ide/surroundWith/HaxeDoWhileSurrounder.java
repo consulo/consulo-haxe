@@ -15,10 +15,11 @@
  */
 package com.intellij.plugins.haxe.ide.surroundWith;
 
+import consulo.annotation.access.RequiredReadAction;
+import consulo.document.util.TextRange;
 import com.intellij.plugins.haxe.lang.psi.HaxeDoWhileStatement;
 import com.intellij.plugins.haxe.lang.psi.HaxeExpression;
 import com.intellij.plugins.haxe.util.HaxeElementGenerator;
-import consulo.document.util.TextRange;
 import consulo.haxe.localize.HaxeLocalize;
 import consulo.language.psi.PsiElement;
 import consulo.localize.LocalizeValue;
@@ -27,26 +28,28 @@ import jakarta.annotation.Nonnull;
 import java.util.List;
 
 /**
- * @author: Fedor.Korotkov
+ * @author Fedor.Korotkov
  */
 public class HaxeDoWhileSurrounder extends HaxeManyStatementsSurrounder {
-  @Nonnull
-  @Override
-  protected PsiElement doSurroundElements(PsiElement[] elements, PsiElement parent) {
-    final HaxeDoWhileStatement whileStatement =
-      (HaxeDoWhileStatement)HaxeElementGenerator.createStatementFromText(elements[0].getProject(), "do {\n} while(a);");
-    addStatements(whileStatement.getBlockStatement(), elements);
-    return whileStatement;
-  }
+    @Nonnull
+    @Override
+    protected PsiElement doSurroundElements(PsiElement[] elements, PsiElement parent) {
+        final HaxeDoWhileStatement whileStatement =
+            (HaxeDoWhileStatement) HaxeElementGenerator.createStatementFromText(elements[0].getProject(), "do {\n} while(a);");
+        addStatements(whileStatement.getBlockStatement(), elements);
+        return whileStatement;
+    }
 
-  @Override
-  protected TextRange getSurroundSelectionRange(PsiElement element) {
-    final List<HaxeExpression> expressionList = ((HaxeDoWhileStatement)element).getExpressionList();
-    return expressionList.get(expressionList.size() - 1).getTextRange();
-  }
+    @Override
+    @RequiredReadAction
+    protected TextRange getSurroundSelectionRange(PsiElement element) {
+        final List<HaxeExpression> expressionList = ((HaxeDoWhileStatement) element).getExpressionList();
+        return expressionList.get(expressionList.size() - 1).getTextRange();
+    }
 
-  @Override
-  public LocalizeValue getTemplateDescription() {
-    return HaxeLocalize.haxeSurrounderDoWhile();
-  }
+    @Nonnull
+    @Override
+    public LocalizeValue getTemplateDescription() {
+        return HaxeLocalize.haxeSurrounderDoWhile();
+    }
 }

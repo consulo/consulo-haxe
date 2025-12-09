@@ -15,6 +15,7 @@
  */
 package com.intellij.plugins.haxe.ide.surroundWith;
 
+import consulo.annotation.access.RequiredReadAction;
 import consulo.document.util.TextRange;
 import com.intellij.plugins.haxe.lang.psi.HaxeWhileStatement;
 import com.intellij.plugins.haxe.util.HaxeElementGenerator;
@@ -24,25 +25,27 @@ import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
 
 /**
- * @author: Fedor.Korotkov
+ * @author Fedor.Korotkov
  */
 public class HaxeWhileSurrounder extends HaxeManyStatementsSurrounder {
-  @Nonnull
-  @Override
-  protected PsiElement doSurroundElements(PsiElement[] elements, PsiElement parent) {
-    final HaxeWhileStatement whileStatement =
-      (HaxeWhileStatement)HaxeElementGenerator.createStatementFromText(elements[0].getProject(), "while(a) {\n}");
-    addStatements(whileStatement.getBlockStatement(), elements);
-    return whileStatement;
-  }
+    @Nonnull
+    @Override
+    protected PsiElement doSurroundElements(PsiElement[] elements, PsiElement parent) {
+        final HaxeWhileStatement whileStatement =
+            (HaxeWhileStatement) HaxeElementGenerator.createStatementFromText(elements[0].getProject(), "while(a) {\n}");
+        addStatements(whileStatement.getBlockStatement(), elements);
+        return whileStatement;
+    }
 
-  @Override
-  protected TextRange getSurroundSelectionRange(PsiElement element) {
-    return ((HaxeWhileStatement)element).getExpressionList().iterator().next().getTextRange();
-  }
+    @Override
+    @RequiredReadAction
+    protected TextRange getSurroundSelectionRange(PsiElement element) {
+        return ((HaxeWhileStatement) element).getExpressionList().iterator().next().getTextRange();
+    }
 
-  @Override
-  public LocalizeValue getTemplateDescription() {
-    return HaxeLocalize.haxeSurrounderWhile();
-  }
+    @Nonnull
+    @Override
+    public LocalizeValue getTemplateDescription() {
+        return HaxeLocalize.haxeSurrounderWhile();
+    }
 }

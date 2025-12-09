@@ -15,38 +15,42 @@
  */
 package com.intellij.plugins.haxe.ide.surroundWith;
 
+import consulo.annotation.access.RequiredReadAction;
+import consulo.haxe.localize.HaxeLocalize;
+import consulo.localize.LocalizeValue;
+import jakarta.annotation.Nonnull;
+
+import consulo.document.util.TextRange;
 import com.intellij.plugins.haxe.lang.psi.HaxeCatchStatement;
 import com.intellij.plugins.haxe.lang.psi.HaxeParameter;
 import com.intellij.plugins.haxe.lang.psi.HaxeTryStatement;
 import com.intellij.plugins.haxe.util.HaxeElementGenerator;
-import consulo.document.util.TextRange;
-import consulo.haxe.localize.HaxeLocalize;
 import consulo.language.psi.PsiElement;
-import consulo.localize.LocalizeValue;
-import jakarta.annotation.Nonnull;
 
 /**
- * @author: Fedor.Korotkov
+ * @author Fedor.Korotkov
  */
 public class HaxeTryCatchSurrounder extends HaxeManyStatementsSurrounder {
-  @Nonnull
-  @Override
-  protected PsiElement doSurroundElements(PsiElement[] elements, PsiElement parent) {
-    final HaxeTryStatement tryStatement =
-      (HaxeTryStatement)HaxeElementGenerator.createStatementFromText(elements[0].getProject(), "try {\n} catch(a) {\n}");
-    addStatements(tryStatement.getBlockStatement(), elements);
-    return tryStatement;
-  }
+    @Nonnull
+    @Override
+    protected PsiElement doSurroundElements(PsiElement[] elements, PsiElement parent) {
+        final HaxeTryStatement tryStatement =
+            (HaxeTryStatement) HaxeElementGenerator.createStatementFromText(elements[0].getProject(), "try {\n} catch(a) {\n}");
+        addStatements(tryStatement.getBlockStatement(), elements);
+        return tryStatement;
+    }
 
-  @Override
-  protected TextRange getSurroundSelectionRange(PsiElement element) {
-    final HaxeCatchStatement catchStatement = ((HaxeTryStatement)element).getCatchStatementList().iterator().next();
-    final HaxeParameter parameter = catchStatement.getParameter();
-    return parameter == null ? catchStatement.getTextRange() : parameter.getTextRange();
-  }
+    @Override
+    @RequiredReadAction
+    protected TextRange getSurroundSelectionRange(PsiElement element) {
+        final HaxeCatchStatement catchStatement = ((HaxeTryStatement) element).getCatchStatementList().iterator().next();
+        final HaxeParameter parameter = catchStatement.getParameter();
+        return parameter == null ? catchStatement.getTextRange() : parameter.getTextRange();
+    }
 
-  @Override
-  public LocalizeValue getTemplateDescription() {
-    return HaxeLocalize.haxeSurrounderTryCatch();
-  }
+    @Nonnull
+    @Override
+    public LocalizeValue getTemplateDescription() {
+        return HaxeLocalize.haxeSurrounderTryCatch();
+    }
 }
