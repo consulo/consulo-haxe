@@ -24,6 +24,7 @@ import consulo.content.base.BinariesOrderRootType;
 import consulo.content.base.DocumentationOrderRootType;
 import consulo.content.base.SourcesOrderRootType;
 import consulo.content.bundle.*;
+import consulo.haxe.icon.HaxeIconGroup;
 import consulo.haxe.localize.HaxeLocalize;
 import consulo.ui.image.Image;
 import consulo.util.xml.serializer.XmlSerializer;
@@ -43,20 +44,10 @@ public class HaxeSdkType extends SdkType {
     }
 
     public HaxeSdkType() {
-        super("HAXE_SDK");
-    }
-
-    @Override
-    public Image getIcon() {
-        return HaxeIcons.Haxe;
+        super("HAXE_SDK", HaxeLocalize.haxeSdkNamePresentable(), HaxeIconGroup.haxe());
     }
 
     @Nonnull
-    @Override
-    public String getPresentableName() {
-        return HaxeLocalize.haxeSdkNamePresentable().get();
-    }
-
     @Override
     public String suggestSdkName(String currentSdkName, String sdkHome) {
         return HaxeLocalize.haxeSdkNameSuggest(getVersionString(sdkHome)).get();
