@@ -18,8 +18,8 @@ package com.intellij.plugins.haxe.lang.parser;
 import com.intellij.plugins.haxe.HaxeLanguage;
 import com.intellij.plugins.haxe.lang.lexer.HaxeLexer;
 import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypeSets;
-import com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes;
 import com.intellij.plugins.haxe.lang.psi.HaxeFile;
+import com.intellij.plugins.haxe.lang.psi.impl.HaxeTokenTypesFactory;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.language.Language;
 import consulo.language.ast.ASTNode;
@@ -32,7 +32,6 @@ import consulo.language.parser.PsiParser;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.PsiFile;
 import consulo.language.version.LanguageVersion;
-
 import jakarta.annotation.Nonnull;
 
 @ExtensionImpl
@@ -74,14 +73,10 @@ public class HaxeParserDefinition implements ParserDefinition
 
   @Nonnull
   public PsiElement createElement(ASTNode node) {
-    return HaxeTokenTypes.Factory.createElement(node);
+    return HaxeTokenTypesFactory.createElement(node);
   }
 
   public PsiFile createFile(FileViewProvider viewProvider) {
     return new HaxeFile(viewProvider);
-  }
-
-  public SpaceRequirements spaceExistanceTypeBetweenTokens(ASTNode left, ASTNode right) {
-    return SpaceRequirements.MAY;
   }
 }
