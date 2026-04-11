@@ -10,7 +10,7 @@ open module com.intellij.plugins.haxe {
   requires consulo.ide.api;
 
   requires com.intellij.regexp;
-  requires com.intellij.xml;
+  requires com.intellij.xml.api;
 
   exports com.intellij.plugins.haxe;
   exports com.intellij.plugins.haxe.codeInspection;

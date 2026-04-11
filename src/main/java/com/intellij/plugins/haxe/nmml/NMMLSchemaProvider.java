@@ -15,7 +15,6 @@
  */
 package com.intellij.plugins.haxe.nmml;
 
-import com.intellij.xml.XmlSchemaProvider;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.language.psi.PsiFile;
 import consulo.module.Module;
@@ -25,6 +24,7 @@ import consulo.virtualFileSystem.LocalFileSystem;
 import consulo.virtualFileSystem.VirtualFile;
 import consulo.virtualFileSystem.archive.ArchiveVfsUtil;
 
+import consulo.xml.descriptor.XmlSchemaProvider;
 import consulo.xml.language.psi.XmlFile;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
