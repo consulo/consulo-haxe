@@ -18,7 +18,7 @@ package com.intellij.plugins.haxe.runner.debugger.hxcpp;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.openapi.vfs.VfsUtil;
+import consulo.virtualFileSystem.util.VirtualFileUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.plugins.haxe.runner.debugger.HaxeBreakpointType;
 import com.intellij.plugins.haxe.runner.debugger.hxcpp.connection.HXCPPResponse;
@@ -95,7 +95,7 @@ public class HXCPPBreakpointsHandler {
   private static String getRelativePath(Project project, VirtualFile file) {
     final PsiFile psiFile = PsiManager.getInstance(project).findFile(file);
     final String packageName = HaxeResolveUtil.getPackageName(psiFile);
-    final String fileName = VfsUtil.extractFileName(file.getPath());
+    final String fileName = VirtualFileUtil.extractFileName(file.getPath());
     return getPath(packageName, fileName);
   }
 

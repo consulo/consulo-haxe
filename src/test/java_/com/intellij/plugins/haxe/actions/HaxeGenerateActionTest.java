@@ -17,7 +17,7 @@ package com.intellij.plugins.haxe.actions;
 
 import jakarta.annotation.Nonnull;
 
-import consulo.ide.impl.idea.openapi.util.io.FileUtil;
+import consulo.util.io.FileUtil;
 import com.intellij.plugins.haxe.ide.generation.BaseHaxeGenerateHandler;
 import com.intellij.plugins.haxe.ide.generation.CreateGetterSetterFix;
 import com.intellij.plugins.haxe.ide.generation.HaxeGenerateAccessorHandler;

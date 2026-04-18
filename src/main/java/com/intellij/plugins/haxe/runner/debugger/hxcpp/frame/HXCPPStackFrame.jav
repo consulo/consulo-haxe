@@ -18,8 +18,7 @@ package com.intellij.plugins.haxe.runner.debugger.hxcpp.frame;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.text.StringUtil;
-import com.intellij.openapi.vfs.VfsUtil;
-import com.intellij.openapi.vfs.VfsUtilCore;
+import consulo.virtualFileSystem.util.VirtualFileUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.plugins.haxe.runner.debugger.hxcpp.HXCPPDebugProcess;
@@ -59,7 +58,7 @@ public class HXCPPStackFrame extends XStackFrame {
       int index = Integer.parseInt(matcher.group(1));
       final String className = matcher.group(2);
       final String methodName = matcher.group(3);
-      final String fileUrl = VfsUtilCore.pathToUrl(matcher.group(4));
+      final String fileUrl = VirtualFileUtil.pathToUrl(matcher.group(4));
       int line = Integer.parseInt(matcher.group(5)) - 1;
       result.add(new HXCPPStackFrame(debugProcess, index, className + "::" + methodName, fileUrl, line));
     }
@@ -86,7 +85,7 @@ public class HXCPPStackFrame extends XStackFrame {
   public XSourcePosition getSourcePosition() {
     VirtualFile file = VirtualFileManager.getInstance().findFileByUrl(myFileUrl);
     if (file == null) {
-      final String fileName = VfsUtil.extractFileName(myFileUrl);
+      final String fileName = VirtualFileUtil.extractFileName(myFileUrl);
       final Project project = myDebugProcess.getSession().getProject();
       Collection<VirtualFile> files =
         FilenameIndex.getVirtualFilesByName(project, fileName, GlobalSearchScope.moduleScope(myDebugProcess.getModule()));

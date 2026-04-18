@@ -16,7 +16,7 @@
 package com.intellij.plugins.haxe.ide.info;
 
 import jakarta.annotation.Nonnull;
-import consulo.ide.impl.idea.openapi.util.io.FileUtil;
+import consulo.util.io.FileUtil;
 import com.intellij.plugins.haxe.util.HaxeTestUtils;
 import com.intellij.testFramework.LightPlatformCodeInsightTestCase;
 
@@ -32,7 +32,7 @@ abstract public class HaxeParameterInfoTest extends LightPlatformCodeInsightTest
   @Nonnull
   @Override
   protected String getTestDataPath() {
-    return HaxeTestUtils.BASE_TEST_DATA_PATH + consulo.ide.impl.idea.openapi.util.io.FileUtil.toSystemDependentName("/paramInfo/");
+    return HaxeTestUtils.BASE_TEST_DATA_PATH + FileUtil.toSystemDependentName("/paramInfo/");
   }
 
   private void doTest(String infoText, int highlightedParameterIndex) throws Exception {
