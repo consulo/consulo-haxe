@@ -15,7 +15,7 @@
  */
 package com.intellij.plugins.haxe.lang;
 
-import consulo.ide.impl.idea.openapi.util.io.FileUtil;
+import consulo.util.io.FileUtil;
 import com.intellij.plugins.haxe.HaxeCodeInsightFixtureTestCase;
 import com.intellij.plugins.haxe.HaxeFileType;
 import com.intellij.plugins.haxe.HaxeLanguage;
@@ -84,7 +84,7 @@ public abstract class HaxeFormatterTest extends HaxeCodeInsightFixtureTestCase {
         throw e;
       }
       final String path = getTestDataPath() + getTestName(false) + ".txt";
-      FileWriter writer = new FileWriter(consulo.ide.impl.idea.openapi.util.io.FileUtil.toSystemDependentName(path));
+      FileWriter writer = new FileWriter(FileUtil.toSystemDependentName(path));
       try {
         writer.write(myFixture.getFile().getText().trim());
       }
