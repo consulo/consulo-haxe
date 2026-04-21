@@ -21,31 +21,32 @@ import consulo.language.editor.template.Expression;
 import consulo.language.editor.template.ExpressionContext;
 import consulo.language.editor.template.Result;
 import consulo.language.editor.template.macro.Macro;
+import consulo.localize.LocalizeValue;
 import jakarta.annotation.Nonnull;
 
 /**
- * @author: Fedor.Korotkov
+ * @author Fedor.Korotkov
  */
 @ExtensionImpl
 public class HaxeSuggestVariableNameMacro extends Macro {
-  @Override
-  public String getName() {
-    return "haxeSuggestVariableName";
-  }
+    @Override
+    public String getName() {
+        return "haxeSuggestVariableName";
+    }
 
-  @Override
-  public String getPresentableName() {
-    return HaxeLocalize.macroHaxeVariableName().get();
-  }
+    @Override
+    public LocalizeValue getPresentableName() {
+        return HaxeLocalize.macroHaxeVariableName();
+    }
 
-  @Nonnull
-  @Override
-  public String getDefaultValue() {
-    return "o";
-  }
+    @Nonnull
+    @Override
+    public String getDefaultValue() {
+        return "o";
+    }
 
-  @Override
-  public Result calculateResult(@Nonnull Expression[] params, ExpressionContext context) {
-    return null;
-  }
+    @Override
+    public Result calculateResult(@Nonnull Expression[] params, ExpressionContext context) {
+        return null;
+    }
 }

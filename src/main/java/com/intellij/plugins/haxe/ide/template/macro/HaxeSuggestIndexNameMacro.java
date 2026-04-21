@@ -25,6 +25,7 @@ import consulo.language.editor.template.Result;
 import consulo.language.editor.template.TextResult;
 import consulo.language.editor.template.macro.Macro;
 import consulo.language.psi.PsiElement;
+import consulo.localize.LocalizeValue;
 import consulo.navigation.NavigationItem;
 import consulo.util.collection.ContainerUtil;
 import jakarta.annotation.Nonnull;
@@ -33,36 +34,36 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author: Fedor.Korotkov
+ * @author Fedor.Korotkov
  */
 @ExtensionImpl
 public class HaxeSuggestIndexNameMacro extends Macro {
-  @Override
-  public String getName() {
-    return "haxeSuggestIndexName";
-  }
-
-  @Override
-  public String getPresentableName() {
-    return HaxeLocalize.macroHaxeIndexName().get();
-  }
-
-  @Nonnull
-  @Override
-  public String getDefaultValue() {
-    return "i";
-  }
-
-  @Override
-  public Result calculateResult(@Nonnull Expression[] params, ExpressionContext context) {
-    final PsiElement at = context.getPsiElementAtStartOffset();
-    final Set<HaxeComponentName> variables = HaxeMacroUtil.findVariables(at);
-    final Set<String> names = new HashSet<String>(ContainerUtil.map(variables, NavigationItem::getName));
-    for (char i = 'i'; i < 'z'; ++i) {
-      if (!names.contains(Character.toString(i))) {
-        return new TextResult(Character.toString(i));
-      }
+    @Override
+    public String getName() {
+        return "haxeSuggestIndexName";
     }
-    return null;
-  }
+
+    @Override
+    public LocalizeValue getPresentableName() {
+        return HaxeLocalize.macroHaxeIndexName();
+    }
+
+    @Nonnull
+    @Override
+    public String getDefaultValue() {
+        return "i";
+    }
+
+    @Override
+    public Result calculateResult(@Nonnull Expression[] params, ExpressionContext context) {
+        PsiElement at = context.getPsiElementAtStartOffset();
+        Set<HaxeComponentName> variables = HaxeMacroUtil.findVariables(at);
+        Set<String> names = new HashSet<>(ContainerUtil.map(variables, NavigationItem::getName));
+        for (char i = 'i'; i < 'z'; ++i) {
+            if (!names.contains(Character.toString(i))) {
+                return new TextResult(Character.toString(i));
+            }
+        }
+        return null;
+    }
 }
