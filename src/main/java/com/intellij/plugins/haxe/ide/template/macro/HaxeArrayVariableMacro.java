@@ -28,40 +28,37 @@ import consulo.language.editor.template.PsiElementResult;
 import consulo.language.editor.template.Result;
 import consulo.language.editor.template.macro.Macro;
 import consulo.language.psi.PsiElement;
+import consulo.localize.LocalizeValue;
 import consulo.util.collection.ContainerUtil;
-import consulo.util.lang.function.Condition;
 import jakarta.annotation.Nonnull;
 
 import java.util.List;
 import java.util.Set;
 
 /**
- * @author: Fedor.Korotkov
+ * @author Fedor.Korotkov
  */
 @ExtensionImpl
 public class HaxeArrayVariableMacro extends Macro {
-  @Override
-  public String getName() {
-    return "haxeArrayVariable";
-  }
+    @Override
+    public String getName() {
+        return "haxeArrayVariable";
+    }
 
-  @Override
-  public String getPresentableName() {
-    return HaxeLocalize.macroHaxeArrayVariable().get();
-  }
+    @Override
+    public LocalizeValue getPresentableName() {
+        return HaxeLocalize.macroHaxeArrayVariable();
+    }
 
-  @Override
-  public Result calculateResult(@Nonnull Expression[] params, ExpressionContext context) {
-    final PsiElement at = context.getPsiElementAtStartOffset();
-    final Set<HaxeComponentName> variables = HaxeMacroUtil.findVariables(at);
-    final List<HaxeComponentName> filtered = ContainerUtil.filter(variables, new Condition<HaxeComponentName>() {
-      @Override
-      public boolean value(HaxeComponentName name) {
-        final HaxeClassResolveResult result = HaxeResolveUtil.getHaxeClassResolveResult(name.getParent());
-        final HaxeClass haxeClass = result.getHaxeClass();
-        return haxeClass != null && "Array".equalsIgnoreCase(haxeClass.getQualifiedName());
-      }
-    });
-    return filtered.isEmpty() ? null : new PsiElementResult(filtered.iterator().next());
-  }
+    @Override
+    public Result calculateResult(@Nonnull Expression[] params, ExpressionContext context) {
+        PsiElement at = context.getPsiElementAtStartOffset();
+        Set<HaxeComponentName> variables = HaxeMacroUtil.findVariables(at);
+        List<HaxeComponentName> filtered = ContainerUtil.filter(variables, name -> {
+            HaxeClassResolveResult result = HaxeResolveUtil.getHaxeClassResolveResult(name.getParent());
+            HaxeClass haxeClass = result.getHaxeClass();
+            return haxeClass != null && "Array".equalsIgnoreCase(haxeClass.getQualifiedName());
+        });
+        return filtered.isEmpty() ? null : new PsiElementResult(filtered.iterator().next());
+    }
 }
