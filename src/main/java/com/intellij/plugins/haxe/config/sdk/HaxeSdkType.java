@@ -35,13 +35,11 @@ import org.jdom.Element;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 @ExtensionImpl
 public class HaxeSdkType extends SdkType {
-    @Nonnull
-    public static HaxeSdkType getInstance() {
-        return Application.get().getExtensionPoint(SdkType.class).findExtensionOrFail(HaxeSdkType.class);
-    }
+    private static final Set<String> ourAllowedRootTypeIds = Set.of(BinariesOrderRootType.ID, SourcesOrderRootType.ID, DocumentationOrderRootType.ID);
 
     public HaxeSdkType() {
         super("HAXE_SDK", HaxeLocalize.haxeSdkNamePresentable(), HaxeIconGroup.haxe());
@@ -91,8 +89,8 @@ public class HaxeSdkType extends SdkType {
     }
 
     @Override
-    public boolean isRootTypeApplicable(OrderRootType type) {
-        return type == SourcesOrderRootType.getInstance() || type == BinariesOrderRootType.getInstance() || type == DocumentationOrderRootType.getInstance();
+    public boolean isRootTypeApplicable(String type) {
+        return ourAllowedRootTypeIds.contains(type);
     }
 
     @Override
@@ -109,12 +107,12 @@ public class HaxeSdkType extends SdkType {
         if (homeDirectory != null) {
             final VirtualFile stdRoot = homeDirectory.findChild("std");
             if (stdRoot != null) {
-                modificator.addRoot(stdRoot, BinariesOrderRootType.getInstance());
-                modificator.addRoot(stdRoot, SourcesOrderRootType.getInstance());
+                modificator.addRoot(stdRoot, BinariesOrderRootType.ID);
+                modificator.addRoot(stdRoot, SourcesOrderRootType.ID);
             }
             final VirtualFile docRoot = homeDirectory.findChild("doc");
             if (docRoot != null) {
-                modificator.addRoot(docRoot, DocumentationOrderRootType.getInstance());
+                modificator.addRoot(docRoot, DocumentationOrderRootType.ID);
             }
         }
 

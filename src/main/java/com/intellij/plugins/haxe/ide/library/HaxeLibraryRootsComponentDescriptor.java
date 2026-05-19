@@ -33,8 +33,8 @@ public class HaxeLibraryRootsComponentDescriptor extends DefaultLibraryRootsComp
   @Override
   public List<? extends RootDetector> getRootDetectors() {
     return Arrays.asList(
-        new HaxeLibRootDetector(SourcesOrderRootType.getInstance(), HaxeLocalize.sourcesRootDetectorSourcesName()),
-        new HaxeLibRootDetector(BinariesOrderRootType.getInstance(), HaxeLocalize.sourcesRootDetectorClassesName())
+        new HaxeLibRootDetector(SourcesOrderRootType.ID, HaxeLocalize.sourcesRootDetectorSourcesName()),
+        new HaxeLibRootDetector(BinariesOrderRootType.ID, HaxeLocalize.sourcesRootDetectorClassesName())
     );
   }
 }

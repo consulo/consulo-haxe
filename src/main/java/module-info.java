@@ -53,6 +53,7 @@ open module com.intellij.plugins.haxe {
   requires com.intellij.xml;
   requires com.intellij.xml.api;
 
+
   // TODO remove this dependency in future
   requires java.desktop;
   requires forms.rt;

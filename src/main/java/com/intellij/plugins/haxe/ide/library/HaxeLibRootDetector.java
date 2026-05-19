@@ -35,8 +35,8 @@ import java.util.List;
  * @author: Fedor.Korotkov
  */
 public class HaxeLibRootDetector extends RootDetector {
-  protected HaxeLibRootDetector(OrderRootType rootType, LocalizeValue presentableRootTypeName) {
-    super(rootType, false, presentableRootTypeName.get());
+  protected HaxeLibRootDetector(String rootType, LocalizeValue presentableRootTypeName) {
+    super(rootType, false, presentableRootTypeName);
   }
 
   @Nonnull
