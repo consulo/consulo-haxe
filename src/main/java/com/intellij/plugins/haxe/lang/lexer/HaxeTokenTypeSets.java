@@ -16,10 +16,7 @@
 package com.intellij.plugins.haxe.lang.lexer;
 
 import com.intellij.plugins.haxe.HaxeLanguage;
-import consulo.language.ast.IElementType;
-import consulo.language.ast.IFileElementType;
-import consulo.language.ast.TokenType;
-import consulo.language.ast.TokenSet;
+import consulo.language.ast.*;
 
 import static com.intellij.plugins.haxe.lang.lexer.HaxeTokenTypes.*;
 
@@ -36,8 +33,7 @@ public interface HaxeTokenTypeSets {
 
   TokenSet WHITESPACES = TokenSet.create(
     WSNLS,
-    TokenType.WHITE_SPACE,
-    TokenType.NEW_LINE_INDENT
+    StandardTokenTypes.WHITE_SPACE
   );
 
   TokenSet ONLY_COMMENTS = TokenSet.create(
@@ -68,7 +64,7 @@ public interface HaxeTokenTypeSets {
   );
 
   TokenSet BAD_TOKENS = TokenSet.create(
-    TokenType.BAD_CHARACTER
+    StandardTokenTypes.BAD_CHARACTER
   );
 
   TokenSet STRINGS = TokenSet.create(
