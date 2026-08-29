@@ -23,6 +23,7 @@ import com.intellij.plugins.haxe.lang.psi.*;
 import com.intellij.plugins.haxe.util.HaxeResolveUtil;
 import consulo.annotation.component.ExtensionImpl;
 import consulo.application.AllIcons;
+import consulo.application.Application;
 import consulo.codeEditor.markup.GutterIconRenderer;
 import consulo.haxe.localize.HaxeLocalize;
 import consulo.language.Language;
@@ -32,18 +33,17 @@ import consulo.language.editor.gutter.GutterIconNavigationHandler;
 import consulo.language.editor.gutter.LineMarkerInfo;
 import consulo.language.editor.gutter.LineMarkerProvider;
 import consulo.language.editor.localize.DaemonLocalize;
-import consulo.language.editor.ui.DefaultPsiElementCellRenderer;
-import consulo.language.editor.ui.PsiElementListNavigator;
-import consulo.language.psi.NavigatablePsiElement;
+import consulo.language.editor.ui.navigation.PsiTargetNavigationService;
 import consulo.language.psi.PsiElement;
 import consulo.language.psi.util.PsiTreeUtil;
+import consulo.localize.LocalizeValue;
+import consulo.ui.event.ComponentEvent;
 import consulo.ui.image.Image;
 import consulo.util.collection.ContainerUtil;
 import consulo.util.lang.function.Condition;
 import jakarta.annotation.Nonnull;
 import jakarta.annotation.Nullable;
 
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -145,13 +145,12 @@ public class HaxeLineMarkerProvider implements LineMarkerProvider {
       },
       new GutterIconNavigationHandler<PsiElement>() {
         @Override
-        public void navigate(MouseEvent e, PsiElement elt) {
-          PsiElementListNavigator.openTargets(
-            e,
-            HaxeResolveUtil.getComponentNames(filteredSuperItems).toArray(new NavigatablePsiElement[filteredSuperItems.size()]),
-              DaemonLocalize.navigationTitleSuperMethod(namedComponent.getName()).get(),
-              DaemonLocalize.navigationFindusagesTitleSuperMethod(namedComponent.getName()).get(),
-            new DefaultPsiElementCellRenderer());
+        public void navigate(ComponentEvent<?> e, PsiElement elt) {
+          Application.get().getInstance(PsiTargetNavigationService.class)
+                     .newNavigator(() -> HaxeResolveUtil.getComponentNames(filteredSuperItems))
+                     .title(DaemonLocalize.navigationTitleSuperMethod(namedComponent.getName()))
+                     .findUsagesTitle(DaemonLocalize.navigationFindusagesTitleSuperMethod(namedComponent.getName()))
+                     .navigate(e, namedComponent.getProject());
         }
       },
       GutterIconRenderer.Alignment.LEFT
@@ -191,16 +190,16 @@ public class HaxeLineMarkerProvider implements LineMarkerProvider {
       },
       new GutterIconNavigationHandler<PsiElement>() {
         @Override
-        public void navigate(MouseEvent e, PsiElement elt) {
-          PsiElementListNavigator.openTargets(
-            e, HaxeResolveUtil.getComponentNames(filteredSubItems).toArray(new NavigatablePsiElement[filteredSubItems.size()]),
-            isInterface ?
-            DaemonBundle.message("navigation.title.implementation.method", namedComponent.getName(), filteredSubItems.size())
-                        :
-            DaemonBundle.message("navigation.title.overrider.method", namedComponent.getName(), filteredSubItems.size()),
-            "Implementations of " + namedComponent.getName(),
-            new DefaultPsiElementCellRenderer()
-          );
+        public void navigate(ComponentEvent<?> e, PsiElement elt) {
+          LocalizeValue title = isInterface
+            ? DaemonLocalize.navigationTitleImplementationMethod(namedComponent.getName(), filteredSubItems.size())
+            : DaemonLocalize.navigationTitleOverriderMethod(namedComponent.getName(), filteredSubItems.size());
+
+          Application.get().getInstance(PsiTargetNavigationService.class)
+                     .newNavigator(() -> HaxeResolveUtil.getComponentNames(filteredSubItems))
+                     .title(title)
+                     .findUsagesTitle(LocalizeValue.localizeTODO("Implementations of " + namedComponent.getName()))
+                     .navigate(e, namedComponent.getProject());
         }
       },
       GutterIconRenderer.Alignment.RIGHT
@@ -229,13 +228,12 @@ public class HaxeLineMarkerProvider implements LineMarkerProvider {
       },
       new GutterIconNavigationHandler<PsiElement>() {
         @Override
-        public void navigate(MouseEvent e, PsiElement elt) {
-          PsiElementListNavigator.openTargets(
-            e, HaxeResolveUtil.getComponentNames(items).toArray(new NavigatablePsiElement[items.size()]),
-            DaemonBundle.message("navigation.title.subclass", componentWithDeclarationList.getName(), items.size()),
-            "Subclasses of " + componentWithDeclarationList.getName(),
-            new DefaultPsiElementCellRenderer()
-          );
+        public void navigate(ComponentEvent<?> e, PsiElement elt) {
+          Application.get().getInstance(PsiTargetNavigationService.class)
+                     .newNavigator(() -> HaxeResolveUtil.getComponentNames(items))
+                     .title(DaemonLocalize.navigationTitleSubclass(componentWithDeclarationList.getName(), items.size(), ""))
+                     .findUsagesTitle(LocalizeValue.localizeTODO("Subclasses of " + componentWithDeclarationList.getName()))
+                     .navigate(e, componentWithDeclarationList.getProject());
         }
       },
       GutterIconRenderer.Alignment.RIGHT
