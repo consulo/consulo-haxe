@@ -33,57 +33,58 @@ import consulo.process.ExecutionException;
 import consulo.process.ProcessHandler;
 import consulo.process.cmd.GeneralCommandLine;
 import consulo.process.local.ProcessHandlerFactory;
-import consulo.virtualFileSystem.VirtualFile;
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class NekoRunningState extends CommandLineState {
-  private final Module module;
-  @Nullable
-  private final String customFileToLaunch;
+    private final Module myModule;
+    private final @Nullable String myCustomFileToLaunch;
 
-  public NekoRunningState(ExecutionEnvironment env, Module module, @Nullable String fileToLaunch) {
-    super(env);
-    this.module = module;
-    customFileToLaunch = fileToLaunch;
-  }
-
-  @Nonnull
-  @Override
-  protected ProcessHandler startProcess() throws ExecutionException {
-    final HaxeModuleSettings settings = HaxeModuleSettings.getInstance(module);
-    final Sdk sdk = ModuleUtilCore.getSdk(module, HaxeModuleExtension.class);
-    assert sdk != null;
-    assert settings.getHaxeTarget() == HaxeTarget.NEKO;
-    final HaxeSdkData sdkData = sdk.getSdkAdditionalData() instanceof HaxeSdkData ? (HaxeSdkData) sdk.getSdkAdditionalData() : null;
-
-    GeneralCommandLine commandLine = getCommandForNeko(sdkData, settings);
-
-    return ProcessHandlerFactory.getInstance().createProcessHandler(commandLine);
-  }
-
-  private GeneralCommandLine getCommandForNeko(@Nullable HaxeSdkData sdkData, HaxeModuleSettings settings) throws ExecutionException {
-    if (sdkData == null || sdkData.getNekoBinPath() == null || sdkData.getNekoBinPath().isEmpty()) {
-      throw new ExecutionException(HaxeLocalize.haxeRunBadNekoBinPath().get());
+    public NekoRunningState(ExecutionEnvironment env, Module module, @Nullable String fileToLaunch) {
+        super(env);
+        myModule = module;
+        myCustomFileToLaunch = fileToLaunch;
     }
 
-    GeneralCommandLine commandLine = new GeneralCommandLine();
+    @Override
+    protected ProcessHandler startProcess() throws ExecutionException {
+        HaxeModuleSettings settings = HaxeModuleSettings.getInstance(myModule);
+        Sdk sdk = ModuleUtilCore.getSdk(myModule, HaxeModuleExtension.class);
+        assert sdk != null;
+        assert settings.getHaxeTarget() == HaxeTarget.NEKO;
+        HaxeSdkData sdkData = sdk.getSdkAdditionalData() instanceof HaxeSdkData ? (HaxeSdkData) sdk.getSdkAdditionalData() : null;
 
-    commandLine.setExePath(sdkData.getNekoBinPath());
-    commandLine.setWorkDirectory(module.getModuleDirPath());
+        GeneralCommandLine commandLine = getCommandForNeko(sdkData, settings);
 
-    if (customFileToLaunch != null) {
-      commandLine.addParameter(customFileToLaunch);
-    } else {
-      final VirtualFile outputDirectory = ModuleCompilerPathsManager.getInstance(module).getCompilerOutput(ProductionContentFolderTypeProvider.getInstance());
-      final VirtualFile fileToLaunch = outputDirectory != null ? outputDirectory.findChild(settings.getOutputFileName()) : null;
-      if (fileToLaunch != null) {
-        commandLine.addParameter(fileToLaunch.getPath());
-      }
+        return ProcessHandlerFactory.getInstance().createProcessHandler(commandLine);
     }
 
-    final TextConsoleBuilder consoleBuilder = TextConsoleBuilderFactory.getInstance().createBuilder(module.getProject());
-    setConsoleBuilder(consoleBuilder);
-    return commandLine;
-  }
+    private GeneralCommandLine getCommandForNeko(@Nullable HaxeSdkData sdkData, HaxeModuleSettings settings) throws ExecutionException {
+        if (sdkData == null || sdkData.getNekoBinPath() == null || sdkData.getNekoBinPath().isEmpty()) {
+            throw new ExecutionException(HaxeLocalize.haxeRunBadNekoBinPath().get());
+        }
+
+        GeneralCommandLine commandLine = new GeneralCommandLine();
+
+        commandLine.setExePath(sdkData.getNekoBinPath());
+        commandLine.setWorkDirectory(myModule.getModuleDirPath());
+
+        if (myCustomFileToLaunch != null) {
+            commandLine.addParameter(myCustomFileToLaunch);
+        }
+        else {
+            Path outputDirectory = ModuleCompilerPathsManager.getInstance(myModule)
+                .getCompilerOutputPath(ProductionContentFolderTypeProvider.getInstance());
+            Path fileToLaunch = outputDirectory == null ? null : outputDirectory.resolve(settings.getOutputFileName());
+            if (fileToLaunch != null && Files.exists(fileToLaunch)) {
+                commandLine.addParameter(fileToLaunch.toString());
+            }
+        }
+
+        TextConsoleBuilder consoleBuilder = TextConsoleBuilderFactory.getInstance().createBuilder(myModule.getProject());
+        setConsoleBuilder(consoleBuilder);
+        return commandLine;
+    }
 }

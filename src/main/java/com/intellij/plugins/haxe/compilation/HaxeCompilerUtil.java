@@ -17,37 +17,34 @@ package com.intellij.plugins.haxe.compilation;
 
 import consulo.application.ApplicationManager;
 import consulo.compiler.CompileContext;
-import consulo.compiler.CompilerMessageCategory;
+import consulo.localize.LocalizeValue;
 import consulo.module.Module;
 import consulo.virtualFileSystem.util.VirtualFileUtil;
 
 /**
- * @author: Fedor.Korotkov
+ * @author Fedor.Korotkov
  */
 public class HaxeCompilerUtil {
-  public static void fillContext(Module module, CompileContext context, String[] errors) {
-    for (String error : errors) {
-      addErrorToContext(module, error, context);
-    }
-  }
-
-  private static void addErrorToContext(Module module, String error, CompileContext context) {
-    final HaxeCompilerError compilerError = HaxeCompilerError.create(
-        module.getModuleDirPath(),
-        error,
-        !ApplicationManager.getApplication().isUnitTestMode()
-    );
-    if (compilerError == null) {
-      context.addMessage(consulo.compiler.CompilerMessageCategory.WARNING, error, null, -1, -1);
-      return;
+    public static void fillContext(Module module, CompileContext context, String[] errors) {
+        for (String error : errors) {
+            addErrorToContext(module, error, context);
+        }
     }
 
-    context.addMessage(
-        CompilerMessageCategory.WARNING,
-        compilerError.getErrorMessage(),
-        VirtualFileUtil.pathToUrl(compilerError.getPath()),
-        compilerError.getLine(),
-        -1
-    );
-  }
+    private static void addErrorToContext(Module module, String error, CompileContext context) {
+        HaxeCompilerError compilerError = HaxeCompilerError.create(
+            module.getModuleDirPath(),
+            error,
+            !ApplicationManager.getApplication().isUnitTestMode()
+        );
+        if (compilerError == null) {
+            context.newWarning(LocalizeValue.of(error)).add();
+            return;
+        }
+
+        context.newWarning(LocalizeValue.of(compilerError.getErrorMessage()))
+            .url(VirtualFileUtil.pathToUrl(compilerError.getPath()))
+            .position(compilerError.getLine(), -1)
+            .add();
+    }
 }

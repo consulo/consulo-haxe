@@ -232,3 +232,5 @@ haxe.inspection.unused.import.name:
   text: Unused import statement
 haxe.fix.optimize.imports:
   text: Optimize imports
+haxe.compilation.failed:
+  text: Compilation failed
