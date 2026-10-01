@@ -102,8 +102,10 @@ haxe.break.point.title:
   text: Haxe Breakpoints
 flex.sdk.label:
   text: '&Flex SDK for Flash applications debugging:'
+haxe.run.alternative.executable:
+  text: 'Alternative &executable:'
 haxe.run.file.to.run:
-  text: Custom file to &run
+  text: 'Custom file to &run:'
 nme.nmml:
   text: NMML
 nme.nmml.description:
