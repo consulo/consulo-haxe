@@ -64,7 +64,6 @@ open module com.intellij.plugins.haxe {
   exports com.intellij.plugins.haxe.config;
   exports com.intellij.plugins.haxe.config.sdk;
   exports com.intellij.plugins.haxe.config.sdk.impl;
-  exports com.intellij.plugins.haxe.config.sdk.ui;
   exports com.intellij.plugins.haxe.config.ui;
   exports com.intellij.plugins.haxe.ide;
   exports com.intellij.plugins.haxe.ide.actions;

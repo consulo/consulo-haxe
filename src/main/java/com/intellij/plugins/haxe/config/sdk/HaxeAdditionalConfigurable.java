@@ -15,85 +15,118 @@
  */
 package com.intellij.plugins.haxe.config.sdk;
 
-import com.intellij.plugins.haxe.config.sdk.ui.HaxeAdditionalConfigurablePanel;
 import consulo.application.ApplicationManager;
 import consulo.configurable.ConfigurationException;
 import consulo.content.bundle.AdditionalDataConfigurable;
 import consulo.content.bundle.Sdk;
 import consulo.content.bundle.SdkModificator;
+import consulo.disposer.Disposable;
+import consulo.fileChooser.FileChooserDescriptorFactory;
+import consulo.fileChooser.FileChooserTextBoxBuilder;
+import consulo.haxe.localize.HaxeLocalize;
+import consulo.ui.Component;
+import consulo.ui.annotation.RequiredUIAccess;
+import consulo.ui.util.FormBuilder;
 import consulo.util.io.FileUtil;
-
 import jakarta.annotation.Nullable;
-import javax.swing.*;
 
 /**
  * @author: Fedor.Korotkov
  */
 public class HaxeAdditionalConfigurable implements AdditionalDataConfigurable {
-  private final HaxeAdditionalConfigurablePanel myHaxeAdditionalConfigurablePanel;
-  private Sdk mySdk;
+    private Sdk mySdk;
 
-  public HaxeAdditionalConfigurable() {
-    myHaxeAdditionalConfigurablePanel = new HaxeAdditionalConfigurablePanel();
-  }
+    @Nullable
+    private Component myComponent;
+    @Nullable
+    private FileChooserTextBoxBuilder.Controller myNekoBox;
+    @Nullable
+    private FileChooserTextBoxBuilder.Controller myHaxelibBox;
 
-  @Override
-  public void setSdk(Sdk sdk) {
-    mySdk = sdk;
-  }
-
-  @Override
-  public JComponent createComponent() {
-    return myHaxeAdditionalConfigurablePanel.getPanel();
-  }
-
-  @Override
-  public boolean isModified() {
-    final HaxeSdkData haxeSdkData = getHaxeSdkData();
-    return haxeSdkData == null ||
-           !myHaxeAdditionalConfigurablePanel.getNekoBinPath().equals(haxeSdkData.getNekoBinPath()) ||
-           !myHaxeAdditionalConfigurablePanel.getHaxelibPath().equals(haxeSdkData.getHaxelibPath());
-  }
-
-  @Override
-  public void apply() throws ConfigurationException
-  {
-    final HaxeSdkData haxeSdkData = getHaxeSdkData();
-    if (haxeSdkData == null) {
-      return;
+    @Override
+    public void setSdk(Sdk sdk) {
+        mySdk = sdk;
     }
 
-    final HaxeSdkData newData = new HaxeSdkData(haxeSdkData.getHomePath(), haxeSdkData.getVersion());
-    newData.setNekoBinPath(FileUtil.toSystemIndependentName(myHaxeAdditionalConfigurablePanel.getNekoBinPath()));
-    newData.setHaxelibPath(FileUtil.toSystemIndependentName(myHaxeAdditionalConfigurablePanel.getHaxelibPath()));
+    @RequiredUIAccess
+    @Override
+    public Component createUIComponent(Disposable parentDisposable) {
+        if (myComponent == null) {
+            myNekoBox = createExecutableBox(parentDisposable);
+            myHaxelibBox = createExecutableBox(parentDisposable);
 
-    final SdkModificator modificator = mySdk.getSdkModificator();
-    modificator.setSdkAdditionalData(newData);
-    ApplicationManager.getApplication().runWriteAction(new Runnable() {
-      public void run() {
-        modificator.commitChanges();
-      }
-    });
-  }
-
-  @Nullable
-  private HaxeSdkData getHaxeSdkData() {
-    return mySdk.getSdkAdditionalData() instanceof HaxeSdkData ? (HaxeSdkData)mySdk.getSdkAdditionalData() : null;
-  }
-
-  @Override
-  public void reset() {
-    final HaxeSdkData haxeSdkData = getHaxeSdkData();
-    if (haxeSdkData != null) {
-      final String nekoBinPath = haxeSdkData.getNekoBinPath();
-      myHaxeAdditionalConfigurablePanel.setNekoBinPath(FileUtil.toSystemDependentName(nekoBinPath == null ? "" : nekoBinPath));
-      final String haxelibPath = haxeSdkData.getHaxelibPath();
-      myHaxeAdditionalConfigurablePanel.setHaxelibPath(FileUtil.toSystemDependentName(haxelibPath == null ? "" : haxelibPath));
+            FormBuilder builder = FormBuilder.create();
+            builder.addLabeled(HaxeLocalize.nekoExecutable(), myNekoBox.getComponent());
+            builder.addLabeled(HaxeLocalize.haxelibExecutable(), myHaxelibBox.getComponent());
+            myComponent = builder.build();
+        }
+        return myComponent;
     }
-    myHaxeAdditionalConfigurablePanel.getPanel().repaint();
-  }
 
-  @Override
-  public void disposeUIResources() {
-  }
+    @RequiredUIAccess
+    private static FileChooserTextBoxBuilder.Controller createExecutableBox(Disposable parentDisposable) {
+        FileChooserTextBoxBuilder builder = FileChooserTextBoxBuilder.create(null);
+        builder.fileChooserDescriptor(FileChooserDescriptorFactory.createSingleFileNoJarsDescriptor());
+        builder.uiDisposable(parentDisposable);
+        return builder.build();
+    }
+
+    @RequiredUIAccess
+    @Override
+    public boolean isModified() {
+        if (myNekoBox == null || myHaxelibBox == null) {
+            return false;
+        }
+
+        final HaxeSdkData haxeSdkData = getHaxeSdkData();
+        return haxeSdkData == null ||
+            !getPath(myNekoBox).equals(haxeSdkData.getNekoBinPath()) ||
+            !getPath(myHaxelibBox).equals(haxeSdkData.getHaxelibPath());
+    }
+
+    @RequiredUIAccess
+    @Override
+    public void apply() throws ConfigurationException {
+        final HaxeSdkData haxeSdkData = getHaxeSdkData();
+        if (haxeSdkData == null || myNekoBox == null || myHaxelibBox == null) {
+            return;
+        }
+
+        final HaxeSdkData newData = new HaxeSdkData(haxeSdkData.getHomePath(), haxeSdkData.getVersion());
+        newData.setNekoBinPath(getPath(myNekoBox));
+        newData.setHaxelibPath(getPath(myHaxelibBox));
+
+        final SdkModificator modificator = mySdk.getSdkModificator();
+        modificator.setSdkAdditionalData(newData);
+        ApplicationManager.getApplication().runWriteAction(modificator::commitChanges);
+    }
+
+    private static String getPath(FileChooserTextBoxBuilder.Controller box) {
+        return FileUtil.toSystemIndependentName(box.getValue());
+    }
+
+    @Nullable
+    private HaxeSdkData getHaxeSdkData() {
+        return mySdk.getSdkAdditionalData() instanceof HaxeSdkData ? (HaxeSdkData) mySdk.getSdkAdditionalData() : null;
+    }
+
+    @RequiredUIAccess
+    @Override
+    public void reset() {
+        final HaxeSdkData haxeSdkData = getHaxeSdkData();
+        if (haxeSdkData != null && myNekoBox != null && myHaxelibBox != null) {
+            final String nekoBinPath = haxeSdkData.getNekoBinPath();
+            myNekoBox.setValue(FileUtil.toSystemDependentName(nekoBinPath == null ? "" : nekoBinPath));
+            final String haxelibPath = haxeSdkData.getHaxelibPath();
+            myHaxelibBox.setValue(FileUtil.toSystemDependentName(haxelibPath == null ? "" : haxelibPath));
+        }
+    }
+
+    @RequiredUIAccess
+    @Override
+    public void disposeUIResources() {
+        myComponent = null;
+        myNekoBox = null;
+        myHaxelibBox = null;
+    }
 }

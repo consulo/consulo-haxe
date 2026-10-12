@@ -22,13 +22,9 @@ import consulo.content.library.*;
 import consulo.content.library.ui.LibraryEditorComponent;
 import consulo.content.library.ui.LibraryPropertiesEditor;
 import consulo.content.library.ui.LibraryRootsComponentDescriptor;
-import consulo.project.Project;
 import consulo.ui.image.Image;
-import consulo.virtualFileSystem.VirtualFile;
 import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
-import javax.swing.*;
 
 /**
  * @author Fedor.Korotkov
@@ -51,15 +47,6 @@ public class HaxeLibraryType extends LibraryType<DummyLibraryProperties> {
     @Override
     public String getCreateActionName() {
         return "haXe";
-    }
-
-    @Override
-    public NewLibraryConfiguration createNewLibrary(@Nonnull JComponent parentComponent,
-                                                    @Nullable VirtualFile contextDirectory,
-                                                    @Nonnull Project project) {
-
-        return LibraryTypeService.getInstance()
-            .createLibraryFromFiles(createLibraryRootsComponentDescriptor(), parentComponent, contextDirectory, this, project);
     }
 
     @Nonnull

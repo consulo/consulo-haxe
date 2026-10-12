@@ -26,7 +26,9 @@ import consulo.disposer.Disposable;
 import consulo.haxe.localize.HaxeLocalize;
 import consulo.localize.LocalizeValue;
 import consulo.project.Project;
+import consulo.ui.Component;
 import consulo.ui.annotation.RequiredUIAccess;
+import consulo.ui.ex.awtUnsafe.TargetAWT;
 import jakarta.annotation.Nonnull;
 import jakarta.inject.Inject;
 
@@ -59,12 +61,12 @@ public class HaxeSettingsConfigurable implements SearchableConfigurable, NonDefa
   }
 
   @RequiredUIAccess
-  public JComponent createComponent(@Nonnull Disposable uiDisposable) {
+  public Component createUIComponent(@Nonnull Disposable uiDisposable) {
     if (mySettingsPane == null) {
       mySettingsPane = new HaxeSettingsForm();
     }
     reset();
-    return mySettingsPane.getPanel();
+    return TargetAWT.wrap(mySettingsPane.getPanel());
   }
 
   @RequiredUIAccess
