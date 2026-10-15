@@ -40,7 +40,7 @@ import consulo.ui.util.FormBuilder;
 import consulo.util.io.FileUtil;
 import consulo.util.lang.StringUtil;
 import consulo.virtualFileSystem.util.VirtualFileUtil;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,16 +48,11 @@ import java.util.List;
 public class HaxeRunConfigurationEditorForm extends SettingsEditor<HaxeApplicationConfiguration> {
     private final MutableFlatDataModel<Module> myModuleModel = FlatDataModel.of(new ArrayList<>());
 
-    @Nullable
-    private ComboBox<Module> myComboModules;
-    @Nullable
-    private CheckBox myCustomPathCheckBox;
-    @Nullable
-    private FileChooserTextBoxBuilder.Controller myPathToFileTextField;
-    @Nullable
-    private CheckBox myAlternativeExecutable;
-    @Nullable
-    private FileChooserTextBoxBuilder.Controller myExecutableField;
+    private @Nullable ComboBox<Module> myComboModules;
+    private @Nullable CheckBox myCustomPathCheckBox;
+    private FileChooserTextBoxBuilder.@Nullable Controller myPathToFileTextField;
+    private @Nullable CheckBox myAlternativeExecutable;
+    private FileChooserTextBoxBuilder.@Nullable Controller myExecutableField;
 
     private String customPathToFile = "";
     private String customPathToExecutable = "";
@@ -68,11 +63,11 @@ public class HaxeRunConfigurationEditorForm extends SettingsEditor<HaxeApplicati
         this.project = project;
     }
 
-    @RequiredUIAccess
     @Override
+    @RequiredUIAccess
     protected Component createUIComponent() {
         ComboBox<Module> comboModules = ComboBox.create(myModuleModel);
-        comboModules.setRender((presentation, item) -> {
+        comboModules.setRenderer((presentation, item) -> {
             Module module = item.getValue();
             if (module != null) {
                 presentation.withIcon(PlatformIconGroup.nodesModule());
@@ -199,16 +194,19 @@ public class HaxeRunConfigurationEditorForm extends SettingsEditor<HaxeApplicati
         executableField.getComponent().setEnabled(alternative);
     }
 
-    @RequiredUIAccess
     @Override
+    @RequiredUIAccess
     protected void applyEditorTo(HaxeApplicationConfiguration configuration) throws ConfigurationException {
         ComboBox<Module> comboModules = myComboModules;
         CheckBox customPathCheckBox = myCustomPathCheckBox;
         FileChooserTextBoxBuilder.Controller pathToFileTextField = myPathToFileTextField;
         CheckBox alternativeExecutable = myAlternativeExecutable;
         FileChooserTextBoxBuilder.Controller executableField = myExecutableField;
-        if (comboModules == null || customPathCheckBox == null || pathToFileTextField == null
-            || alternativeExecutable == null || executableField == null) {
+        if (comboModules == null
+            || customPathCheckBox == null
+            || pathToFileTextField == null
+            || alternativeExecutable == null
+            || executableField == null) {
             return;
         }
 
@@ -226,8 +224,8 @@ public class HaxeRunConfigurationEditorForm extends SettingsEditor<HaxeApplicati
         }
     }
 
-    @RequiredUIAccess
     @Nullable
+    @RequiredUIAccess
     private Module getSelectedModule() {
         ComboBox<Module> comboModules = myComboModules;
         return comboModules == null ? null : comboModules.getValue();
