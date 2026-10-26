@@ -28,7 +28,7 @@ import consulo.configurable.UnnamedConfigurable;
 import consulo.execution.ui.awt.RawCommandLineEditor;
 import consulo.fileChooser.FileChooserDescriptor;
 import consulo.fileChooser.FileChooserDescriptorFactory;
-import consulo.fileChooser.IdeaFileChooser;
+import consulo.fileChooser.FileChooserFactory;
 import consulo.haxe.localize.HaxeLocalize;
 import consulo.ide.setting.ShowSettingsUtil;
 import consulo.language.content.ProductionContentFolderTypeProvider;
@@ -51,6 +51,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.nio.file.Path;
 
 /**
  * @author: Fedor.Korotkov
@@ -122,10 +123,15 @@ public class HaxeConfigurationEditor {
     myFolderTextField.getButton().addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        final VirtualFile folder = IdeaFileChooser.chooseFile(FileChooserDescriptorFactory.createSingleFolderDescriptor(), myModule.getProject(), null);
-        if (folder != null) {
-          myFolderTextField.setText(FileUtil.toSystemDependentName(folder.getPath()));
-        }
+        FileChooserFactory.getInstance()
+          .newBuilder(FileChooserDescriptorFactory.createSingleFolderDescriptor())
+          .project(myModule.getProject())
+          .showSingle()
+          .whenComplete((folder, error) -> {
+            if (folder != null) {
+              myFolderTextField.setText(folder.toString());
+            }
+          });
       }
     });
 
@@ -158,24 +164,30 @@ public class HaxeConfigurationEditor {
     ActionListener fileChooserListener = new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        final VirtualFile moduleDir = myModule.getModuleDir();
-        assert moduleDir != null;
+        final String moduleDirPath = myModule.getModuleDirPath();
+        assert moduleDirPath != null;
         final boolean isNMML = myNmmlFileRadioButton.isSelected();
         final FileChooserDescriptor descriptor = new FileChooserDescriptor(true, false, false, true, false, false) {
           public boolean isFileVisible(VirtualFile file, boolean showHiddenFiles) {
             return super.isFileVisible(file, showHiddenFiles) && (file.isDirectory() || (isNMML ? "nmml" : "hxml").equalsIgnoreCase(file.getExtension()));
           }
         };
-        final VirtualFile file = IdeaFileChooser.chooseFile(descriptor, getMainPanel(), null, moduleDir);
-        if (file != null) {
-          String path = FileUtil.toSystemIndependentName(file.getPath());
-          if (isNMML) {
-            myNMEFileChooserTextField.setText(path);
-          } else {
-            myHxmlFileChooserTextField.setText(path);
-          }
-          updateComponents();
-        }
+        FileChooserFactory.getInstance()
+          .newBuilder(descriptor)
+          .parent(getMainPanel())
+          .toSelect(Path.of(moduleDirPath))
+          .showSingle()
+          .whenComplete((file, error) -> {
+            if (file != null) {
+              String path = FileUtil.toSystemIndependentName(file.toString());
+              if (isNMML) {
+                myNMEFileChooserTextField.setText(path);
+              } else {
+                myHxmlFileChooserTextField.setText(path);
+              }
+              updateComponents();
+            }
+          });
       }
     };
 
